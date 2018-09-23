@@ -17,7 +17,7 @@ We only accept issues that are bug reports or feature requests. Bugs must be iso
 
 ## Pull requests
 
-- At the moment we are not accept pull requests containing new features. 
+- At the moment we are not accepting pull requests containing new features. 
 - Pull requests that do not solve an existing issue are essentially unprioritized.
 
 ## License
