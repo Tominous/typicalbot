@@ -52,6 +52,14 @@ tasks.withType(JavaCompile) {
     options.encoding = 'UTF-8'
 }
 
+tasks.withType(JacocoReport) {
+    reports {
+        xml.setEnabled(true)
+        html.setEnabled(false)
+        csv.setEnabled(false)
+    }
+}
+
 artifacts {
     archives shadowJar
 }
@@ -65,12 +73,4 @@ shadowJar {
     classifier = ""
 }
 
-jacocoTestReport {
-    reports {
-        xml.enabled = true
-        html.enabled = false
-    }
-}
-
-check.dependsOn jacocoTestReport
 build.dependsOn shadowJar
