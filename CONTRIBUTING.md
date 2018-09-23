@@ -4,7 +4,7 @@ Looking to contribute to TypicalBot?
 
 ## Quick start
 
-We only accept issues that are bug reports or feature requests. Bugs must be isolated and reproducible problems that we can fix within TypicalBot. Please do not report security issues in public. Please email nick@typicalbot.com.
+We only accept issues that are bug reports or feature requests. Bugs must be isolated and reproducible problems that we can fix within TypicalBot. Please do not report security issues in public. Please email security@typicalbot.com.
 
 * Request a new feature
 * Submit a bug report
