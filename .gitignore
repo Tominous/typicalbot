@@ -1,0 +1,63 @@
+# TypicalBot
+
+# Java
+*.class
+*.jar
+*.war
+*.ear
+hs_err_pid*
+
+# Eclipse
+*.pydevproject
+.metadata
+.gradle
+bin/
+tmp/
+*.tmp
+*.bak
+*.swp
+*~.nib
+local.properties
+.settings/
+.loadpath
+.classpath
+.project
+.externalToolBuilders/
+*.launch
+.cproject
+.buildpath
+.target
+.texlipse
+
+# Intellij
+.idea
+*.ipr
+*.iws
+*.iml
+.idea_modules/
+atlassian-ide-plugin.xml
+com_crashlytics_export_strings.xml
+
+# Netbeans
+nbproject/private/
+build/
+nbbuild/
+dist/
+nbdist/
+nbactions.xml
+nb-configuration.xml
+*.ctxt
+bluej.pkh
+
+# Processing
+.DS_Store
+applet
+application.linux32
+application.linux64
+application.windows32
+application.windows64
+application.macosx
+
+# Other
+MANIFEST.MF
+Thumbs.db
