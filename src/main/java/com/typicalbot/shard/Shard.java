@@ -48,7 +48,7 @@ public class Shard {
                 .build();
     }
 
-    public JDA getJDA() {
+    public JDA getInstance() {
         return this.instance;
     }
 }

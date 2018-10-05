@@ -88,7 +88,7 @@ public class ShardManager {
         Shard shard = getShard(shardId);
 
         // Shut down the shard through JDA.
-        shard.getJDA().shutdown();
+        shard.getInstance().shutdown();
 
         // Create a new instance of the specific shard.
         shard = new Shard(shardId, MAX_SHARDS);
