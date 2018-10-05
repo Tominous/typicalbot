@@ -32,6 +32,10 @@ public class ShardManager {
      */
     private static Shard[] shards;
 
+    // Suppresses default constructor, ensuring non-instantiability.
+    private ShardManager() {
+    }
+
     /**
      * Register JDA instances.
      *
