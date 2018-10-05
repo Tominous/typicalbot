@@ -23,7 +23,7 @@ import javax.security.auth.login.LoginException;
 
 public class ShardManager {
     /**
-     * The maximum shards available in current session.
+     * The maximum shard instances available in current session.
      */
     private static int MAX_SHARDS;
 
