@@ -17,7 +17,16 @@
  */
 package com.typicalbot;
 
+import com.typicalbot.shard.ShardManager;
+
+import javax.security.auth.login.LoginException;
+
 public class TypicalBot {
     public static void main(String[] args) {
+        try {
+            ShardManager.register(1);
+        } catch (LoginException | InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 }
