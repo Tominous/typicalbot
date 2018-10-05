@@ -20,6 +20,7 @@ package com.typicalbot.shard;
 import com.google.common.primitives.Ints;
 
 import javax.security.auth.login.LoginException;
+import java.util.Arrays;
 
 public class ShardManager {
     /**
@@ -99,6 +100,15 @@ public class ShardManager {
 
         // Update the shard instance in the shard collection.
         shards[shardId] = shard;
+    }
+
+    /**
+     * Get the average ping of all shard instances.
+     *
+     * @return The average ping.
+     */
+    public static int getAveragePing() {
+        return (int) Arrays.stream(shards).mapToLong(Shard::getPing).filter(ping -> ping != -1).average().orElse(-1D);
     }
 
     /**

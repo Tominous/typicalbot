@@ -51,4 +51,8 @@ public class Shard {
     public JDA getInstance() {
         return this.instance;
     }
+
+    public long getPing() {
+        return this.instance.getPing();
+    }
 }
