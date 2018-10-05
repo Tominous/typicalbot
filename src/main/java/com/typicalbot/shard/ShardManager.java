@@ -63,7 +63,7 @@ public class ShardManager {
      * Get the shard instance from a guild ID.
      *
      * @param guildId The guild ID.
-     * @return The @{@link Shard} instance the guild is active on.
+     * @return The {@link Shard} instance the guild is active on.
      */
     public static Shard getShard(long guildId) {
         // The sharding formula from Discord developer documentation.
