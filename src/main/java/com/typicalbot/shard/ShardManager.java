@@ -37,7 +37,7 @@ public class ShardManager {
     }
 
     /**
-     * Register JDA instances.
+     * Register {@link Shard} instances.
      *
      * @param shardCount The amount of shards to be registered.
      * @throws LoginException
@@ -60,10 +60,10 @@ public class ShardManager {
     }
 
     /**
-     * Get the shard of a specific guild ID.
+     * Get the shard instance from a guild ID.
      *
      * @param guildId The guild ID.
-     * @return The @{@link Shard} in accordance to the guild.
+     * @return The @{@link Shard} instance the guild is active on.
      */
     public static Shard getShard(long guildId) {
         // The sharding formula from Discord developer documentation.
@@ -73,17 +73,17 @@ public class ShardManager {
     }
 
     /**
-     * Get the shard of a specific shard ID.
+     * Get the shard instance from an ID.
      *
      * @param shardId The shard ID.
-     * @return The {@link Shard} of the specific ID.
+     * @return The {@link Shard} instance.
      */
     public static Shard getShard(int shardId) {
         return shards[shardId];
     }
 
     /**
-     * Restart a specific shard from an ID.
+     * Restart a shard instance.
      *
      * @param shardId The shard ID.
      * @throws LoginException
