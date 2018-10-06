@@ -12,6 +12,9 @@ public class Config {
      */
     private final Properties file;
 
+    /**
+     * The location of the properties file.
+     */
     private final String path;
 
     /**
@@ -69,7 +72,7 @@ public class Config {
 
     /**
      * Save new key and values to the configuration file.
-     * 
+     *
      * @throws IOException
      */
     public void save() throws IOException {
