@@ -17,11 +17,11 @@
  */
 package com.typicalbot.commands.informative;
 
-import com.typicalbot.common.command.AbstractCommand;
-import com.typicalbot.common.command.annotation.CommandAlias;
+import com.typicalbot.common.command.BaseCommand;
+import com.typicalbot.common.command.annotation.Command;
 
-@CommandAlias(value = "ping|pong")
-public class PingCommand extends AbstractCommand {
+@Command(triggers = "ping|pong")
+public class PingCommand implements BaseCommand {
     @Override
     public void invoke() {
     }
