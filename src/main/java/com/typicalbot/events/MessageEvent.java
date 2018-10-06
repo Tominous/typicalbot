@@ -28,6 +28,14 @@ public class MessageEvent extends ListenerAdapter {
         if (!event.getGuild().isAvailable()) return;
         if (!event.getGuild().getSelfMember().hasPermission(Permission.MESSAGE_WRITE)) return;
 
+        if (event.getMessage().getContentRaw().matches("^<@!?" + event.getJDA().getSelfUser().getId() + ">$")) {
+            // Change prefix to use configuration.
+            event.getChannel().sendMessage("The server's prefix is `v$`").complete();
+        }
+
+        // Change prefix to use configuration.
+        String prefix = "v$";
+
         // Do something else...
     }
 }
