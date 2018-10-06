@@ -61,3 +61,5 @@ application.macosx
 # Other
 MANIFEST.MF
 Thumbs.db
+
+config.properties
