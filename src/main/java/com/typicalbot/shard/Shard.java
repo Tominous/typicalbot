@@ -26,11 +26,28 @@ import net.dv8tion.jda.core.entities.Game;
 import javax.security.auth.login.LoginException;
 
 public class Shard {
+    /**
+     * The current shard ID.
+     */
     private final int shardId;
+
+    /**
+     * The total amount of shards.
+     */
     private final int shardCount;
 
+    /**
+     * The JDA instance.
+     */
     private JDA instance;
 
+    /**
+     * Default constructor.
+     *
+     * @param shardId The shard ID of this instance.
+     * @param shardCount The total amount of shards.
+     * @throws LoginException
+     */
     public Shard(int shardId, int shardCount) throws LoginException {
         this.shardId = shardId;
         this.shardCount = shardCount;
@@ -48,11 +65,39 @@ public class Shard {
                 .build();
     }
 
+    /**
+     * Get the JDA instance.
+     *
+     * @return The JDA instance.
+     */
     public JDA getInstance() {
         return this.instance;
     }
 
+    /**
+     * Get the ping of the current shard.
+     *
+     * @return The ping of the shard.
+     */
     public long getPing() {
         return this.instance.getPing();
+    }
+
+    /**
+     * Get the current shard ID.
+     *
+     * @return The shard ID.
+     */
+    public int getShardId() {
+        return this.shardId;
+    }
+
+    /**
+     * Get the total amount of shards.
+     *
+     * @return The total amount of shards.
+     */
+    public int getShardCount() {
+        return this.shardCount;
     }
 }
