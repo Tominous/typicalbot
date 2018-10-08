@@ -19,6 +19,7 @@ package com.typicalbot;
 
 import com.typicalbot.common.Container;
 import com.typicalbot.common.Logger;
+import com.typicalbot.common.command.CommandManager;
 import com.typicalbot.common.facade.ContainerFacade;
 import com.typicalbot.shard.ShardManager;
 import org.apache.log4j.Level;
@@ -37,6 +38,10 @@ public class TypicalBot {
         Container.swap(container);
 
         Logger.init(Level.INFO);
+
+        // Temporary.
+        CommandManager commandManager = new CommandManager();
+        Container.put(CommandManager.class, commandManager);
 
         ShardManager.register(1);
     }

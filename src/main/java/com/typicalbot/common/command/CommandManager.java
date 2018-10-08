@@ -17,37 +17,67 @@
  */
 package com.typicalbot.common.command;
 
+import com.typicalbot.commands.informative.PingCommand;
+import com.typicalbot.common.Logger;
+import com.typicalbot.common.command.annotation.Command;
 import io.github.lukehutch.fastclasspathscanner.FastClasspathScanner;
+import net.dv8tion.jda.core.entities.Guild;
+import net.dv8tion.jda.core.entities.Member;
+import net.dv8tion.jda.core.entities.Message;
+import net.dv8tion.jda.core.entities.TextChannel;
 
 import java.lang.reflect.InvocationTargetException;
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
 
 public class CommandManager {
-    private Set<BaseCommand> commands;
+    private Logger logger = Logger.get("TypicalBot");
+
+    private Map<String, BaseCommand> commands;
 
     public CommandManager() {
-        this.commands = new HashSet<>();
+        this.commands = new HashMap<>();
 
-        new FastClasspathScanner(BaseCommand.class.getPackage().getName()).matchClassesImplementing(BaseCommand.class, clazz -> {
-            try {
-                BaseCommand command = clazz.getConstructor().newInstance();
-                this.register(command);
-            } catch (InstantiationException | IllegalAccessException | InvocationTargetException | NoSuchMethodException e) {
-                e.printStackTrace();
-            }
-        }).scan();
+        //        new FastClasspathScanner(BaseCommand.class.getPackage().getName()).matchClassesImplementing(BaseCommand.class, clazz -> {
+        //            try {
+        //                BaseCommand command = clazz.getConstructor().newInstance();
+        //                this.register(command);
+        //            } catch (InstantiationException | IllegalAccessException | InvocationTargetException | NoSuchMethodException e) {
+        //                logger.warn("Unable to register commands.");
+        //            }
+        //        }).scan();
+        this.register(new PingCommand());
     }
 
     private void register(BaseCommand... commands) {
-        Collections.addAll(this.commands, commands);
+        // This can be can be cleaned...
+        for (BaseCommand command : commands) {
+            if (command.getClass().isAnnotationPresent(Command.class)) {
+                String[] triggers = command.getClass().getAnnotation(Command.class).triggers().split("\\|");
+
+                Arrays.stream(triggers).forEach(trigger -> this.commands.put(trigger, command));
+            }
+        }
     }
 
-    public void process() {
+    public void process(Message message, Member author, TextChannel channel, Guild guild) {
+        String[] parts = message.getContentRaw().split("\\s");
+
+        // Make sure to switch to use the configuration prefix.
+        if (parts[0].startsWith("v$")) {
+            // Use prefix length.
+            String command = parts[0].substring(2);
+
+            if (this.commands.containsKey(command)) {
+                // Removes the command from the array. Should probably switch
+                // over to using an List<String> instead of String[].
+                this.commands.get(command).invoke(Arrays.copyOfRange(parts, 1, parts.length), author, channel, guild);
+            }
+        }
     }
 
-    public Set<BaseCommand> getCommands() {
+    public Map<String, BaseCommand> getCommands() {
         return this.commands;
     }
 }

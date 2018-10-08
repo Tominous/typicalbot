@@ -19,10 +19,15 @@ package com.typicalbot.commands.informative;
 
 import com.typicalbot.common.command.BaseCommand;
 import com.typicalbot.common.command.annotation.Command;
+import com.typicalbot.shard.ShardManager;
+import net.dv8tion.jda.core.entities.Guild;
+import net.dv8tion.jda.core.entities.Member;
+import net.dv8tion.jda.core.entities.TextChannel;
 
 @Command(triggers = "ping|pong")
 public class PingCommand implements BaseCommand {
     @Override
-    public void invoke() {
+    public void invoke(String[] parts, Member author, TextChannel channel, Guild guild) {
+        channel.sendMessage("Shard: " + ShardManager.getShard(guild.getIdLong()).getPing() + "ms | All Shards: " + ShardManager.getAveragePing() + "ms.").queue();
     }
 }

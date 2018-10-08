@@ -17,6 +17,8 @@
  */
 package com.typicalbot.events;
 
+import com.typicalbot.common.Container;
+import com.typicalbot.common.command.CommandManager;
 import net.dv8tion.jda.core.Permission;
 import net.dv8tion.jda.core.events.message.guild.GuildMessageReceivedEvent;
 import net.dv8tion.jda.core.hooks.ListenerAdapter;
@@ -30,11 +32,16 @@ public class MessageEvent extends ListenerAdapter {
 
         if (event.getMessage().getContentRaw().matches("^<@!?" + event.getJDA().getSelfUser().getId() + ">$")) {
             // Change prefix to use configuration.
-            event.getChannel().sendMessage("The server's prefix is `v$`").complete();
+            event.getChannel().sendMessage("The server's prefix is `v$`.").complete();
         }
 
         // Change prefix to use configuration.
         String prefix = "v$";
+
+        if (event.getMessage().getContentRaw().startsWith(prefix)) {
+            // Temporary.
+            Container.get(CommandManager.class).process(event.getMessage(), event.getMember(), event.getChannel(), event.getGuild());
+        }
 
         // Do something else...
     }

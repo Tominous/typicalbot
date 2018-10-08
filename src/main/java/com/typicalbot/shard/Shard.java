@@ -17,6 +17,7 @@
  */
 package com.typicalbot.shard;
 
+import com.typicalbot.events.MessageEvent;
 import net.dv8tion.jda.core.AccountType;
 import net.dv8tion.jda.core.JDA;
 import net.dv8tion.jda.core.JDABuilder;
@@ -62,6 +63,7 @@ public class Shard {
                 .setEnableShutdownHook(true)
                 .useSharding(shardId, shardCount)
                 .setCorePoolSize(8)
+                .addEventListener(new MessageEvent())
                 .build();
     }
 

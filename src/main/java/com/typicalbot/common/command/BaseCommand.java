@@ -17,6 +17,10 @@
  */
 package com.typicalbot.common.command;
 
+import net.dv8tion.jda.core.entities.Guild;
+import net.dv8tion.jda.core.entities.Member;
+import net.dv8tion.jda.core.entities.TextChannel;
+
 public interface BaseCommand {
-    void invoke();
+    void invoke(String[] parts, Member author, TextChannel channel, Guild guild);
 }
