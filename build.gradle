@@ -21,6 +21,9 @@ repositories {
 }
 
 dependencies {
+    // TypicalBot SDK
+    implementation 'com.github.typicalbot:typicalbotsdk:master-SNAPSHOT'
+
     // JDA
     compile group: 'net.dv8tion', name: 'JDA', version: '3.8.0_427'
     compile group: 'com.sedmelluq', name: 'jda-nas', version: '1.0.6'
