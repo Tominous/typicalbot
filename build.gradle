@@ -7,7 +7,7 @@ plugins {
 }
 
 group 'com.typicalbot'
-version '3.0.1-alpha'
+version '3.0.0'
 
 mainClassName = 'com.typicalbot.TypicalBot'
 
