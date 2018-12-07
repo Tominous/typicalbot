@@ -11,9 +11,8 @@ We only accept issues that are bug reports or feature requests. Bugs must be iso
 
 ## Key branches
 
-- `master` is the latest, deployed version
-- `bleeding-edge` is the latest, deployed beta version
-- `development` is the latest, deployed development version
+- `master` is the stable version of TypicalBot, deployed version.
+- `dev` is the development version of TypicalBot, testing version.
 
 ## Pull requests
 
