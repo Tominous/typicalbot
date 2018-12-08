@@ -17,11 +17,38 @@ package com.typicalbot;
 
 import com.typicalbot.core.shard.ShardManager;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+
 public class TypicalBot {
+    public TypicalBot() throws IOException, InterruptedException {
+        if (!Files.exists(Paths.get(System.getProperty("user.dir")).resolve("config"))) {
+            Files.createDirectory(Paths.get(System.getProperty("user.dir")).resolve("config"));
+        }
+
+        if (!Files.exists(Paths.get(System.getProperty("user.dir")).resolve("config/app.yml"))) {
+            export(Paths.get(System.getProperty("user.dir")).resolve("config/app.yml"), "/config/app.yml");
+        }
+
+        ShardManager.register(1);
+    }
+
+    public void export(Path dest, String resource) {
+        InputStream stream = TypicalBot.class.getResourceAsStream(resource);
+        try {
+            Files.copy(stream, dest);
+        } catch (IOException ex) {
+            throw new RuntimeException(ex);
+        }
+    }
+
     public static void main(String[] args) {
         try {
-            ShardManager.register(1);
-        } catch (InterruptedException e) {
+            new TypicalBot();
+        } catch (IOException | InterruptedException e) {
             e.printStackTrace();
         }
     }
