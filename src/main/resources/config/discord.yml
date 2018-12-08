@@ -11,3 +11,30 @@ clientId: ''
 # The token of the discord application.
 #
 token: ''
+
+#
+# Discord Prefix
+#
+# The prefix of the discord application.
+#
+prefix: '$'
+
+#
+# Discord Status
+#
+# The status of the discord application.
+#
+status:
+  #
+  # Status Type
+  #
+  # The type of the status.
+  #
+  type: 'playing'
+
+  #
+  # Status Message
+  #
+  # The message of the status.
+  #
+  message: '{prefix}help | {guild.count} Servers'
