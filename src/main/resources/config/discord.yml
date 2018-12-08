@@ -1,0 +1,13 @@
+#
+# Discord Client ID
+#
+# The client id of the discord application.
+#
+clientId: ''
+
+#
+# Discord Token
+#
+# The token of the discord application.
+#
+token: ''
