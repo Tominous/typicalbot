@@ -1,0 +1,6 @@
+#
+# Sentry DSN
+#
+# The DSN of the Sentry application.
+#
+dsn: ''
