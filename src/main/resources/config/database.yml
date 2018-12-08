@@ -1,0 +1,34 @@
+#
+# Database Host
+#
+# The host of the Mongo Client
+#
+host: 'localhost'
+
+#
+# Database Port
+#
+# The port of the Mongo Client.
+#
+port: '27017'
+
+#
+# Database Username
+#
+# The username of the Mongo Client.
+#
+username: ''
+
+#
+# Database Password
+#
+# The password of the Mongo Client.
+#
+password: ''
+
+#
+# Database Name
+#
+# The name of the Mongo database.
+#
+database: ''
