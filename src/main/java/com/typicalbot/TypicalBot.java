@@ -22,16 +22,46 @@ import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.stream.Stream;
 
 public class TypicalBot {
-    public TypicalBot() throws IOException, InterruptedException {
-        if (!Files.exists(Paths.get(System.getProperty("user.dir")).resolve("config"))) {
-            Files.createDirectory(Paths.get(System.getProperty("user.dir")).resolve("config"));
-        }
+    private static final Path HOME_PATH = Paths.get(System.getProperty("user.dir"));
 
-        if (!Files.exists(Paths.get(System.getProperty("user.dir")).resolve("config/app.yml"))) {
-            export(Paths.get(System.getProperty("user.dir")).resolve("config/app.yml"), "/config/app.yml");
-        }
+    // Definitely could clean this up more
+    private final String[] TB_DIRS = new String[] { "config", "bin", "logs" };
+    private final String[] TB_CFGS = new String[] { "app", "database", "discord", "sentry" };
+
+    public TypicalBot() throws InterruptedException {
+        // TODO: Switch `System.out.println(...)` to use Logger.
+
+        System.out.println("TypicalBot by Bryan Pikaard and Nicholas Sylke - https://typicalbot.com");
+        System.out.println("Initializing TypicalBot v3.0.0");
+
+        // Setup the files
+        // TODO: Definitely could clean this up more
+        Stream.of(TB_DIRS).forEach(directory -> {
+            System.out.println("Checking for directory: " + directory);
+            try {
+                if (!Files.exists(HOME_PATH.resolve(directory))) {
+                    System.out.println("The directory `" + directory + "` does not exist.");
+                    System.out.println("Creating `" + directory + "` directory.");
+                    Files.createDirectory(HOME_PATH.resolve(directory));
+                }
+            } catch (IOException ignored) {
+            }
+        });
+
+        // TODO: Definitely could clean this up more
+        Stream.of(TB_CFGS).forEach(file -> {
+            System.out.println("Checking for config: " + file + ".yml");
+            if (!Files.exists(HOME_PATH.resolve(String.format("config/%s.yml", file)))) {
+                System.out.println("The config `" + file + ".yml` does not exist.");
+                System.out.println("Creating `" + file + ".yml` config.");
+                export(HOME_PATH.resolve(String.format("config/%s.yml", file)), String.format("/config/%s.yml", file));
+            }
+        });
+
+        System.out.println("Launching TypicalBot v3.0.0");
 
         ShardManager.register(1);
     }
@@ -48,7 +78,7 @@ public class TypicalBot {
     public static void main(String[] args) {
         try {
             new TypicalBot();
-        } catch (IOException | InterruptedException e) {
+        } catch (InterruptedException e) {
             e.printStackTrace();
         }
     }
