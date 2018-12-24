@@ -15,55 +15,70 @@
  */
 package com.typicalbot;
 
-import com.typicalbot.core.shard.ShardManager;
+import com.typicalbot.console.ConsoleReader;
+import com.typicalbot.data.DataSerializer;
 
+import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.stream.Stream;
+import java.util.Arrays;
 
 public class TypicalBot {
-    private static final Path HOME_PATH = Paths.get(System.getProperty("user.dir"));
+    public static final Path HOME_PATH = Paths.get(System.getProperty("user.dir"));
 
-    // Definitely could clean this up more
-    private final String[] TB_DIRS = new String[] { "config", "bin", "logs" };
-    private final String[] TB_CFGS = new String[] { "app", "database", "discord", "sentry" };
-
-    public TypicalBot() throws InterruptedException {
+    public TypicalBot() throws IOException {
         // TODO: Switch `System.out.println(...)` to use Logger.
 
-        System.out.println("TypicalBot by Bryan Pikaard and Nicholas Sylke - https://typicalbot.com");
-        System.out.println("Initializing TypicalBot v3.0.0");
+        System.out.println("  _____                   _                  _   ____            _   ");
+        System.out.println(" |_   _|  _   _   _ __   (_)   ___    __ _  | | | __ )    ___   | |_ ");
+        System.out.println("   | |   | | | | | '_ \\  | |  / __|  / _` | | | |  _ \\   / _ \\  | __|");
+        System.out.println("   | |   | |_| | | |_) | | | | (__  | (_| | | | | |_) | | (_) | | |_ ");
+        System.out.println("   |_|    \\__, | | .__/  |_|  \\___|  \\__,_| |_| |____/   \\___/   \\__|");
+        System.out.println("          |___/  |_|");
 
-        // Setup the files
-        // TODO: Definitely could clean this up more
-        Stream.of(TB_DIRS).forEach(directory -> {
-            System.out.println("Checking for directory: " + directory);
-            try {
-                if (!Files.exists(HOME_PATH.resolve(directory))) {
-                    System.out.println("The directory `" + directory + "` does not exist.");
-                    System.out.println("Creating `" + directory + "` directory.");
+        System.out.println();
+
+        System.out.println("TypicalBot created by Bryan Pikaard and Nicholas Sylke");
+        System.out.println("TypicalBot is licensed under the Apache 2.0 license");
+
+        System.out.println();
+
+        Arrays.asList("config", "bin", "logs").forEach(directory -> {
+            if (!Files.exists(HOME_PATH.resolve(directory))) {
+                try {
                     Files.createDirectory(HOME_PATH.resolve(directory));
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
                 }
-            } catch (IOException ignored) {
             }
         });
 
-        // TODO: Definitely could clean this up more
-        Stream.of(TB_CFGS).forEach(file -> {
-            System.out.println("Checking for config: " + file + ".yml");
-            if (!Files.exists(HOME_PATH.resolve(String.format("config/%s.yml", file)))) {
-                System.out.println("The config `" + file + ".yml` does not exist.");
-                System.out.println("Creating `" + file + ".yml` config.");
-                export(HOME_PATH.resolve(String.format("config/%s.yml", file)), String.format("/config/%s.yml", file));
+        Arrays.asList("app", "database", "discord", "filter", "sentry").forEach(config -> {
+            if (!Files.exists(HOME_PATH.resolve(String.format("config/%s.yml", config)))) {
+                export(HOME_PATH.resolve(String.format("config/%s.yml", config)), String.format("/config/%s.yml", config));
             }
         });
 
-        System.out.println("Launching TypicalBot v3.0.0");
+        if (!Files.exists(HOME_PATH.resolve("bin/discord.dat"))) {
+            ConsoleReader reader = new ConsoleReader();
 
-        ShardManager.register(1);
+            System.out.println("Please enter the token to register it with the TypicalBot software.");
+            String token = reader.readLine();
+
+            // TODO: Run a single shard to grab clientID and save it as `token:clientId`.
+
+            DataSerializer serializer = new DataSerializer();
+            serializer.serialize(token, new FileOutputStream(new File(HOME_PATH.resolve("bin/discord.dat").toString())));
+
+            System.out.println("Please restart the application.");
+
+            reader.close();
+            System.exit(0);
+        }
     }
 
     public void export(Path dest, String resource) {
