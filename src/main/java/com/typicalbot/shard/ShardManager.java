@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.typicalbot.core.shard;
+package com.typicalbot.shard;
 
 public class ShardManager {
     private static int MAX_SHARDS;
