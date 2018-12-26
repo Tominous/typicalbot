@@ -67,7 +67,7 @@ public class TypicalBot {
             ConsoleReader reader = new ConsoleReader();
 
             System.out.println("Please enter the token to register it with the TypicalBot software.");
-            String token = reader.readLine();
+            String token = reader.readLine().replaceAll("(\\r|\\n|\\t)", "");
 
             // TODO: Run a single shard to grab clientID and save it as `token:clientId`.
 
