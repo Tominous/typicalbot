@@ -17,6 +17,7 @@ package com.typicalbot;
 
 import com.typicalbot.console.ConsoleReader;
 import com.typicalbot.data.DataSerializer;
+import com.typicalbot.shard.Shard;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -71,10 +72,19 @@ public class TypicalBot {
             System.out.println("Please enter the token to register it with the TypicalBot software.");
             String token = reader.readLine().replaceAll("(\\r|\\n|\\t)", "");
 
-            // TODO: Run a single shard to grab clientID and save it as `token:clientId`.
+            System.out.println("Please wait while we retrieve the client identifier.");
+
+            String clientId = Shard.test(token);
+
+            if (clientId == null) {
+                System.out.println("The token entered is invalid, please restart the application.");
+                System.exit(-1);
+            }
+
+            System.out.println("Found '" + clientId + "' as the client identifier.");
 
             DataSerializer serializer = new DataSerializer();
-            serializer.serialize(token, new FileOutputStream(new File(HOME_PATH.resolve("bin/discord.dat").toString())));
+            serializer.serialize(String.format("%s:%s", token, clientId), new FileOutputStream(new File(HOME_PATH.resolve("bin/discord.dat").toString())));
 
             System.out.println("Please restart the application.");
 

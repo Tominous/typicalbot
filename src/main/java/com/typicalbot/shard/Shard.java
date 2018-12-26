@@ -44,6 +44,32 @@ public class Shard {
         }
     }
 
+    public static String test(String token) {
+        String id;
+        JDA instance;
+
+        try {
+            instance = new JDABuilder(AccountType.BOT).setToken(token).setEnableShutdownHook(true).build();
+        } catch (LoginException e) {
+            instance = null;
+        }
+
+        try {
+            Thread.sleep(5000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        if (!(instance == null)) {
+            id = Long.toString(instance.getSelfUser().getIdLong());
+            instance.shutdown();
+        } else {
+            id = null;
+        }
+
+        return id;
+    }
+
     public int getShardId() {
         return this.shardId;
     }
