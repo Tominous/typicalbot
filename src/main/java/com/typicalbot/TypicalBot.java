@@ -47,6 +47,7 @@ public class TypicalBot {
 
         System.out.println();
 
+        // TODO: Add debug messages
         Arrays.asList("config", "bin", "logs").forEach(directory -> {
             if (!Files.exists(HOME_PATH.resolve(directory))) {
                 try {
@@ -57,9 +58,10 @@ public class TypicalBot {
             }
         });
 
-        Arrays.asList("app", "database", "discord", "filter", "sentry").forEach(config -> {
-            if (!Files.exists(HOME_PATH.resolve(String.format("config/%s.yml", config)))) {
-                export(HOME_PATH.resolve(String.format("config/%s.yml", config)), String.format("/config/%s.yml", config));
+        // TODO: Add debug messages
+        Arrays.asList("app", "database", "discord", "filter", "sentry").forEach(file -> {
+            if (!Files.exists(HOME_PATH.resolve("config/" + file + ".yml"))) {
+                 export(HOME_PATH.resolve("config/" + file + ".yml"), "/config/" + file + ".yml");
             }
         });
 
