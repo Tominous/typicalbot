@@ -15,6 +15,7 @@
  */
 package com.typicalbot.shard;
 
+// TODO(nsylke): Documentation
 public class ShardManager {
     private static int MAX_SHARDS;
 

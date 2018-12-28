@@ -32,7 +32,7 @@ public class TypicalBot {
     public static final Path HOME_PATH = Paths.get(System.getProperty("user.dir"));
 
     public TypicalBot() throws IOException {
-        // TODO: Switch `System.out.println(...)` to use Logger.
+        // TODO(nsylke): Switch `System.out.println(...)` to use Logger.
 
         System.out.println("  _____                   _                  _   ____            _   ");
         System.out.println(" |_   _|  _   _   _ __   (_)   ___    __ _  | | | __ )    ___   | |_ ");
@@ -43,12 +43,12 @@ public class TypicalBot {
 
         System.out.println();
 
-        System.out.println("TypicalBot created by Bryan Pikaard and Nicholas Sylke");
-        System.out.println("TypicalBot is licensed under the Apache 2.0 license");
+        System.out.println("TypicalBot created by Bryan Pikaard and Nicholas Sylke.");
+        System.out.println("TypicalBot is licensed under the Apache 2.0 license.");
 
         System.out.println();
 
-        // TODO: Add debug messages
+        // TODO(nsylke): Add debug messages
         Arrays.asList("config", "bin", "logs").forEach(directory -> {
             if (!Files.exists(HOME_PATH.resolve(directory))) {
                 try {
@@ -59,10 +59,10 @@ public class TypicalBot {
             }
         });
 
-        // TODO: Add debug messages
+        // TODO(nsylke): Add debug messages
         Arrays.asList("app", "database", "discord", "filter", "sentry").forEach(file -> {
             if (!Files.exists(HOME_PATH.resolve("config/" + file + ".yml"))) {
-                 export(HOME_PATH.resolve("config/" + file + ".yml"), "/config/" + file + ".yml");
+                export(HOME_PATH.resolve("config/" + file + ".yml"), "/config/" + file + ".yml");
             }
         });
 

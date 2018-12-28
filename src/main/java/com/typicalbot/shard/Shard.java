@@ -21,6 +21,7 @@ import net.dv8tion.jda.core.JDABuilder;
 
 import javax.security.auth.login.LoginException;
 
+// TODO(nsylke): Documentation
 public class Shard {
     private final int shardId;
     private final int shardTotal;
