@@ -22,6 +22,9 @@ import net.dv8tion.jda.core.OnlineStatus;
 import net.dv8tion.jda.core.entities.Game;
 
 import javax.security.auth.login.LoginException;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 
 // TODO(nsylke): Documentation
 public class Shard {
@@ -29,6 +32,7 @@ public class Shard {
     private final int shardId;
     private final int shardTotal;
 
+    private ScheduledExecutorService executorService = Executors.newScheduledThreadPool(4);
     private JDA instance;
 
     public Shard(String token) {
@@ -51,7 +55,10 @@ public class Shard {
                     .setEnableShutdownHook(true)
                     // .setAudioSendFactory(new NativeAudioSendFactory())
                     .useSharding(shardId, shardTotal)
+                    .setCorePoolSize(4)
                     .build();
+
+            this.executorService.scheduleAtFixedRate(() -> Runtime.getRuntime().gc(), 6, 3, TimeUnit.HOURS);
         } catch (LoginException e) {
             throw new RuntimeException(e);
         }
