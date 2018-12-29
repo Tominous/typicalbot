@@ -18,6 +18,8 @@ package com.typicalbot.shard;
 import net.dv8tion.jda.core.AccountType;
 import net.dv8tion.jda.core.JDA;
 import net.dv8tion.jda.core.JDABuilder;
+import net.dv8tion.jda.core.OnlineStatus;
+import net.dv8tion.jda.core.entities.Game;
 
 import javax.security.auth.login.LoginException;
 
@@ -42,8 +44,12 @@ public class Shard {
             this.instance = new JDABuilder(AccountType.BOT)
                     .setToken(token)
                     .setAutoReconnect(true)
+                    // .setAudioEnabled(true)
+                    .setGame(Game.playing("Client Started")) // Same as TypicalBot 2.x
+                    .setStatus(OnlineStatus.IDLE) // Set to IDLE while still loading, change ONLINE when ready
                     .setBulkDeleteSplittingEnabled(true)
                     .setEnableShutdownHook(true)
+                    // .setAudioSendFactory(new NativeAudioSendFactory())
                     .useSharding(shardId, shardTotal)
                     .build();
         } catch (LoginException e) {
