@@ -15,6 +15,7 @@
  */
 package com.typicalbot.data;
 
+// TODO(nsylke): Documentation
 public interface DataStructureInterface<E> {
     E read(int index);
 

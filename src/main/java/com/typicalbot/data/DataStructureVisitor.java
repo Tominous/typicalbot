@@ -15,6 +15,7 @@
  */
 package com.typicalbot.data;
 
+// TODO(nsylke): Documentation
 public abstract class DataStructureVisitor<E> {
     private int start = 0;
     private int end = -1;

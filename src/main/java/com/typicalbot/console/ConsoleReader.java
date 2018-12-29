@@ -18,6 +18,7 @@ package com.typicalbot.console;
 import java.io.DataInputStream;
 import java.io.IOException;
 
+// TODO(nsylke): Documentation
 public class ConsoleReader {
     private final int BUFFER_SIZE = 1 << 16;
 

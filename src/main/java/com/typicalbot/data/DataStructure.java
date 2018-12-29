@@ -15,6 +15,7 @@
  */
 package com.typicalbot.data;
 
+// TODO(nsylke): Documentation
 public class DataStructure<E> implements DataStructureInterface<E> {
     private static final double DEFAULT_RESIZE_RATIO = 0.75;
 

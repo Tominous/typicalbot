@@ -17,8 +17,9 @@ package com.typicalbot.data;
 
 import java.io.*;
 
+// TODO(nsylke): Documentation
 public class DataSerializer {
-    // TODO: Separate the two methods, and make interfaces.
+    // TODO(nsylke): Separate the two methods, and make interfaces.
 
     public void serialize(Object object, OutputStream stream) throws IOException {
         if (!(object instanceof Serializable)) {
