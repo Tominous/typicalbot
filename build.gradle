@@ -53,7 +53,7 @@ tasks.withType(JavaCompile) {
 
 license {
     header = file('LICENSEHEADER.txt')
-    exclude '**/*.yml'
+    excludes (['**/*.yml', '**/*.properties'])
 }
 
 artifacts {
