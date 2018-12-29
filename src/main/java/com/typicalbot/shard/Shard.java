@@ -52,23 +52,23 @@ public class Shard {
     }
 
     public String getClientId() {
-        if (clientId == null) {
+        if (this.clientId == null) {
             return Long.toString(this.instance.getSelfUser().getIdLong());
         }
 
-        return clientId;
+        return this.clientId;
     }
 
     public int getShardId() {
-        return shardId;
+        return this.shardId;
     }
 
     public int getShardTotal() {
-        return shardTotal;
+        return this.shardTotal;
     }
 
     public JDA getInstance() {
-        return instance;
+        return this.instance;
     }
 
     public void shutdown() {
