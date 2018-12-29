@@ -23,67 +23,55 @@ import javax.security.auth.login.LoginException;
 
 // TODO(nsylke): Documentation
 public class Shard {
+    private final String clientId;
     private final int shardId;
     private final int shardTotal;
 
     private JDA instance;
 
-    public Shard(int shardId, int shardTotal) {
+    public Shard(String token) {
+        this(token, null, 0, 1);
+    }
+
+    public Shard(String token, String clientId, int shardId, int shardTotal) {
+        this.clientId = clientId;
         this.shardId = shardId;
         this.shardTotal = shardTotal;
 
         try {
             this.instance = new JDABuilder(AccountType.BOT)
-                    .setToken("")
+                    .setToken(token)
                     .setAutoReconnect(true)
                     .setBulkDeleteSplittingEnabled(true)
                     .setEnableShutdownHook(true)
                     .useSharding(shardId, shardTotal)
                     .build();
         } catch (LoginException e) {
-            e.printStackTrace();
+            throw new RuntimeException(e);
         }
     }
 
-    public static String test(String token) {
-        String id;
-        JDA instance;
-
-        try {
-            instance = new JDABuilder(AccountType.BOT).setToken(token).setEnableShutdownHook(true).build();
-        } catch (LoginException e) {
-            instance = null;
+    public String getClientId() {
+        if (clientId == null) {
+            return Long.toString(this.instance.getSelfUser().getIdLong());
         }
 
-        try {
-            Thread.sleep(5000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-
-        if (!(instance == null)) {
-            id = Long.toString(instance.getSelfUser().getIdLong());
-            instance.shutdown();
-        } else {
-            id = null;
-        }
-
-        return id;
+        return clientId;
     }
 
     public int getShardId() {
-        return this.shardId;
+        return shardId;
     }
 
     public int getShardTotal() {
-        return this.shardTotal;
+        return shardTotal;
     }
 
     public JDA getInstance() {
-        return this.instance;
+        return instance;
     }
 
-    public void stop() {
+    public void shutdown() {
         this.instance.shutdown();
     }
 }

@@ -15,27 +15,36 @@
  */
 package com.typicalbot.shard;
 
-// TODO(nsylke): Documentation
 public class ShardManager {
     private static int MAX_SHARDS;
 
-    private static Shard[] shards;
+    /**
+     * Allows for TypicalBot to track which shards are operational and
+     * non-operational, while also allowing the system to access any and
+     * all server settings and commands.
+     */
+    static Shard[] shards;
 
-    public static void register(int shardTotal) throws InterruptedException {
+    /**
+     * Generate shards to run the Discord bot. Bots are limited to 2500
+     * servers per shard.
+     *
+     * @param token the token of the Discord bot.
+     * @param clientId the client identifier of the Discord bot.
+     * @param shardTotal the maximum shards to generate.
+     * @throws InterruptedException if the thread is interrupted.
+     */
+    public static void register(String token, String clientId, int shardTotal) throws InterruptedException {
         MAX_SHARDS = shardTotal;
 
         shards = new Shard[shardTotal];
 
         for (int i = 0; i < shardTotal; i++) {
-            Shard shard = new Shard(i, shardTotal);
+            Shard shard = new Shard(token, clientId, i, shardTotal);
             shards[i] = shard;
 
-            // Clients are limited to 1 identify every 5 seconds.
+            // Clients are limited to one identify every 5 seconds.
             Thread.sleep(5000);
         }
-    }
-
-    public static Shard[] getShards() {
-        return shards;
     }
 }
