@@ -17,12 +17,12 @@ package com.typicalbot;
 
 import com.typicalbot.console.ConsoleReader;
 import com.typicalbot.data.DataSerializer;
+import com.typicalbot.data.DataStructure;
+import com.typicalbot.data.DataStructureInterface;
 import com.typicalbot.shard.Shard;
+import com.typicalbot.shard.ShardManager;
 
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
+import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -31,7 +31,7 @@ import java.util.Arrays;
 public class TypicalBot {
     public static final Path HOME_PATH = Paths.get(System.getProperty("user.dir"));
 
-    public TypicalBot() throws IOException {
+    public TypicalBot() throws IOException, InterruptedException {
         // TODO(nsylke): Switch `System.out.println(...)` to use Logger.
 
         System.out.println("  _____                   _                  _   ____            _   ");
@@ -74,7 +74,10 @@ public class TypicalBot {
 
             System.out.println("Please wait while we retrieve the client identifier.");
 
-            String clientId = Shard.test(token);
+            Shard shard = new Shard(token);
+            Thread.sleep(5000); // TODO(nsylke): Find the lowest millisecond we need to wait. 
+            String clientId = shard.getClientId();
+            shard.shutdown();
 
             if (clientId == null) {
                 System.out.println("The token entered is invalid, please restart the application.");
@@ -104,9 +107,10 @@ public class TypicalBot {
         Arrays.asList(serializer.deserialize(new FileInputStream(new File(HOME_PATH.resolve("bin/discord.dat").toString()))).toString().split(":")).forEach(data::insert);
 
         // TODO(nsylke): Start ShardManager - pass the token and client id, along with the shard count.
+        ShardManager.register(String.valueOf(data.read(0)), String.valueOf(data.read(0)), 1);
     }
 
-    public void export(Path dest, String resource) {
+    private void export(Path dest, String resource) {
         InputStream stream = TypicalBot.class.getResourceAsStream(resource);
         try {
             Files.copy(stream, dest);
@@ -118,7 +122,7 @@ public class TypicalBot {
     public static void main(String[] args) {
         try {
             new TypicalBot();
-        } catch (InterruptedException e) {
+        } catch (InterruptedException | IOException e) {
             e.printStackTrace();
         }
     }
