@@ -91,6 +91,19 @@ public class TypicalBot {
             reader.close();
             System.exit(0);
         }
+
+        DataSerializer serializer = new DataSerializer();
+        DataStructureInterface data = new DataStructure();
+
+        System.out.println("Starting TypicalBot v3.0.0");
+        /*
+          Inside of the data structure should be two values. The first value, or known as '0', should be the
+          token of the Discord bot; and the second value, or known as '1', should be the client identifier of
+          the Discord bot.
+         */
+        Arrays.asList(serializer.deserialize(new FileInputStream(new File(HOME_PATH.resolve("bin/discord.dat").toString()))).toString().split(":")).forEach(data::insert);
+
+        // TODO(nsylke): Start ShardManager - pass the token and client id, along with the shard count.
     }
 
     public void export(Path dest, String resource) {
