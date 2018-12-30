@@ -64,6 +64,11 @@ public class Shard {
         }
     }
 
+    /**
+     * Get the client identifier, if exists. Otherwise use internal method to get client identifier.
+     *
+     * @return the client identifier
+     */
     public String getClientId() {
         if (this.clientId == null) {
             return Long.toString(this.instance.getSelfUser().getIdLong());
@@ -72,19 +77,47 @@ public class Shard {
         return this.clientId;
     }
 
+    /**
+     * Get the current shard identifier.
+     *
+     * @return the shard identifier
+     */
     public int getShardId() {
         return this.shardId;
     }
 
+    /**
+     * Get the total amount of shards.
+     *
+     * @return total shards
+     */
     public int getShardTotal() {
         return this.shardTotal;
     }
 
+    /**
+     * Get the JDA singleton.
+     *
+     * @return JDA singleton
+     */
     public JDA getInstance() {
         return this.instance;
     }
 
+    /**
+     * Get the ping of the Discord API.
+     *
+     * @return Discord API ping
+     */
+    public int getPing() {
+        return (int) this.instance.getPing();
+    }
+
+    /**
+     * Properly shutdown the Discord bot.
+     */
     public void shutdown() {
         this.instance.shutdown();
+        this.executorService.shutdown();
     }
 }
