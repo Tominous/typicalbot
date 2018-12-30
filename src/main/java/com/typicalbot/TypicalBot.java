@@ -21,6 +21,7 @@ import com.typicalbot.data.serialization.dat.DatSerializer;
 import com.typicalbot.data.storage.DataStructure;
 import com.typicalbot.shard.Shard;
 import com.typicalbot.shard.ShardManager;
+import com.typicalbot.util.FileUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -64,7 +65,7 @@ public class TypicalBot {
         Arrays.asList("app", "database", "discord", "filter", "sentry").forEach(file -> {
             if (!Files.exists(HOME_PATH.resolve("config/" + file + ".yml"))) {
                 LOGGER.debug("File '{}' does not exist, creating...");
-                export(HOME_PATH.resolve("config/" + file + ".yml"), "/config/" + file + ".yml");
+                FileUtil.export(HOME_PATH.resolve("config/" + file + ".yml"), "/config/" + file + ".yml");
             }
         });
 
@@ -110,15 +111,6 @@ public class TypicalBot {
 
         // TODO(nsylke): Start ShardManager - pass the token and client id, along with the shard count.
         ShardManager.register(String.valueOf(data.read(0)), String.valueOf(data.read(0)), 1);
-    }
-
-    private void export(Path dest, String resource) {
-        InputStream stream = TypicalBot.class.getResourceAsStream(resource);
-        try {
-            Files.copy(stream, dest);
-        } catch (IOException ex) {
-            throw new RuntimeException(ex);
-        }
     }
 
     public static void main(String[] args) {
