@@ -36,8 +36,6 @@ public class TypicalBot {
     public static final Path HOME_PATH = Paths.get(System.getProperty("user.dir"));
 
     public TypicalBot() throws IOException, InterruptedException {
-        // TODO(nsylke): Switch `System.out.println(...)` to use Logger.
-
         LOGGER.info("  _____                   _                  _   ____            _   ");
         LOGGER.info(" |_   _|  _   _   _ __   (_)   ___    __ _  | | | __ )    ___   | |_ ");
         LOGGER.info("   | |   | | | | | '_ \\  | |  / __|  / _` | | | |  _ \\   / _ \\  | __|");
@@ -52,7 +50,6 @@ public class TypicalBot {
 
         LOGGER.info("");
 
-        // TODO(nsylke): Add debug messages
         Arrays.asList("config", "bin", "logs").forEach(directory -> {
             if (!Files.exists(HOME_PATH.resolve(directory))) {
                 LOGGER.debug("Directory '{}' does not exist, creating...", directory);
@@ -64,7 +61,6 @@ public class TypicalBot {
             }
         });
 
-        // TODO(nsylke): Add debug messages
         Arrays.asList("app", "database", "discord", "filter", "sentry").forEach(file -> {
             if (!Files.exists(HOME_PATH.resolve("config/" + file + ".yml"))) {
                 LOGGER.debug("File '{}' does not exist, creating...");
