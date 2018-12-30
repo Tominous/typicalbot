@@ -13,10 +13,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.typicalbot.data;
+package com.typicalbot.data.storage;
 
 // TODO(nsylke): Documentation
-public class DataStructure<E> implements DataStructureInterface<E> {
+public class DataStructure<E> {
     private static final double DEFAULT_RESIZE_RATIO = 0.75;
 
     private Object[] array;
@@ -45,12 +45,10 @@ public class DataStructure<E> implements DataStructureInterface<E> {
         this.resizeRatio = ratio;
     }
 
-    @Override
     public E read(int index) {
         return (E) array[index];
     }
 
-    @Override
     public int indexOf(Object item) {
         Object[] array = this.array;
         for (int i = 0; i < length; i++) {
@@ -63,19 +61,16 @@ public class DataStructure<E> implements DataStructureInterface<E> {
         return -1;
     }
 
-    @Override
     public boolean has(Object item) {
         return indexOf(item) != -1;
     }
 
-    @Override
     public void insert(E item) {
         resize();
         array[length] = item;
         length++;
     }
 
-    @Override
     public boolean delete(Object item) {
         Object[] array = this.array;
 
@@ -93,7 +88,6 @@ public class DataStructure<E> implements DataStructureInterface<E> {
         return false;
     }
 
-    @Override
     public void iterate(DataStructureVisitor<E> visitor) {
         int start = visitor.from();
         int end = visitor.endOr(this.length - 1);
@@ -104,12 +98,10 @@ public class DataStructure<E> implements DataStructureInterface<E> {
         }
     }
 
-    @Override
     public int length() {
         return this.length;
     }
 
-    @Override
     public void purge() {
         array = new Object[16];
         length = 0;

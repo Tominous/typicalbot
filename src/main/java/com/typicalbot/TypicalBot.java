@@ -17,8 +17,7 @@ package com.typicalbot;
 
 import com.typicalbot.console.ConsoleReader;
 import com.typicalbot.data.DataSerializer;
-import com.typicalbot.data.DataStructure;
-import com.typicalbot.data.DataStructureInterface;
+import com.typicalbot.data.storage.DataStructure;
 import com.typicalbot.shard.Shard;
 import com.typicalbot.shard.ShardManager;
 import org.slf4j.Logger;
@@ -102,7 +101,7 @@ public class TypicalBot {
         }
 
         DataSerializer serializer = new DataSerializer();
-        DataStructureInterface data = new DataStructure();
+        DataStructure data = new DataStructure();
 
         LOGGER.info("Starting TypicalBot v3.0.0");
         /*
