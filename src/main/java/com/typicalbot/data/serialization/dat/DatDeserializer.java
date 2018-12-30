@@ -13,31 +13,28 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.typicalbot.data;
+package com.typicalbot.data.serialization.dat;
 
-import java.io.*;
+import com.typicalbot.data.serialization.Deserializer;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
-// TODO(nsylke): Documentation
-public class DataSerializer {
-    // TODO(nsylke): Separate the two methods, and make interfaces.
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.ObjectInputStream;
 
-    public void serialize(Object object, OutputStream stream) throws IOException {
-        if (!(object instanceof Serializable)) {
-            throw new IllegalArgumentException();
-        }
+public class DatDeserializer implements Deserializer<Object> {
+    private static final Logger LOGGER = LoggerFactory.getLogger(DatDeserializer.class);
 
-        ObjectOutputStream objectOutputStream = new ObjectOutputStream(stream);
-        objectOutputStream.writeObject(object);
-        objectOutputStream.flush();
-    }
-
+    @Override
     public Object deserialize(InputStream stream) throws IOException {
         ObjectInputStream objectInputStream = new ObjectInputStream(stream);
 
         try {
             return objectInputStream.readObject();
         } catch (ClassNotFoundException ex) {
-            throw new IOException();
+            LOGGER.debug("Failed to deserialize object type.", ex);
+            throw new IOException("Failed to deserialize object type.", ex);
         }
     }
 }
