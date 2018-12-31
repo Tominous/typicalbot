@@ -119,6 +119,24 @@ public class Shard {
     }
 
     /**
+     * Get the current amount of guilds on this shard.
+     *
+     * @return Guild size
+     */
+    public int getGuilds() {
+        return this.instance.getGuilds().size();
+    }
+
+    /**
+     * Get the current amount of users on this shard.
+     *
+     * @return User size
+     */
+    public int getUsers() {
+        return this.instance.getUsers().size();
+    }
+
+    /**
      * Get the ping of the Discord API.
      *
      * @return Discord API ping
