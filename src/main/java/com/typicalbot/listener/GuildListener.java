@@ -30,7 +30,7 @@ public class GuildListener extends ListenerAdapter {
         String rawMessage = event.getMessage().getContentRaw();
 
         if (rawMessage.matches("^<@!?" + event.getJDA().getSelfUser().getId() + ">$")) {
-            // TODO(nsylke): Show default prefix from configuration is setting in database is not set.
+            // TODO(nsylke): Show default prefix from configuration if setting in database is not set.
             event.getChannel().sendMessage("The server's prefix is `b$`.").queue();
             return;
         }
