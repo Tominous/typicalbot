@@ -29,6 +29,8 @@ import java.util.concurrent.TimeUnit;
 
 // TODO(nsylke): Documentation
 public class Shard {
+    private static Shard singleton;
+
     private final String clientId;
     private final int shardId;
     private final int shardTotal;
@@ -41,6 +43,8 @@ public class Shard {
     }
 
     public Shard(String token, String clientId, int shardId, int shardTotal) {
+        singleton = this;
+
         this.clientId = clientId;
         this.shardId = shardId;
         this.shardTotal = shardTotal;
@@ -68,6 +72,10 @@ public class Shard {
         } catch (LoginException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    public static Shard getSingleton() {
+        return singleton;
     }
 
     /**
