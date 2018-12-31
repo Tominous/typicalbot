@@ -102,7 +102,7 @@ public class TypicalBot {
         }
 
         DatDeserializer deserializer = new DatDeserializer();
-        // TODO(nsylke): Should move this outside of constructor. 
+        // TODO(nsylke): Should move this outside of constructor.
         DataStructure data = new DataStructure();
 
         LOGGER.info("Starting TypicalBot v3.0.0");

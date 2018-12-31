@@ -15,6 +15,7 @@
  */
 package com.typicalbot.shard;
 
+import com.typicalbot.listener.ReadyListener;
 import net.dv8tion.jda.core.AccountType;
 import net.dv8tion.jda.core.JDA;
 import net.dv8tion.jda.core.JDABuilder;
@@ -57,6 +58,11 @@ public class Shard {
                     .useSharding(shardId, shardTotal)
                     .setCorePoolSize(4)
                     .build();
+
+            // TODO(nsylke): Register commands before events.
+            this.instance.addEventListener(
+                    new ReadyListener()
+            );
 
             this.executorService.scheduleAtFixedRate(() -> Runtime.getRuntime().gc(), 6, 3, TimeUnit.HOURS);
         } catch (LoginException e) {
