@@ -48,6 +48,7 @@ public class GuildListener extends ListenerAdapter {
         }
 
         // TODO(nsylke): The command system will change over time, this is mostly temporarily to get a solution in the bot.
+        //  - this can be cleaned up a lot more and reworked to be less sloppy and more efficient.
         List<String> splitMessage = new ArrayList<>(Arrays.asList(rawMessage.split("\\+")));
         if (splitMessage.get(0).startsWith(prefix)) {
             BaseCommand command = Shard.getSingleton().getCommands().stream().filter(cmd -> cmd.getName().equalsIgnoreCase(splitMessage.get(0).substring(prefix.length()))).findFirst().orElse(null);
