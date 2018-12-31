@@ -15,6 +15,7 @@
  */
 package com.typicalbot.shard;
 
+import com.typicalbot.listener.GuildListener;
 import com.typicalbot.listener.ReadyListener;
 import net.dv8tion.jda.core.AccountType;
 import net.dv8tion.jda.core.JDA;
@@ -65,7 +66,8 @@ public class Shard {
 
             // TODO(nsylke): Register commands before events.
             this.instance.addEventListener(
-                    new ReadyListener()
+                    new ReadyListener(),
+                    new GuildListener()
             );
 
             this.executorService.scheduleAtFixedRate(() -> Runtime.getRuntime().gc(), 6, 3, TimeUnit.HOURS);
