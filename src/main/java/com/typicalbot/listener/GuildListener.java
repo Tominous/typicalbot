@@ -55,6 +55,7 @@ public class GuildListener extends ListenerAdapter {
 
             if (command != null) {
                 splitMessage.remove(0);
+                // Using String[0] over String[list.size()] due to JVM optimizations.
                 command.onExecute(event.getGuild(), event.getChannel(), event.getMessage(), event.getAuthor(), splitMessage.toArray(new String[0]));
             }
         }

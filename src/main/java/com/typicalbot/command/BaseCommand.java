@@ -21,6 +21,7 @@ import net.dv8tion.jda.core.entities.TextChannel;
 import net.dv8tion.jda.core.entities.User;
 
 public abstract class BaseCommand {
+    // TODO(nsylke): Should be renamed to trigger, or even triggers to keep it less complicated.
     private final String name;
 
     public BaseCommand(String name) {
