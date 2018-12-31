@@ -15,11 +15,22 @@
  */
 package com.typicalbot.listener;
 
+import com.typicalbot.command.BaseCommand;
+import com.typicalbot.shard.Shard;
 import net.dv8tion.jda.core.Permission;
 import net.dv8tion.jda.core.events.message.guild.GuildMessageReceivedEvent;
 import net.dv8tion.jda.core.hooks.ListenerAdapter;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
 
 public class GuildListener extends ListenerAdapter {
+    private static final Logger LOGGER = LoggerFactory.getLogger(GuildListener.class);
+
     @Override
     public void onGuildMessageReceived(GuildMessageReceivedEvent event) {
         // TODO(nsylke): Check to see if we are missing anything... maybe event.getAuthor().isFake() ?!?!
@@ -28,13 +39,23 @@ public class GuildListener extends ListenerAdapter {
         if (!event.getGuild().getSelfMember().hasPermission(Permission.MESSAGE_WRITE)) return;
 
         String rawMessage = event.getMessage().getContentRaw();
+        String prefix = "b$";
 
         if (rawMessage.matches("^<@!?" + event.getJDA().getSelfUser().getId() + ">$")) {
             // TODO(nsylke): Show default prefix from configuration if setting in database is not set.
-            event.getChannel().sendMessage("The server's prefix is `b$`.").queue();
+            event.getChannel().sendMessage("The server's prefix is `" + prefix + "`.").queue();
             return;
         }
 
-        // TODO(nsylke): Commands
+        // TODO(nsylke): The command system will change over time, this is mostly temporarily to get a solution in the bot.
+        List<String> splitMessage = new ArrayList<>(Arrays.asList(rawMessage.split("\\+")));
+        if (splitMessage.get(0).startsWith(prefix)) {
+            BaseCommand command = Shard.getSingleton().getCommands().stream().filter(cmd -> cmd.getName().equalsIgnoreCase(splitMessage.get(0).substring(prefix.length()))).findFirst().orElse(null);
+
+            if (command != null) {
+                splitMessage.remove(0);
+                command.onExecute(event.getGuild(), event.getChannel(), event.getMessage(), event.getAuthor(), splitMessage.toArray(new String[0]));
+            }
+        }
     }
 }
