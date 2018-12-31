@@ -16,6 +16,7 @@
 package com.typicalbot.listener;
 
 import com.typicalbot.shard.Shard;
+import net.dv8tion.jda.core.OnlineStatus;
 import net.dv8tion.jda.core.events.ReadyEvent;
 import net.dv8tion.jda.core.hooks.ListenerAdapter;
 import org.slf4j.Logger;
@@ -26,6 +27,7 @@ public class ReadyListener extends ListenerAdapter {
 
     @Override
     public void onReady(ReadyEvent event) {
+        event.getJDA().getPresence().setStatus(OnlineStatus.ONLINE);
         LOGGER.debug("Shard {} has successfully connected.", Shard.getSingleton().getShardId());
     }
 }
