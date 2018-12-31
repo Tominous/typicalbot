@@ -15,6 +15,8 @@
  */
 package com.typicalbot.shard;
 
+import com.typicalbot.command.BaseCommand;
+import com.typicalbot.command.core.PingCommand;
 import com.typicalbot.listener.GuildListener;
 import com.typicalbot.listener.ReadyListener;
 import net.dv8tion.jda.core.AccountType;
@@ -24,6 +26,10 @@ import net.dv8tion.jda.core.OnlineStatus;
 import net.dv8tion.jda.core.entities.Game;
 
 import javax.security.auth.login.LoginException;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
@@ -39,6 +45,8 @@ public class Shard {
     private ScheduledExecutorService executorService = Executors.newScheduledThreadPool(4);
     private JDA instance;
 
+    private Set<BaseCommand> commands;
+
     public Shard(String token) {
         this(token, null, 0, 1);
     }
@@ -49,6 +57,8 @@ public class Shard {
         this.clientId = clientId;
         this.shardId = shardId;
         this.shardTotal = shardTotal;
+
+        this.commands = new HashSet<>();
 
         try {
             this.instance = new JDABuilder(AccountType.BOT)
@@ -64,7 +74,10 @@ public class Shard {
                     .setCorePoolSize(4)
                     .build();
 
-            // TODO(nsylke): Register commands before events.
+            this.commands.addAll(Arrays.asList(
+                    new PingCommand()
+            ));
+
             this.instance.addEventListener(
                     new ReadyListener(),
                     new GuildListener()
@@ -136,6 +149,10 @@ public class Shard {
      */
     public int getUsers() {
         return this.instance.getUsers().size();
+    }
+
+    public Set<BaseCommand> getCommands() {
+        return this.commands;
     }
 
     /**
