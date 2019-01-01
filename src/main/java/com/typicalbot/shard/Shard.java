@@ -15,7 +15,6 @@
  */
 package com.typicalbot.shard;
 
-import com.typicalbot.command.Command;
 import com.typicalbot.command.CommandManager;
 import com.typicalbot.command.core.PingCommand;
 import com.typicalbot.listener.GuildListener;
@@ -27,9 +26,6 @@ import net.dv8tion.jda.core.OnlineStatus;
 import net.dv8tion.jda.core.entities.Game;
 
 import javax.security.auth.login.LoginException;
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.Set;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
