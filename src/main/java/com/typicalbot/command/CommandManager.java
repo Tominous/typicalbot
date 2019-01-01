@@ -34,6 +34,7 @@ public class CommandManager {
 
     public void registerCommands(Command... commands) {
         Collections.addAll(this.commands, commands);
+        LOGGER.debug("Registered {} commands.", this.commands.size());
     }
 
     public Command findCommand(String trigger) {
