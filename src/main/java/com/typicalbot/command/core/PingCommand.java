@@ -16,6 +16,7 @@
 package com.typicalbot.command.core;
 
 import com.typicalbot.command.BaseCommand;
+import com.typicalbot.shard.ShardManager;
 import net.dv8tion.jda.core.entities.Guild;
 import net.dv8tion.jda.core.entities.Message;
 import net.dv8tion.jda.core.entities.TextChannel;
@@ -28,6 +29,6 @@ public class PingCommand extends BaseCommand {
 
     @Override
     public void onExecute(Guild guild, TextChannel channel, Message message, User author, String[] args) {
-        message.getChannel().sendMessage("Pong!").queue();
+        message.getChannel().sendMessage("Pong! Discord API latency: " + ((int) ShardManager.getAveragePing()) + "ms").queue();
     }
 }
