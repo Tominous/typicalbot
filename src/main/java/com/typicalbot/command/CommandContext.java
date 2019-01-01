@@ -16,19 +16,19 @@
 package com.typicalbot.command;
 
 import net.dv8tion.jda.core.entities.Message;
-import net.dv8tion.jda.core.entities.User;
 
-public abstract class BaseCommand {
-    // TODO(nsylke): Should be renamed to trigger, or even triggers to keep it less complicated.
-    private final String name;
+public class CommandContext {
+    private final Message message;
 
-    public BaseCommand(String name) {
-        this.name = name;
+    public CommandContext(Message message) {
+        this.message = message;
     }
 
-    public abstract void onExecute(Message message, User author, String[] args);
+    public Message getMessage() {
+        return this.message;
+    }
 
-    public String getName() {
-        return this.name;
+    public void sendMessage(String message, Object... params) {
+        this.message.getChannel().sendMessage(String.format(message, params)).queue();
     }
 }

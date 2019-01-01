@@ -15,7 +15,9 @@
  */
 package com.typicalbot.listener;
 
-import com.typicalbot.command.BaseCommand;
+import com.typicalbot.command.Command;
+import com.typicalbot.command.CommandArgument;
+import com.typicalbot.command.CommandContext;
 import com.typicalbot.shard.Shard;
 import net.dv8tion.jda.core.Permission;
 import net.dv8tion.jda.core.events.message.guild.GuildMessageReceivedEvent;
@@ -46,19 +48,19 @@ public class GuildListener extends ListenerAdapter {
             return;
         }
 
-        // TODO(nsylke): The command system will change over time, this is mostly temporarily to get a solution in the bot.
-        //  - this can be cleaned up a lot more and reworked to be less sloppy and more efficient.
-        List<String> splitMessage = new ArrayList<>(Arrays.asList(rawMessage.split("\\+")));
-        if (splitMessage.get(0).startsWith(prefix)) {
-            BaseCommand command = Shard.getSingleton().getCommands().stream().filter(cmd -> cmd.getName().equalsIgnoreCase(splitMessage.get(0).substring(prefix.length()))).findFirst().orElse(null);
+        List<String> arguments = new ArrayList<>(Arrays.asList(rawMessage.split("\\s+")));
+        String commandName = arguments.get(0);
 
-            if (command != null) {
-                splitMessage.remove(0);
-                // Using String[0] over String[list.size()] due to JVM optimizations.
-                command.onExecute(event.getMessage(), event.getAuthor(), splitMessage.toArray(new String[0]));
-            } else {
-                LOGGER.debug("Unknown command {}.", splitMessage.get(0).substring(prefix.length()));
-            }
+        if (commandName.startsWith(prefix)) {
+            Command command = Shard.getSingleton().getCommandManager().findCommand(commandName.substring(prefix.length()));
+
+            if (command == null) return;
+
+            arguments.remove(0);
+            CommandArgument commandArgument = new CommandArgument(arguments);
+            CommandContext commandContext = new CommandContext(event.getMessage());
+
+            command.execute(commandContext, commandArgument);
         }
     }
 }

@@ -15,7 +15,8 @@
  */
 package com.typicalbot.shard;
 
-import com.typicalbot.command.BaseCommand;
+import com.typicalbot.command.Command;
+import com.typicalbot.command.CommandManager;
 import com.typicalbot.command.core.PingCommand;
 import com.typicalbot.listener.GuildListener;
 import com.typicalbot.listener.ReadyListener;
@@ -42,9 +43,8 @@ public class Shard {
     private final int shardTotal;
 
     private ScheduledExecutorService executorService = Executors.newScheduledThreadPool(4);
+    private CommandManager commandManager = new CommandManager();
     private JDA instance;
-
-    private Set<BaseCommand> commands;
 
     public Shard(String token) {
         this(token, null, 0, 1);
@@ -56,8 +56,6 @@ public class Shard {
         this.clientId = clientId;
         this.shardId = shardId;
         this.shardTotal = shardTotal;
-
-        this.commands = new HashSet<>();
 
         try {
             this.instance = new JDABuilder(AccountType.BOT)
@@ -73,9 +71,9 @@ public class Shard {
                     .setCorePoolSize(4)
                     .build();
 
-            this.commands.addAll(Arrays.asList(
+            this.commandManager.registerCommands(
                     new PingCommand()
-            ));
+            );
 
             this.instance.addEventListener(
                     new ReadyListener(),
@@ -150,8 +148,8 @@ public class Shard {
         return this.instance.getUsers().size();
     }
 
-    public Set<BaseCommand> getCommands() {
-        return this.commands;
+    public CommandManager getCommandManager() {
+        return this.commandManager;
     }
 
     /**

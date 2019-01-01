@@ -13,18 +13,22 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.typicalbot.command.core;
+package com.typicalbot.command;
 
-import com.typicalbot.command.Command;
-import com.typicalbot.command.CommandArgument;
-import com.typicalbot.command.CommandConfiguration;
-import com.typicalbot.command.CommandContext;
-import com.typicalbot.shard.ShardManager;
+import java.util.List;
 
-@CommandConfiguration(triggers = {"ping", "pong"})
-public class PingCommand implements Command {
-    @Override
-    public void execute(CommandContext context, CommandArgument argument) {
-        context.sendMessage("Pong! Discord API Latency: %dms", (int) ShardManager.getAveragePing());
+public class CommandArgument {
+    private final List<String> arguments;
+
+    public CommandArgument(List<String> arguments) {
+        this.arguments = arguments;
+    }
+
+    public boolean hasArguments() {
+        return this.arguments.size() > 0;
+    }
+
+    public List<String> getArguments() {
+        return this.arguments;
     }
 }
