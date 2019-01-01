@@ -15,9 +15,7 @@
  */
 package com.typicalbot.command;
 
-import net.dv8tion.jda.core.entities.Guild;
 import net.dv8tion.jda.core.entities.Message;
-import net.dv8tion.jda.core.entities.TextChannel;
 import net.dv8tion.jda.core.entities.User;
 
 public abstract class BaseCommand {
@@ -28,7 +26,7 @@ public abstract class BaseCommand {
         this.name = name;
     }
 
-    public abstract void onExecute(Guild guild, TextChannel channel, Message message, User author, String[] args);
+    public abstract void onExecute(Message message, User author, String[] args);
 
     public String getName() {
         return this.name;
