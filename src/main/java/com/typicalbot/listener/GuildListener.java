@@ -56,6 +56,8 @@ public class GuildListener extends ListenerAdapter {
                 splitMessage.remove(0);
                 // Using String[0] over String[list.size()] due to JVM optimizations.
                 command.onExecute(event.getMessage(), event.getAuthor(), splitMessage.toArray(new String[0]));
+            } else {
+                LOGGER.debug("Unknown command {}.", splitMessage.get(0).substring(prefix.length()));
             }
         }
     }
