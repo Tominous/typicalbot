@@ -36,6 +36,7 @@ public class UptimeCommand implements Command {
 
         StringBuilder builder = new StringBuilder();
 
+        // TODO(nsylke): Pluralization.
         if (d > 0) builder.append(d + " days, ");
         if (h > 0) builder.append(h + " hours, ");
         if (m > 0) builder.append(m + " minutes, ");
