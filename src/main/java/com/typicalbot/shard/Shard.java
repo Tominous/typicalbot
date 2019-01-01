@@ -27,7 +27,6 @@ import net.dv8tion.jda.core.entities.Game;
 
 import javax.security.auth.login.LoginException;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.concurrent.Executors;
@@ -160,8 +159,8 @@ public class Shard {
      *
      * @return Discord API ping
      */
-    public int getPing() {
-        return (int) this.instance.getPing();
+    public long getPing() {
+        return this.instance.getPing();
     }
 
     /**
