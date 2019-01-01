@@ -18,6 +18,7 @@ package com.typicalbot.shard;
 import com.typicalbot.command.CommandManager;
 import com.typicalbot.command.core.PingCommand;
 import com.typicalbot.command.core.SupportCommand;
+import com.typicalbot.command.core.UptimeCommand;
 import com.typicalbot.listener.GuildListener;
 import com.typicalbot.listener.ReadyListener;
 import net.dv8tion.jda.core.AccountType;
@@ -71,6 +72,7 @@ public class Shard {
             this.commandManager.registerCommands(
                     new PingCommand(),
                     new SupportCommand(),
+                    new UptimeCommand()
             );
 
             this.instance.addEventListener(
