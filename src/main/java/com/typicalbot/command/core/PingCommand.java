@@ -21,7 +21,7 @@ import com.typicalbot.command.CommandConfiguration;
 import com.typicalbot.command.CommandContext;
 import com.typicalbot.shard.ShardManager;
 
-@CommandConfiguration(triggers = {"ping", "pong"})
+@CommandConfiguration(triggers = {"ping", "pong"}, description = "A check to see if TypicalBot is able to respond.")
 public class PingCommand implements Command {
     @Override
     public void execute(CommandContext context, CommandArgument argument) {
