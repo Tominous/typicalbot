@@ -15,6 +15,8 @@
  */
 package com.typicalbot.shard;
 
+import java.util.Arrays;
+
 public class ShardManager {
     private static int MAX_SHARDS;
 
@@ -46,5 +48,9 @@ public class ShardManager {
             // Clients are limited to one identify every 5 seconds.
             Thread.sleep(5000);
         }
+    }
+
+    public static double getAveragePing() {
+        return Arrays.stream(shards).mapToLong(Shard::getPing).filter(ping -> ping != -1).average().orElse(-1D);
     }
 }
