@@ -16,6 +16,7 @@
 package com.typicalbot.shard;
 
 import com.typicalbot.command.CommandManager;
+import com.typicalbot.command.core.HelpCommand;
 import com.typicalbot.command.core.PingCommand;
 import com.typicalbot.command.core.SupportCommand;
 import com.typicalbot.command.core.UptimeCommand;
@@ -70,6 +71,7 @@ public class Shard {
                     .build();
 
             this.commandManager.registerCommands(
+                    new HelpCommand(),
                     new PingCommand(),
                     new SupportCommand(),
                     new UptimeCommand()
