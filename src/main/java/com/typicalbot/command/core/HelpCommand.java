@@ -20,7 +20,7 @@ import com.typicalbot.command.CommandArgument;
 import com.typicalbot.command.CommandConfiguration;
 import com.typicalbot.command.CommandContext;
 
-@CommandConfiguration(triggers = {"help", "?"})
+@CommandConfiguration(triggers = {"help", "?", "info", "information"})
 public class HelpCommand implements Command {
     @Override
     public void execute(CommandContext context, CommandArgument argument) {
