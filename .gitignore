@@ -30,3 +30,8 @@ build-eclipse/
 *.iml
 /out/
 /.stylelintrc.yml
+
+# TypicalBot
+/config
+/bin
+/logs
