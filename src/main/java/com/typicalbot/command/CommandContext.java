@@ -16,6 +16,7 @@
 package com.typicalbot.command;
 
 import net.dv8tion.jda.core.entities.Message;
+import net.dv8tion.jda.core.entities.MessageEmbed;
 
 public class CommandContext {
     private final Message message;
@@ -30,5 +31,9 @@ public class CommandContext {
 
     public void sendMessage(String message, Object... params) {
         this.message.getChannel().sendMessage(String.format(message, params)).queue();
+    }
+
+    public void sendEmbed(MessageEmbed embed) {
+        this.message.getChannel().sendMessage(embed).queue();
     }
 }
