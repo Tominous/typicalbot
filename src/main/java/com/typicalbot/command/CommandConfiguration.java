@@ -28,4 +28,6 @@ public @interface CommandConfiguration {
     String[] triggers();
 
     String description() default "N/A";
+
+    boolean embed() default false;
 }
