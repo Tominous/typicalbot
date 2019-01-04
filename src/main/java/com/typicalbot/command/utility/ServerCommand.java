@@ -5,7 +5,7 @@
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- *    http://www.apache.org/licenses/LICENSE-2.0
+ * http://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -20,6 +20,11 @@ import com.typicalbot.command.CommandArgument;
 import com.typicalbot.command.CommandConfiguration;
 import com.typicalbot.command.CommandContext;
 import net.dv8tion.jda.core.EmbedBuilder;
+import net.dv8tion.jda.core.entities.Emote;
+import net.dv8tion.jda.core.entities.Role;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 @CommandConfiguration(triggers = {"serverinfo", "sinfo"}, description = "Displays the server's information.", embed = true)
 public class ServerCommand implements Command {
@@ -48,8 +53,16 @@ public class ServerCommand implements Command {
         String region = context.getMessage().getGuild().getRegion().toString();
         String numOfChannels = Integer.toString(context.getMessage().getGuild().getChannels().size());
         String numOfMembers = Integer.toString(context.getMessage().getGuild().getMembers().size());
+
         String numOfRoles = Integer.toString(context.getMessage().getGuild().getRoles().size());
+        List<Role> rolesList = context.getMessage().getGuild().getRoles();
+        String roles = rolesList.stream().map(Role::getName).collect(Collectors.joining(", "));
+        roles = removeEveryoneMentions(roles);
+
         String numOfEmotes = Integer.toString(context.getMessage().getGuild().getEmotes().size()); //changed "emoji" to "emotes" in the rewrite
+        List<Emote> emotesList = context.getMessage().getGuild().getEmotes();
+        String emotes = emotesList.stream().map(Emote::getName).collect(Collectors.joining(", "));
+
         EmbedBuilder embed = new EmbedBuilder()
                 .setColor(0x00ADFF)
                 .setTitle("Server Information")
@@ -58,12 +71,28 @@ public class ServerCommand implements Command {
                 .addField("» Created", created, true)
                 .addField("» Region", region, true)
                 .addField("» Channels", numOfChannels, true)
-                .addField("» Members", numOfMembers, true)
-                .addField("» Roles", numOfRoles, true)
-                .addField("» Emotes", numOfEmotes, true)
+                .addField("» Members", numOfMembers, true);
+
+        if (Integer.parseInt(numOfRoles) > 0) {
+            embed.addField("» Roles", roles, false);
+        } else {
+            embed.addField("» Roles", numOfRoles, true);
+        }
+
+        if (Integer.parseInt(numOfEmotes) > 0) {
+            embed.addField("» Emotes", emotes, false);
+        } else {
+            embed.addField("» Emotes", numOfEmotes, true);
+        }
+
+        embed
                 .setThumbnail(context.getMessage().getGuild().getIconUrl())
                 //TODO(nsylke): make the TB icon a constant
                 .setFooter("TypicalBot", "https://images-ext-2.discordapp.net/external/qYPuNcjM4PjaKvsmlc-lcHhtJ8RZ-txaxYMDQmWL0g8/https/www.typicalbot.com/x/images/icon.png");
         context.sendEmbed(embed.build());
+    }
+
+    public String removeEveryoneMentions(String input) {
+        return input.replace("@everyone", "everyone");
     }
 }
