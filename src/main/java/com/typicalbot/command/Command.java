@@ -16,8 +16,9 @@
 package com.typicalbot.command;
 
 public interface Command {
-    // TODO(nsylke): Should be renamed to trigger, or even triggers to keep it less complicated.
     void execute(CommandContext context, CommandArgument argument);
+
+    void embed(CommandContext context, CommandArgument argument);
 
     default CommandConfiguration getConfiguration() {
         return this.getClass().getAnnotation(CommandConfiguration.class);
