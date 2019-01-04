@@ -26,4 +26,8 @@ public class SupportCommand implements Command {
     public void execute(CommandContext context, CommandArgument argument) {
         context.sendMessage("You can join the TypicalBot Lounge at <https://typicalbot.com/join-us>.");
     }
+
+    @Override
+    public void embed(CommandContext context, CommandArgument argument) {
+    }
 }

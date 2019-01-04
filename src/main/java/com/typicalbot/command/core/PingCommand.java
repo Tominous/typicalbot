@@ -27,4 +27,8 @@ public class PingCommand implements Command {
     public void execute(CommandContext context, CommandArgument argument) {
         context.sendMessage("Pong! Discord API Latency: %dms", (int) ShardManager.getAveragePing());
     }
+
+    @Override
+    public void embed(CommandContext context, CommandArgument argument) {
+    }
 }

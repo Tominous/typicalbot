@@ -44,4 +44,8 @@ public class UptimeCommand implements Command {
 
         context.sendMessage("Uptime: %s", builder.toString());
     }
+
+    @Override
+    public void embed(CommandContext context, CommandArgument argument) {
+    }
 }
