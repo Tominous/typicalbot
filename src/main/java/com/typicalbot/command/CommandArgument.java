@@ -24,8 +24,12 @@ public class CommandArgument {
         this.arguments = arguments;
     }
 
-    public boolean hasArguments() {
+    public boolean has() {
         return this.arguments.size() > 0;
+    }
+
+    public String get(int index) {
+        return this.arguments.get(0);
     }
 
     public List<String> getArguments() {
