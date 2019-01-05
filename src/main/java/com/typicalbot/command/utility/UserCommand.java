@@ -5,7 +5,7 @@
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- * http://www.apache.org/licenses/LICENSE-2.0
+ *    http://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -69,8 +69,8 @@ public class UserCommand implements Command {
                 .setTitle(header)
                 .addField("» Tag", tag, true)
                 .addField("» ID", id, true)
-                .addField("» Joined Discord", joinDate, true)
-                .addField("» Joined Server", serverJoinDate, true)
+                .addField("» Joined Discord", joinDate, false)
+                .addField("» Joined Server", serverJoinDate, false)
                 //TODO(AKSKL): Make status prettier
                 .addField("» Status", status, true);
 
@@ -91,17 +91,18 @@ public class UserCommand implements Command {
             embed.addField("» Roles", roles, true);
         }
 
-        //Finish off the embed with the thumbnail and footer
+        //Finish off the embed with the color, thumbnail, and footer
         embed.setThumbnail(mentionedUser.getAvatarUrl())
+                .setColor(0x00ADFF)
                 //TODO(nsylke): make the TB icon a constant
-                .setFooter("TypicalBot", "https://images-ext-2.discordapp.net/external/qYPuNcjM4PjaKvsmlc-lcHhtJ8RZ-txaxYMDQmWL0g8/https/www.typicalbot.com/x/images/icon.png");
+                .setFooter("Created " + context.getMessage().getCreationTime().format(DateTimeFormatter.RFC_1123_DATE_TIME), "https://typicalbot.com/x/images/icon.png");
 
         //Send the embed
         context.sendEmbed(embed.build());
     }
 
     //A simple function to determine the target of the command
-    public Member getMember(Message message) {
+    private Member getMember(Message message) {
         if (message.getMentionedMembers().isEmpty()) {
             //if the user didn't mention anyone, the target is themself
             return message.getMember();

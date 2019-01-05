@@ -29,7 +29,7 @@ public class CommandArgument {
     }
 
     public String get(int index) {
-        return this.arguments.get(0);
+        return this.arguments.get(index);
     }
 
     public List<String> getArguments() {

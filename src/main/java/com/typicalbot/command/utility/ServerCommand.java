@@ -5,7 +5,7 @@
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- * http://www.apache.org/licenses/LICENSE-2.0
+ *    http://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -23,10 +23,9 @@ import net.dv8tion.jda.core.EmbedBuilder;
 import net.dv8tion.jda.core.entities.Emote;
 import net.dv8tion.jda.core.entities.Role;
 
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.stream.Collectors;
-
-import java.time.format.DateTimeFormatter;
 
 @CommandConfiguration(triggers = {"serverinfo", "sinfo"}, description = "Displays the server's information.", embed = true)
 public class ServerCommand implements Command {
@@ -53,8 +52,10 @@ public class ServerCommand implements Command {
     @Override
     public void embed(CommandContext context, CommandArgument argument) {
         /* VARIABLES TO RETURN IN THE FINAL MESSAGE */
-        String name = context.getMessage().getGuild().getName() + " (" + context.getMessage().getGuild().getId() + ")";
-        String owner = context.getMessage().getGuild().getOwner().getUser().getName() + "#" + context.getMessage().getGuild().getOwner().getUser().getDiscriminator() + " (" + context.getMessage().getGuild().getOwner().getUser().getId() + ")";
+        String name = context.getMessage().getGuild().getName();
+        String id = context.getMessage().getGuild().getId();
+        String owner = context.getMessage().getGuild().getOwner().getUser().getName() + "#" + context.getMessage().getGuild().getOwner().getUser().getDiscriminator();
+        String ownerId = context.getMessage().getGuild().getOwnerId();
         String created = context.getMessage().getGuild().getCreationTime().format(DateTimeFormatter.RFC_1123_DATE_TIME);
         String region = context.getMessage().getGuild().getRegion().toString();
         int numOfChannels = context.getMessage().getGuild().getChannels().size();
@@ -64,11 +65,12 @@ public class ServerCommand implements Command {
 
         /* Begin building the embed */
         EmbedBuilder embed = new EmbedBuilder()
-                .setColor(0x00ADFF)
                 .setTitle("Server Information")
-                .addField("» Name", name, false)
-                .addField("» Owner", owner, false)
-                .addField("» Created", created, true)
+                .addField("» Guild Name", name, true)
+                .addField("» Guild ID", id, true)
+                .addField("» Owner Tag", owner, true)
+                .addField("» Owner ID", ownerId, true)
+                .addField("» Created", created, false)
                 .addField("» Region", region, true)
                 .addField("» Channels", Integer.toString(numOfChannels), true)
                 .addField("» Members", Integer.toString(numOfMembers), true);
@@ -103,17 +105,18 @@ public class ServerCommand implements Command {
             embed.addField("» Emotes", Integer.toString(numOfEmotes), true);
         }
 
-        //Finish off the embed with the thumbnail and footer
+        //Finish off the embed with the color, thumbnail, and footer
         embed
+                .setColor(0x00ADFF)
                 .setThumbnail(context.getMessage().getGuild().getIconUrl())
                 //TODO(nsylke): make the TB icon a constant
-                .setFooter("TypicalBot", "https://images-ext-2.discordapp.net/external/qYPuNcjM4PjaKvsmlc-lcHhtJ8RZ-txaxYMDQmWL0g8/https/www.typicalbot.com/x/images/icon.png");
+                .setFooter("Created " + context.getMessage().getCreationTime().format(DateTimeFormatter.RFC_1123_DATE_TIME), "https://typicalbot.com/x/images/icon.png");
 
         //Send the embed
         context.sendEmbed(embed.build());
     }
 
-    public String removeEveryoneMentions(String input) {
+    private String removeEveryoneMentions(String input) {
         //\u200B is a zero-width space, which nullifies the mention
         return input.replace("@everyone", "@\u200Beveryone");
     }

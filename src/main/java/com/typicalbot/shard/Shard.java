@@ -20,6 +20,7 @@ import com.typicalbot.command.core.HelpCommand;
 import com.typicalbot.command.core.PingCommand;
 import com.typicalbot.command.core.SupportCommand;
 import com.typicalbot.command.core.UptimeCommand;
+import com.typicalbot.command.utility.RandomuserCommand;
 import com.typicalbot.command.utility.RoleCommand;
 import com.typicalbot.command.utility.ServerCommand;
 import com.typicalbot.command.utility.UserCommand;
@@ -80,7 +81,8 @@ public class Shard {
                     new UptimeCommand(),
                     new ServerCommand(),
                     new UserCommand(),
-                    new RoleCommand()
+                    new RoleCommand(),
+                    new RandomuserCommand()
             );
 
             this.instance.addEventListener(
