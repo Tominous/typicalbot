@@ -26,6 +26,8 @@ import net.dv8tion.jda.core.entities.Role;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import java.time.format.DateTimeFormatter;
+
 @CommandConfiguration(triggers = {"serverinfo", "sinfo"}, description = "Displays the server's information.", embed = true)
 public class ServerCommand implements Command {
     @Override
@@ -35,7 +37,7 @@ public class ServerCommand implements Command {
         String name = "Name                : " + context.getMessage().getGuild().getName() + " (" + context.getMessage().getGuild().getId() + ")\n";
         String owner = "Owner               : " + context.getMessage().getGuild().getOwner().getUser().getName() + "#" + context.getMessage().getGuild().getOwner().getUser().getDiscriminator() + "\n";
         //TODO(AKSKL): Format creation date into a more 'readable' string
-        String created = "Created             : " + context.getMessage().getGuild().getCreationTime().toString() + "\n";
+        String created = "Created             : " + context.getMessage().getGuild().getCreationTime().format(DateTimeFormatter.RFC_1123_DATE_TIME) + "\n";
         String region = "Region              : " + context.getMessage().getGuild().getRegion().toString() + "\n";
         //TODO: Verification level?
         String icon = "Icon                : " + context.getMessage().getGuild().getIconUrl() + "\n";
@@ -53,7 +55,7 @@ public class ServerCommand implements Command {
         /* VARIABLES TO RETURN IN THE FINAL MESSAGE */
         String name = context.getMessage().getGuild().getName() + " (" + context.getMessage().getGuild().getId() + ")";
         String owner = context.getMessage().getGuild().getOwner().getUser().getName() + "#" + context.getMessage().getGuild().getOwner().getUser().getDiscriminator() + " (" + context.getMessage().getGuild().getOwner().getUser().getId() + ")";
-        String created = context.getMessage().getGuild().getCreationTime().toString();
+        String created = context.getMessage().getGuild().getCreationTime().format(DateTimeFormatter.RFC_1123_DATE_TIME);
         String region = context.getMessage().getGuild().getRegion().toString();
         int numOfChannels = context.getMessage().getGuild().getChannels().size();
         int numOfMembers = context.getMessage().getGuild().getMembers().size();

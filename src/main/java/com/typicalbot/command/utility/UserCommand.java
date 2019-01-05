@@ -25,6 +25,7 @@ import net.dv8tion.jda.core.entities.Message;
 import net.dv8tion.jda.core.entities.Role;
 import net.dv8tion.jda.core.entities.User;
 
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -44,8 +45,8 @@ public class UserCommand implements Command {
         String presence = (mentionedMember.getGame() == null ? "" : "Playing             : " + mentionedMember.getGame().getName() + "\n");
         String nickname = (mentionedMember.getNickname() == null ? "" : "Nickname            : " + mentionedMember.getNickname() + "\n");
         //TODO(AKSKL): Make join times prettier
-        String joinDate = "Joined Discord      : " + mentionedUser.getCreationTime() + "\n";
-        String serverJoinDate = "Joined Server       : " + mentionedMember.getJoinDate() + "\n";
+        String joinDate = "Joined Discord      : " + mentionedUser.getCreationTime().format(DateTimeFormatter.RFC_1123_DATE_TIME) + "\n";
+        String serverJoinDate = "Joined Server       : " + mentionedMember.getJoinDate().format(DateTimeFormatter.RFC_1123_DATE_TIME) + "\n";
         String icon = "Avatar URL          : " + mentionedUser.getAvatarUrl() + "\n";
         context.sendMessage(header + "```" + name + status + presence + nickname + joinDate + serverJoinDate + icon + "```");
     }
@@ -59,11 +60,10 @@ public class UserCommand implements Command {
         String header = "User information for: " + mentionedUser.getName();
         String tag = mentionedUser.getName() + "#" + mentionedUser.getDiscriminator();
         String id = mentionedUser.getId();
-        String status = mentionedMember.getOnlineStatus().toString();
-        String joinDate = mentionedUser.getCreationTime().toString();
-        String serverJoinDate = mentionedMember.getJoinDate().toString();
+        String status = mentionedMember.getOnlineStatus().getKey();
+        String joinDate = mentionedUser.getCreationTime().format(DateTimeFormatter.RFC_1123_DATE_TIME);
+        String serverJoinDate = mentionedMember.getJoinDate().format(DateTimeFormatter.RFC_1123_DATE_TIME);
         int numOfRoles = mentionedMember.getRoles().size();
-
         /* Begin building the embed */
         EmbedBuilder embed = new EmbedBuilder()
                 .setTitle(header)
