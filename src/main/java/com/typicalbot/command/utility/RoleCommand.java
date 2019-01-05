@@ -19,6 +19,7 @@ import com.typicalbot.command.Command;
 import com.typicalbot.command.CommandArgument;
 import com.typicalbot.command.CommandConfiguration;
 import com.typicalbot.command.CommandContext;
+import com.typicalbot.util.StringUtil;
 import net.dv8tion.jda.core.EmbedBuilder;
 import net.dv8tion.jda.core.entities.Role;
 
@@ -48,9 +49,9 @@ public class RoleCommand implements Command {
 
         builder.setTitle(role.getName());
         builder.addField("ID", Long.toString(role.getIdLong()), true);
-        builder.addField("Hoisted", capitalize(Boolean.toString(role.isHoisted())), true);
-        builder.addField("Mentionable", capitalize(Boolean.toString(role.isMentionable())), true);
-        builder.addField("Managed", capitalize(Boolean.toString(role.isManaged())), true);
+        builder.addField("Hoisted", StringUtil.firstUpperCase(Boolean.toString(role.isHoisted())), true);
+        builder.addField("Mentionable", StringUtil.firstUpperCase(Boolean.toString(role.isMentionable())), true);
+        builder.addField("Managed", StringUtil.firstUpperCase(Boolean.toString(role.isManaged())), true);
         builder.addField("Position", Integer.toString(role.getPosition()), true);
         builder.addField("Permissions", String.format("[Calculate](https://discordapi.com/permissions.html#%d)", role.getPermissionsRaw()), true);
         // Add members
@@ -58,15 +59,5 @@ public class RoleCommand implements Command {
         builder.setFooter("Created " + role.getCreationTime().format(DateTimeFormatter.RFC_1123_DATE_TIME), "https://typicalbot.com/x/images/icon.png");
 
         context.sendEmbed(builder.build());
-    }
-
-    private String capitalize(String input) {
-        if (input != null && input.length() != 0) {
-            char[] chars = input.toCharArray();
-            chars[0] = Character.toUpperCase(chars[0]);
-            return new String(chars);
-        } else {
-            return input;
-        }
     }
 }
