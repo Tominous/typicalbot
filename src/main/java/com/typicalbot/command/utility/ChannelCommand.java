@@ -22,7 +22,7 @@ import com.typicalbot.command.CommandCategory;
 import com.typicalbot.command.CommandConfiguration;
 import com.typicalbot.command.CommandContext;
 
-@CommandConfiguration(category = CommandCategory.UTILITY, aliases = "channel")
+@CommandConfiguration(category = CommandCategory.UTILITY, aliases = {"channel", "channelinfo", "cinfo"})
 public class ChannelCommand implements Command {
     @Override
     public CommandPermission permission() {
