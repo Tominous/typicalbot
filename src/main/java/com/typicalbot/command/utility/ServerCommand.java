@@ -15,8 +15,10 @@
  */
 package com.typicalbot.command.utility;
 
+import com.typicalbot.command.CommandPermission;
 import com.typicalbot.command.Command;
 import com.typicalbot.command.CommandArgument;
+import com.typicalbot.command.CommandCategory;
 import com.typicalbot.command.CommandConfiguration;
 import com.typicalbot.command.CommandContext;
 import net.dv8tion.jda.core.EmbedBuilder;
@@ -27,30 +29,15 @@ import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.stream.Collectors;
 
-@CommandConfiguration(triggers = {"serverinfo", "sinfo"}, description = "Displays the server's information.", embed = true)
+@CommandConfiguration(category = CommandCategory.UTILITY, aliases = {"serverinfo", "sinfo"})
 public class ServerCommand implements Command {
     @Override
-    public void execute(CommandContext context, CommandArgument argument) {
-        /* VARIABLES TO RETURN IN THE FINAL MESSAGE */
-        String header = "**__Server information for:__** " + context.getMessage().getGuild().getName() + "\n";
-        String name = "Name                : " + context.getMessage().getGuild().getName() + " (" + context.getMessage().getGuild().getId() + ")\n";
-        String owner = "Owner               : " + context.getMessage().getGuild().getOwner().getUser().getName() + "#" + context.getMessage().getGuild().getOwner().getUser().getDiscriminator() + "\n";
-        //TODO(AKSKL): Format creation date into a more 'readable' string
-        String created = "Created             : " + context.getMessage().getGuild().getCreationTime().format(DateTimeFormatter.RFC_1123_DATE_TIME) + "\n";
-        String region = "Region              : " + context.getMessage().getGuild().getRegion().toString() + "\n";
-        //TODO: Verification level?
-        String icon = "Icon                : " + context.getMessage().getGuild().getIconUrl() + "\n";
-        String numOfChannels = "Channels            : " + context.getMessage().getGuild().getChannels().size() + "\n";
-        String numOfMembers = "Members             : " + context.getMessage().getGuild().getMembers().size() + "\n";
-        String numOfRoles = "Roles               : " + context.getMessage().getGuild().getRoles().size() + "\n";
-        String numOfEmotes = "Emotes              : " + context.getMessage().getGuild().getEmotes().size() + "\n"; //changed "emoji" to "emotes" in the rewrite
-
-        /* FINAL MESSAGE (put into a code block */
-        context.sendMessage(header + "```" + name + owner + created + region + icon + numOfChannels + numOfMembers + numOfRoles + numOfEmotes + "```");
+    public CommandPermission permission() {
+        return CommandPermission.GUILD_MEMBER;
     }
 
     @Override
-    public void embed(CommandContext context, CommandArgument argument) {
+    public void execute(CommandContext context, CommandArgument argument) {
         /* VARIABLES TO RETURN IN THE FINAL MESSAGE */
         String name = context.getMessage().getGuild().getName();
         String id = context.getMessage().getGuild().getId();

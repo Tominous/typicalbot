@@ -15,8 +15,10 @@
  */
 package com.typicalbot.command.utility;
 
+import com.typicalbot.command.CommandPermission;
 import com.typicalbot.command.Command;
 import com.typicalbot.command.CommandArgument;
+import com.typicalbot.command.CommandCategory;
 import com.typicalbot.command.CommandConfiguration;
 import com.typicalbot.command.CommandContext;
 import net.dv8tion.jda.core.EmbedBuilder;
@@ -29,30 +31,15 @@ import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.stream.Collectors;
 
-@CommandConfiguration(triggers = {"user", "userinfo", "uinfo"}, description = "Displays a user's information.", embed = true)
+@CommandConfiguration(category = CommandCategory.UTILITY, aliases = {"user", "userinfo", "uinfo"})
 public class UserCommand implements Command {
     @Override
-    public void execute(CommandContext context, CommandArgument argument) {
-        /* Set up easy Member and User objects for the mentioned person */
-        Member mentionedMember = getMember(context.getMessage());
-        User mentionedUser = mentionedMember.getUser();
-
-        /* VARIABLES TO RETURN IN THE FINAL MESSAGE */
-        String header = "**__User information for:__** " + mentionedUser.getName() + "\n";
-        String name = "Name                : " + mentionedUser.getName() + "#" + mentionedUser.getDiscriminator() + " (" + mentionedUser.getId() + ")\n";
-        //TODO(AKSKL): Make status prettier
-        String status = "Status              : " + mentionedMember.getOnlineStatus().toString() + "\n";
-        String presence = (mentionedMember.getGame() == null ? "" : "Playing             : " + mentionedMember.getGame().getName() + "\n");
-        String nickname = (mentionedMember.getNickname() == null ? "" : "Nickname            : " + mentionedMember.getNickname() + "\n");
-        //TODO(AKSKL): Make join times prettier
-        String joinDate = "Joined Discord      : " + mentionedUser.getCreationTime().format(DateTimeFormatter.RFC_1123_DATE_TIME) + "\n";
-        String serverJoinDate = "Joined Server       : " + mentionedMember.getJoinDate().format(DateTimeFormatter.RFC_1123_DATE_TIME) + "\n";
-        String icon = "Avatar URL          : " + mentionedUser.getAvatarUrl() + "\n";
-        context.sendMessage(header + "```" + name + status + presence + nickname + joinDate + serverJoinDate + icon + "```");
+    public CommandPermission permission() {
+        return CommandPermission.GUILD_MEMBER;
     }
 
     @Override
-    public void embed(CommandContext context, CommandArgument argument) {
+    public void execute(CommandContext context, CommandArgument argument) {
         Member mentionedMember = getMember(context.getMessage());
         User mentionedUser = mentionedMember.getUser();
 

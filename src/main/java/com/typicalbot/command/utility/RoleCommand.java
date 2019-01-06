@@ -15,8 +15,10 @@
  */
 package com.typicalbot.command.utility;
 
+import com.typicalbot.command.CommandPermission;
 import com.typicalbot.command.Command;
 import com.typicalbot.command.CommandArgument;
+import com.typicalbot.command.CommandCategory;
 import com.typicalbot.command.CommandConfiguration;
 import com.typicalbot.command.CommandContext;
 import com.typicalbot.util.StringUtil;
@@ -25,14 +27,15 @@ import net.dv8tion.jda.core.entities.Role;
 
 import java.time.format.DateTimeFormatter;
 
-@CommandConfiguration(triggers = "role", embed = true)
+@CommandConfiguration(category = CommandCategory.UTILITY, aliases = "role")
 public class RoleCommand implements Command {
     @Override
-    public void execute(CommandContext context, CommandArgument argument) {
+    public CommandPermission permission() {
+        return CommandPermission.GUILD_MEMBER;
     }
 
     @Override
-    public void embed(CommandContext context, CommandArgument argument) {
+    public void execute(CommandContext context, CommandArgument argument) {
         if (!argument.has()) {
             context.sendMessage("No args");
             return;

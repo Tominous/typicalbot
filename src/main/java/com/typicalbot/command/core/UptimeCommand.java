@@ -15,16 +15,23 @@
  */
 package com.typicalbot.command.core;
 
+import com.typicalbot.command.CommandPermission;
 import com.typicalbot.command.Command;
 import com.typicalbot.command.CommandArgument;
+import com.typicalbot.command.CommandCategory;
 import com.typicalbot.command.CommandConfiguration;
 import com.typicalbot.command.CommandContext;
 
 import java.lang.management.ManagementFactory;
 import java.lang.management.RuntimeMXBean;
 
-@CommandConfiguration(triggers = {"uptime"})
+@CommandConfiguration(category = CommandCategory.CORE, aliases = "uptime")
 public class UptimeCommand implements Command {
+    @Override
+    public CommandPermission permission() {
+        return CommandPermission.GUILD_MEMBER;
+    }
+
     @Override
     public void execute(CommandContext context, CommandArgument argument) {
         RuntimeMXBean rb = ManagementFactory.getRuntimeMXBean();
@@ -43,9 +50,5 @@ public class UptimeCommand implements Command {
         builder.append(s + " seconds");
 
         context.sendMessage("Uptime: %s", builder.toString());
-    }
-
-    @Override
-    public void embed(CommandContext context, CommandArgument argument) {
     }
 }

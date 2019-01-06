@@ -5,7 +5,7 @@
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- *    http://www.apache.org/licenses/LICENSE-2.0
+ * http://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -15,20 +15,28 @@
  */
 package com.typicalbot.command.core;
 
+import com.typicalbot.command.CommandPermission;
 import com.typicalbot.command.Command;
 import com.typicalbot.command.CommandArgument;
+import com.typicalbot.command.CommandCategory;
 import com.typicalbot.command.CommandConfiguration;
 import com.typicalbot.command.CommandContext;
 import com.typicalbot.shard.ShardManager;
 
-@CommandConfiguration(triggers = {"ping", "pong"}, description = "A check to see if TypicalBot is able to respond.")
+@CommandConfiguration(category = CommandCategory.CORE, aliases = {"ping", "pong"})
 public class PingCommand implements Command {
     @Override
-    public void execute(CommandContext context, CommandArgument argument) {
-        context.sendMessage("Pong! Discord API Latency: %dms", (int) ShardManager.getAveragePing());
+    public String description() {
+        return "A check to see if TypicalBot is able to respond.";
     }
 
     @Override
-    public void embed(CommandContext context, CommandArgument argument) {
+    public CommandPermission permission() {
+        return CommandPermission.GUILD_MEMBER;
+    }
+
+    @Override
+    public void execute(CommandContext context, CommandArgument argument) {
+        context.sendMessage("Pong! Discord API Latency: %dms", (int) ShardManager.getAveragePing());
     }
 }

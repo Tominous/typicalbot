@@ -15,19 +15,27 @@
  */
 package com.typicalbot.command.core;
 
+import com.typicalbot.command.CommandPermission;
 import com.typicalbot.command.Command;
 import com.typicalbot.command.CommandArgument;
+import com.typicalbot.command.CommandCategory;
 import com.typicalbot.command.CommandConfiguration;
 import com.typicalbot.command.CommandContext;
 
-@CommandConfiguration(triggers = {"support", "home", "lounge"})
+@CommandConfiguration(category = CommandCategory.CORE, aliases = {"support", "home", "lounge"})
 public class SupportCommand implements Command {
     @Override
-    public void execute(CommandContext context, CommandArgument argument) {
-        context.sendMessage("You can join the TypicalBot Lounge at <https://typicalbot.com/join-us>.");
+    public String description() {
+        return "Receive an invite to the TypicalBot Lounge.";
     }
 
     @Override
-    public void embed(CommandContext context, CommandArgument argument) {
+    public CommandPermission permission() {
+        return CommandPermission.GUILD_MEMBER;
+    }
+
+    @Override
+    public void execute(CommandContext context, CommandArgument argument) {
+        context.sendMessage("You can join the TypicalBot Lounge at <https://typicalbot.com/join-us>.");
     }
 }
