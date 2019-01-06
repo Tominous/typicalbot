@@ -18,8 +18,10 @@ package com.typicalbot.shard;
 import com.typicalbot.command.CommandManager;
 import com.typicalbot.command.core.HelpCommand;
 import com.typicalbot.command.core.PingCommand;
+import com.typicalbot.command.core.StatisticsCommand;
 import com.typicalbot.command.core.SupportCommand;
 import com.typicalbot.command.core.UptimeCommand;
+import com.typicalbot.command.utility.AvatarCommand;
 import com.typicalbot.command.utility.RandomuserCommand;
 import com.typicalbot.command.utility.RoleCommand;
 import com.typicalbot.command.utility.ServerCommand;
@@ -75,14 +77,19 @@ public class Shard {
                     .build();
 
             this.commandManager.registerCommands(
+                    // Core
                     new HelpCommand(),
                     new PingCommand(),
+                    new StatisticsCommand(),
                     new SupportCommand(),
                     new UptimeCommand(),
-                    new ServerCommand(),
-                    new UserCommand(),
+
+                    // Utility
+                    new AvatarCommand(),
+                    new RandomuserCommand(),
                     new RoleCommand(),
-                    new RandomuserCommand()
+                    new ServerCommand(),
+                    new UserCommand()
             );
 
             this.instance.addEventListener(
