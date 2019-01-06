@@ -27,7 +27,7 @@ import net.dv8tion.jda.core.entities.Role;
 
 import java.time.format.DateTimeFormatter;
 
-@CommandConfiguration(category = CommandCategory.UTILITY, aliases = "role")
+@CommandConfiguration(category = CommandCategory.UTILITY, aliases = {"role", "roleinfo", "rinfo"})
 public class RoleCommand implements Command {
     @Override
     public CommandPermission permission() {
