@@ -15,27 +15,12 @@
  */
 package com.typicalbot.command;
 
-import java.lang.annotation.Documented;
-import java.lang.annotation.ElementType;
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
-import java.lang.annotation.Target;
-
-@Documented
-@Retention(RetentionPolicy.RUNTIME)
-@Target(ElementType.TYPE)
-public @interface CommandConfiguration {
-    /**
-     * The category that the command belongs too.
-     *
-     * @return command category
-     */
-    CommandCategory category();
-
-    /**
-     * A list of aliases that can be used to run the command.
-     *
-     * @return command aliases
-     */
-    String[] aliases();
+public enum CommandCategory {
+    CORE,
+    FUN,
+    INTEGRATION,
+    MISCELLANEOUS,
+    MODERATION,
+    MUSIC,
+    UTILITY
 }
