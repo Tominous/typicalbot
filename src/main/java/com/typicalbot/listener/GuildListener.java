@@ -60,15 +60,10 @@ public class GuildListener extends ListenerAdapter {
             CommandArgument commandArgument = new CommandArgument(arguments);
             CommandContext commandContext = new CommandContext(event.getMessage());
 
-            // TODO(nsylke): We will be implementing a new setting value 'auto' which will check if the user has permission
-            //  to send embeds in the particular channel/guild, if they do, they'll send the embed version of the command,
-            //  if it exists.
-            if (event.getGuild().getSelfMember().hasPermission(Permission.MESSAGE_EMBED_LINKS) && command.getConfiguration().embed()) {
-                command.embed(commandContext, commandArgument);
-                return;
+            // TODO(nsylke): Need a backup way for those who haven't given TypicalBot the permission.
+            if (event.getGuild().getSelfMember().hasPermission(Permission.MESSAGE_EMBED_LINKS)) {
+                command.execute(commandContext, commandArgument);
             }
-
-            command.execute(commandContext, commandArgument);
         }
     }
 }
