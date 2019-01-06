@@ -29,7 +29,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.stream.Collectors;
 
-@CommandConfiguration(category = CommandCategory.UTILITY, aliases = {"serverinfo", "sinfo"})
+@CommandConfiguration(category = CommandCategory.UTILITY, aliases = {"server", "serverinfo", "sinfo"})
 public class ServerCommand implements Command {
     @Override
     public CommandPermission permission() {
