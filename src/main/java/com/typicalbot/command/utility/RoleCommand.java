@@ -57,7 +57,8 @@ public class RoleCommand implements Command {
         builder.addField("Managed", StringUtil.firstUpperCase(Boolean.toString(role.isManaged())), true);
         builder.addField("Position", Integer.toString(role.getPosition()), true);
         builder.addField("Permissions", String.format("[Calculate](https://discordapi.com/permissions.html#%d)", role.getPermissionsRaw()), true);
-        // Add members
+        // TODO(nsylke): Check if member list is empty & limit length to 900
+        builder.addField("Members", context.getMessage().getGuild().getMembers().stream().filter(member -> member.getRoles().contains(role)).map(Member::getEffectiveName).collect(Collectors.joining(", ")), false);
         builder.setColor(role.getColor());
         builder.setFooter("Created " + role.getCreationTime().format(DateTimeFormatter.RFC_1123_DATE_TIME), "https://typicalbot.com/x/images/icon.png");
 
