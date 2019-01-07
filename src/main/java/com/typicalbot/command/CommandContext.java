@@ -5,7 +5,7 @@
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- *    http://www.apache.org/licenses/LICENSE-2.0
+ * http://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -15,6 +15,7 @@
  */
 package com.typicalbot.command;
 
+import net.dv8tion.jda.core.entities.Channel;
 import net.dv8tion.jda.core.entities.Message;
 import net.dv8tion.jda.core.entities.MessageEmbed;
 import net.dv8tion.jda.core.entities.Role;
@@ -38,6 +39,14 @@ public class CommandContext {
 
     public void sendEmbed(MessageEmbed embed) {
         this.message.getChannel().sendMessage(embed).queue();
+    }
+
+    public Channel getChannel(String channel) {
+        if (!this.message.getMentionedChannels().isEmpty()) {
+            return this.message.getMentionedChannels().get(0);
+        }
+
+        return this.message.getGuild().getChannels().stream().filter(ch -> ch.getName().equalsIgnoreCase(channel)).findFirst().orElse(this.message.getGuild().getChannels().stream().filter(ch -> ch.getId().equalsIgnoreCase(channel)).findFirst().orElse(null));
     }
 
     public Role getRole(String role) {
