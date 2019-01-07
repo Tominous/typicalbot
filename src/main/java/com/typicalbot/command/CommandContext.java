@@ -17,6 +17,9 @@ package com.typicalbot.command;
 
 import net.dv8tion.jda.core.entities.Message;
 import net.dv8tion.jda.core.entities.MessageEmbed;
+import net.dv8tion.jda.core.entities.Role;
+
+import java.util.List;
 
 public class CommandContext {
     private final Message message;
@@ -35,5 +38,14 @@ public class CommandContext {
 
     public void sendEmbed(MessageEmbed embed) {
         this.message.getChannel().sendMessage(embed).queue();
+    }
+
+    public Role getRole(String role) {
+        if (!this.message.getMentionedRoles().isEmpty()) {
+            return this.message.getMentionedRoles().get(0);
+        }
+
+        List<Role> roles = this.message.getGuild().getRolesByName(role, true);
+        return roles.isEmpty() ? this.message.getGuild().getRoleById(role) : roles.get(0);
     }
 }

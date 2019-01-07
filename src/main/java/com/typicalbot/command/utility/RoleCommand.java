@@ -43,7 +43,7 @@ public class RoleCommand implements Command {
         }
 
         // TODO(nsylke): Add support for Role names (no mention) and Role id
-        Role role = context.getMessage().getMentionedRoles().get(0);
+        Role role = context.getRole(argument.get(0));
 
         if (role == null) {
             context.sendMessage("The role specified does not exist.");
