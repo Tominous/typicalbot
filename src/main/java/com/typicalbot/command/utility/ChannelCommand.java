@@ -15,17 +15,15 @@
  */
 package com.typicalbot.command.utility;
 
-import com.typicalbot.command.CommandPermission;
 import com.typicalbot.command.Command;
 import com.typicalbot.command.CommandArgument;
 import com.typicalbot.command.CommandCategory;
 import com.typicalbot.command.CommandConfiguration;
 import com.typicalbot.command.CommandContext;
+import com.typicalbot.command.CommandPermission;
 import com.typicalbot.util.StringUtil;
 import net.dv8tion.jda.core.EmbedBuilder;
 import net.dv8tion.jda.core.entities.TextChannel;
-
-import java.time.format.DateTimeFormatter;
 
 @CommandConfiguration(category = CommandCategory.UTILITY, aliases = {"channel", "channelinfo", "cinfo"})
 public class ChannelCommand implements Command {
@@ -56,7 +54,8 @@ public class ChannelCommand implements Command {
         builder.addField("Position", Integer.toString(channel.getPosition()), true);
         builder.addField("Slowmode", String.format("%d seconds", channel.getSlowmode()), true);
         builder.addField("NSFW", StringUtil.firstUpperCase(Boolean.toString(channel.isNSFW())), true);
-        builder.setFooter("Created " + channel.getCreationTime().format(DateTimeFormatter.RFC_1123_DATE_TIME), "https://typicalbot.com/x/images/icon.png");
+        if (channel.isNSFW()) builder.setColor(0xff0000);
+        builder.setTimestamp(channel.getCreationTime());
 
         context.sendEmbed(builder.build());
     }
