@@ -23,9 +23,11 @@ import com.typicalbot.command.CommandConfiguration;
 import com.typicalbot.command.CommandContext;
 import com.typicalbot.util.StringUtil;
 import net.dv8tion.jda.core.EmbedBuilder;
+import net.dv8tion.jda.core.entities.Member;
 import net.dv8tion.jda.core.entities.Role;
 
 import java.time.format.DateTimeFormatter;
+import java.util.stream.Collectors;
 
 @CommandConfiguration(category = CommandCategory.UTILITY, aliases = {"role", "roleinfo", "rinfo"})
 public class RoleCommand implements Command {
@@ -37,14 +39,15 @@ public class RoleCommand implements Command {
     @Override
     public void execute(CommandContext context, CommandArgument argument) {
         if (!argument.has()) {
-            context.sendMessage("No args");
+            context.sendMessage("Incorrect usage.");
             return;
         }
 
+        // TODO(nsylke): Add support for Role names (no mention) and Role id
         Role role = context.getMessage().getMentionedRoles().get(0);
 
         if (role == null) {
-            context.sendMessage("Role is null");
+            context.sendMessage("The role specified does not exist.");
             return;
         }
 
