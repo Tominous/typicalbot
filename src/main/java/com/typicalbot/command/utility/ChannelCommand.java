@@ -21,6 +21,11 @@ import com.typicalbot.command.CommandArgument;
 import com.typicalbot.command.CommandCategory;
 import com.typicalbot.command.CommandConfiguration;
 import com.typicalbot.command.CommandContext;
+import com.typicalbot.util.StringUtil;
+import net.dv8tion.jda.core.EmbedBuilder;
+import net.dv8tion.jda.core.entities.TextChannel;
+
+import java.time.format.DateTimeFormatter;
 
 @CommandConfiguration(category = CommandCategory.UTILITY, aliases = {"channel", "channelinfo", "cinfo"})
 public class ChannelCommand implements Command {
@@ -31,6 +36,28 @@ public class ChannelCommand implements Command {
 
     @Override
     public void execute(CommandContext context, CommandArgument argument) {
-        throw new UnsupportedOperationException("This command has not been implemented yet.");
+        if (!argument.has()) {
+            context.sendMessage("Incorrect usage.");
+            return;
+        }
+
+        TextChannel channel = context.getMessage().getMentionedChannels().get(0);
+
+        if (channel == null) {
+            context.sendMessage("The channel specified does not exist.");
+            return;
+        }
+
+        EmbedBuilder builder = new EmbedBuilder();
+
+        builder.setTitle("#" + channel.getName());
+        builder.setDescription(channel.getTopic());
+        builder.addField("ID", Long.toString(channel.getIdLong()), true);
+        builder.addField("Position", Integer.toString(channel.getPosition()), true);
+        builder.addField("Slowmode", String.format("%d seconds", channel.getSlowmode()), true);
+        builder.addField("NSFW", StringUtil.firstUpperCase(Boolean.toString(channel.isNSFW())), true);
+        builder.setFooter("Created " + channel.getCreationTime().format(DateTimeFormatter.RFC_1123_DATE_TIME), "https://typicalbot.com/x/images/icon.png");
+
+        context.sendEmbed(builder.build());
     }
 }
