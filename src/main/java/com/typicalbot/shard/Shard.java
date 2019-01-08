@@ -16,8 +16,11 @@
 package com.typicalbot.shard;
 
 import com.typicalbot.command.CommandManager;
+import com.typicalbot.command.core.DonateCommand;
 import com.typicalbot.command.core.HelpCommand;
+import com.typicalbot.command.core.InviteCommand;
 import com.typicalbot.command.core.PingCommand;
+import com.typicalbot.command.core.ShardsCommand;
 import com.typicalbot.command.core.StatisticsCommand;
 import com.typicalbot.command.core.SupportCommand;
 import com.typicalbot.command.core.UptimeCommand;
@@ -83,8 +86,11 @@ public class Shard {
 
             this.commandManager.registerCommands(
                     // Core
+                    new DonateCommand(),
                     new HelpCommand(),
+                    new InviteCommand(),
                     new PingCommand(),
+                    new ShardsCommand(),
                     new StatisticsCommand(),
                     new SupportCommand(),
                     new UptimeCommand(),
