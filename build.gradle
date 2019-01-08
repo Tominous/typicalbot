@@ -45,24 +45,24 @@ dependencies {
 
 // https://stackoverflow.com/questions/30627918/how-is-a-token-replaced-in-a-file-for-a-gradle-build-product?rq=1
 import org.apache.tools.ant.filters.ReplaceTokens
-sourceSets {
-    main {
-        java {
-            srcDirs = ['build/src/main/java']
-        }
-    }
-}
 
 task prepareSources(type: Copy) {
-    from('src/main/java')
-    into('build/src/main/java')
+    from('src/main/java') {
+        include '**/TypicalBot.java'
+    }
+    into 'build/prepareSrc'
     filter(ReplaceTokens, tokens: [version: versionObject.toString()])
 }
 
 compileJava {
-    dependsOn prepareSources
+    def javaSrc = sourceSets.main.allJava.filter {
+        it.name != 'TypicalBot.java'
+    }
+
+    source = javaSrc + prepareSources.destinationDir
     classpath = sourceSets.main.compileClasspath
-    options.encoding = 'UTF-8'
+
+    dependsOn prepareSources
 }
 
 tasks.withType(JavaCompile) {
