@@ -6,8 +6,8 @@ plugins {
 }
 
 // Semantic Versioning 2.0.0
-def versionObject = new Version(major: 3, minor: 0, patch: 0)
-version = versionObject.toString()
+def versionObject = new Version(major: 3, minor: '0', patch: 0)
+version = versionObject.toString() + '-alpha'
 
 mainClassName = 'com.typicalbot.TypicalBot'
 
