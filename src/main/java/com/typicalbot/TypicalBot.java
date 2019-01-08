@@ -38,6 +38,7 @@ public class TypicalBot {
     private static final Logger LOGGER = LoggerFactory.getLogger(TypicalBot.class);
 
     public static final Path HOME_PATH = Paths.get(System.getProperty("user.dir"));
+    public static final String VERSION = "@version@";
 
     public TypicalBot() throws IOException, InterruptedException {
         LOGGER.info("  _____                   _                  _   ____            _   ");
