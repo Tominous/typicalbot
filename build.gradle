@@ -80,7 +80,6 @@ artifacts {
 
 jar {
     classifier = "nodeps"
-    baseName 'TypicalBot'
 }
 
 shadowJar {
