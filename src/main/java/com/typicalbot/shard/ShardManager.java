@@ -50,6 +50,10 @@ public class ShardManager {
         }
     }
 
+    public static Shard[] getShards() {
+        return shards;
+    }
+
     public static double getAveragePing() {
         return Arrays.stream(shards).mapToLong(Shard::getPing).filter(ping -> ping != -1).average().orElse(-1D);
     }
