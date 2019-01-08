@@ -51,7 +51,7 @@ task prepareSources(type: Copy) {
         include '**/TypicalBot.java'
     }
     into 'build/prepareSrc'
-    filter(ReplaceTokens, tokens: [version: versionObject.toString()])
+    filter(ReplaceTokens, tokens: [version: project.version])
 }
 
 compileJava {
