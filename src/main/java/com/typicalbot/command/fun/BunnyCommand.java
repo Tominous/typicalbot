@@ -41,6 +41,7 @@ public class BunnyCommand implements Command {
 
     @Override
     public void execute(CommandContext context, CommandArgument argument) {
+        // TODO(nsylke): Maybe add arugment to specify which one they want?
         String type = Math.random() <= 0.25 ? "gif" : "poster";
 
         OkHttpClient http = new OkHttpClient();
