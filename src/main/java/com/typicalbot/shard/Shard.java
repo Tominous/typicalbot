@@ -22,6 +22,9 @@ import com.typicalbot.command.core.StatisticsCommand;
 import com.typicalbot.command.core.SupportCommand;
 import com.typicalbot.command.core.UptimeCommand;
 import com.typicalbot.command.core.VersionCommand;
+import com.typicalbot.command.fun.BunnyCommand;
+import com.typicalbot.command.fun.CatCommand;
+import com.typicalbot.command.fun.CookieCommand;
 import com.typicalbot.command.utility.AvatarCommand;
 import com.typicalbot.command.utility.ChannelCommand;
 import com.typicalbot.command.utility.RandomuserCommand;
@@ -86,6 +89,11 @@ public class Shard {
                     new SupportCommand(),
                     new UptimeCommand(),
                     new VersionCommand(),
+
+                    // Fun
+                    new BunnyCommand(),
+                    new CatCommand(),
+                    new CookieCommand(),
 
                     // Utility
                     new AvatarCommand(),
