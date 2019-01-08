@@ -43,7 +43,7 @@ dependencies {
     testCompile group: 'junit', name: 'junit', version: '4.12'
 }
 
-// https://stackoverflow.com/questions/12813887/gradle-replace-tokens-by-finding-the-tokens-from-property-file
+// https://stackoverflow.com/questions/30627918/how-is-a-token-replaced-in-a-file-for-a-gradle-build-product?rq=1
 import org.apache.tools.ant.filters.ReplaceTokens
 sourceSets {
     main {
