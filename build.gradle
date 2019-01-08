@@ -5,8 +5,9 @@ plugins {
     id 'com.github.hierynomus.license' version '0.14.0'
 }
 
-group 'com.typicalbot'
-version '3.0.0'
+// Semantic Versioning 2.0.0
+def versionObject = new Version(major: 3, minor: 0, patch: 0)
+version = versionObject.toString()
 
 mainClassName = 'com.typicalbot.TypicalBot'
 
@@ -70,3 +71,11 @@ shadowJar {
 }
 
 build.dependsOn shadowJar
+
+class Version {
+    String major, minor, patch
+
+    String toString() {
+        return "${major}.${minor}.${patch}"
+    }
+}
