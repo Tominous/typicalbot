@@ -16,6 +16,7 @@
 package com.typicalbot.shard;
 
 import com.typicalbot.command.CommandManager;
+import com.typicalbot.command.core.ChangelogCommand;
 import com.typicalbot.command.core.CreditsCommand;
 import com.typicalbot.command.core.DonateCommand;
 import com.typicalbot.command.core.HelpCommand;
@@ -91,6 +92,7 @@ public class Shard {
 
             this.commandManager.registerCommands(
                     // Core
+                    new ChangelogCommand(),
                     new CreditsCommand(),
                     new DonateCommand(),
                     new HelpCommand(),
