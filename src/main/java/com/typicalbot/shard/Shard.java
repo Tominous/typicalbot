@@ -22,6 +22,7 @@ import com.typicalbot.command.core.InviteCommand;
 import com.typicalbot.command.core.PingCommand;
 import com.typicalbot.command.core.ShardsCommand;
 import com.typicalbot.command.core.StatisticsCommand;
+import com.typicalbot.command.core.SuggestionCommand;
 import com.typicalbot.command.core.SupportCommand;
 import com.typicalbot.command.core.UptimeCommand;
 import com.typicalbot.command.core.VersionCommand;
@@ -94,6 +95,7 @@ public class Shard {
                     new PingCommand(),
                     new ShardsCommand(),
                     new StatisticsCommand(),
+                    new SuggestionCommand(),
                     new SupportCommand(),
                     new UptimeCommand(),
                     new VersionCommand(),
