@@ -36,6 +36,7 @@ public class ReverseCommand implements Command {
             return;
         }
 
+        // TODO(nsylke): Fix mentions as they break when trying to be reversed.
         StringBuilder builder = new StringBuilder(argument.toString());
         context.sendMessage(builder.reverse().toString());
     }
