@@ -22,9 +22,10 @@ import com.typicalbot.command.CommandCategory;
 import com.typicalbot.command.CommandConfiguration;
 import com.typicalbot.command.CommandContext;
 import com.typicalbot.shard.Shard;
+import com.typicalbot.util.StringUtil;
 import net.dv8tion.jda.api.EmbedBuilder;
 
-@CommandConfiguration(category = CommandCategory.CORE, aliases = {"help", "?", "info", "information"})
+@CommandConfiguration(category = CommandCategory.CORE, aliases = {"help", "?", "info", "information", "docs", "documentation"})
 public class HelpCommand implements Command {
     @Override
     public String[] usage() {
@@ -63,8 +64,10 @@ public class HelpCommand implements Command {
         EmbedBuilder builder = new EmbedBuilder();
         // TODO(nsylke): Add a color to the embed.
         builder.setTitle("Documentation for " + argument.get(0));
+        builder.addField("Category", StringUtil.firstUpperCase(command.getConfiguration().category().name()), true);
         builder.addField("Aliases", String.join(", ", command.getConfiguration().aliases()), true);
-        builder.addField("Usage", String.join("\n", command.usage()), true);
+        builder.addField("Permission", command.permission().name(), true);
+        builder.addField("Usage", String.join("\n", command.usage()), false);
         builder.addField("Description", command.description(), false);
 
         context.sendEmbed(builder.build());
