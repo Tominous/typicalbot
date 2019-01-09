@@ -52,8 +52,7 @@ public class CookieCommand implements Command {
             return;
         }
 
-        // TODO(nsylke): Throws error if not a mention
-        User target = context.getMessage().getMentionedUsers().get(0);
+        User target = context.getUser(argument.get(0));
 
         if (target == null) {
             context.sendMessage("The user specified does not exist.");
