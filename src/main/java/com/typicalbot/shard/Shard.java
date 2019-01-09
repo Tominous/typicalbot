@@ -28,6 +28,7 @@ import com.typicalbot.command.core.VersionCommand;
 import com.typicalbot.command.fun.BunnyCommand;
 import com.typicalbot.command.fun.CatCommand;
 import com.typicalbot.command.fun.CookieCommand;
+import com.typicalbot.command.fun.EightballCommand;
 import com.typicalbot.command.utility.AvatarCommand;
 import com.typicalbot.command.utility.ChannelCommand;
 import com.typicalbot.command.utility.RandomuserCommand;
@@ -100,6 +101,7 @@ public class Shard {
                     new BunnyCommand(),
                     new CatCommand(),
                     new CookieCommand(),
+                    new EightballCommand(),
 
                     // Utility
                     new AvatarCommand(),
