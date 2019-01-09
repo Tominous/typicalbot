@@ -49,6 +49,8 @@ public class SuggestionCommand implements Command {
         // Suggestion channel
         TextChannel channel = guild.getTextChannelById(532680882214141962L);
 
+        // TODO(nsylke): Send to a private channel before sending to public suggestion channel. Monitor for rule-breakers.
+        // TODO(nsylke): If users are banned from TypicalBot Lounge, remove suggestion silently.
         EmbedBuilder builder = new EmbedBuilder();
 
         builder.setTitle("Suggestion");
