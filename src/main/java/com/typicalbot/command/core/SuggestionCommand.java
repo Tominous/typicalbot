@@ -57,8 +57,8 @@ public class SuggestionCommand implements Command {
 
         channel.sendMessage(builder.build()).queue(message -> {
             // Not sure if this is the best way of doing it...
-            message.addReaction("\u2b06").queue();
-            message.addReaction("\u2b07").queue();
+            message.addReaction("\u2b06").queue(); // Up arrow
+            message.addReaction("\u2b07").queue(); // Down arrow
         });
 
         // Reset builder
