@@ -37,6 +37,7 @@ public class ReverseCommand implements Command {
         }
 
         // TODO(nsylke): Fix mentions as they break when trying to be reversed.
+        // TODO(nsylke): Check for those sneaky people who try and type `@everyone` backwards (and @here)
         StringBuilder builder = new StringBuilder(argument.toString());
         context.sendMessage(builder.reverse().toString());
     }
