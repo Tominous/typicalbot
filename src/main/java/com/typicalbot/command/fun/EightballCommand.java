@@ -27,6 +27,18 @@ import java.util.Random;
 @CommandConfiguration(category = CommandCategory.FUN, aliases = {"8ball", "eightball"})
 public class EightballCommand implements Command {
     @Override
+    public String[] usage() {
+        return new String[]{
+                "8ball <question>"
+        };
+    }
+
+    @Override
+    public String description() {
+        return "Ask the magic 8ball a question.";
+    }
+
+    @Override
     public CommandPermission permission() {
         return CommandPermission.GUILD_MEMBER;
     }

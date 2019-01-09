@@ -25,6 +25,18 @@ import com.typicalbot.command.CommandPermission;
 @CommandConfiguration(category = CommandCategory.FUN, aliases = "reverse")
 public class ReverseCommand implements Command {
     @Override
+    public String[] usage() {
+        return new String[]{
+                "reverse <message>"
+        };
+    }
+
+    @Override
+    public String description() {
+        return "Reverses the inputted message.";
+    }
+
+    @Override
     public CommandPermission permission() {
         return CommandPermission.GUILD_MEMBER;
     }

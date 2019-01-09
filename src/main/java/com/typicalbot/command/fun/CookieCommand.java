@@ -26,6 +26,19 @@ import net.dv8tion.jda.api.entities.User;
 @CommandConfiguration(category = CommandCategory.FUN, aliases = "cookie")
 public class CookieCommand implements Command {
     @Override
+    public String[] usage() {
+        return new String[]{
+                "cookie",
+                "cookie [user]"
+        };
+    }
+
+    @Override
+    public String description() {
+        return "Give another user a cookie or keep them all for yourself.";
+    }
+
+    @Override
     public CommandPermission permission() {
         return CommandPermission.GUILD_MEMBER;
     }

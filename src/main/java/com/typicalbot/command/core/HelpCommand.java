@@ -28,7 +28,7 @@ import net.dv8tion.jda.api.EmbedBuilder;
 public class HelpCommand implements Command {
     @Override
     public String[] usage() {
-        return new String[] {
+        return new String[]{
                 "help",
                 "help [command]"
         };

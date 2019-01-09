@@ -35,6 +35,18 @@ public class CatCommand implements Command {
     private static final Logger LOGGER = LoggerFactory.getLogger(CatCommand.class);
 
     @Override
+    public String[] usage() {
+        return new String[]{
+                "cat"
+        };
+    }
+
+    @Override
+    public String description() {
+        return "Gives you a random cat picture.";
+    }
+
+    @Override
     public CommandPermission permission() {
         return CommandPermission.GUILD_MEMBER;
     }
