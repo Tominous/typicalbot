@@ -35,4 +35,9 @@ public class CommandArgument {
     public List<String> getArguments() {
         return this.arguments;
     }
+
+    @Override
+    public String toString() {
+        return String.join(" ", this.arguments);
+    }
 }
