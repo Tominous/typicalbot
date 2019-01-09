@@ -37,7 +37,7 @@ public class CommandManager {
         LOGGER.debug("Registered {} commands.", this.commands.size());
     }
 
-    public Command findCommand(String trigger) {
-        return this.commands.stream().filter(command -> Arrays.asList(command.getConfiguration().triggers()).contains(trigger)).findFirst().orElse(null);
+    public Command findCommand(String alias) {
+        return this.commands.stream().filter(command -> Arrays.asList(command.getConfiguration().aliases()).contains(alias)).findFirst().orElse(null);
     }
 }

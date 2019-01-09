@@ -25,9 +25,17 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.TYPE)
 public @interface CommandConfiguration {
-    String[] triggers();
+    /**
+     * The category that the command belongs too.
+     *
+     * @return command category
+     */
+    CommandCategory category();
 
-    String description() default "N/A";
-
-    boolean embed() default false;
+    /**
+     * A list of aliases that can be used to run the command.
+     *
+     * @return command aliases
+     */
+    String[] aliases();
 }

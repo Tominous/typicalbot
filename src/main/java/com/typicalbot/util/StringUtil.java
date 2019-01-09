@@ -13,31 +13,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.typicalbot.command;
+package com.typicalbot.util;
 
-import java.util.List;
-
-public class CommandArgument {
-    private final List<String> arguments;
-
-    public CommandArgument(List<String> arguments) {
-        this.arguments = arguments;
-    }
-
-    public boolean has() {
-        return this.arguments.size() > 0;
-    }
-
-    public String get(int index) {
-        return this.arguments.get(index);
-    }
-
-    public List<String> getArguments() {
-        return this.arguments;
-    }
-
-    @Override
-    public String toString() {
-        return String.join(" ", this.arguments);
+public class StringUtil {
+    public static String firstUpperCase(String input) {
+        return input.substring(0, 1).toUpperCase() + input.substring(1, input.length()).toLowerCase();
     }
 }

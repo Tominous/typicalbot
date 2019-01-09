@@ -5,7 +5,7 @@
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- * http://www.apache.org/licenses/LICENSE-2.0
+ *    http://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -15,21 +15,16 @@
  */
 package com.typicalbot.command.core;
 
-import com.typicalbot.command.CommandPermission;
 import com.typicalbot.command.Command;
 import com.typicalbot.command.CommandArgument;
 import com.typicalbot.command.CommandCategory;
 import com.typicalbot.command.CommandConfiguration;
 import com.typicalbot.command.CommandContext;
-import com.typicalbot.shard.ShardManager;
+import com.typicalbot.command.CommandPermission;
+import net.dv8tion.jda.api.EmbedBuilder;
 
-@CommandConfiguration(category = CommandCategory.CORE, aliases = {"ping", "pong"})
-public class PingCommand implements Command {
-    @Override
-    public String description() {
-        return "A check to see if TypicalBot is able to respond.";
-    }
-
+@CommandConfiguration(category = CommandCategory.CORE, aliases = "donate")
+public class DonateCommand implements Command {
     @Override
     public CommandPermission permission() {
         return CommandPermission.GUILD_MEMBER;
@@ -37,6 +32,11 @@ public class PingCommand implements Command {
 
     @Override
     public void execute(CommandContext context, CommandArgument argument) {
-        context.sendMessage("Pong! Discord API Latency: %dms", (int) ShardManager.getAveragePing());
+        EmbedBuilder builder = new EmbedBuilder();
+
+        builder.setTitle("TypicalBot Donate");
+        builder.setDescription("You can support the development of TypicalBot by donating [here](https://typicalbot.com/donate).");
+
+        context.sendEmbed(builder.build());
     }
 }

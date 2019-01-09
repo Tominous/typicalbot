@@ -38,6 +38,7 @@ public class TypicalBot {
     private static final Logger LOGGER = LoggerFactory.getLogger(TypicalBot.class);
 
     public static final Path HOME_PATH = Paths.get(System.getProperty("user.dir"));
+    public static final String VERSION = "@version@";
 
     public TypicalBot() throws IOException, InterruptedException {
         LOGGER.info("  _____                   _                  _   ____            _   ");
@@ -105,7 +106,7 @@ public class TypicalBot {
         // TODO(nsylke): Should move this outside of constructor.
         DataStructure data = new DataStructure();
 
-        LOGGER.info("Starting TypicalBot v3.0.0");
+        LOGGER.info("Starting TypicalBot v{}", VERSION);
         /*
           Inside of the data structure should be two values. The first value, or known as '0', should be the
           token of the Discord bot; and the second value, or known as '1', should be the client identifier of

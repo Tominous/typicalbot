@@ -15,18 +15,17 @@
  */
 package com.typicalbot.command.core;
 
-import com.typicalbot.command.CommandPermission;
 import com.typicalbot.command.Command;
 import com.typicalbot.command.CommandArgument;
 import com.typicalbot.command.CommandCategory;
 import com.typicalbot.command.CommandConfiguration;
 import com.typicalbot.command.CommandContext;
+import com.typicalbot.command.CommandPermission;
+import com.typicalbot.shard.Shard;
+import com.typicalbot.shard.ShardManager;
 
-import java.lang.management.ManagementFactory;
-import java.lang.management.RuntimeMXBean;
-
-@CommandConfiguration(category = CommandCategory.CORE, aliases = "uptime")
-public class UptimeCommand implements Command {
+@CommandConfiguration(category = CommandCategory.CORE, aliases = "shards")
+public class ShardsCommand implements Command {
     @Override
     public CommandPermission permission() {
         return CommandPermission.GUILD_MEMBER;
@@ -34,21 +33,22 @@ public class UptimeCommand implements Command {
 
     @Override
     public void execute(CommandContext context, CommandArgument argument) {
-        RuntimeMXBean rb = ManagementFactory.getRuntimeMXBean();
-        long seconds = rb.getUptime() / 1000;
-        long d = (long) Math.floor(seconds / 86400);
-        long h = (long) Math.floor((seconds % 86400) / 3600);
-        long m = (long) Math.floor(((seconds % 86400) % 3600) / 60);
-        long s = (long) Math.floor(((seconds % 86400) % 3600) % 60);
-
         StringBuilder builder = new StringBuilder();
 
-        // TODO(nsylke): Pluralization.
-        if (d > 0) builder.append(d + " days, ");
-        if (h > 0) builder.append(h + " hours, ");
-        if (m > 0) builder.append(m + " minutes, ");
-        builder.append(s + " seconds");
+        for (Shard shard : ShardManager.getShards()) {
+            builder.append(String.format("Shard [%s / %s]", shard.getShardId() + 1, shard.getShardTotal()))
+                    .append(" | Status: ").append(shard.getInstance().getStatus())
+                    .append(" | Guilds: ").append(shard.getInstance().getGuilds().size())
+                    .append(" | Channels: ").append(shard.getInstance().getTextChannels().size() + shard.getInstance().getVoiceChannels().size())
+                    .append(" | Users: ").append(shard.getInstance().getUsers().size());
 
-        context.sendMessage("Uptime: %s", builder.toString());
+            if (shard.getShardId() == context.getMessage().getJDA().getShardInfo().getShardId()) {
+                builder.append(" | Current");
+            }
+
+            builder.append("\n");
+        }
+
+        context.sendMessage("```prolog%n%s```", builder.toString());
     }
 }

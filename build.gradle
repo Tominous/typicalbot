@@ -5,8 +5,9 @@ plugins {
     id 'com.github.hierynomus.license' version '0.14.0'
 }
 
-group 'com.typicalbot'
-version '3.0.0'
+// Semantic Versioning 2.0.0
+def versionObject = new Version(major: 3, minor: '0', patch: 0)
+version = versionObject.toString() + '-alpha'
 
 mainClassName = 'com.typicalbot.TypicalBot'
 
@@ -21,7 +22,7 @@ repositories {
 
 dependencies {
     // JDA
-    compile group: 'net.dv8tion', name: 'JDA', version: '3.8.1_454'
+    compile group: 'net.dv8tion', name: 'JDA', version: '4.ALPHA.0_6'
     compile group: 'com.sedmelluq', name: 'jda-nas', version: '1.0.6'
     compile group: 'com.sedmelluq', name: 'lavaplayer', version: '1.3.10'
 
@@ -42,9 +43,26 @@ dependencies {
     testCompile group: 'junit', name: 'junit', version: '4.12'
 }
 
+// https://stackoverflow.com/questions/30627918/how-is-a-token-replaced-in-a-file-for-a-gradle-build-product?rq=1
+import org.apache.tools.ant.filters.ReplaceTokens
+
+task prepareSources(type: Copy) {
+    from('src/main/java') {
+        include '**/TypicalBot.java'
+    }
+    into 'build/prepareSrc'
+    filter(ReplaceTokens, tokens: [version: project.version])
+}
+
 compileJava {
+    def javaSrc = sourceSets.main.allJava.filter {
+        it.name != 'TypicalBot.java'
+    }
+
+    source = javaSrc + prepareSources.destinationDir
     classpath = sourceSets.main.compileClasspath
-    options.encoding = 'UTF-8'
+
+    dependsOn prepareSources
 }
 
 tasks.withType(JavaCompile) {
@@ -62,7 +80,6 @@ artifacts {
 
 jar {
     classifier = "nodeps"
-    baseName 'TypicalBot'
 }
 
 shadowJar {
@@ -70,3 +87,11 @@ shadowJar {
 }
 
 build.dependsOn shadowJar
+
+class Version {
+    String major, minor, patch
+
+    String toString() {
+        return "${major}.${minor}.${patch}"
+    }
+}
