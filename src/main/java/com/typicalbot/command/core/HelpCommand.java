@@ -22,7 +22,7 @@ import com.typicalbot.command.CommandCategory;
 import com.typicalbot.command.CommandConfiguration;
 import com.typicalbot.command.CommandContext;
 import com.typicalbot.shard.Shard;
-import net.dv8tion.jda.core.EmbedBuilder;
+import net.dv8tion.jda.api.EmbedBuilder;
 
 @CommandConfiguration(category = CommandCategory.CORE, aliases = {"help", "?", "info", "information"})
 public class HelpCommand implements Command {

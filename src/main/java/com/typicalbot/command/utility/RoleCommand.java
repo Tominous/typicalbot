@@ -22,9 +22,9 @@ import com.typicalbot.command.CommandConfiguration;
 import com.typicalbot.command.CommandContext;
 import com.typicalbot.command.CommandPermission;
 import com.typicalbot.util.StringUtil;
-import net.dv8tion.jda.core.EmbedBuilder;
-import net.dv8tion.jda.core.entities.Member;
-import net.dv8tion.jda.core.entities.Role;
+import net.dv8tion.jda.api.EmbedBuilder;
+import net.dv8tion.jda.api.entities.Member;
+import net.dv8tion.jda.api.entities.Role;
 
 import java.util.stream.Collectors;
 
@@ -63,7 +63,7 @@ public class RoleCommand implements Command {
         // TODO(nsylke): Check if member list is empty & limit length to 900
         builder.addField("Members", context.getMessage().getGuild().getMembers().stream().filter(member -> member.getRoles().contains(role)).map(Member::getEffectiveName).collect(Collectors.joining(", ")), false);
         builder.setColor(role.getColor());
-        builder.setTimestamp(role.getCreationTime());
+        builder.setTimestamp(role.getTimeCreated());
 
         context.sendEmbed(builder.build());
     }

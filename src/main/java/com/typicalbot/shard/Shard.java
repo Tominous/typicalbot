@@ -36,11 +36,11 @@ import com.typicalbot.command.utility.ServerCommand;
 import com.typicalbot.command.utility.UserCommand;
 import com.typicalbot.listener.GuildListener;
 import com.typicalbot.listener.ReadyListener;
-import net.dv8tion.jda.core.AccountType;
-import net.dv8tion.jda.core.JDA;
-import net.dv8tion.jda.core.JDABuilder;
-import net.dv8tion.jda.core.OnlineStatus;
-import net.dv8tion.jda.core.entities.Game;
+import net.dv8tion.jda.api.AccountType;
+import net.dv8tion.jda.api.JDA;
+import net.dv8tion.jda.api.JDABuilder;
+import net.dv8tion.jda.api.OnlineStatus;
+import net.dv8tion.jda.api.entities.Activity;
 
 import javax.security.auth.login.LoginException;
 import java.util.concurrent.Executors;
@@ -75,7 +75,7 @@ public class Shard {
                     .setToken(token)
                     .setAutoReconnect(true)
                     // .setAudioEnabled(true)
-                    .setGame(Game.playing("Client Started")) // Same as TypicalBot 2.x
+                    .setActivity(Activity.playing("Client Started")) // Same as TypicalBot 2.x
                     .setStatus(OnlineStatus.IDLE) // Set to IDLE while still loading, change ONLINE when ready
                     .setBulkDeleteSplittingEnabled(true)
                     .setEnableShutdownHook(true)

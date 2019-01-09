@@ -21,9 +21,9 @@ import com.typicalbot.command.CommandArgument;
 import com.typicalbot.command.CommandCategory;
 import com.typicalbot.command.CommandConfiguration;
 import com.typicalbot.command.CommandContext;
-import net.dv8tion.jda.core.EmbedBuilder;
-import net.dv8tion.jda.core.entities.Emote;
-import net.dv8tion.jda.core.entities.Role;
+import net.dv8tion.jda.api.EmbedBuilder;
+import net.dv8tion.jda.api.entities.Emote;
+import net.dv8tion.jda.api.entities.Role;
 
 import java.time.format.DateTimeFormatter;
 import java.util.List;
@@ -43,7 +43,7 @@ public class ServerCommand implements Command {
         String id = context.getMessage().getGuild().getId();
         String owner = context.getMessage().getGuild().getOwner().getUser().getName() + "#" + context.getMessage().getGuild().getOwner().getUser().getDiscriminator();
         String ownerId = context.getMessage().getGuild().getOwnerId();
-        String created = context.getMessage().getGuild().getCreationTime().format(DateTimeFormatter.RFC_1123_DATE_TIME);
+        String created = context.getMessage().getGuild().getTimeCreated().format(DateTimeFormatter.RFC_1123_DATE_TIME);
         String region = context.getMessage().getGuild().getRegion().toString();
         int numOfChannels = context.getMessage().getGuild().getChannels().size();
         int numOfMembers = context.getMessage().getGuild().getMembers().size();
@@ -97,7 +97,7 @@ public class ServerCommand implements Command {
                 .setColor(0x00ADFF)
                 .setThumbnail(context.getMessage().getGuild().getIconUrl())
                 //TODO(nsylke): make the TB icon a constant
-                .setFooter("Created " + context.getMessage().getCreationTime().format(DateTimeFormatter.RFC_1123_DATE_TIME), "https://typicalbot.com/x/images/icon.png");
+                .setFooter("Created " + context.getMessage().getTimeCreated().format(DateTimeFormatter.RFC_1123_DATE_TIME), "https://typicalbot.com/x/images/icon.png");
 
         //Send the embed
         context.sendEmbed(embed.build());

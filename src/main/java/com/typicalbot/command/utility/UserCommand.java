@@ -21,11 +21,11 @@ import com.typicalbot.command.CommandArgument;
 import com.typicalbot.command.CommandCategory;
 import com.typicalbot.command.CommandConfiguration;
 import com.typicalbot.command.CommandContext;
-import net.dv8tion.jda.core.EmbedBuilder;
-import net.dv8tion.jda.core.entities.Member;
-import net.dv8tion.jda.core.entities.Message;
-import net.dv8tion.jda.core.entities.Role;
-import net.dv8tion.jda.core.entities.User;
+import net.dv8tion.jda.api.EmbedBuilder;
+import net.dv8tion.jda.api.entities.Member;
+import net.dv8tion.jda.api.entities.Message;
+import net.dv8tion.jda.api.entities.Role;
+import net.dv8tion.jda.api.entities.User;
 
 import java.time.format.DateTimeFormatter;
 import java.util.List;
@@ -48,8 +48,8 @@ public class UserCommand implements Command {
         String tag = mentionedUser.getName() + "#" + mentionedUser.getDiscriminator();
         String id = mentionedUser.getId();
         String status = mentionedMember.getOnlineStatus().getKey();
-        String joinDate = mentionedUser.getCreationTime().format(DateTimeFormatter.RFC_1123_DATE_TIME);
-        String serverJoinDate = mentionedMember.getJoinDate().format(DateTimeFormatter.RFC_1123_DATE_TIME);
+        String joinDate = mentionedUser.getTimeCreated().format(DateTimeFormatter.RFC_1123_DATE_TIME);
+        String serverJoinDate = mentionedMember.getTimeJoined().format(DateTimeFormatter.RFC_1123_DATE_TIME);
         int numOfRoles = mentionedMember.getRoles().size();
         /* Begin building the embed */
         EmbedBuilder embed = new EmbedBuilder()
@@ -62,8 +62,8 @@ public class UserCommand implements Command {
                 .addField("» Status", status, true);
 
         // Both a member's presence and their nickname may not exist, so we have to check first
-        if (mentionedMember.getGame() != null) {
-            String presence = mentionedMember.getGame().getName();
+        if (mentionedMember.getActivities().isEmpty()) {
+            String presence = mentionedMember.getActivities().get(0).getName();
             embed.addField("» Playing", presence, true);
         }
         if (mentionedMember.getNickname() != null) {
@@ -82,7 +82,7 @@ public class UserCommand implements Command {
         embed.setThumbnail(mentionedUser.getAvatarUrl())
                 .setColor(0x00ADFF)
                 //TODO(nsylke): make the TB icon a constant
-                .setFooter("Created " + context.getMessage().getCreationTime().format(DateTimeFormatter.RFC_1123_DATE_TIME), "https://typicalbot.com/x/images/icon.png");
+                .setFooter("Created " + context.getMessage().getTimeCreated().format(DateTimeFormatter.RFC_1123_DATE_TIME), "https://typicalbot.com/x/images/icon.png");
 
         //Send the embed
         context.sendEmbed(embed.build());

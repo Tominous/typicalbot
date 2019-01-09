@@ -21,7 +21,7 @@ import com.typicalbot.command.CommandArgument;
 import com.typicalbot.command.CommandCategory;
 import com.typicalbot.command.CommandConfiguration;
 import com.typicalbot.command.CommandContext;
-import net.dv8tion.jda.core.entities.Member;
+import net.dv8tion.jda.api.entities.Member;
 
 import java.util.Random;
 
