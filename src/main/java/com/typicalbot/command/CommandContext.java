@@ -16,9 +16,11 @@
 package com.typicalbot.command;
 
 import net.dv8tion.jda.api.entities.GuildChannel;
+import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.entities.Message;
 import net.dv8tion.jda.api.entities.MessageEmbed;
 import net.dv8tion.jda.api.entities.Role;
+import net.dv8tion.jda.api.entities.User;
 
 import java.util.List;
 
@@ -39,6 +41,22 @@ public class CommandContext {
 
     public void sendEmbed(MessageEmbed embed) {
         this.message.getChannel().sendMessage(embed).queue();
+    }
+
+    public User getUser(String user) {
+        if (!this.message.getMentionedUsers().isEmpty()) {
+            return this.message.getMentionedUsers().get(0);
+        }
+
+        Member member = this.message.getGuild().getMembers().stream()
+                .filter(m -> m.getUser().getName().equalsIgnoreCase(user))
+                .findFirst()
+                .orElse(this.message.getGuild().getMembers().stream()
+                        .filter(m -> m.getUser().getId().equalsIgnoreCase(user))
+                        .findFirst()
+                        .orElse(null));
+
+        return (member != null) ? member.getUser() : null;
     }
 
     public GuildChannel getChannel(String channel) {
