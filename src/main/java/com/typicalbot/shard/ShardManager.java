@@ -15,6 +15,8 @@
  */
 package com.typicalbot.shard;
 
+import com.google.common.primitives.Ints;
+
 import java.util.Arrays;
 
 public class ShardManager {
@@ -52,6 +54,17 @@ public class ShardManager {
 
     public static Shard[] getShards() {
         return shards;
+    }
+
+    public static Shard getShard(int shardId) {
+        return shards[shardId];
+    }
+
+    public static Shard getShard(long guildId) {
+        // Sharding Formula from Discord developer documentation.
+        long shardId = (guildId >> 22) % MAX_SHARDS;
+
+        return getShard(Ints.checkedCast(shardId));
     }
 
     public static double getAveragePing() {
