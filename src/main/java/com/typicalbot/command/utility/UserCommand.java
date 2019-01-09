@@ -54,7 +54,7 @@ public class UserCommand implements Command {
 
         EmbedBuilder builder = new EmbedBuilder();
 
-        builder.setTitle("User: " + target.getAsTag());
+        builder.setTitle(target.getAsTag() + " Information");
         builder.addField("ID", target.getId(), true);
         builder.addField("Name", target.getName(), true);
         builder.addField("Discriminator", target.getDiscriminator(), true);
