@@ -36,6 +36,7 @@ public class SuggestionCommand implements Command {
 
     @Override
     public void execute(CommandContext context, CommandArgument argument) {
+        // TODO(nsylke): Ratelimit to 24h per suggestion
         if (!argument.has()) {
             context.sendMessage("You can't suggest nothing...");
             return;
