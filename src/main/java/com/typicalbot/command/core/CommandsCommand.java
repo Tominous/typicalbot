@@ -45,7 +45,11 @@ public class CommandsCommand implements Command {
         builder.setTitle("Commands");
 
         for (CommandCategory category : CommandCategory.values()) {
-            builder.addField(StringUtil.firstUpperCase(category.name()), commands.stream().filter(c -> c.getConfiguration().category().equals(category)).sorted(Comparator.comparing((Command x) -> x.getConfiguration().aliases()[0]).thenComparing((Command y) -> y.getConfiguration().aliases()[0])).map(c -> c.getConfiguration().aliases()[0]).collect(Collectors.joining(", ")), false);
+            builder.addField(StringUtil.firstUpperCase(category.name()), commands.stream()
+                    .filter(c -> c.getConfiguration().category().equals(category))
+                    .sorted(Comparator.comparing((Command x) -> x.getConfiguration().aliases()[0]).thenComparing((Command y) -> y.getConfiguration().aliases()[0]))
+                    .map(c -> c.getConfiguration().aliases()[0])
+                    .collect(Collectors.joining(", ")), false);
         }
 
         context.sendEmbed(builder.build());
