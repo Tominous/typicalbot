@@ -62,7 +62,7 @@ public class ReportCommand implements Command {
         builder.clear();
 
         builder.setTitle("Report");
-        builder.setDescription("Successfully sent bug report to the TypicalBot Maintainers.");
+        builder.setDescription("Successfully sent report to the TypicalBot Maintainers.");
 
         context.sendEmbed(builder.build());
     }
