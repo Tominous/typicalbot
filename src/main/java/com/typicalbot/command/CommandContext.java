@@ -15,9 +15,11 @@
  */
 package com.typicalbot.command;
 
+import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.GuildChannel;
 import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.entities.Message;
+import net.dv8tion.jda.api.entities.MessageChannel;
 import net.dv8tion.jda.api.entities.MessageEmbed;
 import net.dv8tion.jda.api.entities.Role;
 import net.dv8tion.jda.api.entities.User;
@@ -35,12 +37,20 @@ public class CommandContext {
         return this.message;
     }
 
+    public Guild getGuild() {
+        return this.message.getGuild();
+    }
+
+    public MessageChannel getChannel() {
+        return this.message.getChannel();
+    }
+
     public void sendMessage(String message, Object... params) {
-        this.message.getChannel().sendMessage(String.format(message, params)).queue();
+        this.getChannel().sendMessage(String.format(message, params)).queue();
     }
 
     public void sendEmbed(MessageEmbed embed) {
-        this.message.getChannel().sendMessage(embed).queue();
+        this.getChannel().sendMessage(embed).queue();
     }
 
     public User getUser(String user) {
@@ -48,10 +58,10 @@ public class CommandContext {
             return this.message.getMentionedUsers().get(0);
         }
 
-        Member member = this.message.getGuild().getMembers().stream()
+        Member member = this.getGuild().getMembers().stream()
                 .filter(m -> m.getUser().getName().equalsIgnoreCase(user))
                 .findFirst()
-                .orElse(this.message.getGuild().getMembers().stream()
+                .orElse(this.getGuild().getMembers().stream()
                         .filter(m -> m.getUser().getId().equalsIgnoreCase(user))
                         .findFirst()
                         .orElse(null));
@@ -64,7 +74,13 @@ public class CommandContext {
             return this.message.getMentionedChannels().get(0);
         }
 
-        return this.message.getGuild().getChannels().stream().filter(ch -> ch.getName().equalsIgnoreCase(channel)).findFirst().orElse(this.message.getGuild().getChannels().stream().filter(ch -> ch.getId().equalsIgnoreCase(channel)).findFirst().orElse(null));
+        return this.getGuild().getChannels().stream()
+                .filter(ch -> ch.getName().equalsIgnoreCase(channel))
+                .findFirst()
+                .orElse(this.getGuild().getChannels().stream()
+                        .filter(ch -> ch.getId().equalsIgnoreCase(channel))
+                        .findFirst()
+                        .orElse(null));
     }
 
     public Role getRole(String role) {
@@ -72,7 +88,7 @@ public class CommandContext {
             return this.message.getMentionedRoles().get(0);
         }
 
-        List<Role> roles = this.message.getGuild().getRolesByName(role, true);
-        return roles.isEmpty() ? this.message.getGuild().getRoleById(role) : roles.get(0);
+        List<Role> roles = this.getGuild().getRolesByName(role, true);
+        return roles.isEmpty() ? this.getGuild().getRoleById(role) : roles.get(0);
     }
 }

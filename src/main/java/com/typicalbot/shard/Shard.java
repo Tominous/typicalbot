@@ -16,12 +16,18 @@
 package com.typicalbot.shard;
 
 import com.typicalbot.command.CommandManager;
+import com.typicalbot.command.core.ChangelogCommand;
+import com.typicalbot.command.core.CommandsCommand;
+import com.typicalbot.command.core.CreditsCommand;
 import com.typicalbot.command.core.DonateCommand;
 import com.typicalbot.command.core.HelpCommand;
 import com.typicalbot.command.core.InviteCommand;
 import com.typicalbot.command.core.PingCommand;
+import com.typicalbot.command.core.PrimeCommand;
+import com.typicalbot.command.core.ReportCommand;
 import com.typicalbot.command.core.ShardsCommand;
 import com.typicalbot.command.core.StatisticsCommand;
+import com.typicalbot.command.core.SuggestionCommand;
 import com.typicalbot.command.core.SupportCommand;
 import com.typicalbot.command.core.UptimeCommand;
 import com.typicalbot.command.core.VersionCommand;
@@ -30,6 +36,7 @@ import com.typicalbot.command.fun.CatCommand;
 import com.typicalbot.command.fun.CookieCommand;
 import com.typicalbot.command.fun.EightballCommand;
 import com.typicalbot.command.fun.ReverseCommand;
+import com.typicalbot.command.miscellaneous.SayCommand;
 import com.typicalbot.command.utility.AvatarCommand;
 import com.typicalbot.command.utility.ChannelCommand;
 import com.typicalbot.command.utility.RandomuserCommand;
@@ -88,12 +95,18 @@ public class Shard {
 
             this.commandManager.registerCommands(
                     // Core
+                    new ChangelogCommand(),
+                    new CommandsCommand(),
+                    new CreditsCommand(),
                     new DonateCommand(),
                     new HelpCommand(),
                     new InviteCommand(),
                     new PingCommand(),
+                    new PrimeCommand(),
+                    new ReportCommand(),
                     new ShardsCommand(),
                     new StatisticsCommand(),
+                    new SuggestionCommand(),
                     new SupportCommand(),
                     new UptimeCommand(),
                     new VersionCommand(),
@@ -104,6 +117,9 @@ public class Shard {
                     new CookieCommand(),
                     new EightballCommand(),
                     new ReverseCommand(),
+
+                    // Miscellaneous
+                    new SayCommand(),
 
                     // Utility
                     new AvatarCommand(),

@@ -5,7 +5,7 @@
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- *    http://www.apache.org/licenses/LICENSE-2.0
+ * http://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -34,21 +34,28 @@ public class UptimeCommand implements Command {
 
     @Override
     public void execute(CommandContext context, CommandArgument argument) {
-        RuntimeMXBean rb = ManagementFactory.getRuntimeMXBean();
-        long seconds = rb.getUptime() / 1000;
-        long d = (long) Math.floor(seconds / 86400);
-        long h = (long) Math.floor((seconds % 86400) / 3600);
-        long m = (long) Math.floor(((seconds % 86400) % 3600) / 60);
-        long s = (long) Math.floor(((seconds % 86400) % 3600) % 60);
+        long time = ManagementFactory.getRuntimeMXBean().getUptime();
+
+        long days = time / 86400000L % 30;
+        long hours = time / 3600000L % 24;
+        long minutes = time / 60000L % 60;
+        long seconds = time / 1000L % 60;
 
         StringBuilder builder = new StringBuilder();
+        if (days != 0) {
+            builder.append(days).append(" ").append(days > 1 ? "days" : "day").append(", ");
+        }
 
-        // TODO(nsylke): Pluralization.
-        if (d > 0) builder.append(d + " days, ");
-        if (h > 0) builder.append(h + " hours, ");
-        if (m > 0) builder.append(m + " minutes, ");
-        builder.append(s + " seconds");
+        if (hours != 0) {
+            builder.append(hours).append(" ").append(hours > 1 ? "hours" : "hour").append(", ");
+        }
 
-        context.sendMessage("Uptime: %s", builder.toString());
+        if (minutes != 0) {
+            builder.append(minutes).append(" ").append(minutes > 1 ? "minutes" : "minute").append(" and ");
+        }
+
+        builder.append(seconds).append(" ").append(seconds > 1 ? "seconds" : "second");
+
+        context.sendMessage("TypicalBot has been online for %s.", builder.toString());
     }
 }
