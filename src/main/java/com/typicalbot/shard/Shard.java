@@ -36,6 +36,7 @@ import com.typicalbot.command.fun.CatCommand;
 import com.typicalbot.command.fun.CookieCommand;
 import com.typicalbot.command.fun.EightballCommand;
 import com.typicalbot.command.fun.ReverseCommand;
+import com.typicalbot.command.miscellaneous.SayCommand;
 import com.typicalbot.command.utility.AvatarCommand;
 import com.typicalbot.command.utility.ChannelCommand;
 import com.typicalbot.command.utility.RandomuserCommand;
@@ -116,6 +117,9 @@ public class Shard {
                     new CookieCommand(),
                     new EightballCommand(),
                     new ReverseCommand(),
+
+                    // Miscellaneous
+                    new SayCommand(),
 
                     // Utility
                     new AvatarCommand(),
