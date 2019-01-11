@@ -74,7 +74,13 @@ public class CommandContext {
             return this.message.getMentionedChannels().get(0);
         }
 
-        return this.message.getGuild().getChannels().stream().filter(ch -> ch.getName().equalsIgnoreCase(channel)).findFirst().orElse(this.message.getGuild().getChannels().stream().filter(ch -> ch.getId().equalsIgnoreCase(channel)).findFirst().orElse(null));
+        return this.getGuild().getChannels().stream()
+                .filter(ch -> ch.getName().equalsIgnoreCase(channel))
+                .findFirst()
+                .orElse(this.getGuild().getChannels().stream()
+                        .filter(ch -> ch.getId().equalsIgnoreCase(channel))
+                        .findFirst()
+                        .orElse(null));
     }
 
     public Role getRole(String role) {
