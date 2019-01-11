@@ -56,7 +56,7 @@ public class SuggestionCommand implements Command {
 
         builder.setTitle("Suggestion");
         builder.setDescription(argument.toString());
-        builder.setFooter(context.getMessage().getAuthor().getAsTag(), context.getMessage().getAuthor().getEffectiveAvatarUrl());
+        builder.setFooter(context.getMessage().getAuthor().getAsTag() + " (" + context.getMessage().getAuthor().getId() + ")", context.getMessage().getAuthor().getEffectiveAvatarUrl());
 
         channel.sendMessage(builder.build()).queue(message -> {
             // Not sure if this is the best way of doing it...

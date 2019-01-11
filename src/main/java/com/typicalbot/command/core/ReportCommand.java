@@ -54,7 +54,7 @@ public class ReportCommand implements Command {
 
         builder.setTitle("Report");
         builder.setDescription(argument.toString());
-        builder.setFooter(context.getMessage().getAuthor().getAsTag(), context.getMessage().getAuthor().getEffectiveAvatarUrl());
+        builder.setFooter(context.getMessage().getAuthor().getAsTag() + " (" + context.getMessage().getAuthor().getId() + ")", context.getMessage().getAuthor().getEffectiveAvatarUrl());
 
         channel.sendMessage(builder.build()).queue();
 
