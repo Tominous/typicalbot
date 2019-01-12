@@ -34,11 +34,14 @@ import com.typicalbot.command.fun.BunnyCommand;
 import com.typicalbot.command.fun.CatCommand;
 import com.typicalbot.command.fun.CookieCommand;
 import com.typicalbot.command.fun.EightballCommand;
+import com.typicalbot.command.fun.FacesCommand;
+import com.typicalbot.command.fun.FlipCommand;
 import com.typicalbot.command.fun.ReverseCommand;
 import com.typicalbot.command.miscellaneous.SayCommand;
 import com.typicalbot.command.system.EvalCommand;
 import com.typicalbot.command.utility.AvatarCommand;
 import com.typicalbot.command.utility.ChannelCommand;
+import com.typicalbot.command.utility.MessageCommand;
 import com.typicalbot.command.utility.RandomuserCommand;
 import com.typicalbot.command.utility.RoleCommand;
 import com.typicalbot.command.utility.ServerCommand;
@@ -115,6 +118,8 @@ public class Shard {
                     new CatCommand(),
                     new CookieCommand(),
                     new EightballCommand(),
+                    new FacesCommand(),
+                    new FlipCommand(),
                     new ReverseCommand(),
 
                     // Miscellaneous
@@ -126,6 +131,7 @@ public class Shard {
                     // Utility
                     new AvatarCommand(),
                     new ChannelCommand(),
+                    new MessageCommand(),
                     new RandomuserCommand(),
                     new RoleCommand(),
                     new ServerCommand(),
