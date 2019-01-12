@@ -205,6 +205,11 @@ public class Shard {
         return this.instance.getUsers().size();
     }
 
+    /**
+     * Get the command manager.
+     *
+     * @return command manager
+     */
     public CommandManager getCommandManager() {
         return this.commandManager;
     }
