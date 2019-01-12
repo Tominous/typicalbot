@@ -18,7 +18,6 @@ package com.typicalbot.shard;
 import com.typicalbot.command.CommandManager;
 import com.typicalbot.command.core.ChangelogCommand;
 import com.typicalbot.command.core.CommandsCommand;
-import com.typicalbot.command.core.CreditsCommand;
 import com.typicalbot.command.core.DonateCommand;
 import com.typicalbot.command.core.HelpCommand;
 import com.typicalbot.command.core.InviteCommand;
@@ -37,6 +36,7 @@ import com.typicalbot.command.fun.CookieCommand;
 import com.typicalbot.command.fun.EightballCommand;
 import com.typicalbot.command.fun.ReverseCommand;
 import com.typicalbot.command.miscellaneous.SayCommand;
+import com.typicalbot.command.system.EvalCommand;
 import com.typicalbot.command.utility.AvatarCommand;
 import com.typicalbot.command.utility.ChannelCommand;
 import com.typicalbot.command.utility.RandomuserCommand;
@@ -97,7 +97,6 @@ public class Shard {
                     // Core
                     new ChangelogCommand(),
                     new CommandsCommand(),
-                    new CreditsCommand(),
                     new DonateCommand(),
                     new HelpCommand(),
                     new InviteCommand(),
@@ -120,6 +119,9 @@ public class Shard {
 
                     // Miscellaneous
                     new SayCommand(),
+
+                    // System
+                    new EvalCommand(),
 
                     // Utility
                     new AvatarCommand(),
@@ -203,6 +205,11 @@ public class Shard {
         return this.instance.getUsers().size();
     }
 
+    /**
+     * Get the command manager.
+     *
+     * @return command manager
+     */
     public CommandManager getCommandManager() {
         return this.commandManager;
     }
