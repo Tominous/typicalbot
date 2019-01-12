@@ -52,14 +52,31 @@ public class ShardManager {
         }
     }
 
+    /**
+     * Get a list of all shards.
+     *
+     * @return list of shards.
+     */
     public static Shard[] getShards() {
         return shards;
     }
 
+    /**
+     * Get a shard from using the id of the shard
+     *
+     * @param shardId the id of the shard
+     * @return the shard
+     */
     public static Shard getShard(int shardId) {
         return shards[shardId];
     }
 
+    /**
+     * Get a shard from using the guild id.
+     *
+     * @param guildId the id of the guild
+     * @return the shard
+     */
     public static Shard getShard(long guildId) {
         // Sharding Formula from Discord developer documentation.
         long shardId = (guildId >> 22) % MAX_SHARDS;
@@ -67,6 +84,11 @@ public class ShardManager {
         return getShard(Ints.checkedCast(shardId));
     }
 
+    /**
+     * Get the ping from all shards and average it out.
+     *
+     * @return average ping
+     */
     public static double getAveragePing() {
         return Arrays.stream(shards).mapToLong(Shard::getPing).filter(ping -> ping != -1).average().orElse(-1D);
     }
