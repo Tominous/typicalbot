@@ -22,5 +22,6 @@ public enum CommandCategory {
     MISCELLANEOUS,
     MODERATION,
     MUSIC,
+    SYSTEM,
     UTILITY
 }
