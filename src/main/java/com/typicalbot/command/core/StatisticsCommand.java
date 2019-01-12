@@ -15,12 +15,18 @@
  */
 package com.typicalbot.command.core;
 
+import com.sun.management.OperatingSystemMXBean;
 import com.typicalbot.command.CommandPermission;
 import com.typicalbot.command.Command;
 import com.typicalbot.command.CommandArgument;
 import com.typicalbot.command.CommandCategory;
 import com.typicalbot.command.CommandConfiguration;
 import com.typicalbot.command.CommandContext;
+import com.typicalbot.shard.Shard;
+import com.typicalbot.shard.ShardManager;
+import net.dv8tion.jda.api.EmbedBuilder;
+
+import java.lang.management.ManagementFactory;
 
 @CommandConfiguration(category = CommandCategory.CORE, aliases = {"statistics", "stats"})
 public class StatisticsCommand implements Command {
@@ -31,7 +37,20 @@ public class StatisticsCommand implements Command {
 
     @Override
     public void execute(CommandContext context, CommandArgument argument) {
-        throw new UnsupportedOperationException("This command has not been implemented yet.");
+        OperatingSystemMXBean os = ManagementFactory.getPlatformMXBean(OperatingSystemMXBean.class);
+
+        EmbedBuilder builder = new EmbedBuilder();
+
+        builder.setTitle("TypicalBot Statistics");
+
+        builder.addField("Servers", Integer.toString(Shard.getSingleton().getGuilds()), true);
+        builder.addField("Channels", Integer.toString(Shard.getSingleton().getInstance().getTextChannels().size() + Shard.getSingleton().getInstance().getVoiceChannels().size()), true);
+        builder.addField("Users", Integer.toString(Shard.getSingleton().getUsers()), true);
+        builder.addField("CPU Usage", String.format("%.2f", (os.getProcessCpuLoad() * 100)) + "%", true);
+        builder.addField("Library", "JDA", true);
+        builder.addField("Created by", "HyperCoder#2975\nNick#4490", true);
+
+        context.sendEmbed(builder.build());
     }
 }
 
