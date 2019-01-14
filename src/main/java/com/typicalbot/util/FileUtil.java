@@ -41,7 +41,7 @@ public class FileUtil {
     }
 
     /**
-     * Copy a resource from the jar into the system.
+     * Copy a file from resource to system.
      *
      * @param dest The destination of the copy
      * @param resource The path to the resource
