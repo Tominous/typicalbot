@@ -15,9 +15,9 @@
  */
 package com.typicalbot;
 
-import com.typicalbot.console.ConsoleReader;
 import com.typicalbot.data.serialization.dat.DatDeserializer;
 import com.typicalbot.data.serialization.dat.DatSerializer;
+import com.typicalbot.util.console.ConsoleReader;
 import com.typicalbot.data.storage.DataStructure;
 import com.typicalbot.shard.Shard;
 import com.typicalbot.shard.ShardManager;
@@ -69,7 +69,7 @@ public class TypicalBot {
         Arrays.asList("app", "database", "discord", "filter", "sentry").forEach(file -> {
             if (!Files.exists(HOME_PATH.resolve("config/" + file + ".yml"))) {
                 LOGGER.debug("File '{}' does not exist, creating...");
-                FileUtil.export(HOME_PATH.resolve("config/" + file + ".yml"), "/config/" + file + ".yml");
+                FileUtil.copy(HOME_PATH.resolve("config/" + file + ".yml"), "/config/" + file + ".yml");
             }
         });
 
