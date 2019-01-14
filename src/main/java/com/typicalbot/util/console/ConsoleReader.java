@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.typicalbot.console;
+package com.typicalbot.util.console;
 
 import java.io.DataInputStream;
 import java.io.IOException;
