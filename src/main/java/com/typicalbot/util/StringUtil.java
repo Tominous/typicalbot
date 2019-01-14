@@ -15,14 +15,23 @@
  */
 package com.typicalbot.util;
 
+/**
+ * @author TypicalBot
+ * @since 3.0.0-alpha
+ */
 public class StringUtil {
+    // Prevent instantiation.
+    private StringUtil() {
+    }
+
     /**
-     * Change the first letter of the text given to uppercase and the rest to lowercase.
+     * Read in a word and capitalize it.
      *
-     * @param text inputted text
-     * @return capitalized text
+     * @param word the given word
+     * @return capitalized word
      */
-    public static String capitalize(String text) {
-        return text.substring(0, 1).toUpperCase() + text.substring(1).toLowerCase();
+    public static String capitalize(String word) {
+        if (word.length() == 0) return word;
+        return word.substring(0, 1).toUpperCase() + word.substring(1).toLowerCase();
     }
 }
