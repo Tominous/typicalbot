@@ -15,10 +15,13 @@
  */
 package com.typicalbot.util;
 
+import javax.annotation.concurrent.Immutable;
+
 /**
  * @author TypicalBot
  * @since 3.0.0-alpha
  */
+@Immutable
 public class StringUtil {
     // Prevent instantiation.
     private StringUtil() {

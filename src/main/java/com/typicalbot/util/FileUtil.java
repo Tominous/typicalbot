@@ -18,6 +18,7 @@ package com.typicalbot.util;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import javax.annotation.concurrent.Immutable;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Files;
@@ -28,6 +29,7 @@ import java.nio.file.Paths;
  * @author TypicalBot
  * @since 3.0.0-alpha
  */
+@Immutable
 public class FileUtil {
     private static final Logger LOGGER = LoggerFactory.getLogger(FileUtil.class);
 
