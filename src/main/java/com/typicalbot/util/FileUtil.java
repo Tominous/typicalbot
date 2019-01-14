@@ -15,12 +15,31 @@
  */
 package com.typicalbot.util;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.file.Paths;
 
+/**
+ * @author TypicalBot
+ * @since 3.0.0-alpha
+ */
 public class FileUtil {
+    private static final Logger LOGGER = LoggerFactory.getLogger(FileUtil.class);
+
+    /**
+     * The Path to the working directory.
+     */
+    public static final Path HOME_PATH = Paths.get(System.getProperty("user.dir"));
+
+    // Prevent instantiation.
+    private FileUtil() {
+    }
+
     /**
      * Copy a resource from the jar into the system.
      *
@@ -29,9 +48,11 @@ public class FileUtil {
      */
     public static void copy(Path dest, String resource) {
         InputStream stream = FileUtil.class.getResourceAsStream(resource);
+
         try {
             Files.copy(stream, dest);
         } catch (IOException ex) {
+            LOGGER.error("Failed to copy file from resources to system.", ex);
             throw new RuntimeException(ex);
         }
     }
