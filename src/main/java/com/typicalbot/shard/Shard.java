@@ -226,7 +226,7 @@ public class Shard {
      * @return Discord API ping
      */
     public long getPing() {
-        return this.instance.getPing();
+        return this.instance.getGatewayPing();
     }
 
     /**
