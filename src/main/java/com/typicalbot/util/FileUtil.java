@@ -21,7 +21,13 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 
 public class FileUtil {
-    public static void export(Path dest, String resource) {
+    /**
+     * Copy a resource from the jar into the system.
+     *
+     * @param dest The destination of the copy
+     * @param resource The path to the resource
+     */
+    public static void copy(Path dest, String resource) {
         InputStream stream = FileUtil.class.getResourceAsStream(resource);
         try {
             Files.copy(stream, dest);
