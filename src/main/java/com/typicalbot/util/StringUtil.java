@@ -16,7 +16,13 @@
 package com.typicalbot.util;
 
 public class StringUtil {
-    public static String firstUpperCase(String input) {
-        return input.substring(0, 1).toUpperCase() + input.substring(1, input.length()).toLowerCase();
+    /**
+     * Change the first letter of the text given to uppercase and the rest to lowercase.
+     *
+     * @param text inputted text
+     * @return capitalized text
+     */
+    public static String capitalize(String text) {
+        return text.substring(0, 1).toUpperCase() + text.substring(1).toLowerCase();
     }
 }
