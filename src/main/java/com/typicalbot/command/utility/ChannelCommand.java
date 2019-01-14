@@ -53,12 +53,12 @@ public class ChannelCommand implements Command {
         builder.setTitle(channel.getName());
         builder.addField("ID", Long.toString(channel.getIdLong()), true);
         builder.addField("Position", Integer.toString(channel.getPosition()), true);
-        builder.addField("Type", StringUtil.firstUpperCase(channel.getType().toString()), true);
+        builder.addField("Type", StringUtil.capitalize(channel.getType().toString()), true);
 
         if (channel instanceof TextChannel) {
             builder.setDescription(((TextChannel) channel).getTopic());
             builder.addField("Slowmode", String.format("%d seconds", ((TextChannel) channel).getSlowmode()), true);
-            builder.addField("NSFW", StringUtil.firstUpperCase(Boolean.toString(((TextChannel) channel).isNSFW())), true);
+            builder.addField("NSFW", StringUtil.capitalize(Boolean.toString(((TextChannel) channel).isNSFW())), true);
             builder.addBlankField(true);
             if (((TextChannel) channel).isNSFW()) builder.setColor(0xff0000);
         }

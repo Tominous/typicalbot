@@ -58,7 +58,7 @@ public class UserCommand implements Command {
         builder.addField("ID", target.getId(), true);
         builder.addField("Name", target.getName(), true);
         builder.addField("Discriminator", target.getDiscriminator(), true);
-        builder.addField("Status", StringUtil.firstUpperCase(context.getMessage().getGuild().getMember(target).getOnlineStatus().getKey()), true);
+        builder.addField("Status", StringUtil.capitalize(context.getMessage().getGuild().getMember(target).getOnlineStatus().getKey()), true);
         builder.addField("Joined Discord", target.getTimeCreated().format(DateTimeFormatter.RFC_1123_DATE_TIME), true);
         builder.addField("Joined Server", context.getMessage().getGuild().getMember(target).getTimeJoined().format(DateTimeFormatter.RFC_1123_DATE_TIME), true);
 

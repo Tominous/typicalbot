@@ -64,7 +64,7 @@ public class HelpCommand implements Command {
         EmbedBuilder builder = new EmbedBuilder();
         // TODO(nsylke): Add a color to the embed.
         builder.setTitle("Documentation for " + argument.get(0));
-        builder.addField("Category", StringUtil.firstUpperCase(command.getConfiguration().category().name()), true);
+        builder.addField("Category", StringUtil.capitalize(command.getConfiguration().category().name()), true);
         builder.addField("Aliases", String.join(", ", command.getConfiguration().aliases()), true);
         builder.addField("Permission", command.permission().name(), true);
         builder.addField("Usage", String.join("\n", command.usage()), false);

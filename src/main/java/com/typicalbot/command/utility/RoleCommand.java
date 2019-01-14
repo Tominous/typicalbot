@@ -54,9 +54,9 @@ public class RoleCommand implements Command {
 
         builder.setTitle(role.getName());
         builder.addField("ID", Long.toString(role.getIdLong()), true);
-        builder.addField("Hoisted", StringUtil.firstUpperCase(Boolean.toString(role.isHoisted())), true);
-        builder.addField("Mentionable", StringUtil.firstUpperCase(Boolean.toString(role.isMentionable())), true);
-        builder.addField("Managed", StringUtil.firstUpperCase(Boolean.toString(role.isManaged())), true);
+        builder.addField("Hoisted", StringUtil.capitalize(Boolean.toString(role.isHoisted())), true);
+        builder.addField("Mentionable", StringUtil.capitalize(Boolean.toString(role.isMentionable())), true);
+        builder.addField("Managed", StringUtil.capitalize(Boolean.toString(role.isManaged())), true);
         builder.addField("Color", String.format("%d, %d, %d", role.getColor().getRed(), role.getColor().getGreen(), role.getColor().getBlue()),true);
         builder.addField("Position", Integer.toString(role.getPosition()), true);
         builder.addField("Permissions", String.format("[Calculate](https://discordapi.com/permissions.html#%d)", role.getPermissionsRaw()), true);

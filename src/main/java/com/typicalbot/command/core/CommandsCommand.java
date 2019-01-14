@@ -46,7 +46,7 @@ public class CommandsCommand implements Command {
 
         for (CommandCategory category : CommandCategory.values()) {
             if (category != CommandCategory.SYSTEM) {
-                builder.addField(StringUtil.firstUpperCase(category.name()), commands.stream()
+                builder.addField(StringUtil.capitalize(category.name()), commands.stream()
                         .filter(c -> c.getConfiguration().category().equals(category) && c.getConfiguration().category() != CommandCategory.SYSTEM)
                         .sorted(Comparator.comparing((Command x) -> x.getConfiguration().aliases()[0]).thenComparing((Command y) -> y.getConfiguration().aliases()[0]))
                         .map(c -> c.getConfiguration().aliases()[0])

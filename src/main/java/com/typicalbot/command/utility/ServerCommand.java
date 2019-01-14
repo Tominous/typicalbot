@@ -53,7 +53,7 @@ public class ServerCommand implements Command {
         builder.addField("Region", guild.getRegion().getName(), true);
         builder.addField("Members", Integer.toString(guild.getMembers().size()), true);
         builder.addField("Channel", Integer.toString(guild.getChannels().size()), true);
-        builder.addField("Verification", StringUtil.firstUpperCase(guild.getVerificationLevel().name()), true);
+        builder.addField("Verification", StringUtil.capitalize(guild.getVerificationLevel().name()), true);
         builder.addField("Roles", Integer.toString(guild.getRoles().size()), true);
         builder.addField("Emojis", Integer.toString(guild.getEmotes().size()), true);
 
