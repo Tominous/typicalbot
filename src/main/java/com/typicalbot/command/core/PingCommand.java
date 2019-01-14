@@ -21,6 +21,7 @@ import com.typicalbot.command.CommandArgument;
 import com.typicalbot.command.CommandCategory;
 import com.typicalbot.command.CommandConfiguration;
 import com.typicalbot.command.CommandContext;
+import com.typicalbot.shard.Shard;
 import com.typicalbot.shard.ShardManager;
 
 @CommandConfiguration(category = CommandCategory.CORE, aliases = {"ping", "pong"})
@@ -37,6 +38,6 @@ public class PingCommand implements Command {
 
     @Override
     public void execute(CommandContext context, CommandArgument argument) {
-        context.sendMessage("Pong! Discord API Latency: %dms", (int) ShardManager.getAveragePing());
+        context.sendMessage("Pong! REST Request: %dms | Discord API Latency: %dms", Shard.getSingleton().getInstance().getRestPing().complete(), (int) ShardManager.getAveragePing());
     }
 }
