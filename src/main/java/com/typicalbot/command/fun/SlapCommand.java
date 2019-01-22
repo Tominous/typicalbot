@@ -15,29 +15,23 @@
  */
 package com.typicalbot.command.fun;
 
-import com.typicalbot.command.Command;
-import com.typicalbot.command.CommandArgument;
-import com.typicalbot.command.CommandCategory;
-import com.typicalbot.command.CommandConfiguration;
-import com.typicalbot.command.CommandContext;
-import com.typicalbot.command.CommandPermission;
+import com.typicalbot.command.*;
 import net.dv8tion.jda.api.entities.User;
-
 import java.util.Random;
 
 
-@CommandConfiguration(category = CommandCategory.FUN, aliases = {"shoot", "pew"})
-public class ShootCommand implements Command {
+@CommandConfiguration(category = CommandCategory.FUN, aliases = {"slap"})
+public class SlapCommand implements Command {
     @Override
     public String[] usage() {
         return new String[]{
-            "shoot <@mention>"
+            "slap <@mention>"
         };
     }
 
     @Override
     public String description() {
-        return "'Shoots' the mentioned user.";
+        return "'Slaps' the mentioned user.";
     }
 
     @Override
@@ -49,19 +43,19 @@ public class ShootCommand implements Command {
     public void execute(CommandContext context, CommandArgument argument) {
         User author = context.getMessage().getAuthor();
 
-        String[] options = {"Bam! Headshot.", "Yikes! Missed by a mile.", ""};
+        String[] options = {"", "Oh dang! That must've hurt!"};
         Random rand = new Random();
         int x = rand.nextInt(options.length);
 
         if(!argument.has()){
-            context.sendMessage("%s just shot at themselves! :scream: %s", author.getAsMention(), options[x]);
+            context.sendMessage("%s, stop hitting yourself! :dizzy_face::wave::skin-tone-2: %s", author.getAsMention(), options[x]);
             return;
         }
 
         User mention = context.getUser(argument.get(0));
 
         if(mention == author){
-            context.sendMessage("%s just shot at themselves! :scream: %s", author.getAsMention(), options[x]);
+            context.sendMessage("%s, stop hitting yourself! :dizzy_face::wave::skin-tone-2: %s", author.getAsMention(), options[x]);
             return;
         }
         else if(mention == null){
@@ -69,6 +63,8 @@ public class ShootCommand implements Command {
             return;
         }
 
-        context.sendMessage("%s just shot at %s! :scream: %s", author.getAsMention(), mention.getAsMention(), options[x]);
+        context.sendMessage("%s just slapped %s! :dizzy_face::wave::skin-tone-2: %s", author.getAsMention(), mention.getAsMention(), options[x]);
+
+
     }
 }
