@@ -25,7 +25,8 @@ public class SlapCommand implements Command {
     @Override
     public String[] usage() {
         return new String[]{
-            "slap <@mention>"
+                "slap <@mention>",
+                "slap"
         };
     }
 
