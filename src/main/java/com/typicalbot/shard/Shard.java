@@ -30,13 +30,7 @@ import com.typicalbot.command.core.SuggestionCommand;
 import com.typicalbot.command.core.SupportCommand;
 import com.typicalbot.command.core.UptimeCommand;
 import com.typicalbot.command.core.VersionCommand;
-import com.typicalbot.command.fun.BunnyCommand;
-import com.typicalbot.command.fun.CatCommand;
-import com.typicalbot.command.fun.CookieCommand;
-import com.typicalbot.command.fun.EightballCommand;
-import com.typicalbot.command.fun.FacesCommand;
-import com.typicalbot.command.fun.FlipCommand;
-import com.typicalbot.command.fun.ReverseCommand;
+import com.typicalbot.command.fun.*;
 import com.typicalbot.command.miscellaneous.SayCommand;
 import com.typicalbot.command.system.EvalCommand;
 import com.typicalbot.command.utility.AvatarCommand;
@@ -121,6 +115,7 @@ public class Shard {
                     new FacesCommand(),
                     new FlipCommand(),
                     new ReverseCommand(),
+                    new ShootCommand(),
 
                     // Miscellaneous
                     new SayCommand(),
