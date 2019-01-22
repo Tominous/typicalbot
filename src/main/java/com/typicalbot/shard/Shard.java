@@ -118,6 +118,7 @@ public class Shard {
                     new ShootCommand(),
                     new SlapCommand(),
                     new StabCommand(),
+                    new DogCommand(),
 
                     // Miscellaneous
                     new SayCommand(),
