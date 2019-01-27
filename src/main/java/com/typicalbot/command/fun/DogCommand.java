@@ -15,10 +15,17 @@
  */
 package com.typicalbot.command.fun;
 
-import com.typicalbot.command.*;
+import com.typicalbot.command.Command;
+import com.typicalbot.command.CommandArgument;
+import com.typicalbot.command.CommandCategory;
+import com.typicalbot.command.CommandConfiguration;
+import com.typicalbot.command.CommandContext;
+import com.typicalbot.command.CommandPermission;
 
 import net.dv8tion.jda.api.EmbedBuilder;
-import okhttp3.*;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
 import org.json.JSONObject;
 
 import java.awt.*;
