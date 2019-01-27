@@ -28,6 +28,7 @@ dependencies {
 
     // Database
     compile group: 'org.mongodb', name: 'mongo-java-driver', version: '2.12.3'
+    compile group: 'org.yaml', name: 'snakeyaml', version: '1.23'
 
     // Logging
     compile group: 'org.slf4j', name: 'slf4j-api', version: '1.7.25'
