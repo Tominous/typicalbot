@@ -15,9 +15,28 @@
  */
 package com.typicalbot.data.serialization;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.ObjectInputStream;
 
-public interface Deserializer<T> {
-    T deserialize(InputStream stream) throws IOException;
+/**
+ * @author TypicalBot
+ * @since 3.0.0-alpha
+ */
+public class Deserializer {
+    private static final Logger LOGGER = LoggerFactory.getLogger(Deserializer.class);
+
+    public Object deserialize(InputStream stream) throws IOException {
+        ObjectInputStream objectInputStream = new ObjectInputStream(stream);
+
+        try {
+            return objectInputStream.readObject();
+        } catch (ClassNotFoundException ex) {
+            LOGGER.debug("Failed to deserialize object type.", ex);
+            throw new IOException("Failed to deserialize object type.", ex);
+        }
+    }
 }
