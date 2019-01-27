@@ -33,10 +33,14 @@ import com.typicalbot.command.core.VersionCommand;
 import com.typicalbot.command.fun.BunnyCommand;
 import com.typicalbot.command.fun.CatCommand;
 import com.typicalbot.command.fun.CookieCommand;
+import com.typicalbot.command.fun.DogCommand;
 import com.typicalbot.command.fun.EightballCommand;
 import com.typicalbot.command.fun.FacesCommand;
 import com.typicalbot.command.fun.FlipCommand;
 import com.typicalbot.command.fun.ReverseCommand;
+import com.typicalbot.command.fun.ShootCommand;
+import com.typicalbot.command.fun.SlapCommand;
+import com.typicalbot.command.fun.StabCommand;
 import com.typicalbot.command.miscellaneous.SayCommand;
 import com.typicalbot.command.system.EvalCommand;
 import com.typicalbot.command.utility.AvatarCommand;
@@ -117,10 +121,14 @@ public class Shard {
                     new BunnyCommand(),
                     new CatCommand(),
                     new CookieCommand(),
+                    new DogCommand(),
                     new EightballCommand(),
                     new FacesCommand(),
                     new FlipCommand(),
                     new ReverseCommand(),
+                    new ShootCommand(),
+                    new SlapCommand(),
+                    new StabCommand(),
 
                     // Miscellaneous
                     new SayCommand(),
