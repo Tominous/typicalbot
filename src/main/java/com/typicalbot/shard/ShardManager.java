@@ -16,6 +16,8 @@
 package com.typicalbot.shard;
 
 import com.google.common.primitives.Ints;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.Arrays;
 
@@ -24,6 +26,11 @@ import java.util.Arrays;
  * @since 3.0.0-alpha
  */
 public class ShardManager {
+    private static final Logger LOGGER = LoggerFactory.getLogger(ShardManager.class);
+
+    /**
+     * The maximum amount of shards.
+     */
     private static int MAX_SHARDS;
 
     /**
@@ -31,7 +38,7 @@ public class ShardManager {
      * non-operational, while also allowing the system to access any and
      * all server settings and commands.
      */
-    static Shard[] shards;
+    private static Shard[] shards;
 
     /**
      * Generate shards to run the Discord bot. Bots are limited to 2500
@@ -50,6 +57,8 @@ public class ShardManager {
         for (int i = 0; i < shardTotal; i++) {
             Shard shard = new Shard(token, clientId, i, shardTotal);
             shards[i] = shard;
+
+            LOGGER.debug("Shard {} is starting...", i);
 
             // Clients are limited to one identify every 5 seconds.
             Thread.sleep(5000);
