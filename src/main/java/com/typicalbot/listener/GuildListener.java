@@ -20,6 +20,8 @@ import com.typicalbot.command.CommandArgument;
 import com.typicalbot.command.CommandContext;
 import com.typicalbot.shard.Shard;
 import net.dv8tion.jda.api.Permission;
+import net.dv8tion.jda.api.events.guild.GuildJoinEvent;
+import net.dv8tion.jda.api.events.guild.GuildLeaveEvent;
 import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 import org.slf4j.Logger;
@@ -35,6 +37,16 @@ import java.util.List;
  */
 public class GuildListener extends ListenerAdapter {
     private static final Logger LOGGER = LoggerFactory.getLogger(GuildListener.class);
+
+    @Override
+    public void onGuildJoin(GuildJoinEvent event) {
+        LOGGER.info("Joined guild {} with {} users", event.getGuild().getName(), event.getGuild().getMembers().size());
+    }
+
+    @Override
+    public void onGuildLeave(GuildLeaveEvent event) {
+        LOGGER.info("Left guild {}", event.getGuild().getName());
+    }
 
     @Override
     public void onGuildMessageReceived(GuildMessageReceivedEvent event) {
