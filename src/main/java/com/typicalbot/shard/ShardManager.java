@@ -98,6 +98,25 @@ public class ShardManager {
     }
 
     /**
+     * Restart a specify shard.
+     *
+     * @param token The token of the bot
+     * @param clientId The client identifier of the bot
+     * @param shardId The shard identifier
+     * @throws InterruptedException if the thread is interrupted
+     */
+    public static void restart(String token, String clientId, int shardId) throws InterruptedException {
+        Shard shard = getShard(shardId);
+
+        // Stop the shard
+        shard.shutdown();
+        Thread.sleep(5000);
+
+        shard = new Shard(token, clientId, shardId, MAX_SHARDS);
+        shards[shardId] = shard;
+    }
+
+    /**
      * Get the ping from all shards and average it out.
      *
      * @return average ping
