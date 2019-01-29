@@ -1,5 +1,5 @@
 /**
- * Copyright 2016-2018 Bryan Pikaard & Nicholas Sylke
+ * Copyright 2016-2019 Bryan Pikaard & Nicholas Sylke
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,8 +15,26 @@
  */
 package com.typicalbot.util;
 
+import javax.annotation.concurrent.Immutable;
+
+/**
+ * @author TypicalBot
+ * @since 3.0.0-alpha
+ */
+@Immutable
 public class StringUtil {
-    public static String firstUpperCase(String input) {
-        return input.substring(0, 1).toUpperCase() + input.substring(1, input.length()).toLowerCase();
+    // Prevent instantiation.
+    private StringUtil() {
+    }
+
+    /**
+     * Read in a word and capitalize it.
+     *
+     * @param word the given word
+     * @return capitalized word
+     */
+    public static String capitalize(String word) {
+        if (word.length() == 0) return word;
+        return word.substring(0, 1).toUpperCase() + word.substring(1).toLowerCase();
     }
 }

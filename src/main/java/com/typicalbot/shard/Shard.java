@@ -1,5 +1,5 @@
 /**
- * Copyright 2016-2018 Bryan Pikaard & Nicholas Sylke
+ * Copyright 2016-2019 Bryan Pikaard & Nicholas Sylke
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -33,10 +33,14 @@ import com.typicalbot.command.core.VersionCommand;
 import com.typicalbot.command.fun.BunnyCommand;
 import com.typicalbot.command.fun.CatCommand;
 import com.typicalbot.command.fun.CookieCommand;
+import com.typicalbot.command.fun.DogCommand;
 import com.typicalbot.command.fun.EightballCommand;
 import com.typicalbot.command.fun.FacesCommand;
 import com.typicalbot.command.fun.FlipCommand;
 import com.typicalbot.command.fun.ReverseCommand;
+import com.typicalbot.command.fun.ShootCommand;
+import com.typicalbot.command.fun.SlapCommand;
+import com.typicalbot.command.fun.StabCommand;
 import com.typicalbot.command.miscellaneous.SayCommand;
 import com.typicalbot.command.system.EvalCommand;
 import com.typicalbot.command.utility.AvatarCommand;
@@ -59,6 +63,10 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
+/**
+ * @author TypicalBot
+ * @since 3.0.0-alpha
+ */
 // TODO(nsylke): Documentation
 public class Shard {
     private static Shard singleton;
@@ -117,10 +125,14 @@ public class Shard {
                     new BunnyCommand(),
                     new CatCommand(),
                     new CookieCommand(),
+                    new DogCommand(),
                     new EightballCommand(),
                     new FacesCommand(),
                     new FlipCommand(),
                     new ReverseCommand(),
+                    new ShootCommand(),
+                    new SlapCommand(),
+                    new StabCommand(),
 
                     // Miscellaneous
                     new SayCommand(),
@@ -226,7 +238,7 @@ public class Shard {
      * @return Discord API ping
      */
     public long getPing() {
-        return this.instance.getPing();
+        return this.instance.getGatewayPing();
     }
 
     /**

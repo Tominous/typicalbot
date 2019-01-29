@@ -1,11 +1,11 @@
 /**
- * Copyright 2016-2018 Bryan Pikaard & Nicholas Sylke
+ * Copyright 2016-2019 Bryan Pikaard & Nicholas Sylke
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- * http://www.apache.org/licenses/LICENSE-2.0
+ *    http://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -64,7 +64,7 @@ public class HelpCommand implements Command {
         EmbedBuilder builder = new EmbedBuilder();
         // TODO(nsylke): Add a color to the embed.
         builder.setTitle("Documentation for " + argument.get(0));
-        builder.addField("Category", StringUtil.firstUpperCase(command.getConfiguration().category().name()), true);
+        builder.addField("Category", StringUtil.capitalize(command.getConfiguration().category().name()), true);
         builder.addField("Aliases", String.join(", ", command.getConfiguration().aliases()), true);
         builder.addField("Permission", command.permission().name(), true);
         builder.addField("Usage", String.join("\n", command.usage()), false);

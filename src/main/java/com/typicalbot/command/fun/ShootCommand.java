@@ -23,19 +23,22 @@ import com.typicalbot.command.CommandContext;
 import com.typicalbot.command.CommandPermission;
 import net.dv8tion.jda.api.entities.User;
 
-@CommandConfiguration(category = CommandCategory.FUN, aliases = "cookie")
-public class CookieCommand implements Command {
+import java.util.Random;
+
+
+@CommandConfiguration(category = CommandCategory.FUN, aliases = {"shoot", "pew"})
+public class ShootCommand implements Command {
     @Override
     public String[] usage() {
         return new String[]{
-                "cookie",
-                "cookie [user]"
+                "shoot <@mention>",
+                "shoot"
         };
     }
 
     @Override
     public String description() {
-        return "Give another user a cookie or keep them all for yourself.";
+        return "'Shoots' the mentioned user.";
     }
 
     @Override
@@ -45,19 +48,28 @@ public class CookieCommand implements Command {
 
     @Override
     public void execute(CommandContext context, CommandArgument argument) {
-        if (!argument.has()) {
-            String addon = Math.random() <= 0.25 ? "laughed like a madman while slowly eating the cookies they kept for themselves in front of everyone." : "decided to keep all of the cookies for themselves! What a jerk! :angry:";
+        User author = context.getMessage().getAuthor();
 
-            context.sendMessage("%s %s", context.getMessage().getAuthor().getName(), addon);
+        String[] options = {"Bam! Headshot.", "Yikes! Missed by a mile.", ""};
+        Random rand = new Random();
+        int x = rand.nextInt(options.length);
+
+        if(!argument.has()){
+            context.sendMessage("%s just shot at themselves! :scream: %s", author.getAsMention(), options[x]);
             return;
         }
 
-        User target = context.getUser(argument.get(0));
+        User mention = context.getUser(argument.get(0));
 
-        if (target == null) {
-            context.sendMessage("The user specified does not exist.");
+        if(mention == author){
+            context.sendMessage("%s just shot at themselves! :scream: %s", author.getAsMention(), options[x]);
+            return;
+        }
+        else if(mention == null){
+            context.sendMessage("%s, the specified user does not exist. Try again.", author.getAsMention());
+            return;
         }
 
-        context.sendMessage("%s just gave %s a cookie! :cookie:", context.getMessage().getAuthor().getName(), target.getName());
+        context.sendMessage("%s just shot at %s! :scream: %s", author.getAsMention(), mention.getAsMention(), options[x]);
     }
 }

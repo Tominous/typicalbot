@@ -21,21 +21,28 @@ import com.typicalbot.command.CommandCategory;
 import com.typicalbot.command.CommandConfiguration;
 import com.typicalbot.command.CommandContext;
 import com.typicalbot.command.CommandPermission;
-import net.dv8tion.jda.api.entities.User;
 
-@CommandConfiguration(category = CommandCategory.FUN, aliases = "cookie")
-public class CookieCommand implements Command {
+import net.dv8tion.jda.api.EmbedBuilder;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
+import org.json.JSONObject;
+
+import java.awt.*;
+
+
+@CommandConfiguration(category = CommandCategory.FUN, aliases = {"dog"})
+public class DogCommand implements Command {
     @Override
     public String[] usage() {
         return new String[]{
-                "cookie",
-                "cookie [user]"
+                "dog",
         };
     }
 
     @Override
     public String description() {
-        return "Give another user a cookie or keep them all for yourself.";
+        return "Sends a picture of a random doggo.";
     }
 
     @Override
@@ -45,19 +52,21 @@ public class CookieCommand implements Command {
 
     @Override
     public void execute(CommandContext context, CommandArgument argument) {
-        if (!argument.has()) {
-            String addon = Math.random() <= 0.25 ? "laughed like a madman while slowly eating the cookies they kept for themselves in front of everyone." : "decided to keep all of the cookies for themselves! What a jerk! :angry:";
+        OkHttpClient http = new OkHttpClient();
+        Request request = new Request.Builder().url("https://dog.ceo/api/breeds/image/random").build();
 
-            context.sendMessage("%s %s", context.getMessage().getAuthor().getName(), addon);
-            return;
+        try {
+            Response response = http.newCall(request).execute();
+
+            EmbedBuilder embed = new EmbedBuilder();
+            embed.setImage(new JSONObject(response.body().string()).get("message").toString());
+            embed.setColor(new Color(25, 118, 210));
+
+            context.sendEmbed(embed.build());
+
+        } catch (Exception e) {
+            context.sendMessage("An error occurred making that request.");
         }
 
-        User target = context.getUser(argument.get(0));
-
-        if (target == null) {
-            context.sendMessage("The user specified does not exist.");
-        }
-
-        context.sendMessage("%s just gave %s a cookie! :cookie:", context.getMessage().getAuthor().getName(), target.getName());
     }
 }

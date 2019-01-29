@@ -1,5 +1,5 @@
 /**
- * Copyright 2016-2018 Bryan Pikaard & Nicholas Sylke
+ * Copyright 2016-2019 Bryan Pikaard & Nicholas Sylke
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,9 +15,9 @@
  */
 package com.typicalbot;
 
-import com.typicalbot.console.ConsoleReader;
 import com.typicalbot.data.serialization.dat.DatDeserializer;
 import com.typicalbot.data.serialization.dat.DatSerializer;
+import com.typicalbot.util.console.ConsoleReader;
 import com.typicalbot.data.storage.DataStructure;
 import com.typicalbot.shard.Shard;
 import com.typicalbot.shard.ShardManager;
@@ -34,6 +34,10 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Arrays;
 
+/**
+ * @author TypicalBot
+ * @since 3.0.0-alpha
+ */
 public class TypicalBot {
     private static final Logger LOGGER = LoggerFactory.getLogger(TypicalBot.class);
 
@@ -69,7 +73,7 @@ public class TypicalBot {
         Arrays.asList("app", "database", "discord", "filter", "sentry").forEach(file -> {
             if (!Files.exists(HOME_PATH.resolve("config/" + file + ".yml"))) {
                 LOGGER.debug("File '{}' does not exist, creating...");
-                FileUtil.export(HOME_PATH.resolve("config/" + file + ".yml"), "/config/" + file + ".yml");
+                FileUtil.copy(HOME_PATH.resolve("config/" + file + ".yml"), "/config/" + file + ".yml");
             }
         });
 
@@ -106,7 +110,7 @@ public class TypicalBot {
         // TODO(nsylke): Should move this outside of constructor.
         DataStructure data = new DataStructure();
 
-        LOGGER.info("Starting TypicalBot v{}", VERSION);
+        LOGGER.info("Starting TypicalBot {}", VERSION);
         /*
           Inside of the data structure should be two values. The first value, or known as '0', should be the
           token of the Discord bot; and the second value, or known as '1', should be the client identifier of

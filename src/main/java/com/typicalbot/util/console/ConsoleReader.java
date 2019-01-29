@@ -1,5 +1,5 @@
 /**
- * Copyright 2016-2018 Bryan Pikaard & Nicholas Sylke
+ * Copyright 2016-2019 Bryan Pikaard & Nicholas Sylke
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -13,20 +13,45 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.typicalbot.console;
+package com.typicalbot.util.console;
 
 import java.io.DataInputStream;
 import java.io.IOException;
 
-// TODO(nsylke): Documentation
+/**
+ * @author TypicalBot
+ * @since 3.0.0-alpha
+ */
+// TODO(nsylke): Make thread-safe
 public class ConsoleReader {
+    /**
+     * The maximum buffer size.
+     */
     private final int BUFFER_SIZE = 1 << 16;
 
+    /**
+     * The stream to read the user input.
+     */
     private DataInputStream stream;
+
+    /**
+     * The buffer.
+     */
     private byte[] buffer;
+
+    /**
+     * The point at which the buffer is currently reading at.
+     */
     private int bufferPoint;
+
+    /**
+     * The amount of bytes the buffer has read.
+     */
     private int bytesRead;
 
+    /**
+     * Constructor.
+     */
     public ConsoleReader() {
         this.stream = new DataInputStream(System.in);
         this.buffer = new byte[BUFFER_SIZE];
@@ -34,6 +59,12 @@ public class ConsoleReader {
         this.bytesRead = 0;
     }
 
+    /**
+     * Read the next line of the console.
+     *
+     * @return string
+     * @throws IOException unable to read stream
+     */
     public String readLine() throws IOException {
         byte[] buf = new byte[64];
         int cnt = 0;
@@ -50,6 +81,12 @@ public class ConsoleReader {
         return new String(buf, 0, cnt);
     }
 
+    /**
+     * Get the next int of the console.
+     *
+     * @return int
+     * @throws IOException unable to read stream
+     */
     public int nextInt() throws IOException {
         int result = 0;
         byte c = read();
@@ -71,6 +108,12 @@ public class ConsoleReader {
         return (negative) ? -result : result;
     }
 
+    /**
+     * Get the next long of the console.
+     *
+     * @return long
+     * @throws IOException unable to read stream
+     */
     public long nextLong() throws IOException {
         long result = 0;
         byte c = read();
@@ -92,6 +135,12 @@ public class ConsoleReader {
         return (negative) ? -result : result;
     }
 
+    /**
+     * Get the next double of the console.
+     *
+     * @return double
+     * @throws IOException unable to read stream
+     */
     public double nextDouble() throws IOException {
         double result = 0;
         double divider = 0;
@@ -120,6 +169,11 @@ public class ConsoleReader {
         return (negative) ? -result : result;
     }
 
+    /**
+     * Fill the buffer from the stream.
+     *
+     * @throws IOException unable to read stream
+     */
     private void fill() throws IOException {
         bytesRead = stream.read(buffer, bufferPoint = 0, BUFFER_SIZE);
 
@@ -128,6 +182,12 @@ public class ConsoleReader {
         }
     }
 
+    /**
+     * Read the stream.
+     *
+     * @return byte buffer
+     * @throws IOException unable to read stream
+     */
     private byte read() throws IOException {
         if (bufferPoint == bytesRead) {
             fill();
@@ -136,6 +196,11 @@ public class ConsoleReader {
         return buffer[bufferPoint++];
     }
 
+    /**
+     * Close the stream.
+     *
+     * @throws IOException unable to close stream
+     */
     public void close() throws IOException {
         if (stream == null) return;
         stream.close();

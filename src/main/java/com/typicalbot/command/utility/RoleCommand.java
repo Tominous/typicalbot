@@ -1,11 +1,11 @@
 /**
- * Copyright 2016-2018 Bryan Pikaard & Nicholas Sylke
+ * Copyright 2016-2019 Bryan Pikaard & Nicholas Sylke
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- * http://www.apache.org/licenses/LICENSE-2.0
+ *    http://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -54,9 +54,9 @@ public class RoleCommand implements Command {
 
         builder.setTitle(role.getName());
         builder.addField("ID", Long.toString(role.getIdLong()), true);
-        builder.addField("Hoisted", StringUtil.firstUpperCase(Boolean.toString(role.isHoisted())), true);
-        builder.addField("Mentionable", StringUtil.firstUpperCase(Boolean.toString(role.isMentionable())), true);
-        builder.addField("Managed", StringUtil.firstUpperCase(Boolean.toString(role.isManaged())), true);
+        builder.addField("Hoisted", StringUtil.capitalize(Boolean.toString(role.isHoisted())), true);
+        builder.addField("Mentionable", StringUtil.capitalize(Boolean.toString(role.isMentionable())), true);
+        builder.addField("Managed", StringUtil.capitalize(Boolean.toString(role.isManaged())), true);
         builder.addField("Color", String.format("%d, %d, %d", role.getColor().getRed(), role.getColor().getGreen(), role.getColor().getBlue()),true);
         builder.addField("Position", Integer.toString(role.getPosition()), true);
         builder.addField("Permissions", String.format("[Calculate](https://discordapi.com/permissions.html#%d)", role.getPermissionsRaw()), true);

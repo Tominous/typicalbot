@@ -1,5 +1,5 @@
 /**
- * Copyright 2016-2018 Bryan Pikaard & Nicholas Sylke
+ * Copyright 2016-2019 Bryan Pikaard & Nicholas Sylke
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -53,12 +53,12 @@ public class ChannelCommand implements Command {
         builder.setTitle(channel.getName());
         builder.addField("ID", Long.toString(channel.getIdLong()), true);
         builder.addField("Position", Integer.toString(channel.getPosition()), true);
-        builder.addField("Type", StringUtil.firstUpperCase(channel.getType().toString()), true);
+        builder.addField("Type", StringUtil.capitalize(channel.getType().toString()), true);
 
         if (channel instanceof TextChannel) {
             builder.setDescription(((TextChannel) channel).getTopic());
             builder.addField("Slowmode", String.format("%d seconds", ((TextChannel) channel).getSlowmode()), true);
-            builder.addField("NSFW", StringUtil.firstUpperCase(Boolean.toString(((TextChannel) channel).isNSFW())), true);
+            builder.addField("NSFW", StringUtil.capitalize(Boolean.toString(((TextChannel) channel).isNSFW())), true);
             builder.addBlankField(true);
             if (((TextChannel) channel).isNSFW()) builder.setColor(0xff0000);
         }

@@ -1,5 +1,5 @@
 /**
- * Copyright 2016-2018 Bryan Pikaard & Nicholas Sylke
+ * Copyright 2016-2019 Bryan Pikaard & Nicholas Sylke
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,6 +15,10 @@
  */
 package com.typicalbot.data.storage;
 
+/**
+ * @author TypicalBot
+ * @since 3.0.0-alpha
+ */
 // TODO(nsylke): Documentation
 public class DataStructure<E> {
     private static final double DEFAULT_RESIZE_RATIO = 0.75;

@@ -1,11 +1,11 @@
 /**
- * Copyright 2016-2018 Bryan Pikaard & Nicholas Sylke
+ * Copyright 2016-2019 Bryan Pikaard & Nicholas Sylke
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- * http://www.apache.org/licenses/LICENSE-2.0
+ *    http://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -15,6 +15,10 @@
  */
 package com.typicalbot.command;
 
+/**
+ * @author TypicalBot
+ * @since 3.0.0-alpha
+ */
 public interface Command {
     /**
      * The usage of the command, if none provided, it will say: "No usage available."

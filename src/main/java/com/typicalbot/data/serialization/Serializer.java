@@ -1,5 +1,5 @@
 /**
- * Copyright 2016-2018 Bryan Pikaard & Nicholas Sylke
+ * Copyright 2016-2019 Bryan Pikaard & Nicholas Sylke
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,9 +15,28 @@
  */
 package com.typicalbot.data.serialization;
 
-import java.io.IOException;
-import java.io.OutputStream;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
-public interface Serializer<T> {
-    void serialize(T object, OutputStream stream) throws IOException;
+import java.io.IOException;
+import java.io.ObjectOutputStream;
+import java.io.OutputStream;
+import java.io.Serializable;
+
+/**
+ * @author TypicalBot
+ * @since 3.0.0-alpha
+ */
+public class Serializer {
+    private static final Logger LOGGER = LoggerFactory.getLogger(Serializer.class);
+
+    public void serialize(Object object, OutputStream stream) throws IOException {
+        if (!(object instanceof Serializable)) {
+            throw new IllegalArgumentException(getClass().getSimpleName() + " requires a Serializable payload but received an object of type [" + object.getClass().getSimpleName() + "]");
+        }
+
+        ObjectOutputStream objectOutputStream = new ObjectOutputStream(stream);
+        objectOutputStream.writeObject(object);
+        objectOutputStream.flush();
+    }
 }

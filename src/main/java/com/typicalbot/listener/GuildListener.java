@@ -1,5 +1,5 @@
 /**
- * Copyright 2016-2018 Bryan Pikaard & Nicholas Sylke
+ * Copyright 2016-2019 Bryan Pikaard & Nicholas Sylke
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,6 +20,8 @@ import com.typicalbot.command.CommandArgument;
 import com.typicalbot.command.CommandContext;
 import com.typicalbot.shard.Shard;
 import net.dv8tion.jda.api.Permission;
+import net.dv8tion.jda.api.events.guild.GuildJoinEvent;
+import net.dv8tion.jda.api.events.guild.GuildLeaveEvent;
 import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 import org.slf4j.Logger;
@@ -29,8 +31,22 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+/**
+ * @author TypicalBot
+ * @since 3.0.0-alpha
+ */
 public class GuildListener extends ListenerAdapter {
     private static final Logger LOGGER = LoggerFactory.getLogger(GuildListener.class);
+
+    @Override
+    public void onGuildJoin(GuildJoinEvent event) {
+        LOGGER.info("Joined guild {} with {} users", event.getGuild().getName(), event.getGuild().getMembers().size());
+    }
+
+    @Override
+    public void onGuildLeave(GuildLeaveEvent event) {
+        LOGGER.info("Left guild {}", event.getGuild().getName());
+    }
 
     @Override
     public void onGuildMessageReceived(GuildMessageReceivedEvent event) {

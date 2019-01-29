@@ -1,11 +1,11 @@
 /**
- * Copyright 2016-2018 Bryan Pikaard & Nicholas Sylke
+ * Copyright 2016-2019 Bryan Pikaard & Nicholas Sylke
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- * http://www.apache.org/licenses/LICENSE-2.0
+ *    http://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -53,7 +53,7 @@ public class ServerCommand implements Command {
         builder.addField("Region", guild.getRegion().getName(), true);
         builder.addField("Members", Integer.toString(guild.getMembers().size()), true);
         builder.addField("Channel", Integer.toString(guild.getChannels().size()), true);
-        builder.addField("Verification", StringUtil.firstUpperCase(guild.getVerificationLevel().name()), true);
+        builder.addField("Verification", StringUtil.capitalize(guild.getVerificationLevel().name()), true);
         builder.addField("Roles", Integer.toString(guild.getRoles().size()), true);
         builder.addField("Emojis", Integer.toString(guild.getEmotes().size()), true);
 
