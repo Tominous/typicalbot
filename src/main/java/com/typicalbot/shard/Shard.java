@@ -49,6 +49,7 @@ import com.typicalbot.command.fun.RandomCommand;
 import com.typicalbot.command.fun.ReverseCommand;
 import com.typicalbot.command.fun.RockpaperscissorsCommand;
 import com.typicalbot.command.fun.RollCommand;
+import com.typicalbot.command.fun.RomanCommand;
 import com.typicalbot.command.fun.ShootCommand;
 import com.typicalbot.command.fun.SlapCommand;
 import com.typicalbot.command.fun.StabCommand;
@@ -157,6 +158,7 @@ public class Shard {
                     new ReverseCommand(),
                     new RockpaperscissorsCommand(),
                     new RollCommand(),
+                    new RomanCommand(),
                     new ShootCommand(),
                     new SlapCommand(),
                     new StabCommand(),
