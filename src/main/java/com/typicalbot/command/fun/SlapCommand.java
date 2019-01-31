@@ -5,7 +5,7 @@
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- *    http://www.apache.org/licenses/LICENSE-2.0
+ * http://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -22,16 +22,16 @@ import com.typicalbot.command.CommandConfiguration;
 import com.typicalbot.command.CommandContext;
 import com.typicalbot.command.CommandPermission;
 import net.dv8tion.jda.api.entities.User;
-import java.util.Random;
 
+import java.util.Random;
 
 @CommandConfiguration(category = CommandCategory.FUN, aliases = {"slap"})
 public class SlapCommand implements Command {
     @Override
     public String[] usage() {
         return new String[]{
-                "slap <@mention>",
-                "slap"
+            "slap <@mention>",
+            "slap"
         };
     }
 
@@ -53,24 +53,21 @@ public class SlapCommand implements Command {
         Random rand = new Random();
         int x = rand.nextInt(options.length);
 
-        if(!argument.has()){
+        if (!argument.has()) {
             context.sendMessage("%s, stop hitting yourself! :dizzy_face::wave::skin-tone-2: %s", author.getAsMention(), options[x]);
             return;
         }
 
         User mention = context.getUser(argument.get(0));
 
-        if(mention == author){
+        if (mention == author) {
             context.sendMessage("%s, stop hitting yourself! :dizzy_face::wave::skin-tone-2: %s", author.getAsMention(), options[x]);
             return;
-        }
-        else if(mention == null){
+        } else if (mention == null) {
             context.sendMessage("%s, the specified user does not exist. Try again.", author.getAsMention());
             return;
         }
 
         context.sendMessage("%s just slapped %s! :dizzy_face::wave::skin-tone-2: %s", author.getAsMention(), mention.getAsMention(), options[x]);
-
-
     }
 }
