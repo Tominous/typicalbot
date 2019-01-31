@@ -22,6 +22,7 @@ import com.typicalbot.command.CommandCategory;
 import com.typicalbot.command.CommandConfiguration;
 import com.typicalbot.command.CommandContext;
 import net.dv8tion.jda.api.EmbedBuilder;
+import net.dv8tion.jda.api.entities.User;
 
 @CommandConfiguration(category = CommandCategory.UTILITY, aliases = "avatar")
 public class AvatarCommand implements Command {
@@ -32,14 +33,22 @@ public class AvatarCommand implements Command {
 
     @Override
     public void execute(CommandContext context, CommandArgument argument) {
-        String avatarId = context.getMessage().getAuthor().getAvatarId();
-        String id = context.getMessage().getAuthor().getId();
+        User target;
+
+        if (!argument.has()) {
+            target = context.getMessage().getAuthor();
+        } else {
+            target = context.getUser(argument.get(0));
+        }
+
+        String avatarId = target.getAvatarId();
+        String id = target.getId();
 
         EmbedBuilder builder = new EmbedBuilder();
 
-        builder.setTitle("Avatar: " + context.getMessage().getAuthor().getAsTag());
+        builder.setTitle("Avatar for " + target.getAsTag());
         builder.setDescription("[PNG](https://cdn.discordapp.com/avatars/" + id + "/" + avatarId + ".png) [JPG](https://cdn.discordapp.com/avatars/" + id + "/" + avatarId + ".jpg) [WEBP](https://cdn.discordapp.com/avatars/" + id + "/" + avatarId + ".webp)" + (avatarId.startsWith("a_") ? " [GIF](https://cdn.discordapp.com/avatars/" + id + "/" + avatarId + ".gif)" : ""));
-        builder.setImage(context.getMessage().getAuthor().getEffectiveAvatarUrl());
+        builder.setImage(target.getEffectiveAvatarUrl());
 
         context.sendEmbed(builder.build());
     }
