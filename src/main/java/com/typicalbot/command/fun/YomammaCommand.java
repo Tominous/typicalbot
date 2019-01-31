@@ -26,6 +26,7 @@ import java.util.Random;
 
 @CommandConfiguration(category = CommandCategory.FUN, aliases = {"yomamma", "yomama"})
 public class YomammaCommand implements Command {
+    // TODO(nsylke): Move these to a file (in resources) or make an API.
     private String[] responses = new String[]{
         "Yo mama is so fat that her bellybutton gets home 15 minutes before she does.",
         "Yo mama is so fat that when she was diagnosed with a flesh-eating disease, the doctor gave her ten years to live.",
