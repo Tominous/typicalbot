@@ -5,7 +5,7 @@
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- *    http://www.apache.org/licenses/LICENSE-2.0
+ * http://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -25,14 +25,13 @@ import net.dv8tion.jda.api.entities.User;
 
 import java.util.Random;
 
-
 @CommandConfiguration(category = CommandCategory.FUN, aliases = {"stab", "slash"})
 public class StabCommand implements Command {
     @Override
     public String[] usage() {
         return new String[]{
-                "stab <@mention>",
-                "stab"
+            "stab <@mention>",
+            "stab"
         };
     }
 
@@ -54,24 +53,21 @@ public class StabCommand implements Command {
         Random rand = new Random();
         int x = rand.nextInt(options.length);
 
-        if(!argument.has()){
+        if (!argument.has()) {
             context.sendMessage("%s stabbed themselves! :dagger::scream: %s", author.getAsMention(), options[x]);
             return;
         }
 
         User mention = context.getUser(argument.get(0));
 
-        if(mention == author){
+        if (mention == author) {
             context.sendMessage("%s stabbed themselves! :dagger::scream: %s", author.getAsMention(), options[x]);
             return;
-        }
-        else if(mention == null){
+        } else if (mention == null) {
             context.sendMessage("%s, the specified user does not exist. Try again.", author.getAsMention());
             return;
         }
 
         context.sendMessage("%s just stabbed %s! :dagger::scream: %s", author.getAsMention(), mention.getAsMention(), options[x]);
-
-
     }
 }
