@@ -22,6 +22,12 @@ import com.typicalbot.command.CommandConfiguration;
 import com.typicalbot.command.CommandContext;
 import com.typicalbot.command.CommandPermission;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
+
 @CommandConfiguration(category = CommandCategory.FUN, aliases = "roll")
 public class RollCommand implements Command {
     @Override
@@ -31,6 +37,45 @@ public class RollCommand implements Command {
 
     @Override
     public void execute(CommandContext context, CommandArgument argument) {
-        throw new UnsupportedOperationException("This command has not been implemented yet.");
+        if (!argument.has()) {
+            context.sendMessage("Incorrect usage.");
+            return;
+        }
+
+        String[] values = argument.get(0).split("d");
+
+        if (values.length != 2) {
+            context.sendMessage("Incorrect usage.");
+            return;
+        }
+
+        int dices;
+        int sides;
+
+        try {
+            dices = Integer.parseInt(values[0]);
+            sides = Integer.parseInt(values[1]);
+        } catch (NumberFormatException ex) {
+            dices = 2;
+            sides = 6;
+        }
+
+        if (dices == 0 || dices > 100) {
+            context.sendMessage("Dices must be in between 0 and 100.");
+            return;
+        }
+
+        if (sides == 0 || sides > 1000) {
+            context.sendMessage("Sides must be in between 0 and 1000.");
+            return;
+        }
+
+        int[] rolls = new int[dices];
+
+        for (int i = 0; i < dices; i++) {
+            rolls[i] = (new Random().ints(1, sides).iterator().nextInt());
+        }
+
+        context.sendMessage("You rolled: " + IntStream.of(rolls).mapToObj(Integer::toString).collect(Collectors.joining(", ")) + ". Total: " + IntStream.of(rolls).sum());
     }
 }
