@@ -36,12 +36,13 @@ public class ChannelCommand implements Command {
 
     @Override
     public void execute(CommandContext context, CommandArgument argument) {
-        if (!argument.has()) {
-            context.sendMessage("Incorrect usage.");
-            return;
-        }
+        GuildChannel channel;
 
-        GuildChannel channel = context.getChannel(argument.get(0));
+        if (!argument.has()) {
+            channel = context.getMessage().getTextChannel();
+        } else {
+            channel = context.getChannel(argument.get(0));
+        }
 
         if (channel == null) {
             context.sendMessage("The channel specified does not exist.");
