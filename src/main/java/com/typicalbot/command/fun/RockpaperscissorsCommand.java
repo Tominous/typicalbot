@@ -22,8 +22,16 @@ import com.typicalbot.command.CommandConfiguration;
 import com.typicalbot.command.CommandContext;
 import com.typicalbot.command.CommandPermission;
 
+import java.util.Random;
+
 @CommandConfiguration(category = CommandCategory.FUN, aliases = {"rockpaperscissors", "rps"})
 public class RockpaperscissorsCommand implements Command {
+    private String[] responses = new String[]{
+        "Rock",
+        "Paper",
+        "Scissors"
+    };
+
     @Override
     public CommandPermission permission() {
         return CommandPermission.GUILD_MEMBER;
@@ -31,6 +39,6 @@ public class RockpaperscissorsCommand implements Command {
 
     @Override
     public void execute(CommandContext context, CommandArgument argument) {
-        throw new UnsupportedOperationException("This command has not been implemented yet.");
+        context.sendMessage(responses[new Random().nextInt(responses.length)]);
     }
 }
