@@ -22,6 +22,8 @@ import com.typicalbot.command.CommandConfiguration;
 import com.typicalbot.command.CommandContext;
 import com.typicalbot.command.CommandPermission;
 
+import java.util.Random;
+
 @CommandConfiguration(category = CommandCategory.FUN, aliases = "random")
 public class RandomCommand implements Command {
     @Override
@@ -31,6 +33,31 @@ public class RandomCommand implements Command {
 
     @Override
     public void execute(CommandContext context, CommandArgument argument) {
-        throw new UnsupportedOperationException("This command has not been implemented yet.");
+        if (argument.getArguments().size() == 1) {
+            int min;
+
+            try {
+                min = Integer.parseInt(argument.get(0));
+            } catch (NumberFormatException ex) {
+                min = 0;
+            }
+
+            context.sendMessage(Integer.toString(new Random().ints(0, min).iterator().nextInt()));
+        } else if (argument.getArguments().size() >= 2) {
+            int min;
+            int max;
+
+            try {
+                min = Integer.parseInt(argument.get(0));
+                max = Integer.parseInt(argument.get(1));
+            } catch (NumberFormatException ex) {
+                min = 0;
+                max = Integer.MAX_VALUE;
+            }
+
+            context.sendMessage(Integer.toString(new Random().ints(min, max).iterator().nextInt()));
+        } else {
+            context.sendMessage(Integer.toString(new Random().ints(0, Integer.MAX_VALUE).iterator().nextInt()));
+        }
     }
 }
