@@ -66,8 +66,10 @@ public class ChannelCommand implements Command {
 
         if (channel instanceof VoiceChannel) {
             builder.addField("Bitrate", String.format("%dkbps", ((VoiceChannel) channel).getBitrate()), true);
-            // TODO(nsylke): Change '0' to none
-            builder.addField("User Limit", Integer.toString(((VoiceChannel) channel).getUserLimit()), true);
+
+            String userLimit = ((VoiceChannel) channel).getUserLimit() == 0 ? "None" : Integer.toString(((VoiceChannel) channel).getUserLimit());
+
+            builder.addField("User Limit", userLimit, true);
             builder.addBlankField(true);
         }
 
