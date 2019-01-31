@@ -5,7 +5,7 @@
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- *    http://www.apache.org/licenses/LICENSE-2.0
+ * http://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -21,22 +21,18 @@ import com.typicalbot.command.CommandCategory;
 import com.typicalbot.command.CommandConfiguration;
 import com.typicalbot.command.CommandContext;
 import com.typicalbot.command.CommandPermission;
-
 import net.dv8tion.jda.api.EmbedBuilder;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 import org.json.JSONObject;
 
-import java.awt.*;
-
-
 @CommandConfiguration(category = CommandCategory.FUN, aliases = {"dog"})
 public class DogCommand implements Command {
     @Override
     public String[] usage() {
         return new String[]{
-                "dog",
+            "dog",
         };
     }
 
@@ -60,7 +56,7 @@ public class DogCommand implements Command {
 
             EmbedBuilder embed = new EmbedBuilder();
             embed.setImage(new JSONObject(response.body().string()).get("message").toString());
-            embed.setColor(new Color(25, 118, 210));
+            embed.setColor(0x1976d2);
 
             context.sendEmbed(embed.build());
 
