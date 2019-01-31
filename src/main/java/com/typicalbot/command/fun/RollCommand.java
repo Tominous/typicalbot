@@ -26,7 +26,7 @@ import java.util.Random;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
-@CommandConfiguration(category = CommandCategory.FUN, aliases = "roll")
+@CommandConfiguration(category = CommandCategory.FUN, aliases = {"roll", "dice"})
 public class RollCommand implements Command {
     @Override
     public CommandPermission permission() {
