@@ -41,6 +41,7 @@ import com.typicalbot.command.fun.ReverseCommand;
 import com.typicalbot.command.fun.ShootCommand;
 import com.typicalbot.command.fun.SlapCommand;
 import com.typicalbot.command.fun.StabCommand;
+import com.typicalbot.command.fun.ZalgolizeCommand;
 import com.typicalbot.command.miscellaneous.SayCommand;
 import com.typicalbot.command.system.EvalCommand;
 import com.typicalbot.command.utility.AvatarCommand;
@@ -133,6 +134,7 @@ public class Shard {
                     new ShootCommand(),
                     new SlapCommand(),
                     new StabCommand(),
+                    new ZalgolizeCommand(),
 
                     // Miscellaneous
                     new SayCommand(),
