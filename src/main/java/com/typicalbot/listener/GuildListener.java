@@ -78,7 +78,11 @@ public class GuildListener extends ListenerAdapter {
 
             // TODO(nsylke): Need a backup way for those who haven't given TypicalBot the permission.
             if (event.getGuild().getSelfMember().hasPermission(Permission.MESSAGE_EMBED_LINKS)) {
-                command.execute(commandContext, commandArgument);
+                try {
+                    command.execute(commandContext, commandArgument);
+                } catch (UnsupportedOperationException ex) {
+                    event.getMessage().getChannel().sendMessage(ex.getMessage()).queue();
+                }
             }
         }
     }
