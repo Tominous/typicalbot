@@ -30,17 +30,32 @@ import com.typicalbot.command.core.SuggestionCommand;
 import com.typicalbot.command.core.SupportCommand;
 import com.typicalbot.command.core.UptimeCommand;
 import com.typicalbot.command.core.VersionCommand;
+import com.typicalbot.command.fun.AsciiCommand;
 import com.typicalbot.command.fun.BunnyCommand;
 import com.typicalbot.command.fun.CatCommand;
 import com.typicalbot.command.fun.CookieCommand;
+import com.typicalbot.command.fun.DiceCommand;
 import com.typicalbot.command.fun.DogCommand;
 import com.typicalbot.command.fun.EightballCommand;
+import com.typicalbot.command.fun.EmojifyCommand;
 import com.typicalbot.command.fun.FacesCommand;
 import com.typicalbot.command.fun.FlipCommand;
+import com.typicalbot.command.fun.HugCommand;
+import com.typicalbot.command.fun.JokeCommand;
+import com.typicalbot.command.fun.NatoCommand;
+import com.typicalbot.command.fun.PunchCommand;
+import com.typicalbot.command.fun.QuoteCommand;
+import com.typicalbot.command.fun.RandomCommand;
 import com.typicalbot.command.fun.ReverseCommand;
+import com.typicalbot.command.fun.RockpaperscissorsCommand;
+import com.typicalbot.command.fun.RollCommand;
 import com.typicalbot.command.fun.ShootCommand;
 import com.typicalbot.command.fun.SlapCommand;
 import com.typicalbot.command.fun.StabCommand;
+import com.typicalbot.command.fun.ThisorthatCommand;
+import com.typicalbot.command.fun.TigerCommand;
+import com.typicalbot.command.fun.WouldyouratherCommand;
+import com.typicalbot.command.fun.YomammaCommand;
 import com.typicalbot.command.fun.ZalgolizeCommand;
 import com.typicalbot.command.miscellaneous.SayCommand;
 import com.typicalbot.command.system.EvalCommand;
@@ -123,17 +138,32 @@ public class Shard {
                     new VersionCommand(),
 
                     // Fun
+                    new AsciiCommand(),
                     new BunnyCommand(),
                     new CatCommand(),
                     new CookieCommand(),
+                    new DiceCommand(),
                     new DogCommand(),
                     new EightballCommand(),
+                    new EmojifyCommand(),
                     new FacesCommand(),
                     new FlipCommand(),
+                    new HugCommand(),
+                    new JokeCommand(),
+                    new NatoCommand(),
+                    new PunchCommand(),
+                    new QuoteCommand(),
+                    new RandomCommand(),
                     new ReverseCommand(),
+                    new RockpaperscissorsCommand(),
+                    new RollCommand(),
                     new ShootCommand(),
                     new SlapCommand(),
                     new StabCommand(),
+                    new ThisorthatCommand(),
+                    new TigerCommand(),
+                    new WouldyouratherCommand(),
+                    new YomammaCommand(),
                     new ZalgolizeCommand(),
 
                     // Miscellaneous
