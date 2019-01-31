@@ -83,7 +83,7 @@ public class NatoCommand implements Command {
 
         StringBuilder builder = new StringBuilder();
 
-        for (char c : argument.toString().toCharArray()) {
+        for (char c : argument.toString().toLowerCase().toCharArray()) {
             builder.append(mapping.get(c)).append(" ");
         }
 
