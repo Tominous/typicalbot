@@ -30,7 +30,6 @@ import com.typicalbot.command.core.SuggestionCommand;
 import com.typicalbot.command.core.SupportCommand;
 import com.typicalbot.command.core.UptimeCommand;
 import com.typicalbot.command.core.VersionCommand;
-import com.typicalbot.command.fun.AsciiCommand;
 import com.typicalbot.command.fun.BunnyCommand;
 import com.typicalbot.command.fun.CatCommand;
 import com.typicalbot.command.fun.CookieCommand;
@@ -138,7 +137,6 @@ public class Shard {
                     new VersionCommand(),
 
                     // Fun
-                    new AsciiCommand(),
                     new BunnyCommand(),
                     new CatCommand(),
                     new CookieCommand(),
