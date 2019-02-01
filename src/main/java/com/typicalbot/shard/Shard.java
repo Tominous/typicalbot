@@ -32,6 +32,7 @@ import com.typicalbot.command.core.UptimeCommand;
 import com.typicalbot.command.core.VersionCommand;
 import com.typicalbot.command.fun.BunnyCommand;
 import com.typicalbot.command.fun.CatCommand;
+import com.typicalbot.command.fun.ChooseCommand;
 import com.typicalbot.command.fun.CookieCommand;
 import com.typicalbot.command.fun.DogCommand;
 import com.typicalbot.command.fun.EightballCommand;
@@ -139,6 +140,7 @@ public class Shard {
                     // Fun
                     new BunnyCommand(),
                     new CatCommand(),
+                    new ChooseCommand(),
                     new CookieCommand(),
                     new DogCommand(),
                     new EightballCommand(),
