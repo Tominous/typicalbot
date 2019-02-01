@@ -15,6 +15,7 @@
  */
 package com.typicalbot.shard;
 
+import com.sedmelluq.discord.lavaplayer.jdaudp.NativeAudioSendFactory;
 import com.typicalbot.command.CommandManager;
 import com.typicalbot.command.core.ChangelogCommand;
 import com.typicalbot.command.core.CommandsCommand;
@@ -110,12 +111,12 @@ public class Shard {
             this.instance = new JDABuilder(AccountType.BOT)
                 .setToken(token)
                 .setAutoReconnect(true)
-                // .setAudioEnabled(true)
+                .setAudioEnabled(true)
                 .setGame(Game.playing("Client Started")) // Same as TypicalBot 2.x
                 .setStatus(OnlineStatus.IDLE) // Set to IDLE while still loading, change ONLINE when ready
                 .setBulkDeleteSplittingEnabled(true)
                 .setEnableShutdownHook(true)
-                // .setAudioSendFactory(new NativeAudioSendFactory())
+                .setAudioSendFactory(new NativeAudioSendFactory())
                 .useSharding(shardId, shardTotal)
                 .setCorePoolSize(4)
                 .build();
