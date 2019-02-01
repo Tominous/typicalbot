@@ -16,9 +16,14 @@
 package com.typicalbot.shard;
 
 import com.google.common.primitives.Ints;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
+import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.io.IOException;
 import java.util.Arrays;
 
 /**
@@ -114,6 +119,36 @@ public class ShardManager {
 
         shard = new Shard(token, clientId, shardId, MAX_SHARDS);
         shards[shardId] = shard;
+    }
+
+    /**
+     * Acquires the recommended shard count by sending a REST request to the Discord API.
+     *
+     * @param token the bot token
+     * @return recommended shard count
+     */
+    public static int getRecommendedShards(String token) {
+        int count = 0;
+
+        try {
+            OkHttpClient client = new OkHttpClient();
+
+            Request request = new Request.Builder()
+                .url("https://discordapp.com/api/gateway/bot")
+                .addHeader("Authorization", "Bot " + token)
+                .addHeader("Content-Type", "application/json")
+                .build();
+
+            Response response = client.newCall(request).execute();
+
+            count = new JSONObject(response.body().string()).getInt("shards");
+
+            response.close();
+        } catch (IOException ex) {
+            LOGGER.error("Unable to retrieve recommended shard count.", ex);
+        }
+
+        return count;
     }
 
     /**
