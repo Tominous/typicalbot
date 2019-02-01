@@ -15,8 +15,8 @@
  */
 package com.typicalbot;
 
-import com.typicalbot.data.serialization.dat.DatDeserializer;
-import com.typicalbot.data.serialization.dat.DatSerializer;
+import com.typicalbot.data.serialization.Deserializer;
+import com.typicalbot.data.serialization.Serializer;
 import com.typicalbot.util.console.ConsoleReader;
 import com.typicalbot.data.storage.DataStructure;
 import com.typicalbot.shard.Shard;
@@ -97,7 +97,7 @@ public class TypicalBot {
 
             LOGGER.info("Found '" + clientId + "' as the client identifier.");
 
-            DatSerializer serializer = new DatSerializer();
+            Serializer serializer = new Serializer();
             serializer.serialize(String.format("%s:%s", token, clientId), new FileOutputStream(new File(HOME_PATH.resolve("bin/discord.dat").toString())));
 
             LOGGER.info("Please restart the application.");
@@ -106,7 +106,7 @@ public class TypicalBot {
             System.exit(0);
         }
 
-        DatDeserializer deserializer = new DatDeserializer();
+        Deserializer deserializer = new Deserializer();
         // TODO(nsylke): Should move this outside of constructor.
         DataStructure data = new DataStructure();
 

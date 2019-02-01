@@ -34,7 +34,6 @@ import com.typicalbot.command.fun.AsciiCommand;
 import com.typicalbot.command.fun.BunnyCommand;
 import com.typicalbot.command.fun.CatCommand;
 import com.typicalbot.command.fun.CookieCommand;
-import com.typicalbot.command.fun.DiceCommand;
 import com.typicalbot.command.fun.DogCommand;
 import com.typicalbot.command.fun.EightballCommand;
 import com.typicalbot.command.fun.EmojifyCommand;
@@ -54,7 +53,6 @@ import com.typicalbot.command.fun.ShootCommand;
 import com.typicalbot.command.fun.SlapCommand;
 import com.typicalbot.command.fun.StabCommand;
 import com.typicalbot.command.fun.ThisorthatCommand;
-import com.typicalbot.command.fun.TigerCommand;
 import com.typicalbot.command.fun.WouldyouratherCommand;
 import com.typicalbot.command.fun.YomammaCommand;
 import com.typicalbot.command.fun.ZalgolizeCommand;
@@ -143,7 +141,6 @@ public class Shard {
                     new BunnyCommand(),
                     new CatCommand(),
                     new CookieCommand(),
-                    new DiceCommand(),
                     new DogCommand(),
                     new EightballCommand(),
                     new EmojifyCommand(),
@@ -163,7 +160,6 @@ public class Shard {
                     new SlapCommand(),
                     new StabCommand(),
                     new ThisorthatCommand(),
-                    new TigerCommand(),
                     new WouldyouratherCommand(),
                     new YomammaCommand(),
                     new ZalgolizeCommand(),
