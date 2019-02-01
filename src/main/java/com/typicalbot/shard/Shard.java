@@ -36,6 +36,7 @@ import com.typicalbot.command.fun.CatCommand;
 import com.typicalbot.command.fun.CookieCommand;
 import com.typicalbot.command.fun.DogCommand;
 import com.typicalbot.command.fun.EightballCommand;
+import com.typicalbot.command.fun.EmojiCommand;
 import com.typicalbot.command.fun.EmojifyCommand;
 import com.typicalbot.command.fun.FacesCommand;
 import com.typicalbot.command.fun.FlipCommand;
@@ -143,6 +144,7 @@ public class Shard {
                     new CookieCommand(),
                     new DogCommand(),
                     new EightballCommand(),
+                    new EmojiCommand(),
                     new EmojifyCommand(),
                     new FacesCommand(),
                     new FlipCommand(),
