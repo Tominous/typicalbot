@@ -16,6 +16,7 @@
 package com.typicalbot.shard;
 
 import com.sedmelluq.discord.lavaplayer.jdaudp.NativeAudioSendFactory;
+import com.sedmelluq.discord.lavaplayer.player.AudioConfiguration;
 import com.sedmelluq.discord.lavaplayer.player.AudioPlayerManager;
 import com.sedmelluq.discord.lavaplayer.player.DefaultAudioPlayerManager;
 import com.sedmelluq.discord.lavaplayer.source.AudioSourceManagers;
@@ -205,8 +206,12 @@ public class Shard {
 
             this.musicManager = new HashMap<>();
             this.playerManager = new DefaultAudioPlayerManager();
-            AudioSourceManagers.registerRemoteSources(playerManager);
-            AudioSourceManagers.registerLocalSource(playerManager);
+
+            this.playerManager.getConfiguration().setResamplingQuality(AudioConfiguration.ResamplingQuality.MEDIUM);
+            this.playerManager.getConfiguration().setOpusEncodingQuality(AudioConfiguration.OPUS_QUALITY_MAX);
+
+            AudioSourceManagers.registerRemoteSources(this.playerManager);
+            AudioSourceManagers.registerLocalSource(this.playerManager);
 
             this.executorService.scheduleAtFixedRate(() -> Runtime.getRuntime().gc(), 6, 3, TimeUnit.HOURS);
         } catch (LoginException e) {
