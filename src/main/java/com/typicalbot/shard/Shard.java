@@ -20,6 +20,7 @@ import com.sedmelluq.discord.lavaplayer.player.AudioConfiguration;
 import com.sedmelluq.discord.lavaplayer.player.AudioPlayerManager;
 import com.sedmelluq.discord.lavaplayer.player.DefaultAudioPlayerManager;
 import com.sedmelluq.discord.lavaplayer.source.AudioSourceManagers;
+import com.sedmelluq.discord.lavaplayer.source.youtube.YoutubeAudioSourceManager;
 import com.typicalbot.audio.GuildMusicManager;
 import com.typicalbot.command.CommandManager;
 import com.typicalbot.command.core.ChangelogCommand;
@@ -209,6 +210,8 @@ public class Shard {
 
             this.playerManager.getConfiguration().setResamplingQuality(AudioConfiguration.ResamplingQuality.MEDIUM);
             this.playerManager.getConfiguration().setOpusEncodingQuality(AudioConfiguration.OPUS_QUALITY_MAX);
+
+            this.playerManager.registerSourceManager(new YoutubeAudioSourceManager());
 
             AudioSourceManagers.registerRemoteSources(this.playerManager);
             AudioSourceManagers.registerLocalSource(this.playerManager);
