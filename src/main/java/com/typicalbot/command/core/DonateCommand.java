@@ -21,7 +21,7 @@ import com.typicalbot.command.CommandCategory;
 import com.typicalbot.command.CommandConfiguration;
 import com.typicalbot.command.CommandContext;
 import com.typicalbot.command.CommandPermission;
-import net.dv8tion.jda.api.EmbedBuilder;
+import net.dv8tion.jda.core.EmbedBuilder;
 
 @CommandConfiguration(category = CommandCategory.CORE, aliases = "donate")
 public class DonateCommand implements Command {

@@ -5,7 +5,7 @@
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- *    http://www.apache.org/licenses/LICENSE-2.0
+ * http://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -68,11 +68,11 @@ import com.typicalbot.command.utility.ServerCommand;
 import com.typicalbot.command.utility.UserCommand;
 import com.typicalbot.listener.GuildListener;
 import com.typicalbot.listener.ReadyListener;
-import net.dv8tion.jda.api.AccountType;
-import net.dv8tion.jda.api.JDA;
-import net.dv8tion.jda.api.JDABuilder;
-import net.dv8tion.jda.api.OnlineStatus;
-import net.dv8tion.jda.api.entities.Activity;
+import net.dv8tion.jda.core.AccountType;
+import net.dv8tion.jda.core.JDA;
+import net.dv8tion.jda.core.JDABuilder;
+import net.dv8tion.jda.core.OnlineStatus;
+import net.dv8tion.jda.core.entities.Game;
 
 import javax.security.auth.login.LoginException;
 import java.util.concurrent.Executors;
@@ -108,83 +108,83 @@ public class Shard {
 
         try {
             this.instance = new JDABuilder(AccountType.BOT)
-                    .setToken(token)
-                    .setAutoReconnect(true)
-                    // .setAudioEnabled(true)
-                    .setActivity(Activity.playing("Client Started")) // Same as TypicalBot 2.x
-                    .setStatus(OnlineStatus.IDLE) // Set to IDLE while still loading, change ONLINE when ready
-                    .setBulkDeleteSplittingEnabled(true)
-                    .setEnableShutdownHook(true)
-                    // .setAudioSendFactory(new NativeAudioSendFactory())
-                    .useSharding(shardId, shardTotal)
-                    .setCorePoolSize(4)
-                    .build();
-
-            this.commandManager.registerCommands(
-                    // Core
-                    new ChangelogCommand(),
-                    new CommandsCommand(),
-                    new DonateCommand(),
-                    new HelpCommand(),
-                    new InviteCommand(),
-                    new PingCommand(),
-                    new PrimeCommand(),
-                    new ReportCommand(),
-                    new ShardsCommand(),
-                    new StatisticsCommand(),
-                    new SuggestionCommand(),
-                    new SupportCommand(),
-                    new UptimeCommand(),
-                    new VersionCommand(),
-
-                    // Fun
-                    new BunnyCommand(),
-                    new CatCommand(),
-                    new ChooseCommand(),
-                    new CookieCommand(),
-                    new DogCommand(),
-                    new EightballCommand(),
-                    new EmojiCommand(),
-                    new EmojifyCommand(),
-                    new FacesCommand(),
-                    new FlipCommand(),
-                    new HugCommand(),
-                    new JokeCommand(),
-                    new NatoCommand(),
-                    new PunchCommand(),
-                    new QuoteCommand(),
-                    new RandomCommand(),
-                    new ReverseCommand(),
-                    new RockpaperscissorsCommand(),
-                    new RollCommand(),
-                    new RomanCommand(),
-                    new ShootCommand(),
-                    new SlapCommand(),
-                    new StabCommand(),
-                    new ThisorthatCommand(),
-                    new WouldyouratherCommand(),
-                    new YomammaCommand(),
-                    new ZalgolizeCommand(),
-
-                    // Miscellaneous
-                    new SayCommand(),
-
-                    // System
-                    new EvalCommand(),
-
-                    // Utility
-                    new AvatarCommand(),
-                    new ChannelCommand(),
-                    new MessageCommand(),
-                    new RandomuserCommand(),
-                    new RoleCommand(),
-                    new ServerCommand(),
-                    new UserCommand()
-            );
+                .setToken(token)
+                .setAutoReconnect(true)
+                // .setAudioEnabled(true)
+                .setGame(Game.playing("Client Started")) // Same as TypicalBot 2.x
+                .setStatus(OnlineStatus.IDLE) // Set to IDLE while still loading, change ONLINE when ready
+                .setBulkDeleteSplittingEnabled(true)
+                .setEnableShutdownHook(true)
+                // .setAudioSendFactory(new NativeAudioSendFactory())
+                .useSharding(shardId, shardTotal)
+                .setCorePoolSize(4)
+                .build();
 
             this.instance.addEventListener(
-                    new ReadyListener(),
-                    new GuildListener()
+                new ReadyListener(),
+                new GuildListener()
+            );
+
+            this.commandManager.registerCommands(
+                // Core
+                new ChangelogCommand(),
+                new CommandsCommand(),
+                new DonateCommand(),
+                new HelpCommand(),
+                new InviteCommand(),
+                new PingCommand(),
+                new PrimeCommand(),
+                new ReportCommand(),
+                new ShardsCommand(),
+                new StatisticsCommand(),
+                new SuggestionCommand(),
+                new SupportCommand(),
+                new UptimeCommand(),
+                new VersionCommand(),
+
+                // Fun
+                new BunnyCommand(),
+                new CatCommand(),
+                new ChooseCommand(),
+                new CookieCommand(),
+                new DogCommand(),
+                new EightballCommand(),
+                new EmojiCommand(),
+                new EmojifyCommand(),
+                new FacesCommand(),
+                new FlipCommand(),
+                new HugCommand(),
+                new JokeCommand(),
+                new NatoCommand(),
+                new PunchCommand(),
+                new QuoteCommand(),
+                new RandomCommand(),
+                new ReverseCommand(),
+                new RockpaperscissorsCommand(),
+                new RollCommand(),
+                new RomanCommand(),
+                new ShootCommand(),
+                new SlapCommand(),
+                new StabCommand(),
+                new ThisorthatCommand(),
+                new WouldyouratherCommand(),
+                new YomammaCommand(),
+                new ZalgolizeCommand(),
+
+                // Miscellaneous
+                new SayCommand(),
+
+                // System
+                new EvalCommand(),
+
+                // Utility
+                new AvatarCommand(),
+                new ChannelCommand(),
+                new MessageCommand(),
+                new RandomuserCommand(),
+                new RoleCommand(),
+                new ServerCommand(),
+                new UserCommand()
             );
 
             this.executorService.scheduleAtFixedRate(() -> Runtime.getRuntime().gc(), 6, 3, TimeUnit.HOURS);
@@ -270,7 +270,7 @@ public class Shard {
      * @return Discord API ping
      */
     public long getPing() {
-        return this.instance.getGatewayPing();
+        return this.instance.getPing();
     }
 
     /**

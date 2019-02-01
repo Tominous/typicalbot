@@ -23,8 +23,7 @@ import com.typicalbot.command.CommandCategory;
 import com.typicalbot.command.CommandConfiguration;
 import com.typicalbot.command.CommandContext;
 import com.typicalbot.shard.Shard;
-import com.typicalbot.shard.ShardManager;
-import net.dv8tion.jda.api.EmbedBuilder;
+import net.dv8tion.jda.core.EmbedBuilder;
 
 import java.lang.management.ManagementFactory;
 

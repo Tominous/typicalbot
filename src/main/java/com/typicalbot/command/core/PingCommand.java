@@ -38,6 +38,6 @@ public class PingCommand implements Command {
 
     @Override
     public void execute(CommandContext context, CommandArgument argument) {
-        context.sendMessage("Pong! REST Request: %dms | Discord API Latency: %dms", Shard.getSingleton().getInstance().getRestPing().complete(), (int) ShardManager.getAveragePing());
+        context.sendMessage("Pong! Discord API Latency: {0}ms", (int) ShardManager.getAveragePing());
     }
 }

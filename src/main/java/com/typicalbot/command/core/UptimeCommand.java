@@ -56,6 +56,6 @@ public class UptimeCommand implements Command {
 
         builder.append(seconds).append(" ").append(seconds > 1 ? "seconds" : "second");
 
-        context.sendMessage("TypicalBot has been online for %s.", builder.toString());
+        context.sendMessage("TypicalBot has been online for {0}.", builder.toString());
     }
 }

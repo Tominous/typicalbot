@@ -32,6 +32,6 @@ public class VersionCommand implements Command {
 
     @Override
     public void execute(CommandContext context, CommandArgument argument) {
-        context.sendMessage("The current version of TypicalBot is %s.", TypicalBot.VERSION);
+        context.sendMessage("The current version of TypicalBot is {0}.", TypicalBot.VERSION);
     }
 }

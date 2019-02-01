@@ -21,7 +21,7 @@ import com.typicalbot.command.CommandArgument;
 import com.typicalbot.command.CommandCategory;
 import com.typicalbot.command.CommandConfiguration;
 import com.typicalbot.command.CommandContext;
-import net.dv8tion.jda.api.entities.Member;
+import net.dv8tion.jda.core.entities.Member;
 
 import java.util.Random;
 
@@ -43,7 +43,7 @@ public class RandomuserCommand implements Command {
         int random = randGen.nextInt(context.getMessage().getGuild().getMembers().size());
         Member randomMember = context.getMessage().getGuild().getMembers().get(random);
 
-        if (argument.has() && argument.get(0).equals("--no_bots")) {
+        if (argument.has() && argument.get(0).equals("-nobots")) {
             if (randomMember.getUser().isBot()) randomMember = genRandMember(context, argument);
         }
 
