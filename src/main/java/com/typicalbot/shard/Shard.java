@@ -16,6 +16,10 @@
 package com.typicalbot.shard;
 
 import com.sedmelluq.discord.lavaplayer.jdaudp.NativeAudioSendFactory;
+import com.sedmelluq.discord.lavaplayer.player.AudioPlayerManager;
+import com.sedmelluq.discord.lavaplayer.player.DefaultAudioPlayerManager;
+import com.sedmelluq.discord.lavaplayer.source.AudioSourceManagers;
+import com.typicalbot.audio.GuildMusicManager;
 import com.typicalbot.command.CommandManager;
 import com.typicalbot.command.core.ChangelogCommand;
 import com.typicalbot.command.core.CommandsCommand;
@@ -59,6 +63,8 @@ import com.typicalbot.command.fun.WouldyouratherCommand;
 import com.typicalbot.command.fun.YomammaCommand;
 import com.typicalbot.command.fun.ZalgolizeCommand;
 import com.typicalbot.command.miscellaneous.SayCommand;
+import com.typicalbot.command.music.PlayCommand;
+import com.typicalbot.command.music.SkipCommand;
 import com.typicalbot.command.system.EvalCommand;
 import com.typicalbot.command.utility.AvatarCommand;
 import com.typicalbot.command.utility.ChannelCommand;
@@ -76,6 +82,8 @@ import net.dv8tion.jda.core.OnlineStatus;
 import net.dv8tion.jda.core.entities.Game;
 
 import javax.security.auth.login.LoginException;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
@@ -91,6 +99,9 @@ public class Shard {
     private final String clientId;
     private final int shardId;
     private final int shardTotal;
+
+    private final AudioPlayerManager playerManager;
+    private final Map<Long, GuildMusicManager> musicManager;
 
     private ScheduledExecutorService executorService = Executors.newScheduledThreadPool(4);
     private CommandManager commandManager = new CommandManager();
@@ -175,6 +186,10 @@ public class Shard {
                 // Miscellaneous
                 new SayCommand(),
 
+                // Music
+                new PlayCommand(),
+                new SkipCommand(),
+
                 // System
                 new EvalCommand(),
 
@@ -187,6 +202,11 @@ public class Shard {
                 new ServerCommand(),
                 new UserCommand()
             );
+
+            this.musicManager = new HashMap<>();
+            this.playerManager = new DefaultAudioPlayerManager();
+            AudioSourceManagers.registerRemoteSources(playerManager);
+            AudioSourceManagers.registerLocalSource(playerManager);
 
             this.executorService.scheduleAtFixedRate(() -> Runtime.getRuntime().gc(), 6, 3, TimeUnit.HOURS);
         } catch (LoginException e) {
@@ -272,6 +292,14 @@ public class Shard {
      */
     public long getPing() {
         return this.instance.getPing();
+    }
+
+    public AudioPlayerManager getPlayerManager() {
+        return this.playerManager;
+    }
+
+    public Map<Long, GuildMusicManager> getMusicManager() {
+        return this.musicManager;
     }
 
     /**
