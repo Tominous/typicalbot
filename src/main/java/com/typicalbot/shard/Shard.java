@@ -68,6 +68,7 @@ import com.typicalbot.command.miscellaneous.SayCommand;
 import com.typicalbot.command.music.CurrentCommand;
 import com.typicalbot.command.music.PauseCommand;
 import com.typicalbot.command.music.PlayCommand;
+import com.typicalbot.command.music.ResumeCommand;
 import com.typicalbot.command.music.SkipCommand;
 import com.typicalbot.command.system.EvalCommand;
 import com.typicalbot.command.utility.AvatarCommand;
@@ -193,6 +194,7 @@ public class Shard {
                 new CurrentCommand(),
                 new PauseCommand(),
                 new PlayCommand(),
+                new ResumeCommand(),
                 new SkipCommand(),
 
                 // System
