@@ -15,9 +15,6 @@
  */
 package com.typicalbot.data.serialization;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import java.io.IOException;
 import java.io.ObjectOutputStream;
 import java.io.OutputStream;
@@ -28,8 +25,6 @@ import java.io.Serializable;
  * @since 3.0.0-alpha
  */
 public class Serializer {
-    private static final Logger LOGGER = LoggerFactory.getLogger(Serializer.class);
-
     public void serialize(Object object, OutputStream stream) throws IOException {
         if (!(object instanceof Serializable)) {
             throw new IllegalArgumentException(getClass().getSimpleName() + " requires a Serializable payload but received an object of type [" + object.getClass().getSimpleName() + "]");
