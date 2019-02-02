@@ -70,6 +70,7 @@ import com.typicalbot.command.music.PauseCommand;
 import com.typicalbot.command.music.PlayCommand;
 import com.typicalbot.command.music.ResumeCommand;
 import com.typicalbot.command.music.SkipCommand;
+import com.typicalbot.command.music.VolumeCommand;
 import com.typicalbot.command.system.EvalCommand;
 import com.typicalbot.command.utility.AvatarCommand;
 import com.typicalbot.command.utility.ChannelCommand;
@@ -196,6 +197,7 @@ public class Shard {
                 new PlayCommand(),
                 new ResumeCommand(),
                 new SkipCommand(),
+                new VolumeCommand(),
 
                 // System
                 new EvalCommand(),
