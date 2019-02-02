@@ -65,6 +65,7 @@ import com.typicalbot.command.fun.WouldyouratherCommand;
 import com.typicalbot.command.fun.YomammaCommand;
 import com.typicalbot.command.fun.ZalgolizeCommand;
 import com.typicalbot.command.miscellaneous.SayCommand;
+import com.typicalbot.command.music.CurrentCommand;
 import com.typicalbot.command.music.PlayCommand;
 import com.typicalbot.command.music.SkipCommand;
 import com.typicalbot.command.system.EvalCommand;
@@ -188,6 +189,7 @@ public class Shard {
                 new SayCommand(),
 
                 // Music
+                new CurrentCommand(),
                 new PlayCommand(),
                 new SkipCommand(),
 
