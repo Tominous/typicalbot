@@ -122,7 +122,7 @@ public class ConsoleReader {
             c = read();
         }
 
-        boolean negative = ((c == '-'));
+        boolean negative = (c == '-');
 
         if (negative) {
             c = read();
