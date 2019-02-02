@@ -22,12 +22,11 @@ import java.io.IOException;
  * @author TypicalBot
  * @since 3.0.0-alpha
  */
-// TODO(nsylke): Make thread-safe
 public class ConsoleReader {
     /**
      * The maximum buffer size.
      */
-    private final int BUFFER_SIZE = 1 << 16;
+    private static final int BUFFER_SIZE = 1 << 16;
 
     /**
      * The stream to read the user input.
