@@ -88,7 +88,6 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
-import java.util.concurrent.TimeUnit;
 
 /**
  * @author TypicalBot
@@ -215,8 +214,6 @@ public class Shard {
 
             AudioSourceManagers.registerRemoteSources(this.playerManager);
             AudioSourceManagers.registerLocalSource(this.playerManager);
-
-            this.executorService.scheduleAtFixedRate(() -> Runtime.getRuntime().gc(), 6, 3, TimeUnit.HOURS);
         } catch (LoginException e) {
             throw new RuntimeException(e);
         }
