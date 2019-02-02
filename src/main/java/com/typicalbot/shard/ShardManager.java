@@ -36,7 +36,7 @@ public class ShardManager {
     /**
      * The maximum amount of shards.
      */
-    private static int MAX_SHARDS;
+    private static int maxShards;
 
     /**
      * Allows for TypicalBot to track which shards are operational and
@@ -44,6 +44,10 @@ public class ShardManager {
      * all server settings and commands.
      */
     private static Shard[] shards;
+
+    // Prevent instantiation.
+    private ShardManager() {
+    }
 
     /**
      * Generate shards to run the Discord bot. Bots are limited to 2500
@@ -55,8 +59,7 @@ public class ShardManager {
      * @throws InterruptedException if the thread is interrupted.
      */
     public static void register(String token, String clientId, int shardTotal) throws InterruptedException {
-        MAX_SHARDS = shardTotal;
-
+        maxShards = shardTotal;
         shards = new Shard[shardTotal];
 
         for (int i = 0; i < shardTotal; i++) {
@@ -97,7 +100,7 @@ public class ShardManager {
      */
     public static Shard getShard(long guildId) {
         // Sharding Formula from Discord developer documentation.
-        long shardId = (guildId >> 22) % MAX_SHARDS;
+        long shardId = (guildId >> 22) % maxShards;
 
         return getShard(Ints.checkedCast(shardId));
     }
@@ -117,7 +120,7 @@ public class ShardManager {
         shard.shutdown();
         Thread.sleep(5000);
 
-        shard = new Shard(token, clientId, shardId, MAX_SHARDS);
+        shard = new Shard(token, clientId, shardId, maxShards);
         shards[shardId] = shard;
     }
 
