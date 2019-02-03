@@ -5,7 +5,7 @@
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- *    http://www.apache.org/licenses/LICENSE-2.0
+ * http://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -39,12 +39,11 @@ public class RandomuserCommand implements Command {
     }
 
     public Member genRandMember(CommandContext context, CommandArgument argument) {
-        Random randGen = new Random();
-        int random = randGen.nextInt(context.getMessage().getGuild().getMembers().size());
+        int random = new Random().nextInt(context.getMessage().getGuild().getMembers().size());
         Member randomMember = context.getMessage().getGuild().getMembers().get(random);
 
-        if (argument.has() && argument.get(0).equals("-nobots")) {
-            if (randomMember.getUser().isBot()) randomMember = genRandMember(context, argument);
+        if (argument.has() && argument.get(0).equals("-nobots") && randomMember.getUser().isBot()) {
+            randomMember = genRandMember(context, argument);
         }
 
         return randomMember;
