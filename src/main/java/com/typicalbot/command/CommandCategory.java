@@ -27,5 +27,6 @@ public enum CommandCategory {
     MODERATION,
     MUSIC,
     SYSTEM,
-    UTILITY
+    UTILITY,
+    WEBHOOK
 }
