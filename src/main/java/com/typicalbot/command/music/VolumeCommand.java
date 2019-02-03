@@ -22,6 +22,7 @@ import com.typicalbot.command.CommandCategory;
 import com.typicalbot.command.CommandConfiguration;
 import com.typicalbot.command.CommandContext;
 import com.typicalbot.command.CommandPermission;
+import com.typicalbot.util.AudioUtil;
 
 @CommandConfiguration(category = CommandCategory.MUSIC, aliases = {"volume", "vol"})
 public class VolumeCommand implements Command {
@@ -32,7 +33,7 @@ public class VolumeCommand implements Command {
 
     @Override
     public void execute(CommandContext context, CommandArgument argument) {
-        GuildMusicManager musicManager = PlayCommand.getGuildAudioPlayer(context.getGuild());
+        GuildMusicManager musicManager = AudioUtil.getGuildAudioPlayer(context.getGuild());
 
         if (!argument.has()) {
             context.sendMessage("Volume: {0}", musicManager.player.getVolume());

@@ -5,7 +5,7 @@
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- *    http://www.apache.org/licenses/LICENSE-2.0
+ * http://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -14,6 +14,10 @@
  * limitations under the License.
  */
 package com.typicalbot.util;
+
+import com.typicalbot.audio.GuildMusicManager;
+import com.typicalbot.shard.Shard;
+import net.dv8tion.jda.core.entities.Guild;
 
 /**
  * @author TypicalBot
@@ -43,5 +47,17 @@ public class AudioUtil {
         builder.append(seconds < 10 ? "0" + seconds : seconds);
 
         return builder.toString();
+    }
+
+    public static synchronized GuildMusicManager getGuildAudioPlayer(Guild guild) {
+        GuildMusicManager musicManager = Shard.getSingleton().getMusicManager().get(guild.getIdLong());
+
+        if (musicManager == null) {
+            musicManager = new GuildMusicManager(Shard.getSingleton().getPlayerManager());
+            Shard.getSingleton().getMusicManager().put(guild.getIdLong(), musicManager);
+        }
+
+        guild.getAudioManager().setSendingHandler(musicManager.getSendHandler());
+        return musicManager;
     }
 }

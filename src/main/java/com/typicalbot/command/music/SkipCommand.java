@@ -22,6 +22,7 @@ import com.typicalbot.command.CommandCategory;
 import com.typicalbot.command.CommandConfiguration;
 import com.typicalbot.command.CommandContext;
 import com.typicalbot.command.CommandPermission;
+import com.typicalbot.util.AudioUtil;
 import net.dv8tion.jda.core.entities.TextChannel;
 
 @CommandConfiguration(category = CommandCategory.MUSIC, aliases = "skip")
@@ -37,7 +38,7 @@ public class SkipCommand implements Command {
     }
 
     private void skipTrack(TextChannel channel) {
-        GuildMusicManager musicManager = PlayCommand.getGuildAudioPlayer(channel.getGuild());
+        GuildMusicManager musicManager = AudioUtil.getGuildAudioPlayer(channel.getGuild());
         musicManager.scheduler.nextTrack();
 
         channel.sendMessage("Skipped to next track.").queue();

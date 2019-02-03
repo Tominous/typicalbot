@@ -35,7 +35,7 @@ public class CurrentCommand implements Command {
 
     @Override
     public void execute(CommandContext context, CommandArgument argument) {
-        GuildMusicManager musicManager = PlayCommand.getGuildAudioPlayer(context.getGuild());
+        GuildMusicManager musicManager = AudioUtil.getGuildAudioPlayer(context.getGuild());
         AudioTrack track = musicManager.player.getPlayingTrack();
 
         EmbedBuilder builder = new EmbedBuilder();

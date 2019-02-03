@@ -27,6 +27,7 @@ import com.typicalbot.command.CommandConfiguration;
 import com.typicalbot.command.CommandContext;
 import com.typicalbot.command.CommandPermission;
 import com.typicalbot.shard.Shard;
+import com.typicalbot.util.AudioUtil;
 import net.dv8tion.jda.core.entities.Guild;
 import net.dv8tion.jda.core.entities.TextChannel;
 import net.dv8tion.jda.core.entities.VoiceChannel;
@@ -50,7 +51,7 @@ public class PlayCommand implements Command {
     }
 
     private void loadAndPlay(TextChannel channel, String trackUrl) {
-        GuildMusicManager musicManager = getGuildAudioPlayer(channel.getGuild());
+        GuildMusicManager musicManager = AudioUtil.getGuildAudioPlayer(channel.getGuild());
 
         Shard.getSingleton().getPlayerManager().loadItemOrdered(musicManager, trackUrl, new AudioLoadResultHandler() {
             @Override
@@ -97,19 +98,5 @@ public class PlayCommand implements Command {
                 break;
             }
         }
-    }
-
-    public static synchronized GuildMusicManager getGuildAudioPlayer(Guild guild) {
-        long guildId = Long.parseLong(guild.getId());
-        GuildMusicManager musicManager = Shard.getSingleton().getMusicManager().get(guildId);
-
-        if (musicManager == null) {
-            musicManager = new GuildMusicManager(Shard.getSingleton().getPlayerManager());
-            Shard.getSingleton().getMusicManager().put(guildId, musicManager);
-        }
-
-        guild.getAudioManager().setSendingHandler(musicManager.getSendHandler());
-
-        return musicManager;
     }
 }
