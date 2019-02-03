@@ -42,7 +42,7 @@ public class CommandsCommand implements Command {
 
         EmbedBuilder builder = new EmbedBuilder();
 
-        builder.setTitle("Commands");
+        builder.setTitle("TypicalBot Commands");
 
         for (CommandCategory category : CommandCategory.values()) {
             if (category != CommandCategory.SYSTEM) {

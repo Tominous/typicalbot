@@ -54,7 +54,7 @@ public class SuggestionCommand implements Command {
         // TODO(nsylke): If users are banned from TypicalBot Lounge, remove suggestion silently.
         EmbedBuilder builder = new EmbedBuilder();
 
-        builder.setTitle("Suggestion");
+        builder.setTitle("TypicalBot Suggestion");
         builder.setDescription(argument.toString());
         builder.setFooter(context.getMessage().getAuthor().getAsTag() + " (" + context.getMessage().getAuthor().getId() + ")", context.getMessage().getAuthor().getEffectiveAvatarUrl());
 
@@ -67,7 +67,7 @@ public class SuggestionCommand implements Command {
         // Reset builder
         builder.clear();
 
-        builder.setTitle("Suggestion");
+        builder.setTitle("TypicalBot Suggestion");
         builder.setDescription("Successfully sent suggestion to TypicalBot Lounge. [Click here](https://typicalbot.com/join-us) to join!");
 
         context.sendEmbed(builder.build());

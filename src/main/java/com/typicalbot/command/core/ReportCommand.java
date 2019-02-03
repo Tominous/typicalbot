@@ -52,7 +52,7 @@ public class ReportCommand implements Command {
 
         EmbedBuilder builder = new EmbedBuilder();
 
-        builder.setTitle("Report");
+        builder.setTitle("TypicalBot Report");
         builder.setDescription(argument.toString());
         builder.setFooter(context.getMessage().getAuthor().getAsTag() + " (" + context.getMessage().getAuthor().getId() + ")", context.getMessage().getAuthor().getEffectiveAvatarUrl());
 
@@ -61,7 +61,7 @@ public class ReportCommand implements Command {
         // Reset builder
         builder.clear();
 
-        builder.setTitle("Report");
+        builder.setTitle("TypicalBot Report");
         builder.setDescription("Successfully sent report to the TypicalBot Maintainers.");
 
         context.sendEmbed(builder.build());
