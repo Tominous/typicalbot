@@ -30,6 +30,18 @@ import net.dv8tion.jda.core.entities.TextChannel;
 @CommandConfiguration(category = CommandCategory.CORE, aliases = "report")
 public class ReportCommand implements Command {
     @Override
+    public String[] usage() {
+        return new String[]{
+            "report <message>"
+        };
+    }
+
+    @Override
+    public String description() {
+        return "Report a bug or issue to the TypicalBot team.";
+    }
+
+    @Override
     public CommandPermission permission() {
         return CommandPermission.GUILD_MEMBER;
     }

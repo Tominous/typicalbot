@@ -27,6 +27,18 @@ import com.typicalbot.shard.ShardManager;
 @CommandConfiguration(category = CommandCategory.CORE, aliases = "shards")
 public class ShardsCommand implements Command {
     @Override
+    public String[] usage() {
+        return new String[]{
+            "shards"
+        };
+    }
+
+    @Override
+    public String description() {
+        return "Get information about the shards.";
+    }
+
+    @Override
     public CommandPermission permission() {
         return CommandPermission.GUILD_MEMBER;
     }
@@ -37,10 +49,10 @@ public class ShardsCommand implements Command {
 
         for (Shard shard : ShardManager.getShards()) {
             builder.append(String.format("Shard [%s / %s]", shard.getShardId() + 1, shard.getShardTotal()))
-                    .append(" | Status: ").append(shard.getInstance().getStatus())
-                    .append(" | Guilds: ").append(shard.getInstance().getGuilds().size())
-                    .append(" | Channels: ").append(shard.getInstance().getTextChannels().size() + shard.getInstance().getVoiceChannels().size())
-                    .append(" | Users: ").append(shard.getInstance().getUsers().size());
+                .append(" | Status: ").append(shard.getInstance().getStatus())
+                .append(" | Guilds: ").append(shard.getInstance().getGuilds().size())
+                .append(" | Channels: ").append(shard.getInstance().getTextChannels().size() + shard.getInstance().getVoiceChannels().size())
+                .append(" | Users: ").append(shard.getInstance().getUsers().size());
 
             if (shard.getShardId() == context.getMessage().getJDA().getShardInfo().getShardId()) {
                 builder.append(" | Current");

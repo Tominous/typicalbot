@@ -25,6 +25,18 @@ import com.typicalbot.command.CommandPermission;
 @CommandConfiguration(category = CommandCategory.CORE, aliases = "prime")
 public class PrimeCommand implements Command {
     @Override
+    public String[] usage() {
+        return new String[]{
+            "prime"
+        };
+    }
+
+    @Override
+    public String description() {
+        return "Check to see if you have any available prime keys, or add or remove a prime key from a guild.";
+    }
+
+    @Override
     public CommandPermission permission() {
         return CommandPermission.GUILD_MEMBER;
     }

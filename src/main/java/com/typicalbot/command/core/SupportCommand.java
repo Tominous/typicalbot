@@ -25,6 +25,13 @@ import com.typicalbot.command.CommandContext;
 @CommandConfiguration(category = CommandCategory.CORE, aliases = {"support", "home", "lounge"})
 public class SupportCommand implements Command {
     @Override
+    public String[] usage() {
+        return new String[]{
+            "support"
+        };
+    }
+
+    @Override
     public String description() {
         return "Receive an invite to the TypicalBot Lounge.";
     }

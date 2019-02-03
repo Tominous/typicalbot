@@ -25,6 +25,19 @@ import com.typicalbot.command.CommandPermission;
 @CommandConfiguration(category = CommandCategory.CORE, aliases = "changelog")
 public class ChangelogCommand implements Command {
     @Override
+    public String[] usage() {
+        return new String[]{
+            "changelog",
+            "changelog [version]"
+        };
+    }
+
+    @Override
+    public String description() {
+        return "Get the changelog for the current version, or previous version.";
+    }
+
+    @Override
     public CommandPermission permission() {
         return CommandPermission.GUILD_MEMBER;
     }

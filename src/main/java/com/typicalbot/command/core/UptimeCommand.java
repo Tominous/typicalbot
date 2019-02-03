@@ -28,6 +28,18 @@ import java.lang.management.RuntimeMXBean;
 @CommandConfiguration(category = CommandCategory.CORE, aliases = "uptime")
 public class UptimeCommand implements Command {
     @Override
+    public String[] usage() {
+        return new String[]{
+            "uptime"
+        };
+    }
+
+    @Override
+    public String description() {
+        return "Check to see how long TypicalBot has been online for.";
+    }
+
+    @Override
     public CommandPermission permission() {
         return CommandPermission.GUILD_MEMBER;
     }

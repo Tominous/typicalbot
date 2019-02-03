@@ -30,8 +30,8 @@ public class HelpCommand implements Command {
     @Override
     public String[] usage() {
         return new String[]{
-                "help",
-                "help [command]"
+            "help",
+            "help [command]"
         };
     }
 

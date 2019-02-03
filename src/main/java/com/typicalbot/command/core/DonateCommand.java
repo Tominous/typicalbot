@@ -26,6 +26,18 @@ import net.dv8tion.jda.core.EmbedBuilder;
 @CommandConfiguration(category = CommandCategory.CORE, aliases = "donate")
 public class DonateCommand implements Command {
     @Override
+    public String[] usage() {
+        return new String[]{
+            "donate"
+        };
+    }
+
+    @Override
+    public String description() {
+        return "Donate to TypicalBot.";
+    }
+
+    @Override
     public CommandPermission permission() {
         return CommandPermission.GUILD_MEMBER;
     }

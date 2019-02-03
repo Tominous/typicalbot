@@ -30,6 +30,18 @@ import net.dv8tion.jda.core.entities.TextChannel;
 @CommandConfiguration(category = CommandCategory.CORE, aliases = {"suggestion", "suggest"})
 public class SuggestionCommand implements Command {
     @Override
+    public String[] usage() {
+        return new String[]{
+            "suggestion <message>"
+        };
+    }
+
+    @Override
+    public String description() {
+        return "Suggest a feature to the TypicalBot team.";
+    }
+
+    @Override
     public CommandPermission permission() {
         return CommandPermission.GUILD_MEMBER;
     }

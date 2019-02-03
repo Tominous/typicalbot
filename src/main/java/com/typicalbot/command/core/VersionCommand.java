@@ -26,6 +26,18 @@ import com.typicalbot.command.CommandPermission;
 @CommandConfiguration(category = CommandCategory.CORE, aliases = {"version", "ver"})
 public class VersionCommand implements Command {
     @Override
+    public String[] usage() {
+        return new String[]{
+            "version"
+        };
+    }
+
+    @Override
+    public String description() {
+        return "Check the current version number of TypicalBot.";
+    }
+
+    @Override
     public CommandPermission permission() {
         return CommandPermission.GUILD_MEMBER;
     }

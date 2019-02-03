@@ -27,6 +27,13 @@ import com.typicalbot.shard.ShardManager;
 @CommandConfiguration(category = CommandCategory.CORE, aliases = {"ping", "pong"})
 public class PingCommand implements Command {
     @Override
+    public String[] usage() {
+        return new String[]{
+            "ping"
+        };
+    }
+
+    @Override
     public String description() {
         return "A check to see if TypicalBot is able to respond.";
     }

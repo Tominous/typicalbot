@@ -30,6 +30,18 @@ import java.lang.management.ManagementFactory;
 @CommandConfiguration(category = CommandCategory.CORE, aliases = {"statistics", "stats"})
 public class StatisticsCommand implements Command {
     @Override
+    public String[] usage() {
+        return new String[]{
+            "statistics"
+        };
+    }
+
+    @Override
+    public String description() {
+        return "Get statistics about TypicalBot.";
+    }
+
+    @Override
     public CommandPermission permission() {
         return CommandPermission.GUILD_MEMBER;
     }
