@@ -49,6 +49,7 @@ import com.typicalbot.command.fun.FacesCommand;
 import com.typicalbot.command.fun.FlipCommand;
 import com.typicalbot.command.fun.HugCommand;
 import com.typicalbot.command.fun.JokeCommand;
+import com.typicalbot.command.fun.LmgtfyCommand;
 import com.typicalbot.command.fun.NatoCommand;
 import com.typicalbot.command.fun.PunchCommand;
 import com.typicalbot.command.fun.QuoteCommand;
@@ -64,21 +65,69 @@ import com.typicalbot.command.fun.ThisorthatCommand;
 import com.typicalbot.command.fun.WouldyouratherCommand;
 import com.typicalbot.command.fun.YomammaCommand;
 import com.typicalbot.command.fun.ZalgolizeCommand;
+import com.typicalbot.command.integration.WeatherCommand;
+import com.typicalbot.command.integration.WikipediaCommand;
+import com.typicalbot.command.integration.XkcdCommand;
 import com.typicalbot.command.miscellaneous.SayCommand;
+import com.typicalbot.command.moderation.AdcheckCommand;
+import com.typicalbot.command.moderation.AliasCommand;
+import com.typicalbot.command.moderation.AnnounceCommand;
+import com.typicalbot.command.moderation.BanCommand;
+import com.typicalbot.command.moderation.ChannelsCommand;
+import com.typicalbot.command.moderation.DeafenCommand;
+import com.typicalbot.command.moderation.EmojisCommand;
+import com.typicalbot.command.moderation.FilterCommand;
+import com.typicalbot.command.moderation.GiveCommand;
+import com.typicalbot.command.moderation.IgnoreCommand;
+import com.typicalbot.command.moderation.KickCommand;
+import com.typicalbot.command.moderation.MuteCommand;
+import com.typicalbot.command.moderation.PCSCommand;
+import com.typicalbot.command.moderation.PurgeCommand;
+import com.typicalbot.command.moderation.ReasonCommand;
+import com.typicalbot.command.moderation.RolesCommand;
+import com.typicalbot.command.moderation.SettingsCommand;
+import com.typicalbot.command.moderation.SlowmodeCommand;
+import com.typicalbot.command.moderation.SoftbanCommand;
+import com.typicalbot.command.moderation.TakeCommand;
+import com.typicalbot.command.moderation.UnbanCommand;
+import com.typicalbot.command.moderation.UndeafenCommand;
+import com.typicalbot.command.moderation.UnignoreCommand;
+import com.typicalbot.command.moderation.UnmuteCommand;
+import com.typicalbot.command.moderation.WarnCommand;
 import com.typicalbot.command.music.CurrentCommand;
+import com.typicalbot.command.music.LyricsCommand;
 import com.typicalbot.command.music.PauseCommand;
 import com.typicalbot.command.music.PlayCommand;
+import com.typicalbot.command.music.QueueCommand;
+import com.typicalbot.command.music.RepeatCommand;
 import com.typicalbot.command.music.ResumeCommand;
+import com.typicalbot.command.music.SeekCommand;
+import com.typicalbot.command.music.ShuffleCommand;
 import com.typicalbot.command.music.SkipCommand;
+import com.typicalbot.command.music.StopCommand;
+import com.typicalbot.command.music.UnqueueCommand;
 import com.typicalbot.command.music.VolumeCommand;
 import com.typicalbot.command.system.EvalCommand;
+import com.typicalbot.command.system.TestCommand;
 import com.typicalbot.command.utility.AvatarCommand;
+import com.typicalbot.command.utility.BotsCommand;
 import com.typicalbot.command.utility.ChannelCommand;
+import com.typicalbot.command.utility.DiscriminatorCommand;
+import com.typicalbot.command.utility.HexCommand;
+import com.typicalbot.command.utility.LevelCommand;
 import com.typicalbot.command.utility.MessageCommand;
+import com.typicalbot.command.utility.NicknameCommand;
 import com.typicalbot.command.utility.RandomuserCommand;
 import com.typicalbot.command.utility.RoleCommand;
+import com.typicalbot.command.utility.SearchCommand;
 import com.typicalbot.command.utility.ServerCommand;
+import com.typicalbot.command.utility.ServersCommand;
+import com.typicalbot.command.integration.StrawpollCommand;
+import com.typicalbot.command.utility.SubscribeCommand;
+import com.typicalbot.command.utility.UnsubscribeCommand;
+import com.typicalbot.command.integration.UrbandictionaryCommand;
 import com.typicalbot.command.utility.UserCommand;
+import com.typicalbot.command.webhook.WebhookCommand;
 import com.typicalbot.listener.GuildListener;
 import com.typicalbot.listener.ReadyListener;
 import net.dv8tion.jda.core.AccountType;
@@ -172,6 +221,7 @@ public class Shard {
                 new FlipCommand(),
                 new HugCommand(),
                 new JokeCommand(),
+                new LmgtfyCommand(),
                 new NatoCommand(),
                 new PunchCommand(),
                 new QuoteCommand(),
@@ -188,28 +238,82 @@ public class Shard {
                 new YomammaCommand(),
                 new ZalgolizeCommand(),
 
+                // Integration
+                new StrawpollCommand(),
+                new UrbandictionaryCommand(),
+                new WeatherCommand(),
+                new WikipediaCommand(),
+                new XkcdCommand(),
+
                 // Miscellaneous
                 new SayCommand(),
 
+                // Moderation
+                new AdcheckCommand(),
+                new AliasCommand(),
+                new AnnounceCommand(),
+                new BanCommand(),
+                new ChannelsCommand(),
+                new DeafenCommand(),
+                new EmojisCommand(),
+                new FilterCommand(),
+                new GiveCommand(),
+                new IgnoreCommand(),
+                new KickCommand(),
+                new MuteCommand(),
+                new PCSCommand(),
+                new PurgeCommand(),
+                new ReasonCommand(),
+                new RolesCommand(),
+                new SettingsCommand(),
+                new SlowmodeCommand(),
+                new SoftbanCommand(),
+                new TakeCommand(),
+                new UnbanCommand(),
+                new UndeafenCommand(),
+                new UnignoreCommand(),
+                new UnmuteCommand(),
+                new WarnCommand(),
+
                 // Music
                 new CurrentCommand(),
+                new LyricsCommand(),
                 new PauseCommand(),
                 new PlayCommand(),
+                new QueueCommand(),
+                new RepeatCommand(),
                 new ResumeCommand(),
+                new SeekCommand(),
+                new ShuffleCommand(),
                 new SkipCommand(),
+                new StopCommand(),
+                new UnqueueCommand(),
                 new VolumeCommand(),
 
                 // System
                 new EvalCommand(),
+                new TestCommand(),
 
                 // Utility
                 new AvatarCommand(),
+                new BotsCommand(),
                 new ChannelCommand(),
+                new DiscriminatorCommand(),
+                new HexCommand(),
+                new LevelCommand(),
                 new MessageCommand(),
+                new NicknameCommand(),
                 new RandomuserCommand(),
                 new RoleCommand(),
+                new SearchCommand(),
                 new ServerCommand(),
-                new UserCommand()
+                new ServersCommand(),
+                new SubscribeCommand(),
+                new UnsubscribeCommand(),
+                new UserCommand(),
+
+                // Webhook
+                new WebhookCommand()
             );
 
             this.musicManager = new HashMap<>();
