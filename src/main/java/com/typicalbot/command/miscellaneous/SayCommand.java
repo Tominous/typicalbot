@@ -38,6 +38,6 @@ public class SayCommand implements Command {
 
         // Delete authors message
         context.getMessage().delete().queue();
-        context.sendMessage(argument.toString());
+        context.sendMessage(argument.toString().replaceAll("@here", "@\u200bhere").replaceAll("@everyone", "@\u200beveryone"));
     }
 }
