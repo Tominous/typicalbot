@@ -15,13 +15,14 @@
  */
 package com.typicalbot;
 
+import com.typicalbot.config.Config;
 import com.typicalbot.data.serialization.Deserializer;
 import com.typicalbot.data.serialization.Serializer;
-import com.typicalbot.util.console.ConsoleReader;
 import com.typicalbot.data.storage.DataStructure;
 import com.typicalbot.shard.Shard;
 import com.typicalbot.shard.ShardManager;
 import com.typicalbot.util.FileUtil;
+import com.typicalbot.util.console.ConsoleReader;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -114,9 +115,10 @@ public class TypicalBot {
           the Discord bot.
          */
         Arrays.asList(deserializer.deserialize(new FileInputStream(new File(FileUtil.HOME_PATH.resolve("bin/discord.dat").toString()))).toString().split(":")).forEach(data::insert);
+        Config.init();
 
         // TODO(nsylke): Start ShardManager - pass the token and client id, along with the shard count.
-        ShardManager.register(String.valueOf(data.read(0)), String.valueOf(data.read(0)), 1);
+        ShardManager.register(String.valueOf(data.read(0)), String.valueOf(data.read(0)), Config.getConfig("discord").getInt("shards"));
     }
 
     public static void main(String[] args) {
