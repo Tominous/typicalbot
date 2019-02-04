@@ -1,5 +1,5 @@
 /**
- * Copyright 2016-2019 Bryan Pikaard & Nicholas Sylke
+ * Copyright 2019 Bryan Pikaard & Nicholas Sylke
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -33,6 +33,8 @@ import net.dv8tion.jda.core.entities.TextChannel;
 import net.dv8tion.jda.core.entities.VoiceChannel;
 import net.dv8tion.jda.core.managers.AudioManager;
 
+import java.net.URL;
+
 @CommandConfiguration(category = CommandCategory.MUSIC, aliases = "play")
 public class PlayCommand implements Command {
     @Override
@@ -47,7 +49,16 @@ public class PlayCommand implements Command {
             return;
         }
 
-        loadAndPlay(context.getMessage().getTextChannel(), argument.toString());
+        String video;
+
+        try {
+            new URL(argument.toString());
+            video = argument.toString();
+        } catch (Exception ex) {
+            video = "ytsearch:" + argument.toString();
+        }
+
+        loadAndPlay(context.getMessage().getTextChannel(), video);
     }
 
     private void loadAndPlay(TextChannel channel, String trackUrl) {
