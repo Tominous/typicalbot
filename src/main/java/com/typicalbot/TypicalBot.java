@@ -117,7 +117,6 @@ public class TypicalBot {
         Arrays.asList(deserializer.deserialize(new FileInputStream(new File(FileUtil.HOME_PATH.resolve("bin/discord.dat").toString()))).toString().split(":")).forEach(data::insert);
         Config.init();
 
-        // TODO(nsylke): Start ShardManager - pass the token and client id, along with the shard count.
         ShardManager.register(String.valueOf(data.read(0)), String.valueOf(data.read(0)), Config.getConfig("discord").getInt("shards"));
     }
 
