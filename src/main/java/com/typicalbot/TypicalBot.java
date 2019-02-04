@@ -93,7 +93,7 @@ public class TypicalBot {
                 System.exit(-1);
             }
 
-            LOGGER.info("Found '" + clientId + "' as the client identifier.");
+            LOGGER.info("Found '{}' as the client identifier.", clientId);
 
             Serializer serializer = new Serializer();
             serializer.serialize(String.format("%s:%s", token, clientId), new FileOutputStream(new File(FileUtil.HOME_PATH.resolve("bin/discord.dat").toString())));
