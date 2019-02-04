@@ -18,6 +18,7 @@ package com.typicalbot.listener;
 import com.typicalbot.command.Command;
 import com.typicalbot.command.CommandArgument;
 import com.typicalbot.command.CommandContext;
+import com.typicalbot.config.Config;
 import com.typicalbot.shard.Shard;
 import net.dv8tion.jda.core.Permission;
 import net.dv8tion.jda.core.events.guild.GuildJoinEvent;
@@ -56,7 +57,7 @@ public class GuildListener extends ListenerAdapter {
         if (!event.getGuild().getSelfMember().hasPermission(Permission.MESSAGE_WRITE)) return;
 
         String rawMessage = event.getMessage().getContentRaw();
-        String prefix = "b$";
+        String prefix = Config.getConfig("discord").getString("prefix");
 
         if (rawMessage.matches("^<@!?" + event.getJDA().getSelfUser().getId() + ">$")) {
             // TODO(nsylke): Show default prefix from configuration if setting in database is not set.
