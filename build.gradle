@@ -31,6 +31,9 @@ dependencies {
     compile group: 'org.slf4j', name: 'slf4j-api', version: '1.7.25'
     compile group: 'org.slf4j', name: 'slf4j-log4j12', version: '1.7.25'
 
+    // Config
+    compile group: 'com.github.Carleslc', name: 'Simple-YAML', version: '1.3'
+
     // Sentry
     compile group: 'io.sentry', name: 'sentry', version: '1.7.17'
 
