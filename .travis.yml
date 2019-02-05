@@ -4,7 +4,7 @@ jdk:
 
 install: true
 sudo: required
-script: gradle/travis.sh
+script: ./gradlew clean build --stacktrace
 
 cache:
     directories:
