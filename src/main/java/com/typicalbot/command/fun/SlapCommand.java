@@ -54,20 +54,20 @@ public class SlapCommand implements Command {
         int x = rand.nextInt(options.length);
 
         if (!argument.has()) {
-            context.sendMessage("%s, stop hitting yourself! :dizzy_face::wave::skin-tone-2: %s", author.getAsMention(), options[x]);
+            context.sendMessage("{0}, stop hitting yourself! :dizzy_face::wave::skin-tone-2: {1}", author.getAsMention(), options[x]);
             return;
         }
 
         User mention = context.getUser(argument.get(0));
 
         if (mention == author) {
-            context.sendMessage("%s, stop hitting yourself! :dizzy_face::wave::skin-tone-2: %s", author.getAsMention(), options[x]);
+            context.sendMessage("{0}, stop hitting yourself! :dizzy_face::wave::skin-tone-2: {1}", author.getAsMention(), options[x]);
             return;
         } else if (mention == null) {
-            context.sendMessage("%s, the specified user does not exist. Try again.", author.getAsMention());
+            context.sendMessage("{0}, the specified user does not exist. Try again.", author.getAsMention());
             return;
         }
 
-        context.sendMessage("%s just slapped %s! :dizzy_face::wave::skin-tone-2: %s", author.getAsMention(), mention.getAsMention(), options[x]);
+        context.sendMessage("{0} just slapped {1}! :dizzy_face::wave::skin-tone-2: {2}", author.getAsMention(), mention.getAsMention(), options[x]);
     }
 }

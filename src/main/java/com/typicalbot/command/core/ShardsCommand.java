@@ -61,6 +61,6 @@ public class ShardsCommand implements Command {
             builder.append("\n");
         }
 
-        context.sendMessage("```prolog%n%s```", builder.toString());
+        context.sendMessage("```prolog\n{0}```", builder.toString());
     }
 }

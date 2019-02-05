@@ -74,6 +74,6 @@ public class RollCommand implements Command {
             rolls[i] = (new Random().ints(1, sides).iterator().nextInt());
         }
 
-        context.sendMessage("You rolled: " + IntStream.of(rolls).mapToObj(Integer::toString).collect(Collectors.joining(", ")) + ". Total: " + IntStream.of(rolls).sum());
+        context.sendMessage("You rolled: {0}. Total: {1}", IntStream.of(rolls).mapToObj(Integer::toString).collect(Collectors.joining(", ")), IntStream.of(rolls).sum());
     }
 }

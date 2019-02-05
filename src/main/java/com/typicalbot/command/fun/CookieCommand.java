@@ -48,7 +48,7 @@ public class CookieCommand implements Command {
         if (!argument.has()) {
             String addon = Math.random() <= 0.25 ? "laughed like a madman while slowly eating the cookies they kept for themselves in front of everyone." : "decided to keep all of the cookies for themselves! What a jerk! :angry:";
 
-            context.sendMessage("%s %s", context.getMessage().getAuthor().getName(), addon);
+            context.sendMessage("{0} {1}", context.getMessage().getAuthor().getName(), addon);
             return;
         }
 
@@ -58,6 +58,6 @@ public class CookieCommand implements Command {
             context.sendMessage("The user specified does not exist.");
         }
 
-        context.sendMessage("%s just gave %s a cookie! :cookie:", context.getMessage().getAuthor().getName(), target.getName());
+        context.sendMessage("{0} just gave {1} a cookie! :cookie:", context.getMessage().getAuthor().getName(), target.getName());
     }
 }

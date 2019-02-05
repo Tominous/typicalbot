@@ -54,20 +54,20 @@ public class StabCommand implements Command {
         int x = rand.nextInt(options.length);
 
         if (!argument.has()) {
-            context.sendMessage("%s stabbed themselves! :dagger::scream: %s", author.getAsMention(), options[x]);
+            context.sendMessage("{0} stabbed themselves! :dagger::scream: {1}", author.getAsMention(), options[x]);
             return;
         }
 
         User mention = context.getUser(argument.get(0));
 
         if (mention == author) {
-            context.sendMessage("%s stabbed themselves! :dagger::scream: %s", author.getAsMention(), options[x]);
+            context.sendMessage("{0} stabbed themselves! :dagger::scream: {1}", author.getAsMention(), options[x]);
             return;
         } else if (mention == null) {
-            context.sendMessage("%s, the specified user does not exist. Try again.", author.getAsMention());
+            context.sendMessage("{0}, the specified user does not exist. Try again.", author.getAsMention());
             return;
         }
 
-        context.sendMessage("%s just stabbed %s! :dagger::scream: %s", author.getAsMention(), mention.getAsMention(), options[x]);
+        context.sendMessage("{0} just stabbed {1}! :dagger::scream: {2}", author.getAsMention(), mention.getAsMention(), options[x]);
     }
 }
