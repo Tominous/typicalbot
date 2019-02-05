@@ -65,6 +65,8 @@ import com.typicalbot.command.fun.ThisorthatCommand;
 import com.typicalbot.command.fun.WouldyouratherCommand;
 import com.typicalbot.command.fun.YomammaCommand;
 import com.typicalbot.command.fun.ZalgolizeCommand;
+import com.typicalbot.command.integration.StrawpollCommand;
+import com.typicalbot.command.integration.UrbandictionaryCommand;
 import com.typicalbot.command.integration.WeatherCommand;
 import com.typicalbot.command.integration.WikipediaCommand;
 import com.typicalbot.command.integration.XkcdCommand;
@@ -108,7 +110,6 @@ import com.typicalbot.command.music.StopCommand;
 import com.typicalbot.command.music.UnqueueCommand;
 import com.typicalbot.command.music.VolumeCommand;
 import com.typicalbot.command.system.EvalCommand;
-import com.typicalbot.command.system.TestCommand;
 import com.typicalbot.command.utility.AvatarCommand;
 import com.typicalbot.command.utility.BotsCommand;
 import com.typicalbot.command.utility.ChannelCommand;
@@ -122,10 +123,8 @@ import com.typicalbot.command.utility.RoleCommand;
 import com.typicalbot.command.utility.SearchCommand;
 import com.typicalbot.command.utility.ServerCommand;
 import com.typicalbot.command.utility.ServersCommand;
-import com.typicalbot.command.integration.StrawpollCommand;
 import com.typicalbot.command.utility.SubscribeCommand;
 import com.typicalbot.command.utility.UnsubscribeCommand;
-import com.typicalbot.command.integration.UrbandictionaryCommand;
 import com.typicalbot.command.utility.UserCommand;
 import com.typicalbot.command.webhook.WebhookCommand;
 import com.typicalbot.listener.GuildListener;
@@ -292,7 +291,6 @@ public class Shard {
 
                 // System
                 new EvalCommand(),
-                new TestCommand(),
 
                 // Utility
                 new AvatarCommand(),
