@@ -35,8 +35,10 @@ This sections provides a quick start guide.
 1. Make sure all prerequisites are installed.
 2. Fork TypicalBot repository, ie. https://github.com/typicalbot/typicalbot/fork
 3. Clone your forked repository, ie. `git clone http://github.com/<YOUR-USERNAME>/typicalbot.git`
-4. Run `java -jar typicalbot.jar` and proceed through the setup.
-5. You're done! Run `java -jar typicalbot.jar` to start the bot.
+4. Run `gradlew clean build`.
+5. Locate and move the `typicalbot-<VERSION>.jar` in the `/build/libs` directory. Do not use the one with `nodeps`.  
+6. Open command prompt and run `java -jar typicalbot.jar` and proceed through the setup.
+7. You're done!
 
 ## Project Roadmap
 
