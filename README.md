@@ -68,6 +68,6 @@ Thanks to Crowdin, JetBrains and YourKit for sponsoring our project with Open So
  - JetBrains is a cutting-edge software vendor specializing in the creation of intelligent development tools, including IntelliJ IDEA – the leading Java IDE, and the Kotlin programming language.
  - YourKit supports open source projects with innovative and intelligent tools for monitoring and profiling Java and .NET applications. YourKit is the creator of [YourKit Java Profiler](https://www.yourkit.com/java/profiler), [YourKit .NET Profiler](https://www.yourkit.com/.net/profiler), and [YourKit YouMonitor](https://www.yourkit.com/youmonitor).
  
-[![Crowdin](https://support.crowdin.com/assets/logos/crowdin-logo1-small.png)](https://crowdin.com)
-[![JetBrains](https://camo.githubusercontent.com/4098e5e0e095c2aedba2efb80ea1ec192018fad2/68747470733a2f2f692e696d6775722e636f6d2f4e4455534544532e706e67)](https://www.jetbrains.com/?from=typicalbot)
-[![YourKit](https://www.yourkit.com/images/yklogo.png)](https://www.yourkit.com)
+[![Crowdin](https://i.imgur.com/iak92W6.png)](https://crowdin.com)
+[![JetBrains](https://i.imgur.com/3iN9EeA.png)](https://www.jetbrains.com/?from=typicalbot)
+[![YourKit](https://i.imgur.com/GdygJ1w.png)](https://www.yourkit.com)
