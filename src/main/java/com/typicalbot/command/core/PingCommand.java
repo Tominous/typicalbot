@@ -21,7 +21,6 @@ import com.typicalbot.command.CommandArgument;
 import com.typicalbot.command.CommandCategory;
 import com.typicalbot.command.CommandConfiguration;
 import com.typicalbot.command.CommandContext;
-import com.typicalbot.shard.Shard;
 import com.typicalbot.shard.ShardManager;
 
 @CommandConfiguration(category = CommandCategory.CORE, aliases = {"ping", "pong"})
