@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright 2019 Bryan Pikaard & Nicholas Sylke
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -26,10 +26,6 @@ import org.slf4j.LoggerFactory;
 import java.io.IOException;
 import java.util.Arrays;
 
-/**
- * @author TypicalBot
- * @since 3.0.0-alpha
- */
 public class ShardManager {
     private static final Logger LOGGER = LoggerFactory.getLogger(ShardManager.class);
 

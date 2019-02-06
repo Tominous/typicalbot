@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright 2019 Bryan Pikaard & Nicholas Sylke
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -25,10 +25,6 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
-/**
- * @author TypicalBot
- * @since 3.0.0-alpha
- */
 @Immutable
 public class FileUtil {
     private static final Logger LOGGER = LoggerFactory.getLogger(FileUtil.class);

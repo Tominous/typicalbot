@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright 2019 Bryan Pikaard & Nicholas Sylke
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -22,10 +22,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.ObjectInputStream;
 
-/**
- * @author TypicalBot
- * @since 3.0.0-alpha
- */
 public class Deserializer {
     private static final Logger LOGGER = LoggerFactory.getLogger(Deserializer.class);
 

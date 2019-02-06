@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright 2019 Bryan Pikaard & Nicholas Sylke
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -17,10 +17,6 @@ package com.typicalbot.command;
 
 import java.util.List;
 
-/**
- * @author TypicalBot
- * @since 3.0.0-alpha
- */
 public class CommandArgument {
     private final List<String> arguments;
 

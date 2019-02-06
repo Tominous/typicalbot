@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright 2019 Bryan Pikaard & Nicholas Sylke
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -27,10 +27,6 @@ import net.dv8tion.jda.core.entities.User;
 import java.text.MessageFormat;
 import java.util.List;
 
-/**
- * @author TypicalBot
- * @since 3.0.0-alpha
- */
 public class CommandContext {
     private final Message message;
 

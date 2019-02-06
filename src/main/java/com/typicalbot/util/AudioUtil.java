@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright 2019 Bryan Pikaard & Nicholas Sylke
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -19,10 +19,6 @@ import com.typicalbot.audio.GuildMusicManager;
 import com.typicalbot.shard.Shard;
 import net.dv8tion.jda.core.entities.Guild;
 
-/**
- * @author TypicalBot
- * @since 3.0.0-alpha
- */
 public class AudioUtil {
     // Prevent instantiation.
     private AudioUtil() {

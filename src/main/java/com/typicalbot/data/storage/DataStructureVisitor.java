@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright 2019 Bryan Pikaard & Nicholas Sylke
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -15,10 +15,6 @@
  */
 package com.typicalbot.data.storage;
 
-/**
- * @author TypicalBot
- * @since 3.0.0-alpha
- */
 // TODO(nsylke): Documentation
 public abstract class DataStructureVisitor<E> {
     private int start = 0;

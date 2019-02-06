@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright 2019 Bryan Pikaard & Nicholas Sylke
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -20,10 +20,6 @@ import java.io.ObjectOutputStream;
 import java.io.OutputStream;
 import java.io.Serializable;
 
-/**
- * @author TypicalBot
- * @since 3.0.0-alpha
- */
 public class Serializer {
     public void serialize(Object object, OutputStream stream) throws IOException {
         if (!(object instanceof Serializable)) {

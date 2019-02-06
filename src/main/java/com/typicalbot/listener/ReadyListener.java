@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright 2019 Bryan Pikaard & Nicholas Sylke
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -22,10 +22,6 @@ import net.dv8tion.jda.core.hooks.ListenerAdapter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-/**
- * @author TypicalBot
- * @since 3.0.0-alpha
- */
 public class ReadyListener extends ListenerAdapter {
     private static final Logger LOGGER = LoggerFactory.getLogger(ReadyListener.class);
 

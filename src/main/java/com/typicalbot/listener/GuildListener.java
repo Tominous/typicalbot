@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright 2019 Bryan Pikaard & Nicholas Sylke
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -32,10 +32,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-/**
- * @author TypicalBot
- * @since 3.0.0-alpha
- */
 public class GuildListener extends ListenerAdapter {
     private static final Logger LOGGER = LoggerFactory.getLogger(GuildListener.class);
 
