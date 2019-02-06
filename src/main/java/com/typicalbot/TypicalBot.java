@@ -1,5 +1,5 @@
 /**
- * Copyright 2016-2019 Bryan Pikaard & Nicholas Sylke
+ * Copyright 2019 Bryan Pikaard & Nicholas Sylke
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,13 +15,14 @@
  */
 package com.typicalbot;
 
+import com.typicalbot.config.Config;
 import com.typicalbot.data.serialization.Deserializer;
 import com.typicalbot.data.serialization.Serializer;
-import com.typicalbot.util.console.ConsoleReader;
 import com.typicalbot.data.storage.DataStructure;
 import com.typicalbot.shard.Shard;
 import com.typicalbot.shard.ShardManager;
 import com.typicalbot.util.FileUtil;
+import com.typicalbot.util.console.ConsoleReader;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -30,8 +31,6 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.Arrays;
 
 /**
@@ -41,7 +40,6 @@ import java.util.Arrays;
 public class TypicalBot {
     private static final Logger LOGGER = LoggerFactory.getLogger(TypicalBot.class);
 
-    public static final Path HOME_PATH = Paths.get(System.getProperty("user.dir"));
     public static final String VERSION = "@version@";
 
     public TypicalBot() throws IOException, InterruptedException {
@@ -60,10 +58,10 @@ public class TypicalBot {
         LOGGER.info("");
 
         Arrays.asList("config", "bin", "logs").forEach(directory -> {
-            if (!Files.exists(HOME_PATH.resolve(directory))) {
+            if (!Files.exists(FileUtil.HOME_PATH.resolve(directory))) {
                 LOGGER.debug("Directory '{}' does not exist, creating...", directory);
                 try {
-                    Files.createDirectory(HOME_PATH.resolve(directory));
+                    Files.createDirectory(FileUtil.HOME_PATH.resolve(directory));
                 } catch (IOException e) {
                     throw new RuntimeException(e);
                 }
@@ -71,13 +69,13 @@ public class TypicalBot {
         });
 
         Arrays.asList("app", "database", "discord", "filter", "sentry").forEach(file -> {
-            if (!Files.exists(HOME_PATH.resolve("config/" + file + ".yml"))) {
-                LOGGER.debug("File '{}' does not exist, creating...");
-                FileUtil.copy(HOME_PATH.resolve("config/" + file + ".yml"), "/config/" + file + ".yml");
+            if (!Files.exists(FileUtil.HOME_PATH.resolve("config/" + file + ".yml"))) {
+                LOGGER.debug("File '{}' does not exist, creating...", file);
+                FileUtil.copy(FileUtil.HOME_PATH.resolve("config/" + file + ".yml"), "/config/" + file + ".yml");
             }
         });
 
-        if (!Files.exists(HOME_PATH.resolve("bin/discord.dat"))) {
+        if (!Files.exists(FileUtil.HOME_PATH.resolve("bin/discord.dat"))) {
             ConsoleReader reader = new ConsoleReader();
 
             LOGGER.info("Please enter the token to register it with the TypicalBot software.");
@@ -95,10 +93,10 @@ public class TypicalBot {
                 System.exit(-1);
             }
 
-            LOGGER.info("Found '" + clientId + "' as the client identifier.");
+            LOGGER.info("Found '{}' as the client identifier.", clientId);
 
             Serializer serializer = new Serializer();
-            serializer.serialize(String.format("%s:%s", token, clientId), new FileOutputStream(new File(HOME_PATH.resolve("bin/discord.dat").toString())));
+            serializer.serialize(String.format("%s:%s", token, clientId), new FileOutputStream(new File(FileUtil.HOME_PATH.resolve("bin/discord.dat").toString())));
 
             LOGGER.info("Please restart the application.");
 
@@ -116,16 +114,16 @@ public class TypicalBot {
           token of the Discord bot; and the second value, or known as '1', should be the client identifier of
           the Discord bot.
          */
-        Arrays.asList(deserializer.deserialize(new FileInputStream(new File(HOME_PATH.resolve("bin/discord.dat").toString()))).toString().split(":")).forEach(data::insert);
+        Arrays.asList(deserializer.deserialize(new FileInputStream(new File(FileUtil.HOME_PATH.resolve("bin/discord.dat").toString()))).toString().split(":")).forEach(data::insert);
+        Config.init();
 
-        // TODO(nsylke): Start ShardManager - pass the token and client id, along with the shard count.
-        ShardManager.register(String.valueOf(data.read(0)), String.valueOf(data.read(0)), 1);
+        ShardManager.register(String.valueOf(data.read(0)), String.valueOf(data.read(0)), Config.getConfig("discord").getInt("shards"));
     }
 
     public static void main(String[] args) {
         try {
             new TypicalBot();
-        } catch (InterruptedException | IOException e) {
+        } catch (IOException | InterruptedException e) {
             e.printStackTrace();
         }
     }

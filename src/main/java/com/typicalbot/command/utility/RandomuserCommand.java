@@ -1,5 +1,5 @@
 /**
- * Copyright 2016-2019 Bryan Pikaard & Nicholas Sylke
+ * Copyright 2019 Bryan Pikaard & Nicholas Sylke
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,7 +21,7 @@ import com.typicalbot.command.CommandArgument;
 import com.typicalbot.command.CommandCategory;
 import com.typicalbot.command.CommandConfiguration;
 import com.typicalbot.command.CommandContext;
-import net.dv8tion.jda.api.entities.Member;
+import net.dv8tion.jda.core.entities.Member;
 
 import java.util.Random;
 
@@ -39,12 +39,11 @@ public class RandomuserCommand implements Command {
     }
 
     public Member genRandMember(CommandContext context, CommandArgument argument) {
-        Random randGen = new Random();
-        int random = randGen.nextInt(context.getMessage().getGuild().getMembers().size());
+        int random = new Random().nextInt(context.getMessage().getGuild().getMembers().size());
         Member randomMember = context.getMessage().getGuild().getMembers().get(random);
 
-        if (argument.has() && argument.get(0).equals("--no_bots")) {
-            if (randomMember.getUser().isBot()) randomMember = genRandMember(context, argument);
+        if (argument.has() && argument.get(0).equals("-nobots") && randomMember.getUser().isBot()) {
+            randomMember = genRandMember(context, argument);
         }
 
         return randomMember;

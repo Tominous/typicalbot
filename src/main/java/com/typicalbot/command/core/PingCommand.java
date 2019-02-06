@@ -1,5 +1,5 @@
 /**
- * Copyright 2016-2019 Bryan Pikaard & Nicholas Sylke
+ * Copyright 2019 Bryan Pikaard & Nicholas Sylke
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -27,6 +27,13 @@ import com.typicalbot.shard.ShardManager;
 @CommandConfiguration(category = CommandCategory.CORE, aliases = {"ping", "pong"})
 public class PingCommand implements Command {
     @Override
+    public String[] usage() {
+        return new String[]{
+            "ping"
+        };
+    }
+
+    @Override
     public String description() {
         return "A check to see if TypicalBot is able to respond.";
     }
@@ -38,6 +45,6 @@ public class PingCommand implements Command {
 
     @Override
     public void execute(CommandContext context, CommandArgument argument) {
-        context.sendMessage("Pong! REST Request: %dms | Discord API Latency: %dms", Shard.getSingleton().getInstance().getRestPing().complete(), (int) ShardManager.getAveragePing());
+        context.sendMessage("Pong! Discord API Latency: {0}ms", (int) ShardManager.getAveragePing());
     }
 }

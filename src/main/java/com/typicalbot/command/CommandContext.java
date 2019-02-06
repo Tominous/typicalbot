@@ -1,5 +1,5 @@
 /**
- * Copyright 2016-2019 Bryan Pikaard & Nicholas Sylke
+ * Copyright 2019 Bryan Pikaard & Nicholas Sylke
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,15 +15,16 @@
  */
 package com.typicalbot.command;
 
-import net.dv8tion.jda.api.entities.Guild;
-import net.dv8tion.jda.api.entities.GuildChannel;
-import net.dv8tion.jda.api.entities.Member;
-import net.dv8tion.jda.api.entities.Message;
-import net.dv8tion.jda.api.entities.MessageChannel;
-import net.dv8tion.jda.api.entities.MessageEmbed;
-import net.dv8tion.jda.api.entities.Role;
-import net.dv8tion.jda.api.entities.User;
+import net.dv8tion.jda.core.entities.Channel;
+import net.dv8tion.jda.core.entities.Guild;
+import net.dv8tion.jda.core.entities.Member;
+import net.dv8tion.jda.core.entities.Message;
+import net.dv8tion.jda.core.entities.MessageChannel;
+import net.dv8tion.jda.core.entities.MessageEmbed;
+import net.dv8tion.jda.core.entities.Role;
+import net.dv8tion.jda.core.entities.User;
 
+import java.text.MessageFormat;
 import java.util.List;
 
 /**
@@ -50,7 +51,7 @@ public class CommandContext {
     }
 
     public void sendMessage(String message, Object... params) {
-        this.getChannel().sendMessage(String.format(message, params)).queue();
+        this.getChannel().sendMessage(MessageFormat.format(message, params)).queue();
     }
 
     public void sendEmbed(MessageEmbed embed) {
@@ -73,7 +74,7 @@ public class CommandContext {
         return (member != null) ? member.getUser() : null;
     }
 
-    public GuildChannel getChannel(String channel) {
+    public Channel getChannel(String channel) {
         if (!this.message.getMentionedChannels().isEmpty()) {
             return this.message.getMentionedChannels().get(0);
         }

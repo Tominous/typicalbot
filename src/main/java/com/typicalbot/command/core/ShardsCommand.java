@@ -1,5 +1,5 @@
 /**
- * Copyright 2016-2019 Bryan Pikaard & Nicholas Sylke
+ * Copyright 2019 Bryan Pikaard & Nicholas Sylke
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -27,6 +27,18 @@ import com.typicalbot.shard.ShardManager;
 @CommandConfiguration(category = CommandCategory.CORE, aliases = "shards")
 public class ShardsCommand implements Command {
     @Override
+    public String[] usage() {
+        return new String[]{
+            "shards"
+        };
+    }
+
+    @Override
+    public String description() {
+        return "Get information about the shards.";
+    }
+
+    @Override
     public CommandPermission permission() {
         return CommandPermission.GUILD_MEMBER;
     }
@@ -37,10 +49,10 @@ public class ShardsCommand implements Command {
 
         for (Shard shard : ShardManager.getShards()) {
             builder.append(String.format("Shard [%s / %s]", shard.getShardId() + 1, shard.getShardTotal()))
-                    .append(" | Status: ").append(shard.getInstance().getStatus())
-                    .append(" | Guilds: ").append(shard.getInstance().getGuilds().size())
-                    .append(" | Channels: ").append(shard.getInstance().getTextChannels().size() + shard.getInstance().getVoiceChannels().size())
-                    .append(" | Users: ").append(shard.getInstance().getUsers().size());
+                .append(" | Status: ").append(shard.getInstance().getStatus())
+                .append(" | Guilds: ").append(shard.getInstance().getGuilds().size())
+                .append(" | Channels: ").append(shard.getInstance().getTextChannels().size() + shard.getInstance().getVoiceChannels().size())
+                .append(" | Users: ").append(shard.getInstance().getUsers().size());
 
             if (shard.getShardId() == context.getMessage().getJDA().getShardInfo().getShardId()) {
                 builder.append(" | Current");
@@ -49,6 +61,6 @@ public class ShardsCommand implements Command {
             builder.append("\n");
         }
 
-        context.sendMessage("```prolog%n%s```", builder.toString());
+        context.sendMessage("```prolog\n{0}```", builder.toString());
     }
 }

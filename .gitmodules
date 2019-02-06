@@ -1,3 +1,0 @@
-[submodule "src/main/resources/localization"]
-	path = src/main/resources/localization
-	url = git@github.com:typicalbot/localization.git

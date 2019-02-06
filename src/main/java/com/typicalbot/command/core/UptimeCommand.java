@@ -1,5 +1,5 @@
 /**
- * Copyright 2016-2019 Bryan Pikaard & Nicholas Sylke
+ * Copyright 2019 Bryan Pikaard & Nicholas Sylke
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -27,6 +27,18 @@ import java.lang.management.RuntimeMXBean;
 
 @CommandConfiguration(category = CommandCategory.CORE, aliases = "uptime")
 public class UptimeCommand implements Command {
+    @Override
+    public String[] usage() {
+        return new String[]{
+            "uptime"
+        };
+    }
+
+    @Override
+    public String description() {
+        return "Check to see how long TypicalBot has been online for.";
+    }
+
     @Override
     public CommandPermission permission() {
         return CommandPermission.GUILD_MEMBER;
@@ -56,6 +68,6 @@ public class UptimeCommand implements Command {
 
         builder.append(seconds).append(" ").append(seconds > 1 ? "seconds" : "second");
 
-        context.sendMessage("TypicalBot has been online for %s.", builder.toString());
+        context.sendMessage("TypicalBot has been online for {0}.", builder.toString());
     }
 }

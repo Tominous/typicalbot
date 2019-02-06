@@ -1,5 +1,5 @@
 /**
- * Copyright 2016-2019 Bryan Pikaard & Nicholas Sylke
+ * Copyright 2019 Bryan Pikaard & Nicholas Sylke
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,19 +21,11 @@ import com.typicalbot.command.CommandArgument;
 import com.typicalbot.command.CommandCategory;
 import com.typicalbot.command.CommandConfiguration;
 import com.typicalbot.command.CommandContext;
-import com.typicalbot.util.StringUtil;
-import net.dv8tion.jda.api.EmbedBuilder;
-import net.dv8tion.jda.api.entities.Emote;
-import net.dv8tion.jda.api.entities.Guild;
-import net.dv8tion.jda.api.entities.Message;
-import net.dv8tion.jda.api.entities.Role;
-import net.dv8tion.jda.api.exceptions.ErrorResponseException;
+import net.dv8tion.jda.core.EmbedBuilder;
+import net.dv8tion.jda.core.entities.Message;
+import net.dv8tion.jda.core.exceptions.ErrorResponseException;
 
 import java.time.format.DateTimeFormatter;
-import java.util.List;
-import java.util.stream.Collectors;
-
-import static net.dv8tion.jda.api.requests.ErrorResponse.UNKNOWN_MESSAGE;
 
 @CommandConfiguration(category = CommandCategory.UTILITY, aliases = {"message", "msg", "getmsg", "getmessage", "quotemessage", "quotemsg"})
 public class MessageCommand implements Command {
@@ -50,18 +42,17 @@ public class MessageCommand implements Command {
             Message message = context.getMessage().getTextChannel().getMessageById(argument.get(0)).complete();
 
             builder.setTitle("Quoting " + message.getAuthor().getAsTag() + ": ");
-            builder.setFooter(message.getAuthor().getAsTag() + " | Sent on " + message.getTimeCreated().format(DateTimeFormatter.RFC_1123_DATE_TIME), message.getAuthor().getAvatarUrl());
+            builder.setFooter(message.getAuthor().getAsTag() + " | Sent on " + message.getCreationTime().format(DateTimeFormatter.RFC_1123_DATE_TIME), message.getAuthor().getAvatarUrl());
 
             //TODO(AKSKL): format emotes properly
             builder.setDescription(message.getContentDisplay());
 
             context.sendEmbed(builder.build());
         } catch (ErrorResponseException errorResponse) {
-            if(errorResponse.getErrorCode() == 10008) {
+            if (errorResponse.getErrorCode() == 10008) {
                 context.sendMessage("Error: Either an invalid message or the message isn't from this channel (#" + context.getChannel().getName() + ").");
             }
             //TODO(AKSKL): resolve other errors
-            return;
         }
     }
 }

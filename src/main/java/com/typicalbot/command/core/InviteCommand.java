@@ -1,5 +1,5 @@
 /**
- * Copyright 2016-2019 Bryan Pikaard & Nicholas Sylke
+ * Copyright 2019 Bryan Pikaard & Nicholas Sylke
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,7 +21,7 @@ import com.typicalbot.command.CommandCategory;
 import com.typicalbot.command.CommandConfiguration;
 import com.typicalbot.command.CommandContext;
 import com.typicalbot.command.CommandPermission;
-import net.dv8tion.jda.api.EmbedBuilder;
+import net.dv8tion.jda.core.EmbedBuilder;
 
 @CommandConfiguration(category = CommandCategory.CORE, aliases = "invite")
 public class InviteCommand implements Command {

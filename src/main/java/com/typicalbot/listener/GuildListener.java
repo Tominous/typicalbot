@@ -1,5 +1,5 @@
 /**
- * Copyright 2016-2019 Bryan Pikaard & Nicholas Sylke
+ * Copyright 2019 Bryan Pikaard & Nicholas Sylke
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,12 +18,13 @@ package com.typicalbot.listener;
 import com.typicalbot.command.Command;
 import com.typicalbot.command.CommandArgument;
 import com.typicalbot.command.CommandContext;
+import com.typicalbot.config.Config;
 import com.typicalbot.shard.Shard;
-import net.dv8tion.jda.api.Permission;
-import net.dv8tion.jda.api.events.guild.GuildJoinEvent;
-import net.dv8tion.jda.api.events.guild.GuildLeaveEvent;
-import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
-import net.dv8tion.jda.api.hooks.ListenerAdapter;
+import net.dv8tion.jda.core.Permission;
+import net.dv8tion.jda.core.events.guild.GuildJoinEvent;
+import net.dv8tion.jda.core.events.guild.GuildLeaveEvent;
+import net.dv8tion.jda.core.events.message.guild.GuildMessageReceivedEvent;
+import net.dv8tion.jda.core.hooks.ListenerAdapter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -56,7 +57,7 @@ public class GuildListener extends ListenerAdapter {
         if (!event.getGuild().getSelfMember().hasPermission(Permission.MESSAGE_WRITE)) return;
 
         String rawMessage = event.getMessage().getContentRaw();
-        String prefix = "b$";
+        String prefix = Config.getConfig("discord").getString("prefix");
 
         if (rawMessage.matches("^<@!?" + event.getJDA().getSelfUser().getId() + ">$")) {
             // TODO(nsylke): Show default prefix from configuration if setting in database is not set.

@@ -1,9 +1,16 @@
 #
+# Discord Shards
+#
+# The amount of shards to spawn.
+#
+shards: 2
+
+#
 # Discord Prefix
 #
 # The prefix of the discord application.
 #
-prefix: '$'
+prefix: 'b$'
 
 #
 # Discord Status

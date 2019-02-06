@@ -1,5 +1,5 @@
 /**
- * Copyright 2016-2019 Bryan Pikaard & Nicholas Sylke
+ * Copyright 2019 Bryan Pikaard & Nicholas Sylke
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -26,12 +26,24 @@ import com.typicalbot.command.CommandPermission;
 @CommandConfiguration(category = CommandCategory.CORE, aliases = {"version", "ver"})
 public class VersionCommand implements Command {
     @Override
+    public String[] usage() {
+        return new String[]{
+            "version"
+        };
+    }
+
+    @Override
+    public String description() {
+        return "Check the current version number of TypicalBot.";
+    }
+
+    @Override
     public CommandPermission permission() {
         return CommandPermission.GUILD_MEMBER;
     }
 
     @Override
     public void execute(CommandContext context, CommandArgument argument) {
-        context.sendMessage("The current version of TypicalBot is %s.", TypicalBot.VERSION);
+        context.sendMessage("The current version of TypicalBot is {0}.", TypicalBot.VERSION);
     }
 }

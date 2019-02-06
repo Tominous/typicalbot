@@ -1,5 +1,5 @@
 /**
- * Copyright 2016-2019 Bryan Pikaard & Nicholas Sylke
+ * Copyright 2019 Bryan Pikaard & Nicholas Sylke
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -74,6 +74,6 @@ public class RollCommand implements Command {
             rolls[i] = (new Random().ints(1, sides).iterator().nextInt());
         }
 
-        context.sendMessage("You rolled: " + IntStream.of(rolls).mapToObj(Integer::toString).collect(Collectors.joining(", ")) + ". Total: " + IntStream.of(rolls).sum());
+        context.sendMessage("You rolled: {0}. Total: {1}", IntStream.of(rolls).mapToObj(Integer::toString).collect(Collectors.joining(", ")), IntStream.of(rolls).sum());
     }
 }

@@ -1,5 +1,5 @@
 /**
- * Copyright 2016-2019 Bryan Pikaard & Nicholas Sylke
+ * Copyright 2019 Bryan Pikaard & Nicholas Sylke
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -23,7 +23,7 @@ import com.typicalbot.command.CommandContext;
 import com.typicalbot.command.CommandPermission;
 import com.typicalbot.shard.Shard;
 import com.typicalbot.util.StringUtil;
-import net.dv8tion.jda.api.EmbedBuilder;
+import net.dv8tion.jda.core.EmbedBuilder;
 
 import java.util.Comparator;
 import java.util.Set;
@@ -31,6 +31,18 @@ import java.util.stream.Collectors;
 
 @CommandConfiguration(category = CommandCategory.CORE, aliases = {"commands", "cmds"})
 public class CommandsCommand implements Command {
+    @Override
+    public String[] usage() {
+        return new String[]{
+            "commands"
+        };
+    }
+
+    @Override
+    public String description() {
+        return "Receive a list of TypicalBot commands.";
+    }
+
     @Override
     public CommandPermission permission() {
         return CommandPermission.GUILD_MEMBER;
@@ -42,15 +54,15 @@ public class CommandsCommand implements Command {
 
         EmbedBuilder builder = new EmbedBuilder();
 
-        builder.setTitle("Commands");
+        builder.setTitle("TypicalBot Commands");
 
         for (CommandCategory category : CommandCategory.values()) {
             if (category != CommandCategory.SYSTEM) {
                 builder.addField(StringUtil.capitalize(category.name()), commands.stream()
-                        .filter(c -> c.getConfiguration().category().equals(category) && c.getConfiguration().category() != CommandCategory.SYSTEM)
-                        .sorted(Comparator.comparing((Command x) -> x.getConfiguration().aliases()[0]).thenComparing((Command y) -> y.getConfiguration().aliases()[0]))
-                        .map(c -> c.getConfiguration().aliases()[0])
-                        .collect(Collectors.joining(", ")), false);
+                    .filter(c -> c.getConfiguration().category().equals(category) && c.getConfiguration().category() != CommandCategory.SYSTEM)
+                    .sorted(Comparator.comparing((Command x) -> x.getConfiguration().aliases()[0]).thenComparing((Command y) -> y.getConfiguration().aliases()[0]))
+                    .map(c -> c.getConfiguration().aliases()[0])
+                    .collect(Collectors.joining(", ")), false);
             }
         }
 

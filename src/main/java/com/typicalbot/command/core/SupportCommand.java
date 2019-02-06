@@ -1,5 +1,5 @@
 /**
- * Copyright 2016-2019 Bryan Pikaard & Nicholas Sylke
+ * Copyright 2019 Bryan Pikaard & Nicholas Sylke
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -24,6 +24,13 @@ import com.typicalbot.command.CommandContext;
 
 @CommandConfiguration(category = CommandCategory.CORE, aliases = {"support", "home", "lounge"})
 public class SupportCommand implements Command {
+    @Override
+    public String[] usage() {
+        return new String[]{
+            "support"
+        };
+    }
+
     @Override
     public String description() {
         return "Receive an invite to the TypicalBot Lounge.";

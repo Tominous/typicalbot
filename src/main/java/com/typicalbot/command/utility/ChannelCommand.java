@@ -1,5 +1,5 @@
 /**
- * Copyright 2016-2019 Bryan Pikaard & Nicholas Sylke
+ * Copyright 2019 Bryan Pikaard & Nicholas Sylke
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -22,10 +22,10 @@ import com.typicalbot.command.CommandConfiguration;
 import com.typicalbot.command.CommandContext;
 import com.typicalbot.command.CommandPermission;
 import com.typicalbot.util.StringUtil;
-import net.dv8tion.jda.api.EmbedBuilder;
-import net.dv8tion.jda.api.entities.GuildChannel;
-import net.dv8tion.jda.api.entities.TextChannel;
-import net.dv8tion.jda.api.entities.VoiceChannel;
+import net.dv8tion.jda.core.EmbedBuilder;
+import net.dv8tion.jda.core.entities.Channel;
+import net.dv8tion.jda.core.entities.TextChannel;
+import net.dv8tion.jda.core.entities.VoiceChannel;
 
 @CommandConfiguration(category = CommandCategory.UTILITY, aliases = {"channel", "channelinfo", "cinfo"})
 public class ChannelCommand implements Command {
@@ -36,7 +36,7 @@ public class ChannelCommand implements Command {
 
     @Override
     public void execute(CommandContext context, CommandArgument argument) {
-        GuildChannel channel;
+        Channel channel;
 
         if (!argument.has()) {
             channel = context.getMessage().getTextChannel();
@@ -73,7 +73,7 @@ public class ChannelCommand implements Command {
             builder.addBlankField(true);
         }
 
-        builder.setTimestamp(channel.getTimeCreated());
+        builder.setTimestamp(channel.getCreationTime());
 
         context.sendEmbed(builder.build());
     }

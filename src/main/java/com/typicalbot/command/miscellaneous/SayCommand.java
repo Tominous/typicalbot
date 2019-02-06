@@ -1,5 +1,5 @@
 /**
- * Copyright 2016-2019 Bryan Pikaard & Nicholas Sylke
+ * Copyright 2019 Bryan Pikaard & Nicholas Sylke
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -38,6 +38,6 @@ public class SayCommand implements Command {
 
         // Delete authors message
         context.getMessage().delete().queue();
-        context.sendMessage(argument.toString());
+        context.sendMessage(argument.toString().replaceAll("@here", "@\u200bhere").replaceAll("@everyone", "@\u200beveryone"));
     }
 }

@@ -1,5 +1,5 @@
 /**
- * Copyright 2016-2019 Bryan Pikaard & Nicholas Sylke
+ * Copyright 2019 Bryan Pikaard & Nicholas Sylke
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -24,6 +24,19 @@ import com.typicalbot.command.CommandPermission;
 
 @CommandConfiguration(category = CommandCategory.CORE, aliases = "changelog")
 public class ChangelogCommand implements Command {
+    @Override
+    public String[] usage() {
+        return new String[]{
+            "changelog",
+            "changelog [version]"
+        };
+    }
+
+    @Override
+    public String description() {
+        return "Get the changelog for the current version, or previous version.";
+    }
+
     @Override
     public CommandPermission permission() {
         return CommandPermission.GUILD_MEMBER;

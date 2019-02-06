@@ -1,5 +1,5 @@
 /**
- * Copyright 2016-2019 Bryan Pikaard & Nicholas Sylke
+ * Copyright 2019 Bryan Pikaard & Nicholas Sylke
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -22,12 +22,11 @@ import java.io.IOException;
  * @author TypicalBot
  * @since 3.0.0-alpha
  */
-// TODO(nsylke): Make thread-safe
 public class ConsoleReader {
     /**
      * The maximum buffer size.
      */
-    private final int BUFFER_SIZE = 1 << 16;
+    private static final int BUFFER_SIZE = 1 << 16;
 
     /**
      * The stream to read the user input.
@@ -122,7 +121,7 @@ public class ConsoleReader {
             c = read();
         }
 
-        boolean negative = ((c == '-'));
+        boolean negative = (c == '-');
 
         if (negative) {
             c = read();

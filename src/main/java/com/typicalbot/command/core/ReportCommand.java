@@ -1,5 +1,5 @@
 /**
- * Copyright 2016-2019 Bryan Pikaard & Nicholas Sylke
+ * Copyright 2019 Bryan Pikaard & Nicholas Sylke
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -23,12 +23,24 @@ import com.typicalbot.command.CommandContext;
 import com.typicalbot.command.CommandPermission;
 import com.typicalbot.shard.Shard;
 import com.typicalbot.shard.ShardManager;
-import net.dv8tion.jda.api.EmbedBuilder;
-import net.dv8tion.jda.api.entities.Guild;
-import net.dv8tion.jda.api.entities.TextChannel;
+import net.dv8tion.jda.core.EmbedBuilder;
+import net.dv8tion.jda.core.entities.Guild;
+import net.dv8tion.jda.core.entities.TextChannel;
 
 @CommandConfiguration(category = CommandCategory.CORE, aliases = "report")
 public class ReportCommand implements Command {
+    @Override
+    public String[] usage() {
+        return new String[]{
+            "report <message>"
+        };
+    }
+
+    @Override
+    public String description() {
+        return "Report a bug or issue to the TypicalBot team.";
+    }
+
     @Override
     public CommandPermission permission() {
         return CommandPermission.GUILD_MEMBER;
@@ -52,7 +64,7 @@ public class ReportCommand implements Command {
 
         EmbedBuilder builder = new EmbedBuilder();
 
-        builder.setTitle("Report");
+        builder.setTitle("TypicalBot Report");
         builder.setDescription(argument.toString());
         builder.setFooter(context.getMessage().getAuthor().getAsTag() + " (" + context.getMessage().getAuthor().getId() + ")", context.getMessage().getAuthor().getEffectiveAvatarUrl());
 
@@ -61,7 +73,7 @@ public class ReportCommand implements Command {
         // Reset builder
         builder.clear();
 
-        builder.setTitle("Report");
+        builder.setTitle("TypicalBot Report");
         builder.setDescription("Successfully sent report to the TypicalBot Maintainers.");
 
         context.sendEmbed(builder.build());

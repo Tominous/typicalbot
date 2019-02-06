@@ -1,5 +1,5 @@
 /**
- * Copyright 2016-2019 Bryan Pikaard & Nicholas Sylke
+ * Copyright 2019 Bryan Pikaard & Nicholas Sylke
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -23,12 +23,24 @@ import com.typicalbot.command.CommandContext;
 import com.typicalbot.command.CommandPermission;
 import com.typicalbot.shard.Shard;
 import com.typicalbot.shard.ShardManager;
-import net.dv8tion.jda.api.EmbedBuilder;
-import net.dv8tion.jda.api.entities.Guild;
-import net.dv8tion.jda.api.entities.TextChannel;
+import net.dv8tion.jda.core.EmbedBuilder;
+import net.dv8tion.jda.core.entities.Guild;
+import net.dv8tion.jda.core.entities.TextChannel;
 
 @CommandConfiguration(category = CommandCategory.CORE, aliases = {"suggestion", "suggest"})
 public class SuggestionCommand implements Command {
+    @Override
+    public String[] usage() {
+        return new String[]{
+            "suggestion <message>"
+        };
+    }
+
+    @Override
+    public String description() {
+        return "Suggest a feature to the TypicalBot team.";
+    }
+
     @Override
     public CommandPermission permission() {
         return CommandPermission.GUILD_MEMBER;
@@ -54,7 +66,7 @@ public class SuggestionCommand implements Command {
         // TODO(nsylke): If users are banned from TypicalBot Lounge, remove suggestion silently.
         EmbedBuilder builder = new EmbedBuilder();
 
-        builder.setTitle("Suggestion");
+        builder.setTitle("TypicalBot Suggestion");
         builder.setDescription(argument.toString());
         builder.setFooter(context.getMessage().getAuthor().getAsTag() + " (" + context.getMessage().getAuthor().getId() + ")", context.getMessage().getAuthor().getEffectiveAvatarUrl());
 
@@ -67,7 +79,7 @@ public class SuggestionCommand implements Command {
         // Reset builder
         builder.clear();
 
-        builder.setTitle("Suggestion");
+        builder.setTitle("TypicalBot Suggestion");
         builder.setDescription("Successfully sent suggestion to TypicalBot Lounge. [Click here](https://typicalbot.com/join-us) to join!");
 
         context.sendEmbed(builder.build());

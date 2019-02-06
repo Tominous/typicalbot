@@ -1,5 +1,5 @@
 /**
- * Copyright 2016-2019 Bryan Pikaard & Nicholas Sylke
+ * Copyright 2019 Bryan Pikaard & Nicholas Sylke
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.typicalbot.command.fun;
+package com.typicalbot.command.moderation;
 
 import com.typicalbot.command.Command;
 import com.typicalbot.command.CommandArgument;
@@ -22,11 +22,11 @@ import com.typicalbot.command.CommandConfiguration;
 import com.typicalbot.command.CommandContext;
 import com.typicalbot.command.CommandPermission;
 
-@CommandConfiguration(category = CommandCategory.FUN, aliases = "ascii")
-public class AsciiCommand implements Command {
+@CommandConfiguration(category = CommandCategory.MODERATION, aliases = "purge")
+public class PurgeCommand implements Command {
     @Override
     public CommandPermission permission() {
-        return CommandPermission.GUILD_MEMBER;
+        return CommandPermission.GUILD_MODERATOR;
     }
 
     @Override
