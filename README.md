@@ -46,8 +46,8 @@ Our project roadmap can be found [here](https://typicalbot.com/roadmap).
 
 ## Maintainers
 
-- Nicholas Sylke ([@nsylke](https://nsylke.me))
-- Bryan Pikaard ([@HyperCoder2975](https://pikaard.com))
+- Nicholas Sylke ([@nsylke](https://github.com/nsylke))
+- Bryan Pikaard ([@HyperCoder2975](https://github.com/hypercoder2975))
 
 ## License
 
