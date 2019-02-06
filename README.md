@@ -24,7 +24,7 @@ TypicalBot is open-source discord bot written in Java, using the [JDA library](h
 
 ## Getting Started
 
-This sections provides a quick start guide. 
+This section provides a quick-start guide. 
 
 ### Prerequisites
 
@@ -33,10 +33,10 @@ This sections provides a quick start guide.
 ### Installation
 
 1. Make sure all prerequisites are installed.
-2. Fork TypicalBot repository, ie. https://github.com/typicalbot/typicalbot/fork
+2. Fork the TypicalBot repository: https://github.com/typicalbot/typicalbot/fork
 3. Clone your forked repository, ie. `git clone http://github.com/<YOUR-USERNAME>/typicalbot.git`
 4. Run `java -jar typicalbot.jar` and proceed through the setup.
-5. You're done! Run `java -jar typicalbot.jar` to start the bot.
+5. You're done! Run `java -jar typicalbot.jar` once more to start the bot.
 
 ## Project Roadmap
 
@@ -51,8 +51,8 @@ Our project roadmap can be found [here](https://typicalbot.com/roadmap).
 
 TypicalBot is an open-sourced software licensed under the [Apache 2.0 license](./LICENSE.md).
 
-As many other open source projects, we require that contributors provide us with a Contributor License Agreement (CLA). By submitting code to the TypicalBot project, you are granting us a right to use that code under the terms of the CLA.
+Like many other open source projects, we require that contributors provide us with a Contributor License Agreement (CLA). By submitting code to the TypicalBot project, you are granting us the right to use your code under the terms of the CLA.
 
 Our version of the CLA was adapted from the Microsoft Contributor License Agreement, which they generously made available to the public domain under Creative Commons CC0 1.0 Universal.
 
-Any questions, please email support@typicalbot.com
+For any inquiries, please email support@typicalbot.com
