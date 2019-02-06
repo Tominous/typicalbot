@@ -25,6 +25,11 @@ import com.typicalbot.command.CommandPermission;
 @CommandConfiguration(category = CommandCategory.INTEGRATION, aliases = "urbandictionary")
 public class UrbandictionaryCommand implements Command {
     @Override
+    public boolean nsfw() {
+        return true;
+    }
+
+    @Override
     public CommandPermission permission() {
         return CommandPermission.GUILD_MEMBER;
     }
