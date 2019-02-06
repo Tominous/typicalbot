@@ -51,6 +51,7 @@ public class GuildListener extends ListenerAdapter {
         if (event.getAuthor() == null || event.getAuthor().isBot()) return;
         if (!event.getGuild().isAvailable()) return;
         if (!event.getGuild().getSelfMember().hasPermission(Permission.MESSAGE_WRITE)) return;
+        if (event.getGuild().getIdLong() != 509030978484699136L) return;
 
         String rawMessage = event.getMessage().getContentRaw();
         String prefix = Config.getConfig("discord").getString("prefix");
@@ -68,6 +69,11 @@ public class GuildListener extends ListenerAdapter {
             Command command = Shard.getSingleton().getCommandManager().findCommand(commandName.substring(prefix.length()));
 
             if (command == null) return;
+
+            if (command.nsfw() && !event.getChannel().isNSFW()) {
+                event.getChannel().sendMessage("This command requires the channel to be in NSFW mode.").queue();
+                return;
+            }
 
             arguments.remove(0);
             CommandArgument commandArgument = new CommandArgument(arguments);
