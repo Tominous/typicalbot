@@ -23,7 +23,6 @@ import com.typicalbot.command.CommandConfiguration;
 import com.typicalbot.command.CommandContext;
 
 import java.lang.management.ManagementFactory;
-import java.lang.management.RuntimeMXBean;
 
 @CommandConfiguration(category = CommandCategory.CORE, aliases = "uptime")
 public class UptimeCommand implements Command {
