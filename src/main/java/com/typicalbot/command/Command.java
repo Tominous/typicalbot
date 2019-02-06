@@ -36,6 +36,13 @@ public interface Command {
     }
 
     /**
+     * Determines whether or not if the command requires the channel to be in NSFW mode.
+     *
+     * @return command nsfw mode
+     */
+    default boolean nsfw() { return false; }
+
+    /**
      * The permission required to use the command.
      *
      * @return command permission
