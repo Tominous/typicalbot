@@ -60,7 +60,7 @@ public class StabCommand implements Command {
 
         User mention = context.getUser(argument.get(0));
 
-        if (mention == author) {
+        if (mention.equals(author)) {
             context.sendMessage("{0} stabbed themselves! :dagger::scream: {1}", author.getAsMention(), options[x]);
             return;
         } else if (mention == null) {
