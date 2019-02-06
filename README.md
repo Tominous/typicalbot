@@ -8,6 +8,7 @@ TypicalBot
 [![Apache 2.0 License](https://img.shields.io/github/license/typicalbot/typicalbot.svg)](LICENSE.md)
 [![CLA](https://cla-assistant.io/readme/badge/typicalbot/typicalbot)](https://cla-assistant.io/typicalbot/typicalbot)
 [![SNYK](https://snyk.io/test/github/typicalbot/typicalbot/badge.svg)](https://snyk.io/test/github/typicalbot/typicalbot)
+[![Crowdin](https://d322cqt584bo4o.cloudfront.net/typicalbot/localized.svg)](https://crowdin.typicalbot.com/project/typicalbot)
 
 TypicalBot is open-source discord bot written in Java, using the [JDA library](https://github.com/DV8FromTheWorld/JDA).
 
