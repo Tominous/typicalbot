@@ -2,7 +2,6 @@ plugins {
     id 'java'
     id 'application'
     id 'com.github.johnrengelman.shadow' version '4.0.2'
-    id 'com.github.hierynomus.license' version '0.14.0'
 }
 
 // Semantic Versioning 2.0.0
@@ -71,12 +70,6 @@ compileJava {
 
 tasks.withType(JavaCompile) {
     options.encoding = 'UTF-8'
-}
-
-license {
-    header = file('LICENSEHEADER.txt')
-    exclude('**/Zalgo4J*.java')
-    excludes (['**/*.yml', '**/*.properties', '**/*.json'])
 }
 
 artifacts {
