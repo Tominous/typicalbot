@@ -21,6 +21,14 @@ import com.typicalbot.command.CommandCategory;
 import com.typicalbot.command.CommandConfiguration;
 import com.typicalbot.command.CommandContext;
 import com.typicalbot.command.CommandPermission;
+import net.dv8tion.jda.core.EmbedBuilder;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.IOException;
 
 @CommandConfiguration(category = CommandCategory.CORE, aliases = "changelog")
 public class ChangelogCommand implements Command {
@@ -44,7 +52,22 @@ public class ChangelogCommand implements Command {
 
     @Override
     public void execute(CommandContext context, CommandArgument argument) {
-        // TODO(nsylke): Won't be added till we are ready release TypicalBot v3
-        throw new UnsupportedOperationException("This command has not been implemented yet.");
+        OkHttpClient client = new OkHttpClient();
+
+        Request request = new Request.Builder().url("https://api.github.com/repos/typicalbot/typicalbot/releases/latest").build();
+
+        try {
+            Response response = client.newCall(request).execute();
+            JSONObject object = new JSONObject(response.body().string());
+
+            EmbedBuilder builder = new EmbedBuilder();
+
+            builder.setTitle("TypicalBot Changelog", object.getString("html_url"));
+            builder.setDescription(object.getString("body"));
+
+            context.sendEmbed(builder.build());
+        } catch (IOException | JSONException ex) {
+            context.sendMessage("Failed to retrieve changelog.");
+        }
     }
 }
