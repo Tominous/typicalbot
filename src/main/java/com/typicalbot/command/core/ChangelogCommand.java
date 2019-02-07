@@ -35,8 +35,7 @@ public class ChangelogCommand implements Command {
     @Override
     public String[] usage() {
         return new String[]{
-            "changelog",
-            "changelog [version]"
+            "changelog"
         };
     }
 
