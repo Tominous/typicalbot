@@ -54,6 +54,7 @@ public class ChangelogCommand implements Command {
     public void execute(CommandContext context, CommandArgument argument) {
         OkHttpClient client = new OkHttpClient();
 
+        // https://developer.github.com/v3/repos/releases/#get-the-latest-release
         Request request = new Request.Builder().url("https://api.github.com/repos/typicalbot/typicalbot/releases/latest").build();
 
         try {
