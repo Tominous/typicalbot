@@ -59,7 +59,8 @@ public class TypicalBot {
                 try {
                     Files.createDirectory(FileUtil.HOME_PATH.resolve(directory));
                 } catch (IOException e) {
-                    throw new RuntimeException(e);
+                    LOGGER.error("Unable to create directory, exiting...", e);
+                    System.exit(0);
                 }
             }
         });
