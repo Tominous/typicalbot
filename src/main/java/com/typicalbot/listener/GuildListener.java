@@ -60,17 +60,17 @@ public class GuildListener extends ListenerAdapter {
 
     @Override
     public void onGuildMessageReceived(GuildMessageReceivedEvent event) {
-        // TODO(nsylke): Check to see if we are missing anything... maybe event.getAuthor().isFake() ?!?!
         if (event.getAuthor() == null || event.getAuthor().isBot()) return;
         if (!event.getGuild().isAvailable()) return;
         if (!event.getGuild().getSelfMember().hasPermission(Permission.MESSAGE_WRITE)) return;
         if (event.getGuild().getIdLong() != 509030978484699136L) return;
 
+        GuildObject object = guildDAO.get(event.getGuild().getIdLong()).get();
+
         String rawMessage = event.getMessage().getContentRaw();
-        String prefix = Config.getConfig("discord").getString("prefix");
+        String prefix = object.getGuildSettings().getPrefix() != null ? object.getGuildSettings().getPrefix() : Config.getConfig("discord").getString("prefix");
 
         if (rawMessage.matches("^<@!?" + event.getJDA().getSelfUser().getId() + ">$")) {
-            // TODO(nsylke): Show default prefix from configuration if setting in database is not set.
             event.getChannel().sendMessage("The server's prefix is `" + prefix + "`.").queue();
             return;
         }
