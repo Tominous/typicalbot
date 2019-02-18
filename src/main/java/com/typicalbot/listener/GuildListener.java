@@ -75,6 +75,11 @@ public class GuildListener extends ListenerAdapter {
             return;
         }
 
+        /*
+         * Anything below this point should be moved outside of the event and into the CommandManager to handle it. That
+         * way we can have an expiring cache with the guild data without continuously retrieving it on every message.
+         */
+
         List<String> arguments = new ArrayList<>(Arrays.asList(rawMessage.split("\\s+")));
         String commandName = arguments.get(0);
 
