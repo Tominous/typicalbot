@@ -16,11 +16,21 @@
 package com.typicalbot.command;
 
 public enum CommandPermission {
-    GUILD_MEMBER,
-    GUILD_MODERATOR,
-    GUILD_ADMINISTRATOR,
-    GUILD_OWNER,
+    GUILD_MEMBER(0),
+    GUILD_MODERATOR(1),
+    GUILD_ADMINISTRATOR(2),
+    GUILD_OWNER(3),
 
-    TYPICALBOT_MODERATOR,
-    TYPICALBOT_ADMINISTRATOR
+    TYPICALBOT_MODERATOR(9),
+    TYPICALBOT_ADMINISTRATOR(10);
+
+    private final int level;
+
+    CommandPermission(int level) {
+        this.level = level;
+    }
+
+    public int getLevel() {
+        return this.level;
+    }
 }
