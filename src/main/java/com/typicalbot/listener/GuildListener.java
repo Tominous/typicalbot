@@ -19,11 +19,13 @@ import com.typicalbot.command.Command;
 import com.typicalbot.command.CommandArgument;
 import com.typicalbot.command.CommandCategory;
 import com.typicalbot.command.CommandContext;
+import com.typicalbot.command.CommandPermission;
 import com.typicalbot.config.Config;
 import com.typicalbot.data.mongo.dao.GuildDAO;
 import com.typicalbot.data.mongo.objects.GuildObject;
 import com.typicalbot.shard.Shard;
 import net.dv8tion.jda.core.Permission;
+import net.dv8tion.jda.core.entities.Role;
 import net.dv8tion.jda.core.events.guild.GuildJoinEvent;
 import net.dv8tion.jda.core.events.guild.GuildLeaveEvent;
 import net.dv8tion.jda.core.events.message.guild.GuildMessageReceivedEvent;
@@ -107,6 +109,19 @@ public class GuildListener extends ListenerAdapter {
             if (command.getConfiguration().category() == CommandCategory.MODERATION && object.getGuildSettings().getModules().isModeration()) return;
             if (command.getConfiguration().category() == CommandCategory.MUSIC && object.getGuildSettings().getModules().isMusic()) return;
             if (command.getConfiguration().category() == CommandCategory.UTILITY && object.getGuildSettings().getModules().isUtility()) return;
+
+            // TODO: This just looks ugly too...
+            if (command.permission().getLevel() >= 1 && (event.getAuthor().getIdLong() != event.getGuild().getOwnerIdLong())) {
+                if (command.permission().equals(CommandPermission.GUILD_MODERATOR) && object.getGuildSettings().getRoles().getModeratorRole() == 0L) return;
+                if (command.permission().equals(CommandPermission.GUILD_ADMINISTRATOR) && object.getGuildSettings().getRoles().getAdminRole() == 0L) return;
+
+                Role modrole = event.getGuild().getRoleById(object.getGuildSettings().getRoles().getModeratorRole());
+                Role adminrole = event.getGuild().getRoleById(object.getGuildSettings().getRoles().getAdminRole());
+
+                if (modrole != null && command.permission().getLevel() >= 1 && (!event.getMember().getRoles().contains(modrole) || !event.getMember().getRoles().contains(adminrole))) return;
+                if (adminrole != null && command.permission().getLevel() >= 2 && (!event.getMember().getRoles().contains(adminrole))) return;
+            }
+
             if (command.nsfw() && !event.getChannel().isNSFW()) {
                 event.getChannel().sendMessage("This command requires the channel to be in NSFW mode.").queue();
                 return;
