@@ -16,6 +16,7 @@
 package com.typicalbot;
 
 import com.typicalbot.config.Config;
+import com.typicalbot.data.mongo.MongoManager;
 import com.typicalbot.data.serialization.Deserializer;
 import com.typicalbot.data.serialization.Serializer;
 import com.typicalbot.data.storage.DataStructure;
@@ -35,6 +36,8 @@ import java.util.Arrays;
 
 public class TypicalBot {
     private static final Logger LOGGER = LoggerFactory.getLogger(TypicalBot.class);
+
+    private static MongoManager mongoManager;
 
     public static final String VERSION = "@version@";
 
@@ -113,6 +116,7 @@ public class TypicalBot {
          */
         Arrays.asList(deserializer.deserialize(new FileInputStream(new File(FileUtil.HOME_PATH.resolve("bin/discord.dat").toString()))).toString().split(":")).forEach(data::insert);
         Config.init();
+        mongoManager = new MongoManager();
 
         ShardManager.register(String.valueOf(data.read(0)), String.valueOf(data.read(0)), Config.getConfig("discord").getInt("shards"));
     }
@@ -123,5 +127,9 @@ public class TypicalBot {
         } catch (IOException | InterruptedException e) {
             e.printStackTrace();
         }
+    }
+
+    public static MongoManager getMongoManager() {
+        return mongoManager;
     }
 }
