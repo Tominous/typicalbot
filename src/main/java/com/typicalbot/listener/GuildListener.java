@@ -17,6 +17,7 @@ package com.typicalbot.listener;
 
 import com.typicalbot.command.Command;
 import com.typicalbot.command.CommandArgument;
+import com.typicalbot.command.CommandCategory;
 import com.typicalbot.command.CommandContext;
 import com.typicalbot.config.Config;
 import com.typicalbot.data.mongo.dao.GuildDAO;
