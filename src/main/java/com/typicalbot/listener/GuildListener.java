@@ -87,6 +87,17 @@ public class GuildListener extends ListenerAdapter {
             Command command = Shard.getSingleton().getCommandManager().findCommand(commandName.substring(prefix.length()));
 
             if (command == null) return;
+            /*
+             * 1. Check to see if user has blacklist role.
+             * 2. Check to see if module (category) is disabled.
+             * 3. Check to see if user has permission.
+             * 4. Check to see if command requires nsfw channel
+             * 5. Execute command
+             */
+
+            if (object.getGuildSettings().getRoles().getBlacklistRole() != 0L && event.getMember().getRoles().contains(event.getGuild().getRoleById(object.getGuildSettings().getRoles().getBlacklistRole()))) {
+                return;
+            }
 
             if (command.nsfw() && !event.getChannel().isNSFW()) {
                 event.getChannel().sendMessage("This command requires the channel to be in NSFW mode.").queue();
