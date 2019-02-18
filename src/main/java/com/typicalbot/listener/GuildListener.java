@@ -19,6 +19,8 @@ import com.typicalbot.command.Command;
 import com.typicalbot.command.CommandArgument;
 import com.typicalbot.command.CommandContext;
 import com.typicalbot.config.Config;
+import com.typicalbot.data.mongo.dao.GuildDAO;
+import com.typicalbot.data.mongo.objects.GuildObject;
 import com.typicalbot.shard.Shard;
 import net.dv8tion.jda.core.Permission;
 import net.dv8tion.jda.core.events.guild.GuildJoinEvent;
@@ -31,17 +33,28 @@ import org.slf4j.LoggerFactory;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 
 public class GuildListener extends ListenerAdapter {
     private static final Logger LOGGER = LoggerFactory.getLogger(GuildListener.class);
 
+    private GuildDAO guildDAO = new GuildDAO();
+
     @Override
     public void onGuildJoin(GuildJoinEvent event) {
+        GuildObject guild = guildDAO.create(event.getGuild());
+        guildDAO.update(guild);
+
         LOGGER.info("Joined guild {} with {} users", event.getGuild().getName(), event.getGuild().getMembers().size());
     }
 
     @Override
     public void onGuildLeave(GuildLeaveEvent event) {
+        if (guildDAO.get(event.getGuild().getIdLong()).isPresent()) {
+            GuildObject object = guildDAO.get(event.getGuild().getIdLong()).get();
+            guildDAO.delete(object);
+        }
+
         LOGGER.info("Left guild {}", event.getGuild().getName());
     }
 
