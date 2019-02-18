@@ -99,6 +99,13 @@ public class GuildListener extends ListenerAdapter {
                 return;
             }
 
+            // TODO: This just looks ugly...
+            if (command.getConfiguration().category() == CommandCategory.FUN && object.getGuildSettings().getModules().isFun()) return;
+            if (command.getConfiguration().category() == CommandCategory.INTEGRATION && object.getGuildSettings().getModules().isIntegration()) return;
+            if (command.getConfiguration().category() == CommandCategory.MISCELLANEOUS && object.getGuildSettings().getModules().isMiscellaneous()) return;
+            if (command.getConfiguration().category() == CommandCategory.MODERATION && object.getGuildSettings().getModules().isModeration()) return;
+            if (command.getConfiguration().category() == CommandCategory.MUSIC && object.getGuildSettings().getModules().isMusic()) return;
+            if (command.getConfiguration().category() == CommandCategory.UTILITY && object.getGuildSettings().getModules().isUtility()) return;
             if (command.nsfw() && !event.getChannel().isNSFW()) {
                 event.getChannel().sendMessage("This command requires the channel to be in NSFW mode.").queue();
                 return;
