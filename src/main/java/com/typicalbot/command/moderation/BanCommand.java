@@ -23,8 +23,6 @@ import com.typicalbot.command.CommandContext;
 import com.typicalbot.command.CommandPermission;
 import net.dv8tion.jda.core.entities.User;
 
-import java.util.List;
-
 @CommandConfiguration(category = CommandCategory.MODERATION, aliases = "ban")
 public class BanCommand implements Command {
     @Override
