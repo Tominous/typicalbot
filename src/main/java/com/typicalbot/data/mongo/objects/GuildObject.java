@@ -37,6 +37,9 @@ public class GuildObject {
     @Property("ownerId")
     private long ownerId;
 
+    @Property("preserveData")
+    private boolean preserveData;
+
     @Embedded
     private GuildSettingObject guildSettings;
 
@@ -48,6 +51,7 @@ public class GuildObject {
         this.name = guild.getName();
         this.iconId = guild.getIconId();
         this.ownerId = guild.getOwnerIdLong();
+        this.preserveData = false;
         this.guildSettings = new GuildSettingObject();
     }
 
@@ -77,6 +81,14 @@ public class GuildObject {
 
     public void setOwnerId(long ownerId) {
         this.ownerId = ownerId;
+    }
+
+    public boolean isPreserveData() {
+        return this.preserveData;
+    }
+
+    public void setPreserveData(boolean preserveData) {
+        this.preserveData = preserveData;
     }
 
     public GuildSettingObject getGuildSettings() {

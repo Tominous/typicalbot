@@ -53,8 +53,8 @@ public class GuildListener extends ListenerAdapter {
 
     @Override
     public void onGuildLeave(GuildLeaveEvent event) {
-        if (guildDAO.get(event.getGuild().getIdLong()).isPresent()) {
-            GuildObject object = guildDAO.get(event.getGuild().getIdLong()).get();
+        GuildObject object = guildDAO.get(event.getGuild().getIdLong()).get();
+        if (!object.isPreserveData()) {
             guildDAO.delete(object);
         }
 
