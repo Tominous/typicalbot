@@ -31,6 +31,39 @@ public class ChannelsCommand implements Command {
 
     @Override
     public void execute(CommandContext context, CommandArgument argument) {
+        /*
+         * channels create text <name>
+         * channels create voice <name>
+         *
+         * channels create -t <name>
+         * channels create -v <name>
+         *
+         * channels delete <channel>
+         *
+         * channels clone <channel> <name>
+         *
+         * channels edit <channel> <prop> <value>  ->  channels edit #general name #lounge
+         *
+         * Properties:
+         *  - name
+         *  - topic
+         *  - slowmode (or use $slowmode)
+         *  - nsfw
+         *  - bitrate
+         *  - userlimit
+         *
+         *
+         * For advanced users
+         *
+         * channels permissions #general everyone +read_messages -send_messages
+         * channels permissions #general sync
+         *
+         * + Allow
+         * / Default
+         * - Disallow
+         *
+         * sync Sync permissions with category
+         */
         throw new UnsupportedOperationException("This command has not been implemented yet.");
     }
 }
