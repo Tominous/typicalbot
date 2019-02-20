@@ -38,6 +38,9 @@ public class GuildSettingObject {
     @Property("goodbyeMessage")
     private String goodbyeMessage;
 
+    @Property("ignoredChannels")
+    private long[] ignoredChannels;
+
     @Property("nickname")
     private boolean nickname;
 
@@ -110,6 +113,14 @@ public class GuildSettingObject {
 
     public void setGoodbyeMessage(String goodbyeMessage) {
         this.goodbyeMessage = goodbyeMessage;
+    }
+
+    public long[] getIgnoredChannels() {
+        return this.ignoredChannels;
+    }
+
+    public void setIgnoredChannels(long[] ignoredChannels) {
+        this.ignoredChannels = ignoredChannels;
     }
 
     public boolean isNickname() {
