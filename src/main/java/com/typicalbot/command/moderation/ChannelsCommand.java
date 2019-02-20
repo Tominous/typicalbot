@@ -34,9 +34,11 @@ public class ChannelsCommand implements Command {
         /*
          * channels create text <name>
          * channels create voice <name>
+         * channels create category <name>
          *
          * channels create -t <name>
          * channels create -v <name>
+         * channels create -c <name>
          *
          * channels delete <channel>
          *
