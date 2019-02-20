@@ -47,6 +47,12 @@ public class GuildRoleSettingObject {
     @Property("public")
     private long[] publicRoles;
 
+    /*
+     * messageId|emoteId|roleId
+     */
+    @Property("reaction")
+    private String[] reactionRoles;
+
     public GuildRoleSettingObject() {
     }
 
