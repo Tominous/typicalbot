@@ -21,6 +21,7 @@ import com.typicalbot.command.CommandCategory;
 import com.typicalbot.command.CommandConfiguration;
 import com.typicalbot.command.CommandContext;
 import com.typicalbot.command.CommandPermission;
+import net.dv8tion.jda.core.entities.User;
 
 @CommandConfiguration(category = CommandCategory.MODERATION, aliases = "undeafen")
 public class UndeafenCommand implements Command {
@@ -31,6 +32,24 @@ public class UndeafenCommand implements Command {
 
     @Override
     public void execute(CommandContext context, CommandArgument argument) {
-        throw new UnsupportedOperationException("This command has not been implemented yet.");
+        if (!argument.has()) {
+            context.sendMessage("Incorrect usage.");
+            return;
+        }
+
+        User temp = context.getUser(argument.get(0));
+
+        if (temp == null) {
+            context.sendMessage("Couldn't find that user.");
+            return;
+        }
+
+        if (!context.getGuild().getMember(temp).getVoiceState().inVoiceChannel()) {
+            context.sendMessage("User is not in voice channel.");
+            return;
+        }
+
+        context.getGuild().getController().setDeafen(context.getGuild().getMember(temp), false).queue();
+        context.sendMessage("Successfully undeafen {0}.", temp.getAsTag());
     }
 }
