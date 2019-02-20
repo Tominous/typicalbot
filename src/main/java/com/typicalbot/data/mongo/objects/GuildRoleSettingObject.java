@@ -127,4 +127,12 @@ public class GuildRoleSettingObject {
     public void setPublicRoles(long[] publicRoles) {
         this.publicRoles = publicRoles;
     }
+
+    public String[] getReactionRoles() {
+        return this.reactionRoles;
+    }
+
+    public void setReactionRoles(String[] reactionRoles) {
+        this.reactionRoles = reactionRoles;
+    }
 }
