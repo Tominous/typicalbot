@@ -133,6 +133,18 @@ public class QuoteCommand implements Command {
     };
 
     @Override
+    public String[] usage() {
+        return new String[]{
+            "quote"
+        };
+    }
+
+    @Override
+    public String description() {
+        return "Returns a quote.";
+    }
+
+    @Override
     public CommandPermission permission() {
         return CommandPermission.GUILD_MEMBER;
     }

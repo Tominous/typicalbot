@@ -106,6 +106,18 @@ public class ThisorthatCommand implements Command {
     };
 
     @Override
+    public String[] usage() {
+        return new String[]{
+            "thisorthat"
+        };
+    }
+
+    @Override
+    public String description() {
+        return "Returns a this-or-that.";
+    }
+
+    @Override
     public CommandPermission permission() {
         return CommandPermission.GUILD_MEMBER;
     }

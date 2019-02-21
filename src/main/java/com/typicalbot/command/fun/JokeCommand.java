@@ -172,6 +172,18 @@ public class JokeCommand implements Command {
     };
 
     @Override
+    public String[] usage() {
+        return new String[]{
+            "joke"
+        };
+    }
+
+    @Override
+    public String description() {
+        return "Returns a joke.";
+    }
+
+    @Override
     public CommandPermission permission() {
         return CommandPermission.GUILD_MEMBER;
     }

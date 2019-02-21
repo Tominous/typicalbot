@@ -238,6 +238,18 @@ public class WouldyouratherCommand implements Command {
     };
 
     @Override
+    public String[] usage() {
+        return new String[]{
+            "wouldyourather"
+        };
+    }
+
+    @Override
+    public String description() {
+        return "Returns a would-you-rather.";
+    }
+
+    @Override
     public CommandPermission permission() {
         return CommandPermission.GUILD_MEMBER;
     }
