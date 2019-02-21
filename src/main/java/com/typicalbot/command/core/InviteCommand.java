@@ -23,8 +23,20 @@ import com.typicalbot.command.CommandContext;
 import com.typicalbot.command.CommandPermission;
 import net.dv8tion.jda.core.EmbedBuilder;
 
-@CommandConfiguration(category = CommandCategory.CORE, aliases = "invite")
+@CommandConfiguration(category = CommandCategory.CORE, aliases = {"invite", "oauth"})
 public class InviteCommand implements Command {
+    @Override
+    public String[] usage() {
+        return new String[]{
+            "invite"
+        };
+    }
+
+    @Override
+    public String description() {
+        return "Receive the OAuth2 authorization link for TypicalBot.";
+    }
+
     @Override
     public CommandPermission permission() {
         return CommandPermission.GUILD_MEMBER;
