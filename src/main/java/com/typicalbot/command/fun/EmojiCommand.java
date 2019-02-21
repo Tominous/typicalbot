@@ -32,6 +32,18 @@ public class EmojiCommand implements Command {
     private Pattern regex = Pattern.compile("(<)(:)((?:[a-z][a-z]+))(:)(\\d+)(>)");
 
     @Override
+    public String[] usage() {
+        return new String[]{
+            "emoji :thonk:"
+        };
+    }
+
+    @Override
+    public String description() {
+        return "Send an image of the emoji.";
+    }
+
+    @Override
     public CommandPermission permission() {
         return CommandPermission.GUILD_MEMBER;
     }
