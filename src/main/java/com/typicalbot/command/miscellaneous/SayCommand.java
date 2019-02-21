@@ -25,6 +25,18 @@ import com.typicalbot.command.CommandPermission;
 @CommandConfiguration(category = CommandCategory.MISCELLANEOUS, aliases = "say")
 public class SayCommand implements Command {
     @Override
+    public String[] usage() {
+        return new String[]{
+            "say [message]"
+        };
+    }
+
+    @Override
+    public String description() {
+        return "Have the bot say something.";
+    }
+
+    @Override
     public CommandPermission permission() {
         return CommandPermission.GUILD_MEMBER;
     }
