@@ -64,10 +64,11 @@ public class ChangelogCommand implements Command {
 
             builder.setTitle("TypicalBot Changelog", object.getString("html_url"));
             builder.setDescription(object.getString("body"));
+            builder.setColor(CommandContext.TYPICALBOT_BLUE);
 
             context.sendEmbed(builder.build());
         } catch (IOException | JSONException ex) {
-            context.sendMessage("Failed to retrieve changelog.");
+            context.sendMessage("Unable to retrieve changelog from GitHub.");
         }
     }
 }
