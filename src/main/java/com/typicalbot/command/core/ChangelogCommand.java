@@ -41,7 +41,7 @@ public class ChangelogCommand implements Command {
 
     @Override
     public String description() {
-        return "Get the changelog for the current version, or previous version.";
+        return "See the changelog for the current version of TypicalBot.";
     }
 
     @Override
