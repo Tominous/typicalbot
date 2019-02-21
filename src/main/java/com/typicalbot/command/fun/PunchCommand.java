@@ -28,6 +28,19 @@ import java.util.Random;
 @CommandConfiguration(category = CommandCategory.FUN, aliases = "punch")
 public class PunchCommand implements Command {
     @Override
+    public String[] usage() {
+        return new String[]{
+            "punch",
+            "punch [@user]"
+        };
+    }
+
+    @Override
+    public String description() {
+        return "Punch yourself or another person.";
+    }
+
+    @Override
     public CommandPermission permission() {
         return CommandPermission.GUILD_MEMBER;
     }

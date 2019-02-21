@@ -27,6 +27,20 @@ import java.util.Random;
 @CommandConfiguration(category = CommandCategory.FUN, aliases = "random")
 public class RandomCommand implements Command {
     @Override
+    public String[] usage() {
+        return new String[]{
+            "random",
+            "random [max]",
+            "random [min] [max]"
+        };
+    }
+
+    @Override
+    public String description() {
+        return "Returns a random number.";
+    }
+
+    @Override
     public CommandPermission permission() {
         return CommandPermission.GUILD_MEMBER;
     }

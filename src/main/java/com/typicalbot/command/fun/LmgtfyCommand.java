@@ -25,6 +25,18 @@ import com.typicalbot.command.CommandPermission;
 @CommandConfiguration(category = CommandCategory.FUN, aliases = "lmgtfy")
 public class LmgtfyCommand implements Command {
     @Override
+    public String[] usage() {
+        return new String[]{
+            "lmgtfy [query]"
+        };
+    }
+
+    @Override
+    public String description() {
+        return "Returns a lmgtfy URL of specified query.";
+    }
+
+    @Override
     public CommandPermission permission() {
         return CommandPermission.GUILD_MEMBER;
     }

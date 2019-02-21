@@ -70,6 +70,18 @@ public class NatoCommand implements Command {
     }
 
     @Override
+    public String[] usage() {
+        return new String[]{
+            "nato [text]"
+        };
+    }
+
+    @Override
+    public String description() {
+        return "Translate text into the nato alphabet.";
+    }
+
+    @Override
     public CommandPermission permission() {
         return CommandPermission.GUILD_MEMBER;
     }

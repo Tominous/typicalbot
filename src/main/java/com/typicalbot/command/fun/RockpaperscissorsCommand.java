@@ -33,6 +33,18 @@ public class RockpaperscissorsCommand implements Command {
     };
 
     @Override
+    public String[] usage() {
+        return new String[]{
+            "rockpaperscissors"
+        };
+    }
+
+    @Override
+    public String description() {
+        return "Plays rock-paper-scissors";
+    }
+
+    @Override
     public CommandPermission permission() {
         return CommandPermission.GUILD_MEMBER;
     }
