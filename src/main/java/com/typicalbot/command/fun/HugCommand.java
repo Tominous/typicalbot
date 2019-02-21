@@ -28,6 +28,19 @@ import java.util.Random;
 @CommandConfiguration(category = CommandCategory.FUN, aliases = "hug")
 public class HugCommand implements Command {
     @Override
+    public String[] usage() {
+        return new String[]{
+            "hug",
+            "hug [@user]"
+        };
+    }
+
+    @Override
+    public String description() {
+        return "Give yourself or another person a hug.";
+    }
+
+    @Override
     public CommandPermission permission() {
         return CommandPermission.GUILD_MEMBER;
     }
