@@ -47,7 +47,12 @@ public class DonateCommand implements Command {
         EmbedBuilder builder = new EmbedBuilder();
 
         builder.setTitle("TypicalBot Donate");
-        builder.setDescription("You can support the development of TypicalBot by donating [here](https://typicalbot.com/donate).");
+        builder.setDescription("If you would like to support the TypicalBot maintainers, you can donate using one of the options below.");
+        builder.setColor(CommandContext.TYPICALBOT_BLUE);
+
+        builder.addField("One-time Donation", "[PayPal](https://paypal.me/typicalbot)", true);
+        builder.addField("Recurring Donation", "[Patreon](https://patreon.com/typicalbot)", true);
+        builder.addBlankField(true);
 
         context.sendEmbed(builder.build());
     }
