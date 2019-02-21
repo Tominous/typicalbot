@@ -49,8 +49,20 @@ public class HelpCommand implements Command {
     @Override
     public void execute(CommandContext context, CommandArgument argument) {
         if (!argument.has()) {
-            // TODO(nsylke): Make this an embed?
-            context.sendMessage("Hello there, I'm TypicalBot! I am developed by HyperCoder#2975 and Nick#4490 with the help of their fantastic staff team. If you would like to access my list of commands, try using `{0}commands`. If you need any help with commands or settings, you can find documentation at <https://typicalbot.com/documentation>. If you cannot figure out how to use a command or setting, or would like to chat, you can join us in the TypicalBot Lounge at <https://www.typicalbot.com/join-us>.\n\nBuilt upon years of experience, TypicalBot is the ironically-named bot that is far from typical. Stable, lightning fast, and easy to use, TypicalBot is there for you and will seamlessly help you moderate your server and offer some entertaining features for your users, every step of the way.", Config.getConfig("discord").get("prefix"));
+            EmbedBuilder builder = new EmbedBuilder();
+
+            builder.setTitle("TypicalBot");
+            builder.setDescription("Thanks for using TypicalBot, a multi-threaded and high-performance Discord bot. TypicalBot is stable, lightning fast, reliable and easy to use.");
+            builder.setColor(CommandContext.TYPICALBOT_BLUE);
+
+            builder.addField("Website", "[Go to Website](https://typicalbot.com)", true);
+            builder.addField("Documentation", "[Go to Documentation](https://typicalbot.com/documentation)", true);
+            builder.addBlankField(true);
+            builder.addField("Source code", "[Go to GitHub](https://github.com/typicalbot/typicalbot)", true);
+            builder.addField("Support", "[Go to TypicalBot Lounge](https://discord.gg/typicalbot)", true);
+            builder.addBlankField(true);
+
+            context.sendEmbed(builder.build());
             return;
         }
 
