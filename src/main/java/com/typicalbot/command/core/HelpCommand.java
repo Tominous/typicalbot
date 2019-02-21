@@ -74,13 +74,16 @@ public class HelpCommand implements Command {
         }
 
         EmbedBuilder builder = new EmbedBuilder();
-        // TODO(nsylke): Add a color to the embed.
+
         builder.setTitle("Documentation for " + argument.get(0));
+        builder.setDescription(command.description());
+        builder.setColor(CommandContext.TYPICALBOT_BLUE);
+
         builder.addField("Category", StringUtil.capitalize(command.getConfiguration().category().name()), true);
-        builder.addField("Aliases", String.join(", ", command.getConfiguration().aliases()), true);
-        builder.addField("Permission", command.permission().name(), true);
+        builder.addField("Permission", StringUtil.capitalize(command.permission().name().replace('_', ' ')), true);
+        builder.addBlankField(true);
+        builder.addField("Aliases", String.join(", ", command.getConfiguration().aliases()), false);
         builder.addField("Usage", String.join("\n", command.usage()), false);
-        builder.addField("Description", command.description(), false);
 
         context.sendEmbed(builder.build());
     }
