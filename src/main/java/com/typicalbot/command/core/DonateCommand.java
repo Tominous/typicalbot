@@ -23,7 +23,7 @@ import com.typicalbot.command.CommandContext;
 import com.typicalbot.command.CommandPermission;
 import net.dv8tion.jda.core.EmbedBuilder;
 
-@CommandConfiguration(category = CommandCategory.CORE, aliases = "donate")
+@CommandConfiguration(category = CommandCategory.CORE, aliases = {"donate", "patron", "patreon"})
 public class DonateCommand implements Command {
     @Override
     public String[] usage() {
@@ -34,7 +34,7 @@ public class DonateCommand implements Command {
 
     @Override
     public String description() {
-        return "Donate to TypicalBot.";
+        return "Donate to the TypicalBot maintainers.";
     }
 
     @Override
