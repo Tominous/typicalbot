@@ -27,6 +27,18 @@ import java.util.Random;
 @CommandConfiguration(category = CommandCategory.FUN, aliases = "choose")
 public class ChooseCommand implements Command {
     @Override
+    public String[] usage() {
+        return new String[] {
+            "choose [option, option, option]"
+        };
+    }
+
+    @Override
+    public String description() {
+        return "Choose an option from a list.";
+    }
+
+    @Override
     public CommandPermission permission() {
         return CommandPermission.GUILD_MEMBER;
     }
