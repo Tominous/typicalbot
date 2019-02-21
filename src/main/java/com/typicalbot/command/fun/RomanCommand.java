@@ -45,6 +45,18 @@ public class RomanCommand implements Command {
     }
 
     @Override
+    public String[] usage() {
+        return new String[]{
+            "romain [number]"
+        };
+    }
+
+    @Override
+    public String description() {
+        return "Get the roman numerals for a number.";
+    }
+
+    @Override
     public CommandPermission permission() {
         return CommandPermission.GUILD_MEMBER;
     }
