@@ -69,8 +69,7 @@ public class HelpCommand implements Command {
         Command command = Shard.getSingleton().getCommandManager().findCommand(argument.get(0));
 
         if (command == null) {
-            // TODO(nsylke): Make this an embed?
-            context.sendMessage("That command does not exist.");
+            context.sendMessage("Whoops! Looks like the command that you are looking for does not exist.");
             return;
         }
 
