@@ -74,6 +74,18 @@ public class EmojifyCommand implements Command {
     }
 
     @Override
+    public String[] usage() {
+        return new String[]{
+            "emoji [text]"
+        };
+    }
+
+    @Override
+    public String description() {
+        return "Translate your sentence into emojis.";
+    }
+
+    @Override
     public CommandPermission permission() {
         return CommandPermission.GUILD_MEMBER;
     }
