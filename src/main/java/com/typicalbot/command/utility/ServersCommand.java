@@ -22,8 +22,10 @@ import com.typicalbot.command.CommandConfiguration;
 import com.typicalbot.command.CommandContext;
 import com.typicalbot.command.CommandPermission;
 import com.typicalbot.shard.Shard;
+import net.dv8tion.jda.core.EmbedBuilder;
 import net.dv8tion.jda.core.entities.Guild;
 
+import java.text.DecimalFormat;
 import java.util.List;
 
 @CommandConfiguration(category = CommandCategory.UTILITY, aliases = "servers")
@@ -43,18 +45,23 @@ public class ServersCommand implements Command {
             guilds.setPage(1);
         }
 
-        StringBuilder builder = new StringBuilder();
+        EmbedBuilder builder = new EmbedBuilder();
+        DecimalFormat format = new DecimalFormat("#,###");
 
-        builder.append("Page ").append(guilds.getPage()).append(" / ").append(guilds.getMaxPages()).append("\n");
+        builder.setTitle("Server List - Provided by TypicalBot");
+        builder.setColor(CommandContext.TYPICALBOT_BLUE);
+        builder.setThumbnail("https://cdn.discordapp.com/icons/509030978484699136/ce37733019bb77ecaed550dfdaacea89.png");
 
         for (Guild guild : guilds.getListForPage()) {
-            builder.append(" • ").append(guild.getName()).append(" : ").append(guild.getMembers().size()).append("\n");
+            builder.addField(guild.getName(), format.format(guild.getMembers().size()) + " Users", true);
         }
 
-        context.sendMessage("```%s```", builder.toString());
+        builder.setFooter("Page " + guilds.getPage() + " / " + guilds.getMaxPages(), null);
+
+        context.sendEmbed(builder.build());
     }
 
-    class Pageable<T> {
+    static class Pageable<T> {
         private List<T> list;
 
         // current page
