@@ -21,6 +21,20 @@ import com.typicalbot.command.CommandCategory;
 import com.typicalbot.command.CommandConfiguration;
 import com.typicalbot.command.CommandContext;
 import com.typicalbot.command.CommandPermission;
+import net.dv8tion.jda.core.EmbedBuilder;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Request.Builder;
+import okhttp3.Response;
+import org.json.JSONArray;
+import org.json.JSONObject;
+
+import java.io.IOException;
+import java.text.DecimalFormat;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
 
 @CommandConfiguration(category = CommandCategory.UTILITY, aliases = "bots")
 public class BotsCommand implements Command {
@@ -31,6 +45,48 @@ public class BotsCommand implements Command {
 
     @Override
     public void execute(CommandContext context, CommandArgument argument) {
-        throw new UnsupportedOperationException("This command has not been implemented yet.");
+        OkHttpClient client = new OkHttpClient();
+        Request request = new Request.Builder().url("https://www.carbonitex.net/discord/api/listedbots").build();
+
+        try {
+            Response response = client.newCall(request).execute();
+
+            // TODO(nsylke): This can be simplified.
+            JSONArray raw = new JSONArray(response.body().string());
+            List<JSONObject> servers = new ArrayList<>();
+
+            for (int i = 0; i < raw.length(); i++) {
+                servers.add(raw.getJSONObject(i));
+            }
+
+            // Sorts based on server count, then reverses the list so it's highest to lowest.
+            servers.sort(Comparator.comparingInt(o -> o.getInt("servercount")));
+            Collections.reverse(servers);
+
+            ServersCommand.Pageable<JSONObject> obj = new ServersCommand.Pageable<>(servers);
+
+            if (argument.has()) {
+                obj.setPage(Integer.parseInt(argument.get(0)));
+            } else {
+                obj.setPage(1);
+            }
+
+            EmbedBuilder builder = new EmbedBuilder();
+            DecimalFormat format = new DecimalFormat("#,###");
+
+            builder.setTitle("Bot List - Provided by Carbonitex");
+            builder.setColor(CommandContext.TYPICALBOT_BLUE);
+            builder.setThumbnail("https://cdn.discordapp.com/icons/112319935652298752/8ab710cbc981f639bf355911be48adf7.png"); // Carbonitex server logo
+
+            for (JSONObject server : obj.getListForPage()) {
+                builder.addField(server.getString("name").replaceAll("[^A-Za-z0-9]", "") + (server.getInt("compliant") == 1 ? " (Compliant)" : ""), format.format(server.getInt("servercount")) + " Guilds", true);
+            }
+
+            builder.setFooter("Page " + obj.getPage() + " / " + obj.getMaxPages(), null);
+
+            context.sendEmbed(builder.build());
+        } catch (IOException ex) {
+            context.sendMessage("Unable to retrieve bot list from Carbonitex.");
+        }
     }
 }
