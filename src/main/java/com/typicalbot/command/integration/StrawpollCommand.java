@@ -21,6 +21,15 @@ import com.typicalbot.command.CommandCategory;
 import com.typicalbot.command.CommandConfiguration;
 import com.typicalbot.command.CommandContext;
 import com.typicalbot.command.CommandPermission;
+import okhttp3.MediaType;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.RequestBody;
+import okhttp3.Response;
+import org.json.JSONObject;
+import org.json.JSONTokener;
+
+import java.io.IOException;
 
 @CommandConfiguration(category = CommandCategory.INTEGRATION, aliases = "strawpoll")
 public class StrawpollCommand implements Command {
@@ -31,6 +40,37 @@ public class StrawpollCommand implements Command {
 
     @Override
     public void execute(CommandContext context, CommandArgument argument) {
-        throw new UnsupportedOperationException("This command has not been implemented yet.");
+        // TODO(nsylke): Redo this after release... it's just bad.
+        if (!argument.has()) {
+            context.sendMessage("Incorrect usage.");
+            return;
+        }
+
+        boolean multi = false;
+
+        if (argument.get(0).equals("-m")) {
+            multi = true;
+            argument.getArguments().remove(0);
+        }
+
+        String[] args = argument.toString().split("\\|");
+
+        JSONObject object = new JSONObject();
+        object.put("title", args[0]);
+        object.put("options", args[1].split(";"));
+        object.put("multi", multi);
+
+        OkHttpClient client = new OkHttpClient();
+        Request request = new Request.Builder().url("https://www.strawpoll.me/api/v2/polls").post(RequestBody.create(MediaType.parse("application/json; charset=utf-8"), object.toString())).build();
+
+        try {
+            Response response = client.newCall(request).execute();
+
+            JSONObject poll = new JSONObject(new JSONTokener(response.body().byteStream()));
+
+            context.sendMessage("Your Strawpoll has been successfully created. <https://strawpoll.me/{0}>", Integer.toString(poll.getInt("id")));
+        } catch (IOException ex) {
+            context.sendMessage("Failed to create poll on Strawpoll.");
+        }
     }
 }
