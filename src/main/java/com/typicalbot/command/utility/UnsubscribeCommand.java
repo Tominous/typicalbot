@@ -21,6 +21,9 @@ import com.typicalbot.command.CommandCategory;
 import com.typicalbot.command.CommandConfiguration;
 import com.typicalbot.command.CommandContext;
 import com.typicalbot.command.CommandPermission;
+import com.typicalbot.data.mongo.dao.GuildDAO;
+import com.typicalbot.data.mongo.objects.GuildObject;
+import net.dv8tion.jda.core.entities.Role;
 
 @CommandConfiguration(category = CommandCategory.UTILITY, aliases = "unsubscribe")
 public class UnsubscribeCommand implements Command {
@@ -31,6 +34,22 @@ public class UnsubscribeCommand implements Command {
 
     @Override
     public void execute(CommandContext context, CommandArgument argument) {
-        throw new UnsupportedOperationException("This command has not been implemented yet.");
+        GuildDAO dao = new GuildDAO();
+        GuildObject object = dao.get(context.getGuild().getIdLong()).get();
+
+        if (object.getGuildSettings().getRoles().getSubscriberRole() == 0L) {
+            context.sendMessage("There is no subscriber role set up yet.");
+            return;
+        }
+
+        Role role = context.getGuild().getRoleById(object.getGuildSettings().getRoles().getSubscriberRole());
+
+        if (role == null) {
+            context.sendMessage("There is no subscriber role set up yet.");
+            return;
+        }
+
+        context.getGuild().getController().removeRolesFromMember(context.getGuild().getMember(context.getMessage().getAuthor()), role).queue();
+        context.sendMessage("Success! You are now unsubscribed.");
     }
 }
