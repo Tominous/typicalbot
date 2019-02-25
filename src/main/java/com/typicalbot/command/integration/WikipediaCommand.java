@@ -21,6 +21,14 @@ import com.typicalbot.command.CommandCategory;
 import com.typicalbot.command.CommandConfiguration;
 import com.typicalbot.command.CommandContext;
 import com.typicalbot.command.CommandPermission;
+import net.dv8tion.jda.core.EmbedBuilder;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
+import org.json.JSONObject;
+import org.json.JSONTokener;
+
+import java.io.IOException;
 
 @CommandConfiguration(category = CommandCategory.INTEGRATION, aliases = "wikipedia")
 public class WikipediaCommand implements Command {
@@ -31,6 +39,37 @@ public class WikipediaCommand implements Command {
 
     @Override
     public void execute(CommandContext context, CommandArgument argument) {
-        throw new UnsupportedOperationException("This command has not been implemented yet.");
+        if (!argument.has()) {
+            context.sendMessage("Incorrect usage.");
+            return;
+        }
+
+        OkHttpClient client = new OkHttpClient();
+        Request request = new Request.Builder().url("https://wikipedia.org/w/api.php?format=json&action=query&prop=extracts&redirects=1&exintro=&explaintext=&titles=" + argument.toString()).build();
+
+        try {
+            Response response = client.newCall(request).execute();
+
+            // Why wikipedia...
+            JSONObject object = new JSONObject(new JSONTokener(response.body().byteStream()));
+            JSONObject pages = object.getJSONObject("query").getJSONObject("pages");
+            String pageNumber = pages.keySet().iterator().next();
+
+            if (pageNumber.equals("-1")) {
+                context.sendMessage("Failed to retrieve result from Wikipedia.");
+                return;
+            }
+
+            JSONObject page = pages.getJSONObject(pageNumber);
+
+            EmbedBuilder builder = new EmbedBuilder();
+
+            builder.setTitle(page.getString("title"));
+            builder.setDescription((page.getString("extract").length() > 2048 ? page.getString("extract").substring(0, 2000) + "..." : page.getString("extract")));
+
+            context.sendEmbed(builder.build());
+        } catch (IOException ex) {
+            context.sendMessage("Failed to retrieve results from Wikipedia.");
+        }
     }
 }
