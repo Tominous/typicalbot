@@ -130,6 +130,7 @@ import com.typicalbot.command.utility.SubscribeCommand;
 import com.typicalbot.command.utility.UnsubscribeCommand;
 import com.typicalbot.command.utility.UserCommand;
 import com.typicalbot.command.webhook.WebhookCommand;
+import com.typicalbot.config.Config;
 import com.typicalbot.listener.GuildListener;
 import com.typicalbot.listener.ReadyListener;
 import net.dv8tion.jda.core.AccountType;
@@ -143,6 +144,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 
 // TODO(nsylke): Documentation
 public class Shard {
@@ -325,6 +327,8 @@ public class Shard {
 
             AudioSourceManagers.registerRemoteSources(this.playerManager);
             AudioSourceManagers.registerLocalSource(this.playerManager);
+
+            this.executorService.scheduleAtFixedRate(() -> this.instance.getPresence().setGame(Game.playing(Config.getConfig("discord").getString("prefix") + "help | " + ShardManager.getGuildCount() + " Guilds")), 30L, 60L, TimeUnit.SECONDS);
         } catch (LoginException e) {
             throw new RuntimeException(e);
         }
