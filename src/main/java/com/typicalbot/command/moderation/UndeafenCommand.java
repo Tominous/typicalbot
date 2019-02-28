@@ -49,7 +49,6 @@ public class UndeafenCommand implements Command {
             return;
         }
 
-        context.getGuild().getController().setDeafen(context.getGuild().getMember(temp), false).queue();
-        context.sendMessage("Successfully undeafen {0}.", temp.getAsTag());
+        context.getGuild().getController().setDeafen(context.getGuild().getMember(temp), false).queue(o -> context.sendMessage("Successfully undeafen {0}.", temp.getAsTag()));
     }
 }
