@@ -84,7 +84,8 @@ public class TypicalBot {
             LOGGER.info("Please wait while we retrieve the client identifier.");
 
             Shard shard = new Shard(token);
-            Thread.sleep(5000); // TODO(nsylke): Find the lowest millisecond we need to wait.
+            shard.getInstance().awaitReady();
+
             String clientId = shard.getClientId();
             shard.shutdown();
 
