@@ -66,7 +66,6 @@ public class GuildListener extends ListenerAdapter {
         if (event.getAuthor() == null || event.getAuthor().isBot()) return;
         if (!event.getGuild().isAvailable()) return;
         if (!event.getGuild().getSelfMember().hasPermission(Permission.MESSAGE_WRITE)) return;
-        if (event.getGuild().getIdLong() != 509030978484699136L) return;
 
         GuildObject object = guildDAO.get(event.getGuild().getIdLong()).get();
 
