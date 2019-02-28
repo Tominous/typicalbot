@@ -103,23 +103,37 @@ public class GuildListener extends ListenerAdapter {
             }
 
             // TODO: This just looks ugly...
-            if (command.getConfiguration().category() == CommandCategory.FUN && object.getGuildSettings().getModules().isFun()) return;
-            if (command.getConfiguration().category() == CommandCategory.INTEGRATION && object.getGuildSettings().getModules().isIntegration()) return;
-            if (command.getConfiguration().category() == CommandCategory.MISCELLANEOUS && object.getGuildSettings().getModules().isMiscellaneous()) return;
-            if (command.getConfiguration().category() == CommandCategory.MODERATION && object.getGuildSettings().getModules().isModeration()) return;
-            if (command.getConfiguration().category() == CommandCategory.MUSIC && object.getGuildSettings().getModules().isMusic()) return;
-            if (command.getConfiguration().category() == CommandCategory.UTILITY && object.getGuildSettings().getModules().isUtility()) return;
+            if (command.getConfiguration().category() == CommandCategory.FUN && object.getGuildSettings().getModules().isFun())
+                return;
+            if (command.getConfiguration().category() == CommandCategory.INTEGRATION && object.getGuildSettings().getModules().isIntegration())
+                return;
+            if (command.getConfiguration().category() == CommandCategory.MISCELLANEOUS && object.getGuildSettings().getModules().isMiscellaneous())
+                return;
+            if (command.getConfiguration().category() == CommandCategory.MODERATION && object.getGuildSettings().getModules().isModeration())
+                return;
+            if (command.getConfiguration().category() == CommandCategory.MUSIC && object.getGuildSettings().getModules().isMusic())
+                return;
+            if (command.getConfiguration().category() == CommandCategory.UTILITY && object.getGuildSettings().getModules().isUtility())
+                return;
 
             // TODO: This just looks ugly too...
-            if (command.permission().getLevel() >= 1 && (event.getAuthor().getIdLong() != event.getGuild().getOwnerIdLong())) {
-                if (command.permission().equals(CommandPermission.GUILD_MODERATOR) && object.getGuildSettings().getRoles().getModeratorRole() == 0L) return;
-                if (command.permission().equals(CommandPermission.GUILD_ADMINISTRATOR) && object.getGuildSettings().getRoles().getAdminRole() == 0L) return;
+            if (command.permission().getLevel() >= 1 && command.permission().getLevel() <= 4 && (event.getAuthor().getIdLong() != event.getGuild().getOwnerIdLong())) {
+                if (command.permission().equals(CommandPermission.GUILD_MODERATOR) && object.getGuildSettings().getRoles().getModeratorRole() == 0L)
+                    return;
+                if (command.permission().equals(CommandPermission.GUILD_ADMINISTRATOR) && object.getGuildSettings().getRoles().getAdminRole() == 0L)
+                    return;
 
                 Role modrole = event.getGuild().getRoleById(object.getGuildSettings().getRoles().getModeratorRole());
                 Role adminrole = event.getGuild().getRoleById(object.getGuildSettings().getRoles().getAdminRole());
 
-                if (modrole != null && command.permission().getLevel() >= 1 && (!event.getMember().getRoles().contains(modrole) || !event.getMember().getRoles().contains(adminrole))) return;
-                if (adminrole != null && command.permission().getLevel() >= 2 && (!event.getMember().getRoles().contains(adminrole))) return;
+                if (command.permission().getLevel() >= 1 && (!event.getMember().getRoles().contains(modrole) || !event.getMember().getRoles().contains(adminrole))) {
+                    event.getMessage().getChannel().sendMessage("You do not have permission to use this command. The required permission is " + StringUtil.capitalize(command.permission().name().replace('_', ' ')) + ".").queue();
+                    return;
+                }
+                if (command.permission().getLevel() >= 2 && (!event.getMember().getRoles().contains(adminrole))) {
+                    event.getMessage().getChannel().sendMessage("You do not have permission to use this command. The required permission is " + StringUtil.capitalize(command.permission().name().replace('_', ' ')) + ".").queue();
+                    return;
+                }
             }
 
             if (command.nsfw() && !event.getChannel().isNSFW()) {
