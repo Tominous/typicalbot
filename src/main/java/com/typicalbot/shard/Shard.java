@@ -99,6 +99,8 @@ import com.typicalbot.command.moderation.UnignoreCommand;
 import com.typicalbot.command.moderation.UnmuteCommand;
 import com.typicalbot.command.moderation.VoicekickCommand;
 import com.typicalbot.command.moderation.VoicemoveCommand;
+import com.typicalbot.command.moderation.VoicemuteCommand;
+import com.typicalbot.command.moderation.VoiceunmuteCommand;
 import com.typicalbot.command.moderation.WarnCommand;
 import com.typicalbot.command.music.CurrentCommand;
 import com.typicalbot.command.music.LyricsCommand;
@@ -276,6 +278,8 @@ public class Shard {
                 new UnmuteCommand(),
                 new VoicekickCommand(),
                 new VoicemoveCommand(),
+                new VoicemuteCommand(),
+                new VoiceunmuteCommand(),
                 new WarnCommand(),
 
                 // Music
