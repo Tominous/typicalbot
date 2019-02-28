@@ -158,4 +158,8 @@ public class ShardManager {
     public static double getAveragePing() {
         return Arrays.stream(shards).mapToLong(Shard::getPing).filter(ping -> ping != -1).average().orElse(-1D);
     }
+
+    public static int getGuildCount() {
+        return Arrays.stream(shards).mapToInt(Shard::getGuilds).sum();
+    }
 }
