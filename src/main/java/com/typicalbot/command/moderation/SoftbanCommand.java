@@ -21,6 +21,9 @@ import com.typicalbot.command.CommandCategory;
 import com.typicalbot.command.CommandConfiguration;
 import com.typicalbot.command.CommandContext;
 import com.typicalbot.command.CommandPermission;
+import net.dv8tion.jda.core.entities.User;
+
+import java.util.concurrent.TimeUnit;
 
 @CommandConfiguration(category = CommandCategory.MODERATION, aliases = "softban")
 public class SoftbanCommand implements Command {
@@ -31,6 +34,22 @@ public class SoftbanCommand implements Command {
 
     @Override
     public void execute(CommandContext context, CommandArgument argument) {
-        throw new UnsupportedOperationException("This command has not been implemented yet.");
+        if (!argument.has()) {
+            context.sendMessage("Incorrect usage.");
+            return;
+        }
+
+        User temp = context.getUser(argument.get(0));
+
+        if (temp == null) {
+            context.sendMessage("Couldn't find that user.");
+            return;
+        }
+
+        String reason = String.join(" ", argument.getArguments().subList(1, argument.getArguments().size()));
+        context.getGuild().getController().ban(temp.getId(), 1, reason).queue(o -> {
+            context.sendMessage("Successfully softbanned {0} for {1}.", temp.getAsTag(), reason);
+            context.getGuild().getController().unban(temp.getId()).reason(reason).queueAfter(4, TimeUnit.SECONDS);
+        });
     }
 }
