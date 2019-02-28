@@ -89,6 +89,16 @@ public class GuildListener extends ListenerAdapter {
             Command command = Shard.getSingleton().getCommandManager().findCommand(commandName.substring(prefix.length()));
 
             if (command == null) return;
+//            if (command == null) {
+//                for (Command cmd : Shard.getSingleton().getCommandManager().getCommands()) {
+//                    if (StringUtil.similarity(cmd.getConfiguration().aliases()[0], commandName.substring(prefix.length())) >= 0.66) {
+//                        event.getChannel().sendMessage("Command not found, did you mean: " + cmd.getConfiguration().aliases()[0] + "?").queue();
+//                    }
+//                }
+//
+//                return;
+//            }
+
             /*
              * 1. Check to see if user has blacklist role.
              * 2. Check to see if module (category) is disabled.
@@ -134,6 +144,11 @@ public class GuildListener extends ListenerAdapter {
                     return;
                 }
             }
+
+//            if (command.permission().getLevel() >= 8 && (event.getAuthor().getIdLong() != 187342661060001792L || event.getAuthor().getIdLong() != 105408136285818880L)) {
+//                event.getMessage().getChannel().sendMessage("You do not have permission to use this command.").queue();
+//                return;
+//            }
 
             if (command.nsfw() && !event.getChannel().isNSFW()) {
                 event.getChannel().sendMessage("This command requires the channel to be in NSFW mode.").queue();
