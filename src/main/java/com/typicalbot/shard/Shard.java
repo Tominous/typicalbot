@@ -15,12 +15,14 @@
  */
 package com.typicalbot.shard;
 
+import com.sedmelluq.discord.lavaplayer.format.StandardAudioDataFormats;
 import com.sedmelluq.discord.lavaplayer.jdaudp.NativeAudioSendFactory;
 import com.sedmelluq.discord.lavaplayer.player.AudioConfiguration;
 import com.sedmelluq.discord.lavaplayer.player.AudioPlayerManager;
 import com.sedmelluq.discord.lavaplayer.player.DefaultAudioPlayerManager;
 import com.sedmelluq.discord.lavaplayer.source.AudioSourceManagers;
 import com.sedmelluq.discord.lavaplayer.source.local.LocalAudioSourceManager;
+import com.sedmelluq.discord.lavaplayer.source.twitch.TwitchStreamAudioSourceManager;
 import com.sedmelluq.discord.lavaplayer.source.youtube.YoutubeAudioSourceManager;
 import com.typicalbot.audio.GuildMusicManager;
 import com.typicalbot.command.CommandManager;
@@ -319,7 +321,7 @@ public class Shard {
             this.playerManager.getConfiguration().setOutputFormat(StandardAudioDataFormats.DISCORD_OPUS);
 
             this.playerManager.registerSourceManager(new YoutubeAudioSourceManager());
-            this.playerManager.registerSourceManager(new LocalAudioSourceManager());
+            this.playerManager.registerSourceManager(new TwitchStreamAudioSourceManager());
 
             AudioSourceManagers.registerRemoteSources(this.playerManager);
             AudioSourceManagers.registerLocalSource(this.playerManager);
