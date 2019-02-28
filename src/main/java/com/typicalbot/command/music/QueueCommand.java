@@ -35,6 +35,11 @@ public class QueueCommand implements Command {
     public void execute(CommandContext context, CommandArgument argument) {
         GuildMusicManager musicManager = AudioUtil.getGuildAudioPlayer(context.getGuild());
 
+        if (musicManager.player.getPlayingTrack() == null) {
+            context.sendMessage("There is nothing playing.");
+            return;
+        }
+
         StringBuilder builder = new StringBuilder();
         builder.append("Now Playing: ")
             .append(musicManager.player.getPlayingTrack().getInfo().title)

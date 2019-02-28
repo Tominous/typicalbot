@@ -35,6 +35,11 @@ public class PauseCommand implements Command {
     public void execute(CommandContext context, CommandArgument argument) {
         GuildMusicManager musicManager = AudioUtil.getGuildAudioPlayer(context.getGuild());
 
+        if (musicManager.player.getPlayingTrack() == null) {
+            context.sendMessage("There is nothing playing.");
+            return;
+        }
+
         musicManager.player.setPaused(true);
         context.sendMessage("Successfully paused " + musicManager.player.getPlayingTrack().getInfo().title);
     }
