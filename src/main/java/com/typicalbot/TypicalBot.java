@@ -119,7 +119,13 @@ public class TypicalBot {
         Config.init();
         mongoManager = new MongoManager();
 
-        ShardManager.register(String.valueOf(data.read(0)), String.valueOf(data.read(0)), Config.getConfig("discord").getInt("shards"));
+        Object shards = Config.getConfig("discord").get("shards");
+
+        if (shards instanceof String && shards.equals("auto")) {
+            ShardManager.register(String.valueOf(data.read(0)), String.valueOf(data.read(1)), ShardManager.getRecommendedShards(String.valueOf(data.read(0))));
+        } else {
+            ShardManager.register(String.valueOf(data.read(0)), String.valueOf(data.read(1)), (int) shards);
+        }
     }
 
     public static void main(String[] args) {
