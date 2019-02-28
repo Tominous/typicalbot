@@ -22,6 +22,10 @@ import com.typicalbot.command.CommandCategory;
 import com.typicalbot.command.CommandConfiguration;
 import com.typicalbot.command.CommandContext;
 import com.typicalbot.command.CommandPermission;
+import net.dv8tion.jda.core.entities.User;
+import net.dv8tion.jda.core.entities.VoiceChannel;
+
+import java.util.concurrent.TimeUnit;
 
 @CommandConfiguration(category = CommandCategory.MODERATION, aliases = "voicekick")
 public class VoicekickCommand implements Command {
@@ -32,6 +36,28 @@ public class VoicekickCommand implements Command {
 
     @Override
     public void execute(CommandContext context, CommandArgument argument) {
-        throw new UnsupportedOperationException("This command has not been implemented yet.");
+        if (!argument.has()) {
+            context.sendMessage("Incorrect usage.");
+            return;
+        }
+
+        User temp = context.getUser(argument.get(0));
+
+        if (temp == null) {
+            context.sendMessage("Couldn't find that user.");
+            return;
+        }
+
+        if (!context.getGuild().getMember(temp).getVoiceState().inVoiceChannel()) {
+            context.sendMessage("User is not in voice channel.");
+            return;
+        }
+
+        context.getGuild().getController().createVoiceChannel("kick-" + temp.getIdLong()).queue(channel -> {
+            context.getGuild().getController().moveVoiceMember(context.getGuild().getMember(temp), (VoiceChannel) channel).queue(o -> {
+                context.sendMessage("Successfully voice kicked {0}.", temp.getAsTag());
+                channel.delete().queueAfter(3, TimeUnit.SECONDS);
+            });
+        });
     }
 }
