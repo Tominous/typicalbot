@@ -67,7 +67,14 @@ public class GuildListener extends ListenerAdapter {
         if (!event.getGuild().isAvailable()) return;
         if (!event.getGuild().getSelfMember().hasPermission(Permission.MESSAGE_WRITE)) return;
 
-        GuildObject object = guildDAO.get(event.getGuild().getIdLong()).get();
+        GuildObject object;
+
+        if (guildDAO.get(event.getGuild().getIdLong()).isPresent()) {
+            object = guildDAO.get(event.getGuild().getIdLong()).get();
+        } else {
+            object = guildDAO.create(event.getGuild());
+            guildDAO.update(object);
+        }
 
         String rawMessage = event.getMessage().getContentRaw();
         String prefix = object.getGuildSettings().getPrefix() != null ? object.getGuildSettings().getPrefix() : Config.getConfig("discord").getString("prefix");
