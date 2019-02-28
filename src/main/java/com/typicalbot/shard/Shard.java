@@ -314,8 +314,9 @@ public class Shard {
             this.musicManager = new HashMap<>();
             this.playerManager = new DefaultAudioPlayerManager();
 
-            this.playerManager.getConfiguration().setResamplingQuality(AudioConfiguration.ResamplingQuality.MEDIUM);
             this.playerManager.getConfiguration().setOpusEncodingQuality(AudioConfiguration.OPUS_QUALITY_MAX);
+            this.playerManager.getConfiguration().setResamplingQuality(AudioConfiguration.ResamplingQuality.HIGH);
+            this.playerManager.getConfiguration().setOutputFormat(StandardAudioDataFormats.DISCORD_OPUS);
 
             this.playerManager.registerSourceManager(new YoutubeAudioSourceManager());
             this.playerManager.registerSourceManager(new LocalAudioSourceManager());
