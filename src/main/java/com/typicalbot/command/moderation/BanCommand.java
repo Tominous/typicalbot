@@ -45,6 +45,6 @@ public class BanCommand implements Command {
         }
 
         String reason = String.join(" ", argument.getArguments().subList(1, argument.getArguments().size()));
-        context.getGuild().getController().ban(temp.getId(), 0, reason).queue(o -> context.sendMessage("Successfully banned {0} for {1}.", temp.getName(), reason));
+        context.getGuild().getController().ban(temp.getId(), 0, reason).queue(o -> context.sendMessage("Successfully banned {0} for {1}.", temp.getAsTag(), reason));
     }
 }
