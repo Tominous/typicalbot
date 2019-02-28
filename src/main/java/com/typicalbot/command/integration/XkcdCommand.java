@@ -34,6 +34,11 @@ import java.util.Random;
 @CommandConfiguration(category = CommandCategory.INTEGRATION, aliases = "xkcd")
 public class XkcdCommand implements Command {
     @Override
+    public boolean nsfw() {
+        return true;
+    }
+
+    @Override
     public CommandPermission permission() {
         return CommandPermission.GUILD_MEMBER;
     }
