@@ -21,6 +21,7 @@ import com.typicalbot.command.CommandCategory;
 import com.typicalbot.command.CommandConfiguration;
 import com.typicalbot.command.CommandContext;
 import com.typicalbot.command.CommandPermission;
+import net.dv8tion.jda.core.entities.User;
 
 @CommandConfiguration(category = CommandCategory.MODERATION, aliases = "kick")
 public class KickCommand implements Command {
@@ -31,6 +32,19 @@ public class KickCommand implements Command {
 
     @Override
     public void execute(CommandContext context, CommandArgument argument) {
-        throw new UnsupportedOperationException("This command has not been implemented yet.");
+        if (!argument.has()) {
+            context.sendMessage("Incorrect usage.");
+            return;
+        }
+
+        User temp = context.getUser(argument.get(0));
+
+        if (temp == null) {
+            context.sendMessage("Couldn't find that user.");
+            return;
+        }
+
+        String reason = String.join(" ", argument.getArguments().subList(1, argument.getArguments().size()));
+        context.getGuild().getController().kick(context.getGuild().getMember(temp), reason).queue(o -> context.sendMessage("Successfully kicked {0} for {1}.", temp.getAsTag(), reason));
     }
 }
