@@ -31,6 +31,11 @@ public class UnbanCommand implements Command {
 
     @Override
     public void execute(CommandContext context, CommandArgument argument) {
-        throw new UnsupportedOperationException("This command has not been implemented yet.");
+        if (!argument.has()) {
+            context.sendMessage("Incorrect usage.");
+            return;
+        }
+
+        context.getGuild().getBanById(argument.get(0)).queue(ban -> context.getGuild().getController().unban(ban.getUser()).queue(o -> context.sendMessage("Successfully unbanned {0}.", ban.getUser().getAsTag())), error -> context.sendMessage("Invalid id."));
     }
 }
