@@ -50,6 +50,22 @@ public class CommandContext {
         return this.message.getChannel();
     }
 
+    public User getAuthor() {
+        return this.message.getAuthor();
+    }
+
+    public Member getMember() {
+        return this.message.getMember();
+    }
+
+    public User getSelfUser() {
+        return this.message.getJDA().getSelfUser();
+    }
+
+    public Member getSelfMember() {
+        return this.message.getGuild().getSelfMember();
+    }
+
     public void sendMessage(String message, Object... params) {
         this.getChannel().sendMessage(MessageFormat.format(message, params)).queue();
     }
