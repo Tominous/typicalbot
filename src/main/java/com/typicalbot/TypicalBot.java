@@ -24,9 +24,13 @@ import com.typicalbot.shard.Shard;
 import com.typicalbot.shard.ShardManager;
 import com.typicalbot.util.FileUtil;
 import com.typicalbot.util.console.ConsoleReader;
+import net.dv8tion.jda.core.AccountType;
+import net.dv8tion.jda.core.JDA;
+import net.dv8tion.jda.core.JDABuilder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import javax.security.auth.login.LoginException;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -41,7 +45,7 @@ public class TypicalBot {
 
     public static final String VERSION = "@version@";
 
-    public TypicalBot() throws IOException, InterruptedException {
+    public TypicalBot() throws IOException, InterruptedException, LoginException {
         LOGGER.info("  _____                   _                  _   ____            _   ");
         LOGGER.info(" |_   _|  _   _   _ __   (_)   ___    __ _  | | | __ )    ___   | |_ ");
         LOGGER.info("   | |   | | | | | '_ \\  | |  / __|  / _` | | | |  _ \\   / _ \\  | __|");
@@ -83,11 +87,12 @@ public class TypicalBot {
 
             LOGGER.info("Please wait while we retrieve the client identifier.");
 
-            Shard shard = new Shard(token);
-            shard.getInstance().awaitReady();
+            // Temp solution
+            JDA jda = new JDABuilder(AccountType.BOT).setToken(token).build();
+            jda.awaitReady();
 
-            String clientId = shard.getClientId();
-            shard.shutdown();
+            String clientId = jda.getSelfUser().getId();
+            jda.shutdown();
 
             if (clientId == null) {
                 LOGGER.error("The token entered is invalid, please restart the application.");
@@ -131,8 +136,8 @@ public class TypicalBot {
     public static void main(String[] args) {
         try {
             new TypicalBot();
-        } catch (IOException | InterruptedException e) {
             e.printStackTrace();
+        } catch (IOException | LoginException | InterruptedException e) {
         }
     }
 
