@@ -22,6 +22,9 @@ import com.typicalbot.command.CommandCategory;
 import com.typicalbot.command.CommandConfiguration;
 import com.typicalbot.command.CommandContext;
 import com.typicalbot.command.CommandPermission;
+import net.dv8tion.jda.core.entities.Channel;
+import net.dv8tion.jda.core.entities.User;
+import net.dv8tion.jda.core.entities.VoiceChannel;
 
 @CommandConfiguration(category = CommandCategory.MODERATION, aliases = "voicemove")
 public class VoicemoveCommand implements Command {
@@ -32,6 +35,36 @@ public class VoicemoveCommand implements Command {
 
     @Override
     public void execute(CommandContext context, CommandArgument argument) {
-        throw new UnsupportedOperationException("This command has not been implemented yet.");
+        if (!argument.has()) {
+            context.sendMessage("Incorrect usage.");
+            return;
+        }
+
+        User temp = context.getUser(argument.get(0));
+
+        if (temp == null) {
+            context.sendMessage("Couldn't find that user.");
+            return;
+        }
+
+        if (!context.getGuild().getMember(temp).getVoiceState().inVoiceChannel()) {
+            context.sendMessage("User is not in voice channel.");
+            return;
+        }
+
+        if (context.getGuild().getVoiceChannels().size() <= 1) {
+            context.sendMessage("There is only one voice channel.");
+            return;
+        }
+
+        Channel channel = context.getChannel(argument.get(1));
+        if (!(channel instanceof VoiceChannel)) {
+            context.sendMessage("That is not a voice channel.");
+            return;
+        }
+
+        context.getGuild().getController().moveVoiceMember(context.getGuild().getMember(temp), (VoiceChannel) channel).queue(o -> {
+            context.sendMessage("Successfully moved {0} to {1}.", temp.getAsTag(), channel.getName());
+        });
     }
 }
