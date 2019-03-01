@@ -22,6 +22,7 @@ import com.typicalbot.command.CommandCategory;
 import com.typicalbot.command.CommandConfiguration;
 import com.typicalbot.command.CommandContext;
 import com.typicalbot.command.CommandPermission;
+import net.dv8tion.jda.core.Permission;
 import net.dv8tion.jda.core.entities.User;
 import net.dv8tion.jda.core.entities.VoiceChannel;
 
@@ -36,15 +37,24 @@ public class VoicekickCommand implements Command {
 
     @Override
     public void execute(CommandContext context, CommandArgument argument) {
+        if (!context.getMember().hasPermission(Permission.VOICE_MOVE_OTHERS) || !context.getMember().hasPermission(Permission.MANAGE_CHANNEL)) {
+            context.sendMessage("You do not have permission to move members and/or manage channels.");
+            return;
+        }
+
+        if (!context.getSelfMember().hasPermission(Permission.VOICE_MOVE_OTHERS) || !context.getMember().hasPermission(Permission.MANAGE_CHANNEL)) {
+            context.sendMessage("TypicalBot does not have permission to move members and/or manage channels.");
+            return;
+        }
+
         if (!argument.has()) {
-            context.sendMessage("Incorrect usage.");
+            context.sendMessage("Incorrect usage. Please check `$help voicekick` for usage.");
             return;
         }
 
         User temp = context.getUser(argument.get(0));
-
         if (temp == null) {
-            context.sendMessage("Couldn't find that user.");
+            context.sendMessage("The user `{0}` does not exist.", argument.get(0));
             return;
         }
 
