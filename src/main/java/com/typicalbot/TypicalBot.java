@@ -136,8 +136,8 @@ public class TypicalBot {
     public static void main(String[] args) {
         try {
             new TypicalBot();
-            e.printStackTrace();
         } catch (IOException | LoginException | InterruptedException e) {
+            e.printStackTrace();
         }
     }
 
