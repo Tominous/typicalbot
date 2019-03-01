@@ -48,11 +48,11 @@ public class ServerCommand implements Command {
         builder.addField("Owner", guild.getOwner().getUser().getAsTag(), true);
         builder.addField("Owner ID", guild.getOwnerId(), true);
         builder.addField("Region", guild.getRegion().getName(), true);
-        builder.addField("Members", Integer.toString(guild.getMembers().size()), true);
-        builder.addField("Channel", Integer.toString(guild.getChannels().size()), true);
         builder.addField("Verification", StringUtil.capitalize(guild.getVerificationLevel().name()), true);
+        builder.addField("Members", Integer.toString(guild.getMembers().size()), true);
+        builder.addField("Channels", Integer.toString(guild.getChannels().size()), true);
         builder.addField("Roles", Integer.toString(guild.getRoles().size()), true);
-        builder.addField("Emojis", Integer.toString(guild.getEmotes().size()), true);
+        builder.addField("Emotes", Integer.toString(guild.getEmotes().size()), true);
 
         builder.setFooter("Created on " + guild.getCreationTime().format(DateTimeFormatter.RFC_1123_DATE_TIME), null);
 
