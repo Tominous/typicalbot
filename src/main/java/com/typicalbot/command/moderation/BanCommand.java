@@ -65,7 +65,7 @@ public class BanCommand implements Command {
             return;
         }
 
-        int purge = 1;
+        int purge = 0;
         if (argument.getArguments().size() >= 2 && argument.get(1).matches("^[0-9]")) {
             try {
                 purge = Integer.parseInt(argument.get(1));
