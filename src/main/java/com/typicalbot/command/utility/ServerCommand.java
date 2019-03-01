@@ -25,6 +25,8 @@ import com.typicalbot.util.StringUtil;
 import net.dv8tion.jda.core.EmbedBuilder;
 import net.dv8tion.jda.core.entities.Guild;
 
+import java.time.format.DateTimeFormatter;
+
 @CommandConfiguration(category = CommandCategory.UTILITY, aliases = {"server", "serverinfo", "sinfo"})
 public class ServerCommand implements Command {
     @Override
@@ -44,12 +46,15 @@ public class ServerCommand implements Command {
         builder.addField("Name", guild.getName(), true);
         builder.addField("ID", guild.getId(), true);
         builder.addField("Owner", guild.getOwner().getUser().getAsTag(), true);
+        builder.addField("Owner ID", guild.getOwnerId(), true);
         builder.addField("Region", guild.getRegion().getName(), true);
         builder.addField("Members", Integer.toString(guild.getMembers().size()), true);
         builder.addField("Channel", Integer.toString(guild.getChannels().size()), true);
         builder.addField("Verification", StringUtil.capitalize(guild.getVerificationLevel().name()), true);
         builder.addField("Roles", Integer.toString(guild.getRoles().size()), true);
         builder.addField("Emojis", Integer.toString(guild.getEmotes().size()), true);
+
+        builder.setFooter("Created on " + guild.getCreationTime().format(DateTimeFormatter.RFC_1123_DATE_TIME), null);
 
         context.sendEmbed(builder.build());
     }
