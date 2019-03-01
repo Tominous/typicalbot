@@ -46,7 +46,7 @@ public class SoftbanCommand implements Command {
         }
 
         if (!argument.has()) {
-            context.sendMessage("Incorrect usage. Please check `$help ban` for usage.");
+            context.sendMessage("Incorrect usage. Please check `$help softban` for usage.");
             return;
         }
 
