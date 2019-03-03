@@ -15,12 +15,12 @@
  */
 package com.typicalbot.command.utility;
 
-import com.typicalbot.command.CommandPermission;
 import com.typicalbot.command.Command;
 import com.typicalbot.command.CommandArgument;
 import com.typicalbot.command.CommandCategory;
 import com.typicalbot.command.CommandConfiguration;
 import com.typicalbot.command.CommandContext;
+import com.typicalbot.command.CommandPermission;
 import com.typicalbot.util.StringUtil;
 import net.dv8tion.jda.core.EmbedBuilder;
 import net.dv8tion.jda.core.entities.Guild;
@@ -38,10 +38,11 @@ public class ServerCommand implements Command {
     public void execute(CommandContext context, CommandArgument argument) {
         EmbedBuilder builder = new EmbedBuilder();
 
-        Guild guild = context.getMessage().getGuild();
+        Guild guild = context.getGuild();
 
         builder.setTitle("Server Information");
         builder.setThumbnail(guild.getIconUrl());
+        builder.setColor(CommandContext.TYPICALBOT_BLUE);
 
         builder.addField("Name", guild.getName(), true);
         builder.addField("ID", guild.getId(), true);
@@ -54,7 +55,12 @@ public class ServerCommand implements Command {
         builder.addField("Roles", Integer.toString(guild.getRoles().size()), true);
         builder.addField("Emotes", Integer.toString(guild.getEmotes().size()), true);
 
-        builder.setFooter("Created on " + guild.getCreationTime().format(DateTimeFormatter.RFC_1123_DATE_TIME), null);
+        String feature= "";
+        if (!guild.getFeatures().isEmpty()) {
+            feature = (guild.getFeatures().contains("VERIFIED") ? "Verified Server" : "Discord Partner");
+        }
+
+        builder.setFooter((feature.length() > 0 ? feature + " | " : "") + "Created on " + guild.getCreationTime().format(DateTimeFormatter.RFC_1123_DATE_TIME), null);
 
         context.sendEmbed(builder.build());
     }
