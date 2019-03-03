@@ -21,6 +21,11 @@ import com.typicalbot.command.CommandCategory;
 import com.typicalbot.command.CommandConfiguration;
 import com.typicalbot.command.CommandContext;
 import com.typicalbot.command.CommandPermission;
+import com.typicalbot.data.mongo.dao.GuildDAO;
+import com.typicalbot.data.mongo.objects.GuildObject;
+import net.dv8tion.jda.core.Permission;
+import net.dv8tion.jda.core.entities.Role;
+import net.dv8tion.jda.core.entities.User;
 
 @CommandConfiguration(category = CommandCategory.MODERATION, aliases = "unmute")
 public class UnmuteCommand implements Command {
@@ -31,6 +36,53 @@ public class UnmuteCommand implements Command {
 
     @Override
     public void execute(CommandContext context, CommandArgument argument) {
-        throw new UnsupportedOperationException("This command has not been implemented yet.");
+        if (!context.getMember().hasPermission(Permission.MANAGE_ROLES)) {
+            context.sendMessage("You do not have permission to manage roles.");
+            return;
+        }
+
+        if (!context.getSelfMember().hasPermission(Permission.MANAGE_ROLES)) {
+            context.sendMessage("TypicalBot does not have permission to manage roles.");
+            return;
+        }
+
+        if (!argument.has()) {
+            context.sendMessage("Incorrect usage. Please check `$help unmute` for usage.");
+            return;
+        }
+
+        User temp = context.getUser(argument.get(0));
+        if (temp == null) {
+            context.sendMessage("The user `{0}` does not exist.", argument.get(0));
+            return;
+        }
+
+        if (!context.getMember().canInteract(context.getGuild().getMember(temp))) {
+            context.sendMessage("You do not have permission to unmute that user.");
+            return;
+        }
+
+        if (!context.getSelfMember().canInteract(context.getGuild().getMember(temp))) {
+            context.sendMessage("TypicalBot does not have permission to unmute that user.");
+            return;
+        }
+
+        GuildDAO dao = new GuildDAO();
+        GuildObject object = dao.get(context.getGuild().getIdLong()).get();
+
+        if (object.getGuildSettings().getRoles().getMuteRole() == 0L) {
+            context.sendMessage("The mute role is not setup for the server yet.");
+            return;
+        }
+
+        Role role = context.getRole(Long.toString(object.getGuildSettings().getRoles().getMuteRole()));
+        if (role == null) {
+            context.sendMessage("The mute role does not exist or not setup for the server yet.");
+            return;
+        }
+
+        context.getGuild().getController().removeSingleRoleFromMember(context.getGuild().getMember(temp), role).queue(o -> {
+            context.sendMessage("Successfully unmuted {0}.", temp.getAsTag());
+        });
     }
 }
