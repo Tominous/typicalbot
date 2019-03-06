@@ -47,20 +47,20 @@ import com.typicalbot.command.fun.EmojiCommand;
 import com.typicalbot.command.fun.EmojifyCommand;
 import com.typicalbot.command.fun.FacesCommand;
 import com.typicalbot.command.fun.FlipCommand;
-import com.typicalbot.command.fun.HugCommand;
+import com.typicalbot.command.interaction.HugCommand;
 import com.typicalbot.command.fun.JokeCommand;
 import com.typicalbot.command.fun.LmgtfyCommand;
 import com.typicalbot.command.fun.NatoCommand;
-import com.typicalbot.command.fun.PunchCommand;
+import com.typicalbot.command.interaction.PunchCommand;
 import com.typicalbot.command.fun.QuoteCommand;
 import com.typicalbot.command.fun.RandomCommand;
 import com.typicalbot.command.fun.ReverseCommand;
 import com.typicalbot.command.fun.RockpaperscissorsCommand;
 import com.typicalbot.command.fun.RollCommand;
 import com.typicalbot.command.fun.RomanCommand;
-import com.typicalbot.command.fun.ShootCommand;
-import com.typicalbot.command.fun.SlapCommand;
-import com.typicalbot.command.fun.StabCommand;
+import com.typicalbot.command.interaction.ShootCommand;
+import com.typicalbot.command.interaction.SlapCommand;
+import com.typicalbot.command.interaction.StabCommand;
 import com.typicalbot.command.fun.ThisorthatCommand;
 import com.typicalbot.command.fun.WouldyouratherCommand;
 import com.typicalbot.command.fun.YomammaCommand;
@@ -218,20 +218,15 @@ public class Shard {
                 new EmojifyCommand(),
                 new FacesCommand(),
                 new FlipCommand(),
-                new HugCommand(),
                 new JokeCommand(),
                 new LmgtfyCommand(),
                 new NatoCommand(),
-                new PunchCommand(),
                 new QuoteCommand(),
                 new RandomCommand(),
                 new ReverseCommand(),
                 new RockpaperscissorsCommand(),
                 new RollCommand(),
                 new RomanCommand(),
-                new ShootCommand(),
-                new SlapCommand(),
-                new StabCommand(),
                 new ThisorthatCommand(),
                 new WouldyouratherCommand(),
                 new YomammaCommand(),
@@ -243,6 +238,13 @@ public class Shard {
                 new WeatherCommand(),
                 new WikipediaCommand(),
                 new XkcdCommand(),
+
+                // Interaction
+                new HugCommand(),
+                new PunchCommand(),
+                new ShootCommand(),
+                new SlapCommand(),
+                new StabCommand(),
 
                 // Miscellaneous
                 new SayCommand(),
