@@ -23,6 +23,8 @@ import com.typicalbot.command.CommandContext;
 import com.typicalbot.command.CommandPermission;
 import com.typicalbot.util.StringUtil;
 import net.dv8tion.jda.core.EmbedBuilder;
+import net.dv8tion.jda.core.OnlineStatus;
+import net.dv8tion.jda.core.Permission;
 import net.dv8tion.jda.core.entities.Guild;
 
 import java.time.format.DateTimeFormatter;
@@ -50,7 +52,23 @@ public class ServerCommand implements Command {
         builder.addField("Owner ID", guild.getOwnerId(), true);
         builder.addField("Region", guild.getRegion().getName(), true);
         builder.addField("Verification", StringUtil.capitalize(guild.getVerificationLevel().name()), true);
-        builder.addField("Members", Integer.toString(guild.getMembers().size()), true);
+
+        if (context.getSelfMember().hasPermission(Permission.MESSAGE_EXT_EMOJI)) {
+            String online = "<:online:552140814579400705>";
+            String idle = "<:idle:552140814537588766>";
+            String dnd = "<:dnd:552140814583857191>";
+            String invisible = "<:invisible:552140814541783043>";
+
+            long onlineCount = guild.getMemberCache().stream().filter(m -> m.getOnlineStatus() == OnlineStatus.ONLINE).count();
+            long idleCount = guild.getMemberCache().stream().filter(m -> m.getOnlineStatus() == OnlineStatus.IDLE).count();
+            long dndCount = guild.getMemberCache().stream().filter(m -> m.getOnlineStatus() == OnlineStatus.DO_NOT_DISTURB).count();
+            long invisibleCount = guild.getMemberCache().stream().filter(m -> m.getOnlineStatus() == OnlineStatus.OFFLINE).count();
+
+            builder.addField("Members", String.format("%s %d%n%s %d%n%s %d%n%s %d", online, onlineCount, idle, idleCount, dnd, dndCount, invisible, invisibleCount), true);
+        } else {
+            builder.addField("Members", Integer.toString(guild.getMembers().size()), true);
+        }
+
         builder.addField("Channels", Integer.toString(guild.getChannels().size()), true);
         builder.addField("Roles", Integer.toString(guild.getRoles().size()), true);
         builder.addField("Emotes", Integer.toString(guild.getEmotes().size()), true);
