@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.typicalbot.command.fun;
+package com.typicalbot.command.interaction;
 
 import com.typicalbot.command.Command;
 import com.typicalbot.command.CommandArgument;
@@ -25,19 +25,19 @@ import net.dv8tion.jda.core.entities.User;
 
 import java.util.Random;
 
-@CommandConfiguration(category = CommandCategory.FUN, aliases = {"slap"})
-public class SlapCommand implements Command {
+@CommandConfiguration(category = CommandCategory.INTERACTION, aliases = {"shoot", "pew"})
+public class ShootCommand implements Command {
     @Override
     public String[] usage() {
         return new String[]{
-            "slap <@mention>",
-            "slap"
+            "shoot <@mention>",
+            "shoot"
         };
     }
 
     @Override
     public String description() {
-        return "'Slaps' the mentioned user.";
+        return "'Shoots' the mentioned user.";
     }
 
     @Override
@@ -49,25 +49,25 @@ public class SlapCommand implements Command {
     public void execute(CommandContext context, CommandArgument argument) {
         User author = context.getMessage().getAuthor();
 
-        String[] options = {"", "Oh dang! That must've hurt!"};
+        String[] options = {"Bam! Headshot.", "Yikes! Missed by a mile.", ""};
         Random rand = new Random();
         int x = rand.nextInt(options.length);
 
         if (!argument.has()) {
-            context.sendMessage("{0}, stop hitting yourself! :dizzy_face::wave::skin-tone-2: {1}", author.getAsMention(), options[x]);
+            context.sendMessage("{0} just shot at themselves! :scream: {1}", author.getAsMention(), options[x]);
             return;
         }
 
         User mention = context.getUser(argument.get(0));
 
         if (mention.equals(author)) {
-            context.sendMessage("{0}, stop hitting yourself! :dizzy_face::wave::skin-tone-2: {1}", author.getAsMention(), options[x]);
+            context.sendMessage("{0} just shot at themselves! :scream: {1}", author.getAsMention(), options[x]);
             return;
         } else if (mention == null) {
             context.sendMessage("{0}, the specified user does not exist. Try again.", author.getAsMention());
             return;
         }
 
-        context.sendMessage("{0} just slapped {1}! :dizzy_face::wave::skin-tone-2: {2}", author.getAsMention(), mention.getAsMention(), options[x]);
+        context.sendMessage("{0} just shot at {1}! :scream: {2}", author.getAsMention(), mention.getAsMention(), options[x]);
     }
 }

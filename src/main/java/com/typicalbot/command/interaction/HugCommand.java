@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.typicalbot.command.fun;
+package com.typicalbot.command.interaction;
 
 import com.typicalbot.command.Command;
 import com.typicalbot.command.CommandArgument;
@@ -25,19 +25,19 @@ import net.dv8tion.jda.core.entities.User;
 
 import java.util.Random;
 
-@CommandConfiguration(category = CommandCategory.FUN, aliases = "punch")
-public class PunchCommand implements Command {
+@CommandConfiguration(category = CommandCategory.INTERACTION, aliases = "hug")
+public class HugCommand implements Command {
     @Override
     public String[] usage() {
         return new String[]{
-            "punch",
-            "punch [@user]"
+            "hug",
+            "hug [@user]"
         };
     }
 
     @Override
     public String description() {
-        return "Punch yourself or another person.";
+        return "Give yourself or another person a hug.";
     }
 
     @Override
@@ -58,13 +58,13 @@ public class PunchCommand implements Command {
         }
 
         String[] addons = new String[]{
-            "Oh, dang! Right to the jaw! That must've hurt!"
+            "Awww!"
         };
 
         if (target == context.getMessage().getAuthor()) {
-            context.sendMessage(target.getName() + ", stop hitting yourself! :punch:");
+            context.sendMessage(target.getName() + " just gave themselves a hug. :hugging: *That's not weird at all.* :eyes:");
         } else {
-            context.sendMessage(context.getMessage().getAuthor().getName() + " just punched " + target.getName() + "! :punch: " + addons[new Random().nextInt(addons.length)]);
+            context.sendMessage(context.getMessage().getAuthor().getName() + " just gave " + target.getName() + " a hug! :hugging: " + addons[new Random().nextInt(addons.length)]);
         }
     }
 }

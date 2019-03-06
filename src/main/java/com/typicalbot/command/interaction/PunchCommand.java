@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.typicalbot.command.fun;
+package com.typicalbot.command.interaction;
 
 import com.typicalbot.command.Command;
 import com.typicalbot.command.CommandArgument;
@@ -25,19 +25,19 @@ import net.dv8tion.jda.core.entities.User;
 
 import java.util.Random;
 
-@CommandConfiguration(category = CommandCategory.FUN, aliases = {"shoot", "pew"})
-public class ShootCommand implements Command {
+@CommandConfiguration(category = CommandCategory.INTERACTION, aliases = "punch")
+public class PunchCommand implements Command {
     @Override
     public String[] usage() {
         return new String[]{
-            "shoot <@mention>",
-            "shoot"
+            "punch",
+            "punch [@user]"
         };
     }
 
     @Override
     public String description() {
-        return "'Shoots' the mentioned user.";
+        return "Punch yourself or another person.";
     }
 
     @Override
@@ -47,27 +47,24 @@ public class ShootCommand implements Command {
 
     @Override
     public void execute(CommandContext context, CommandArgument argument) {
-        User author = context.getMessage().getAuthor();
+        User target = context.getMessage().getAuthor();
 
-        String[] options = {"Bam! Headshot.", "Yikes! Missed by a mile.", ""};
-        Random rand = new Random();
-        int x = rand.nextInt(options.length);
+        if (argument.has()) {
+            User temp = context.getUser(argument.get(0));
 
-        if (!argument.has()) {
-            context.sendMessage("{0} just shot at themselves! :scream: {1}", author.getAsMention(), options[x]);
-            return;
+            if (temp != null) {
+                target = temp;
+            }
         }
 
-        User mention = context.getUser(argument.get(0));
+        String[] addons = new String[]{
+            "Oh, dang! Right to the jaw! That must've hurt!"
+        };
 
-        if (mention.equals(author)) {
-            context.sendMessage("{0} just shot at themselves! :scream: {1}", author.getAsMention(), options[x]);
-            return;
-        } else if (mention == null) {
-            context.sendMessage("{0}, the specified user does not exist. Try again.", author.getAsMention());
-            return;
+        if (target == context.getMessage().getAuthor()) {
+            context.sendMessage(target.getName() + ", stop hitting yourself! :punch:");
+        } else {
+            context.sendMessage(context.getMessage().getAuthor().getName() + " just punched " + target.getName() + "! :punch: " + addons[new Random().nextInt(addons.length)]);
         }
-
-        context.sendMessage("{0} just shot at {1}! :scream: {2}", author.getAsMention(), mention.getAsMention(), options[x]);
     }
 }
