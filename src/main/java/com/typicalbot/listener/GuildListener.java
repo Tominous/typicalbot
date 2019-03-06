@@ -30,6 +30,8 @@ import net.dv8tion.jda.core.entities.Role;
 import net.dv8tion.jda.core.events.guild.GuildJoinEvent;
 import net.dv8tion.jda.core.events.guild.GuildLeaveEvent;
 import net.dv8tion.jda.core.events.message.guild.GuildMessageReceivedEvent;
+import net.dv8tion.jda.core.events.message.guild.react.GuildMessageReactionAddEvent;
+import net.dv8tion.jda.core.events.message.guild.react.GuildMessageReactionRemoveEvent;
 import net.dv8tion.jda.core.hooks.ListenerAdapter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -37,6 +39,7 @@ import org.slf4j.LoggerFactory;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class GuildListener extends ListenerAdapter {
     private static final Logger LOGGER = LoggerFactory.getLogger(GuildListener.class);
@@ -174,6 +177,56 @@ public class GuildListener extends ListenerAdapter {
                     event.getMessage().getChannel().sendMessage(ex.getMessage()).queue();
                 }
             }
+        }
+    }
+
+    @Override
+    public void onGuildMessageReactionAdd(GuildMessageReactionAddEvent event) {
+        GuildDAO dao = new GuildDAO();
+        GuildObject object = dao.get(event.getGuild().getIdLong()).get();
+
+        if (object.getGuildSettings().getRoles().getReactionRoles() == null) return;
+
+        for (String raw : object.getGuildSettings().getRoles().getReactionRoles()) {
+            String[] parts = raw.split("\\|");
+
+            String messageId = parts[0];
+            String emoteId = parts[1];
+            String roleId = parts[2];
+
+            if (!event.getMessageId().equals(messageId)) return;
+            if (!event.getReactionEmote().getId().equals(emoteId)) return;
+
+            Role role = event.getGuild().getRoleById(roleId);
+
+            if (role == null) return;
+
+            event.getGuild().getController().addSingleRoleToMember(event.getMember(), role).queue();
+        }
+    }
+
+    @Override
+    public void onGuildMessageReactionRemove(GuildMessageReactionRemoveEvent event) {
+        GuildDAO dao = new GuildDAO();
+        GuildObject object = dao.get(event.getGuild().getIdLong()).get();
+
+        if (object.getGuildSettings().getRoles().getReactionRoles() == null) return;
+
+        for (String raw : object.getGuildSettings().getRoles().getReactionRoles()) {
+            String[] parts = raw.split("\\|");
+
+            String messageId = parts[0];
+            String emoteId = parts[1];
+            String roleId = parts[2];
+
+            if (!event.getMessageId().equals(messageId)) return;
+            if (!event.getReactionEmote().getId().equals(emoteId)) return;
+
+            Role role = event.getGuild().getRoleById(roleId);
+
+            if (role == null) return;
+
+            event.getGuild().getController().removeSingleRoleFromMember(event.getMember(), role).queue();
         }
     }
 }
