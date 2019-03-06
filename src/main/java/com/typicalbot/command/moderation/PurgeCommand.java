@@ -21,6 +21,12 @@ import com.typicalbot.command.CommandCategory;
 import com.typicalbot.command.CommandConfiguration;
 import com.typicalbot.command.CommandContext;
 import com.typicalbot.command.CommandPermission;
+import net.dv8tion.jda.core.Permission;
+import net.dv8tion.jda.core.entities.MessageChannel;
+import net.dv8tion.jda.core.entities.MessageHistory;
+import net.dv8tion.jda.core.entities.User;
+
+import java.util.concurrent.TimeUnit;
 
 @CommandConfiguration(category = CommandCategory.MODERATION, aliases = "purge")
 public class PurgeCommand implements Command {
@@ -31,6 +37,42 @@ public class PurgeCommand implements Command {
 
     @Override
     public void execute(CommandContext context, CommandArgument argument) {
-        throw new UnsupportedOperationException("This command has not been implemented yet.");
+        if (!context.getMember().hasPermission(Permission.MESSAGE_MANAGE)) {
+            context.sendMessage("You do not have permission to manage messages.");
+            return;
+        }
+
+        if (!context.getSelfMember().hasPermission(Permission.MESSAGE_MANAGE)) {
+            context.sendMessage("TypicalBot does not have permission to manage messages.");
+            return;
+        }
+
+        if (!argument.has()) {
+            context.sendMessage("Incorrect usage. Please check `$help purge` for usage.");
+            return;
+        }
+
+        if (argument.get(0).equalsIgnoreCase("all")) {
+            context.getGuild().getController().createCopyOfChannel(context.getMessage().getTextChannel()).queue(
+                channel -> context.getMessage().getTextChannel().delete().queueAfter(3, TimeUnit.SECONDS,
+                    o -> ((MessageChannel) channel).sendMessage("Successfully purged all messages.").queue()
+                )
+            );
+        } else {
+            int amount = Integer.parseInt(argument.get(0));
+
+            MessageHistory history = context.getChannel().getHistory();
+
+            if (!(amount >= 2 && amount <= 100)) {
+                context.sendMessage("You must choose a number between 2 and 100.");
+                return;
+            }
+
+            history.retrievePast(amount).queue(
+                messages -> context.getMessage().getTextChannel().deleteMessages(messages).queue(
+                    o -> context.sendMessage("Successfully purged {0} messages.", amount)
+                )
+            );
+        }
     }
 }
