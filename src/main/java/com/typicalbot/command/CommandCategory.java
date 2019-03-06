@@ -19,6 +19,7 @@ public enum CommandCategory {
     CORE,
     FUN,
     INTEGRATION,
+    INTERACTION,
     MISCELLANEOUS,
     MODERATION,
     MUSIC,
