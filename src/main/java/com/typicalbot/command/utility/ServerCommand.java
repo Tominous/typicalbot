@@ -55,7 +55,7 @@ public class ServerCommand implements Command {
         builder.addField("Roles", Integer.toString(guild.getRoles().size()), true);
         builder.addField("Emotes", Integer.toString(guild.getEmotes().size()), true);
 
-        String feature= "";
+        String feature = "";
         if (!guild.getFeatures().isEmpty()) {
             feature = (guild.getFeatures().contains("VERIFIED") ? "Verified Server" : "Discord Partner");
         }
