@@ -111,6 +111,7 @@ import com.typicalbot.command.music.SeekCommand;
 import com.typicalbot.command.music.ShuffleCommand;
 import com.typicalbot.command.music.SkipCommand;
 import com.typicalbot.command.music.StopCommand;
+import com.typicalbot.command.music.TempoCommand;
 import com.typicalbot.command.music.UnqueueCommand;
 import com.typicalbot.command.music.VolumeCommand;
 import com.typicalbot.command.system.EvalCommand;
@@ -292,6 +293,7 @@ public class Shard {
                 new ShuffleCommand(),
                 new SkipCommand(),
                 new StopCommand(),
+                new TempoCommand(),
                 new UnqueueCommand(),
                 new VolumeCommand(),
 
