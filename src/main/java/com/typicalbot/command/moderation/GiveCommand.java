@@ -21,6 +21,10 @@ import com.typicalbot.command.CommandCategory;
 import com.typicalbot.command.CommandConfiguration;
 import com.typicalbot.command.CommandContext;
 import com.typicalbot.command.CommandPermission;
+import com.typicalbot.data.mongo.dao.GuildDAO;
+import com.typicalbot.data.mongo.objects.GuildObject;
+import net.dv8tion.jda.core.Permission;
+import net.dv8tion.jda.core.entities.Role;
 
 @CommandConfiguration(category = CommandCategory.MODERATION, aliases = "give")
 public class GiveCommand implements Command {
@@ -31,6 +35,41 @@ public class GiveCommand implements Command {
 
     @Override
     public void execute(CommandContext context, CommandArgument argument) {
-        throw new UnsupportedOperationException("This command has not been implemented yet.");
+        if (!context.getSelfMember().hasPermission(Permission.MANAGE_ROLES)) {
+            context.sendMessage("TypicalBot does not have permission to manage roles.");
+            return;
+        }
+
+        if (!argument.has()) {
+            context.sendMessage("Incorrect usage. Please check `$help give` for usage.");
+            return;
+        }
+
+        if (!context.getSelfMember().canInteract(context.getMember())) {
+            context.sendMessage("TypicalBot does not have permission to manage roles for that user.");
+            return;
+        }
+
+        GuildDAO dao = new GuildDAO();
+        GuildObject object = dao.get(context.getGuild().getIdLong()).get();
+
+        if (object.getGuildSettings().getRoles().getPublicRoles() == null) {
+            context.sendMessage("There are no public roles for this server.");
+            return;
+        }
+
+        Role role = context.getRole(argument.get(0));
+
+        if (role == null) {
+            context.sendMessage("The role specified does not exist.");
+            return;
+        }
+
+        for (long id : object.getGuildSettings().getRoles().getPublicRoles()) {
+            if (role.getIdLong() == id) {
+                context.getGuild().getController().addSingleRoleToMember(context.getMember(), role).queue(o -> context.sendMessage("Successfully given {0} to {1}.", role.getName(), context.getAuthor().getAsTag()));
+                break;
+            }
+        }
     }
 }
