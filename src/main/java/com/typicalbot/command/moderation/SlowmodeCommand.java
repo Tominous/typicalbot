@@ -21,6 +21,8 @@ import com.typicalbot.command.CommandCategory;
 import com.typicalbot.command.CommandConfiguration;
 import com.typicalbot.command.CommandContext;
 import com.typicalbot.command.CommandPermission;
+import com.typicalbot.util.SentryUtil;
+import net.dv8tion.jda.core.Permission;
 
 @CommandConfiguration(category = CommandCategory.MODERATION, aliases = "slowmode")
 public class SlowmodeCommand implements Command {
@@ -31,6 +33,33 @@ public class SlowmodeCommand implements Command {
 
     @Override
     public void execute(CommandContext context, CommandArgument argument) {
-        throw new UnsupportedOperationException("This command has not been implemented yet.");
+        if (!context.getMember().hasPermission(Permission.MANAGE_CHANNEL)) {
+            context.sendMessage("You do not have permission to manage channels.");
+            return;
+        }
+
+        if (!context.getSelfMember().hasPermission(Permission.MANAGE_CHANNEL)) {
+            context.sendMessage("TypicalBot does not have permission to manage channels.");
+            return;
+        }
+
+        if (!argument.has()) {
+            context.sendMessage("Incorrect usage. Please check `$help slowmode` for usage.");
+            return;
+        }
+
+        int seconds = 0;
+        try {
+            seconds = Integer.parseInt(argument.get(0));
+
+            if (seconds < 0 || seconds > 120) {
+                context.sendMessage("Slowmode must be in between 0 and 120 seconds.");
+                return;
+            }
+        } catch (NumberFormatException ex) {
+            SentryUtil.capture(ex, SlowmodeCommand.class);
+        }
+
+        context.getMessage().getTextChannel().getManager().setSlowmode(seconds).queue(o -> context.sendMessage("Successfully changed slowmode for {0} to {1}.", context.getMessage().getTextChannel().getAsMention(), context.getMessage().getTextChannel().getSlowmode()));
     }
 }
