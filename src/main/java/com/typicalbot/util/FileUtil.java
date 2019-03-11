@@ -41,7 +41,7 @@ public class FileUtil {
     /**
      * Copy a file from resource to system.
      *
-     * @param dest The destination of the copy
+     * @param dest     The destination of the copy
      * @param resource The path to the resource
      */
     public static void copy(Path dest, String resource) {

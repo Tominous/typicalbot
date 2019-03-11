@@ -80,12 +80,12 @@ public class CommandContext {
         }
 
         Member member = this.getGuild().getMembers().stream()
-                .filter(m -> m.getUser().getName().equalsIgnoreCase(user))
+            .filter(m -> m.getUser().getName().equalsIgnoreCase(user))
+            .findFirst()
+            .orElse(this.getGuild().getMembers().stream()
+                .filter(m -> m.getUser().getId().equalsIgnoreCase(user))
                 .findFirst()
-                .orElse(this.getGuild().getMembers().stream()
-                        .filter(m -> m.getUser().getId().equalsIgnoreCase(user))
-                        .findFirst()
-                        .orElse(null));
+                .orElse(null));
 
         return (member != null) ? member.getUser() : null;
     }
@@ -96,12 +96,12 @@ public class CommandContext {
         }
 
         return this.getGuild().getChannels().stream()
-                .filter(ch -> ch.getName().equalsIgnoreCase(channel))
+            .filter(ch -> ch.getName().equalsIgnoreCase(channel))
+            .findFirst()
+            .orElse(this.getGuild().getChannels().stream()
+                .filter(ch -> ch.getId().equalsIgnoreCase(channel))
                 .findFirst()
-                .orElse(this.getGuild().getChannels().stream()
-                        .filter(ch -> ch.getId().equalsIgnoreCase(channel))
-                        .findFirst()
-                        .orElse(null));
+                .orElse(null));
     }
 
     public Role getRole(String role) {

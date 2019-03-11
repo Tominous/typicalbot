@@ -58,7 +58,7 @@ public class RoleCommand implements Command {
         builder.addField("Mentionable", StringUtil.capitalize(Boolean.toString(role.isMentionable())), true);
         builder.addField("Managed", StringUtil.capitalize(Boolean.toString(role.isManaged())), true);
         if (role.getColor() != null) {
-            builder.addField("Color", String.format("%d, %d, %d", role.getColor().getRed(), role.getColor().getGreen(), role.getColor().getBlue()),true);
+            builder.addField("Color", String.format("%d, %d, %d", role.getColor().getRed(), role.getColor().getGreen(), role.getColor().getBlue()), true);
             builder.setColor(role.getColor());
         }
         builder.addField("Position", Integer.toString(role.getPosition()), true);

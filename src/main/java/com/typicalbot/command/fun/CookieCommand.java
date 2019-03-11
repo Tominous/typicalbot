@@ -28,8 +28,8 @@ public class CookieCommand implements Command {
     @Override
     public String[] usage() {
         return new String[]{
-                "cookie",
-                "cookie [user]"
+            "cookie",
+            "cookie [user]"
         };
     }
 

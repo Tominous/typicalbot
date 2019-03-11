@@ -15,12 +15,12 @@
  */
 package com.typicalbot.command.utility;
 
-import com.typicalbot.command.CommandPermission;
 import com.typicalbot.command.Command;
 import com.typicalbot.command.CommandArgument;
 import com.typicalbot.command.CommandCategory;
 import com.typicalbot.command.CommandConfiguration;
 import com.typicalbot.command.CommandContext;
+import com.typicalbot.command.CommandPermission;
 import net.dv8tion.jda.core.EmbedBuilder;
 import net.dv8tion.jda.core.entities.Message;
 import net.dv8tion.jda.core.exceptions.ErrorResponseException;

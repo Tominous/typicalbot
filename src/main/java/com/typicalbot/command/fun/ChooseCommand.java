@@ -28,7 +28,7 @@ import java.util.Random;
 public class ChooseCommand implements Command {
     @Override
     public String[] usage() {
-        return new String[] {
+        return new String[]{
             "choose [option, option, option]"
         };
     }

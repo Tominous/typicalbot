@@ -37,7 +37,7 @@ public class BunnyCommand implements Command {
     @Override
     public String[] usage() {
         return new String[]{
-                "bunny"
+            "bunny"
         };
     }
 

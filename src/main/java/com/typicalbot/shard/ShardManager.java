@@ -49,8 +49,8 @@ public class ShardManager {
      * Generate shards to run the Discord bot. Bots are limited to 2500
      * servers per shard.
      *
-     * @param token the token of the Discord bot.
-     * @param clientId the client identifier of the Discord bot.
+     * @param token      the token of the Discord bot.
+     * @param clientId   the client identifier of the Discord bot.
      * @param shardTotal the maximum shards to generate.
      * @throws InterruptedException if the thread is interrupted.
      */
@@ -104,9 +104,9 @@ public class ShardManager {
     /**
      * Restart a specify shard.
      *
-     * @param token The token of the bot
+     * @param token    The token of the bot
      * @param clientId The client identifier of the bot
-     * @param shardId The shard identifier
+     * @param shardId  The shard identifier
      * @throws InterruptedException if the thread is interrupted
      */
     public static void restart(String token, String clientId, int shardId) throws InterruptedException {

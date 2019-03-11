@@ -27,7 +27,7 @@ public class ReverseCommand implements Command {
     @Override
     public String[] usage() {
         return new String[]{
-                "reverse <message>"
+            "reverse <message>"
         };
     }
 

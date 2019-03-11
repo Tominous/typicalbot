@@ -37,7 +37,7 @@ public class CatCommand implements Command {
     @Override
     public String[] usage() {
         return new String[]{
-                "cat"
+            "cat"
         };
     }
 

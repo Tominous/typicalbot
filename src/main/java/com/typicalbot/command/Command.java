@@ -19,7 +19,6 @@ public interface Command {
     /**
      * The usage of the command, if none provided, it will say: "No usage available."
      *
-     *
      * @return command usage
      */
     default String[] usage() {
@@ -40,7 +39,9 @@ public interface Command {
      *
      * @return command nsfw mode
      */
-    default boolean nsfw() { return false; }
+    default boolean nsfw() {
+        return false;
+    }
 
     /**
      * The permission required to use the command.
@@ -52,7 +53,7 @@ public interface Command {
     /**
      * The execution of the command.
      *
-     * @param context the command context
+     * @param context  the command context
      * @param argument the command arguments
      */
     void execute(CommandContext context, CommandArgument argument);
