@@ -37,6 +37,7 @@ import com.typicalbot.command.core.StatisticsCommand;
 import com.typicalbot.command.core.SupportCommand;
 import com.typicalbot.command.core.UptimeCommand;
 import com.typicalbot.command.core.VersionCommand;
+import com.typicalbot.command.core.VoteCommand;
 import com.typicalbot.command.fun.BunnyCommand;
 import com.typicalbot.command.fun.CatCommand;
 import com.typicalbot.command.fun.ChooseCommand;
@@ -207,6 +208,7 @@ public class Shard {
                 new SupportCommand(),
                 new UptimeCommand(),
                 new VersionCommand(),
+                new VoteCommand(),
 
                 // Fun
                 new BunnyCommand(),
