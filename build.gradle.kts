@@ -67,7 +67,7 @@ idea {
                     create("TypicalBot License") {
                         keyword = "Copyright"
                         notice = """
-                            Copyright ${LocalDate.now().year} Bryan Pikaard & Nicholas Sylke
+                            Copyright ${LocalDate.now().year} Bryan Pikaard, Nicholas Sylke and the TypicalBot contributors
 
                             Licensed under the Apache License, Version 2.0 (the "License");
                             you may not use this file except in compliance with the License.
