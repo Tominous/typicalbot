@@ -20,7 +20,6 @@ import com.typicalbot.data.mongo.MongoManager;
 import com.typicalbot.data.serialization.Deserializer;
 import com.typicalbot.data.serialization.Serializer;
 import com.typicalbot.data.storage.DataStructure;
-import com.typicalbot.shard.Shard;
 import com.typicalbot.shard.ShardManager;
 import com.typicalbot.util.FileUtil;
 import com.typicalbot.util.console.ConsoleReader;

@@ -15,12 +15,12 @@
  */
 package com.typicalbot.command.core;
 
-import com.typicalbot.command.CommandPermission;
 import com.typicalbot.command.Command;
 import com.typicalbot.command.CommandArgument;
 import com.typicalbot.command.CommandCategory;
 import com.typicalbot.command.CommandConfiguration;
 import com.typicalbot.command.CommandContext;
+import com.typicalbot.command.CommandPermission;
 
 @CommandConfiguration(category = CommandCategory.CORE, aliases = {"support", "home", "lounge"})
 public class SupportCommand implements Command {

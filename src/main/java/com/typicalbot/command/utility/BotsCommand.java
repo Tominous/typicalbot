@@ -24,7 +24,6 @@ import com.typicalbot.command.CommandPermission;
 import net.dv8tion.jda.core.EmbedBuilder;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
-import okhttp3.Request.Builder;
 import okhttp3.Response;
 import org.json.JSONArray;
 import org.json.JSONObject;
