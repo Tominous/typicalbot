@@ -1,23 +1,28 @@
 # Contributing to TypicalBot
 
-Looking to contribute to TypicalBot?
+Thank you for considering making a contribution to TypicalBot! This guide explains how to setup your environment for TypicalBot development and where to get help if you encounter trouble.
 
-## Quick start
+## Follow the Code of Conduct
 
-We only accept issues that are bug reports or feature requests. Bugs must be isolated and reproducible problems that we can fix within TypicalBot. Please do not report security issues in public. Please email security@typicalbot.com.
+In order to foster a more inclusive community, TypicalBot has adopted the [Contributor Covenant](CODE_OF_CONDUCT.md).
 
-* Request a new feature
-* Submit a bug report
+## Making Chanes
 
-## Key branches
+### Development Setup
 
-- `master` is the stable version of TypicalBot, deployed version.
-- `dev` is the development version of TypicalBot, testing version.
+In order to make changes to TypicalBot, you'll need:
 
-## Pull requests
+* A text editor or IDE. We use and recommend [IntelliJ](https://www.jetbrains.com/?from=typicalbot).
+* A [Java Development Kit](https://www.oracle.com/technetwork/java/javase/downloads/index.html) version 1.8 or higher. 
+* [MongoDB](https://www.mongodb.com/download-center) version 4.0 or higher.
+* [git](https://git-scm.com) and a [GitHub account](https://github.com/join).
 
-- At the moment we are not accepting pull requests containing new features. 
-- Pull requests that do not solve an existing issue are essentially unprioritized.
+TypicalBot uses a pull request model for contributions. Fork [typicalbot/typicalbot](https://github.com/typicalbot/typicalbot) and clone your fork.
 
-## License
-By contributing your code, you agree to license your contribution under the terms of the [GNU GPLv3 License](LICENSE.md).
+Configure your Git username and email with
+```
+git config user.name 'First Last'
+git config user.email user@example.com
+```
+
+Before importing the project into IntelliJ make sure to run `./gradlew check` at least once so all required files are generated.
