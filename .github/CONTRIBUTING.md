@@ -46,4 +46,5 @@ Once received, the pull request will be reviewed by a TypicalBot maintainer.
 If you run into any trouble, please reach out to us in the #support channel of the [TypicalBot Lounge](https://discord.gg/typicalbot) Discord guild.
 
 ## Thank You
+
 We deeply appreciate your effort toward improving TypicalBot.
