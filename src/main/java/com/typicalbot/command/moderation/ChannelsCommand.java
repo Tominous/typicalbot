@@ -21,9 +21,22 @@ import com.typicalbot.command.CommandCategory;
 import com.typicalbot.command.CommandConfiguration;
 import com.typicalbot.command.CommandContext;
 import com.typicalbot.command.CommandPermission;
+import net.dv8tion.jda.core.entities.Channel;
+import net.dv8tion.jda.core.entities.TextChannel;
+import net.dv8tion.jda.core.entities.VoiceChannel;
 
 @CommandConfiguration(category = CommandCategory.MODERATION, aliases = "channels")
 public class ChannelsCommand implements Command {
+    @Override
+    public String[] usage() {
+        return new String[]{
+            "channels create [text/voice/category] [name]",
+            "channels delete [name]",
+            "channels clone [channel] [name]",
+            "channels edit [channel] [property] [value]"
+        };
+    }
+
     @Override
     public CommandPermission permission() {
         return CommandPermission.GUILD_ADMINISTRATOR;
@@ -66,6 +79,173 @@ public class ChannelsCommand implements Command {
          *
          * sync Sync permissions with category
          */
-        throw new UnsupportedOperationException("This command has not been implemented yet.");
+        if (!argument.has()) {
+            context.sendMessage("Incorrect usage.");
+            return;
+        }
+
+        if (argument.get(0).equalsIgnoreCase("create")) {
+            if (argument.length() < 3) {
+                context.sendMessage("Incorrect usage.");
+                return;
+            }
+
+            String name = argument.get(2);
+
+            switch (argument.get(1)) {
+                case "text":
+                case "-t":
+                    context.getGuild().getController().createTextChannel(name).queue(o -> {
+                        context.sendMessage("Successfully created a text channel: {0}.", name);
+                    });
+                    break;
+                case "voice":
+                case "-v":
+                    context.getGuild().getController().createVoiceChannel(name).queue(o -> {
+                        context.sendMessage("Successfully created a voice channel: {0}.", name);
+                    });
+                    break;
+                case "category":
+                case "-c":
+                    context.getGuild().getController().createCategory(name).queue(o -> {
+                        context.sendMessage("Successfully created a category: {0}.", name);
+                    });
+                    break;
+            }
+        } else if (argument.get(0).equalsIgnoreCase("delete")) {
+            if (argument.length() < 2) {
+                context.sendMessage("Incorrect usage.");
+                return;
+            }
+
+            String name = argument.get(1);
+
+            context.getChannel(name).delete().queue(o -> {
+                context.sendMessage("Successfully deleted {0} channel.", name);
+            });
+        } else if (argument.get(0).equalsIgnoreCase("clone")) {
+            if (argument.length() < 3) {
+                context.sendMessage("Incorrect usage.");
+                return;
+            }
+
+            Channel channel = context.getChannel(argument.get(1));
+
+            if (channel == null) {
+                context.sendMessage("Channel doesn't exist.");
+                return;
+            }
+
+            String name = argument.get(2);
+
+            context.getGuild().getController().createCopyOfChannel(channel).setName(name).queue(o -> {
+                context.sendMessage("Successfully cloned channel {0} to {1}.", channel.getName(), name);
+            });
+        } else if (argument.get(0).equalsIgnoreCase("edit")) {
+            if (argument.length() < 4) {
+                context.sendMessage("Incorrect usage.");
+                return;
+            }
+
+            String name = argument.get(1);
+            String property = argument.get(2);
+
+            Channel channel = context.getChannel(name);
+
+            if (channel == null) {
+                context.sendMessage("Channel doesn't exist.");
+                return;
+            }
+
+
+            switch (property) {
+                case "name":
+                    String cname = argument.get(3);
+                    channel.getManager().setName(cname).queue(o -> {
+                        context.sendMessage("Successfully updated name to {0} for {1}.", cname, channel.getName());
+                    });
+
+                    break;
+                case "topic":
+                    if (!(channel instanceof TextChannel)) {
+                        context.sendMessage("Channel is not a text channel.");
+                        return;
+                    }
+
+                    String topic = String.join(" ", argument.getArguments().subList(3, argument.length()));
+                    channel.getManager().setTopic(topic).queue(o -> {
+                        context.sendMessage("Successfully updated topic to {0} for {1}.", topic, channel.getName());
+                    });
+
+                    break;
+                case "slowmode":
+                    if (!(channel instanceof TextChannel)) {
+                        context.sendMessage("Channel is not a text channel.");
+                        return;
+                    }
+
+
+                    try {
+                        int slowmode = Integer.parseInt(argument.get(3));
+
+                        channel.getManager().setSlowmode(slowmode).queue(o -> {
+                            context.sendMessage("Successfully updated slowmode to {0} for {1}.", slowmode, channel.getName());
+                        });
+                    } catch (NumberFormatException ex) {
+                        context.sendMessage("That is not a number.");
+                    }
+
+                    break;
+                case "nsfw":
+                    if (!(channel instanceof TextChannel)) {
+                        context.sendMessage("Channel is not a text channel.");
+                        return;
+                    }
+
+                    boolean nsfw = Boolean.parseBoolean(argument.get(3));
+                    channel.getManager().setNSFW(nsfw).queue(o -> {
+                        context.sendMessage("Successfully updated nsfw to {0} for {1}.", nsfw, channel.getName());
+                    });
+
+                    break;
+                case "bitrate":
+                    if (!(channel instanceof VoiceChannel)) {
+                        context.sendMessage("Channel is not a voice channel.");
+                        return;
+                    }
+
+                    try {
+                        int bitrate = Integer.parseInt(argument.get(3));
+                        channel.getManager().setUserLimit(bitrate).queue(o -> {
+                            context.sendMessage("Successfully updated bitrate to {0} for {1}.", bitrate, channel.getName());
+                        });
+                    } catch (NumberFormatException ex) {
+                        context.sendMessage("That is not a number.");
+                    }
+
+                    break;
+                case "userlimit":
+                    if (!(channel instanceof VoiceChannel)) {
+                        context.sendMessage("Channel is not a voice channel.");
+                        return;
+                    }
+
+                    try {
+                        int userlimit = Integer.parseInt(argument.get(3));
+                        channel.getManager().setUserLimit(userlimit).queue(o -> {
+                            context.sendMessage("Successfully updated userlimit to {0} for {1}.", userlimit, channel.getName());
+                        });
+                    } catch (NumberFormatException ex) {
+                        context.sendMessage("That is not a number.");
+                    }
+
+                    break;
+                default:
+                    context.sendMessage("Property doesn't exist.");
+                    break;
+            }
+        }
+
+        // throw new UnsupportedOperationException("This command has not been implemented yet.");
     }
 }
