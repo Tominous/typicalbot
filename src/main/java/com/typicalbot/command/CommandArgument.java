@@ -36,6 +36,10 @@ public class CommandArgument {
         return this.arguments;
     }
 
+    public int length() {
+        return this.arguments.size();
+    }
+
     @Override
     public String toString() {
         return String.join(" ", this.arguments);
