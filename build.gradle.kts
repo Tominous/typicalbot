@@ -39,8 +39,8 @@ dependencies {
     implementation("com.github.natanbc:lavadsp:0.5")
 
     // Logging
-    implementation("org.slf4j:slf4j-api:1.7.25")
-    implementation("org.slf4j:slf4j-log4j12:1.7.25")
+    implementation("org.slf4j:slf4j-api:1.7.26")
+    implementation("org.slf4j:slf4j-log4j12:1.7.26")
 
     // Config/Database
     implementation("com.github.Carleslc:Simple-YAML:1.3")
@@ -49,7 +49,7 @@ dependencies {
     implementation("org.mongodb.morphia:morphia:1.3.2")
 
     // Sentry
-    implementation("io.sentry:sentry:1.7.17")
+    implementation("io.sentry:sentry:1.7.22")
 }
 
 tasks.withType<JavaCompile> {
