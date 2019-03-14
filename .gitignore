@@ -35,3 +35,4 @@ build-eclipse/
 /config
 /bin
 /logs
+sentry.properties
