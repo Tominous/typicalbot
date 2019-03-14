@@ -22,6 +22,7 @@ import com.typicalbot.data.serialization.Serializer;
 import com.typicalbot.data.storage.DataStructure;
 import com.typicalbot.shard.ShardManager;
 import com.typicalbot.util.FileUtil;
+import com.typicalbot.util.SentryUtil;
 import com.typicalbot.util.console.ConsoleReader;
 import net.dv8tion.jda.core.AccountType;
 import net.dv8tion.jda.core.JDA;
@@ -136,7 +137,7 @@ public class TypicalBot {
         try {
             new TypicalBot();
         } catch (IOException | LoginException | InterruptedException e) {
-            e.printStackTrace();
+            SentryUtil.capture(e, TypicalBot.class);
         }
     }
 
