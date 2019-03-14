@@ -45,6 +45,10 @@ public class UptimeCommand implements Command {
 
     @Override
     public void execute(CommandContext context, CommandArgument argument) {
+        context.sendMessage("TypicalBot has been online for {0}.", getUptime());
+    }
+
+    public static String getUptime() {
         long time = ManagementFactory.getRuntimeMXBean().getUptime();
 
         long days = time / 86400000L % 30;
@@ -67,6 +71,6 @@ public class UptimeCommand implements Command {
 
         builder.append(seconds).append(" ").append(seconds > 1 ? "seconds" : "second");
 
-        context.sendMessage("TypicalBot has been online for {0}.", builder.toString());
+        return builder.toString();
     }
 }
