@@ -162,4 +162,16 @@ public class ShardManager {
     public static int getGuildCount() {
         return Arrays.stream(shards).mapToInt(Shard::getGuilds).sum();
     }
+
+    public static int getChannelCount() {
+        return Arrays.stream(shards).mapToInt(Shard::getChannels).sum();
+    }
+
+    public static int getUserCount() {
+        return Arrays.stream(shards).mapToInt(Shard::getUsers).sum();
+    }
+
+    public static int getVoiceConnectionCount() {
+        return Arrays.stream(shards).mapToInt(Shard::getVoiceConnections).sum();
+    }
 }

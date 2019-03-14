@@ -15,14 +15,19 @@
  */
 package com.typicalbot.command.core;
 
+import com.sun.management.OperatingSystemMXBean;
 import com.typicalbot.command.Command;
 import com.typicalbot.command.CommandArgument;
 import com.typicalbot.command.CommandCategory;
 import com.typicalbot.command.CommandConfiguration;
 import com.typicalbot.command.CommandContext;
 import com.typicalbot.command.CommandPermission;
-import com.typicalbot.shard.Shard;
+import com.typicalbot.shard.ShardManager;
 import net.dv8tion.jda.core.EmbedBuilder;
+import net.dv8tion.jda.core.JDAInfo;
+
+import java.lang.management.ManagementFactory;
+import java.text.DecimalFormat;
 
 @CommandConfiguration(category = CommandCategory.CORE, aliases = {"statistics", "stats"})
 public class StatisticsCommand implements Command {
@@ -45,15 +50,37 @@ public class StatisticsCommand implements Command {
 
     @Override
     public void execute(CommandContext context, CommandArgument argument) {
+//        EmbedBuilder builder = new EmbedBuilder();
+//
+//        builder.setTitle("TypicalBot Statistics");
+//
+//        builder.addField("Servers", Integer.toString(Shard.getSingleton().getGuilds()), true);
+//        builder.addField("Channels", Integer.toString(Shard.getSingleton().getInstance().getTextChannels().size() + Shard.getSingleton().getInstance().getVoiceChannels().size()), true);
+//        builder.addField("Users", Integer.toString(Shard.getSingleton().getUsers()), true);
+//        builder.addField("Library", "JDA", true);
+//        builder.addField("Created by", "HyperCoder#2975\nNick#4490", true);
+//
+//        context.sendEmbed(builder.build());
+        OperatingSystemMXBean bean = ManagementFactory.getPlatformMXBean(OperatingSystemMXBean.class);
+        long usedJVMMemory = ManagementFactory.getMemoryMXBean().getHeapMemoryUsage().getUsed() >> 20;
+        long totalJVMMemory = ManagementFactory.getMemoryMXBean().getHeapMemoryUsage().getMax() >> 20;
+
         EmbedBuilder builder = new EmbedBuilder();
 
         builder.setTitle("TypicalBot Statistics");
+        builder.setColor(CommandContext.TYPICALBOT_BLUE);
+        builder.setThumbnail("https://cdn.discordapp.com/icons/509030978484699136/ce37733019bb77ecaed550dfdaacea89.png");
 
-        builder.addField("Servers", Integer.toString(Shard.getSingleton().getGuilds()), true);
-        builder.addField("Channels", Integer.toString(Shard.getSingleton().getInstance().getTextChannels().size() + Shard.getSingleton().getInstance().getVoiceChannels().size()), true);
-        builder.addField("Users", Integer.toString(Shard.getSingleton().getUsers()), true);
-        builder.addField("Library", "JDA", true);
-        builder.addField("Created by", "HyperCoder#2975\nNick#4490", true);
+        builder.addField("Uptime", UptimeCommand.getUptime(), true);
+        builder.addField("Servers", Integer.toString(ShardManager.getGuildCount()), true);
+        builder.addField("Channels", Integer.toString(ShardManager.getChannelCount()), true);
+        builder.addField("Users", Integer.toString(ShardManager.getUserCount()), true);
+        builder.addField("Voice Connections", Integer.toString(ShardManager.getVoiceConnectionCount()), true);
+        builder.addField("CPU Usage", new DecimalFormat("###.###%").format(bean.getProcessCpuLoad()), true);
+        builder.addField("RAM Usage", String.format("%dMB/%dMB", usedJVMMemory, totalJVMMemory), true);
+        builder.addField("Threads", String.format("%d/%d", Thread.activeCount(), Thread.getAllStackTraces().size()), true);
+        builder.addField("Library", "JDA v" + JDAInfo.VERSION, true);
+        builder.addField("Maintainers", "HyperCoder#2975\nNick#4490", true);
 
         context.sendEmbed(builder.build());
     }

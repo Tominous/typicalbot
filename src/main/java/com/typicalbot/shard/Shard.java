@@ -396,6 +396,10 @@ public class Shard {
         return this.instance.getGuilds().size();
     }
 
+    public int getChannels() {
+        return this.instance.getTextChannels().size() + this.instance.getCategories().size() + this.instance.getVoiceChannels().size();
+    }
+
     /**
      * Get the current amount of users on this shard.
      *
@@ -403,6 +407,10 @@ public class Shard {
      */
     public int getUsers() {
         return this.instance.getUsers().size();
+    }
+
+    public int getVoiceConnections() {
+        return (int) this.instance.getVoiceChannels().stream().filter(v -> v.getMembers().contains(v.getGuild().getSelfMember())).count();
     }
 
     /**
