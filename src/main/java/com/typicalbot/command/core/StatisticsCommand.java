@@ -64,6 +64,7 @@ public class StatisticsCommand implements Command {
         OperatingSystemMXBean bean = ManagementFactory.getPlatformMXBean(OperatingSystemMXBean.class);
         long usedJVMMemory = ManagementFactory.getMemoryMXBean().getHeapMemoryUsage().getUsed() >> 20;
         long totalJVMMemory = ManagementFactory.getMemoryMXBean().getHeapMemoryUsage().getMax() >> 20;
+        String os = String.format("%s %s %s", bean.getName(), bean.getArch(), bean.getVersion());
 
         EmbedBuilder builder = new EmbedBuilder();
 
@@ -76,6 +77,7 @@ public class StatisticsCommand implements Command {
         builder.addField("Channels", Integer.toString(ShardManager.getChannelCount()), true);
         builder.addField("Users", Integer.toString(ShardManager.getUserCount()), true);
         builder.addField("Voice Connections", Integer.toString(ShardManager.getVoiceConnectionCount()), true);
+        builder.addField("Operating System", os, true);
         builder.addField("CPU Usage", new DecimalFormat("###.###%").format(bean.getProcessCpuLoad()), true);
         builder.addField("RAM Usage", String.format("%dMB/%dMB", usedJVMMemory, totalJVMMemory), true);
         builder.addField("Threads", String.format("%d/%d", Thread.activeCount(), Thread.getAllStackTraces().size()), true);
