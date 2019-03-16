@@ -16,6 +16,7 @@
 package com.typicalbot.shard;
 
 import com.google.common.primitives.Ints;
+import com.typicalbot.metric.MetricPoster;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
@@ -67,6 +68,8 @@ public class ShardManager {
             // Clients are limited to one identify every 5 seconds.
             Thread.sleep(5000);
         }
+
+        new MetricPoster().start();
     }
 
     /**
