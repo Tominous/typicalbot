@@ -169,7 +169,7 @@ public class GuildListener extends ListenerAdapter {
             CommandContext commandContext = new CommandContext(event.getMessage());
 
             // TODO(nsylke): Need a backup way for those who haven't given TypicalBot the permission.
-            if (event.getGuild().getSelfMember().hasPermission(Permission.MESSAGE_EMBED_LINKS)) {
+            if (event.getGuild().getSelfMember().hasPermission(event.getChannel(), Permission.MESSAGE_EMBED_LINKS)) {
                 try {
                     command.execute(commandContext, commandArgument);
                 } catch (UnsupportedOperationException ex) {
