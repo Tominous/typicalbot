@@ -48,6 +48,9 @@ dependencies {
     implementation("org.mongodb:mongo-java-driver:3.10.1")
     implementation("org.mongodb.morphia:morphia:1.3.2")
 
+    // Zalgo4J
+    implementation("me.nsylke.zalgo4j:zalgo4j:1.0.1")
+
     // Sentry
     implementation("io.sentry:sentry:1.7.22")
 }
