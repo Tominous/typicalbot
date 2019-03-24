@@ -24,6 +24,21 @@ import com.typicalbot.command.CommandPermission;
 
 @CommandConfiguration(category = CommandCategory.MODERATION, aliases = "roles")
 public class RolesCommand implements Command {
+    public String[] usage() {
+        return new String[]{
+            "roles create [name]",
+            "roles delete [name]",
+            "roles clone [role] [name]",
+            "roles give [user] [role]",
+            "roles take [user] [role]"
+        };
+    }
+
+    @Override
+    public String description() {
+        return "Manage or view roles in a server.";
+    }
+
     @Override
     public CommandPermission permission() {
         return CommandPermission.GUILD_ADMINISTRATOR;

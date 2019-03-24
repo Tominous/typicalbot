@@ -30,6 +30,18 @@ import net.dv8tion.jda.core.entities.User;
 @CommandConfiguration(category = CommandCategory.MODERATION, aliases = "unmute")
 public class UnmuteCommand implements Command {
     @Override
+    public String[] usage() {
+        return new String[]{
+            "unmute [@user]"
+        };
+    }
+
+    @Override
+    public String description() {
+        return "Unmute a member in the server.";
+    }
+
+    @Override
     public CommandPermission permission() {
         return CommandPermission.GUILD_MODERATOR;
     }

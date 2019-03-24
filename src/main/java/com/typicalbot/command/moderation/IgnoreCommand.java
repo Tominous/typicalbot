@@ -25,6 +25,18 @@ import com.typicalbot.command.CommandPermission;
 @CommandConfiguration(category = CommandCategory.MODERATION, aliases = "ignore")
 public class IgnoreCommand implements Command {
     @Override
+    public String[] usage() {
+        return new String[]{
+            "ignore [commands|invites]"
+        };
+    }
+
+    @Override
+    public String description() {
+        return "Makes the bot ignore commands or invites in a channel.";
+    }
+
+    @Override
     public CommandPermission permission() {
         return CommandPermission.GUILD_ADMINISTRATOR;
     }

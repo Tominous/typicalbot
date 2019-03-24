@@ -29,6 +29,19 @@ import java.util.concurrent.TimeUnit;
 @CommandConfiguration(category = CommandCategory.MODERATION, aliases = "softban")
 public class SoftbanCommand implements Command {
     @Override
+    public String[] usage() {
+        return new String[]{
+            "softban [@user]",
+            "softban [@user] [reason]"
+        };
+    }
+
+    @Override
+    public String description() {
+        return "Softban a member from the server.";
+    }
+
+    @Override
     public CommandPermission permission() {
         return CommandPermission.GUILD_MODERATOR;
     }

@@ -25,6 +25,18 @@ import com.typicalbot.command.CommandPermission;
 @CommandConfiguration(category = CommandCategory.MODERATION, aliases = "reason")
 public class ReasonCommand implements Command {
     @Override
+    public String[] usage() {
+        return new String[]{
+            "reason [case] [reason]"
+        };
+    }
+
+    @Override
+    public String description() {
+        return "Change or set a reason for a case in moderation logs.";
+    }
+
+    @Override
     public CommandPermission permission() {
         return CommandPermission.GUILD_MODERATOR;
     }

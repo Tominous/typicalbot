@@ -29,6 +29,18 @@ import net.dv8tion.jda.core.entities.Role;
 @CommandConfiguration(category = CommandCategory.MODERATION, aliases = "give")
 public class GiveCommand implements Command {
     @Override
+    public String[] usage() {
+        return new String[]{
+            "give [role]"
+        };
+    }
+
+    @Override
+    public String description() {
+        return "Receive a role off of the public roles list.";
+    }
+
+    @Override
     public CommandPermission permission() {
         return CommandPermission.GUILD_MEMBER;
     }

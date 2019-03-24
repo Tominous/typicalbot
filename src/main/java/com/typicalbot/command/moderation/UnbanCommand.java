@@ -26,6 +26,18 @@ import net.dv8tion.jda.core.Permission;
 @CommandConfiguration(category = CommandCategory.MODERATION, aliases = "unban")
 public class UnbanCommand implements Command {
     @Override
+    public String[] usage() {
+        return new String[]{
+            "unban [@user]"
+        };
+    }
+
+    @Override
+    public String description() {
+        return "Unban a member from the server.";
+    }
+
+    @Override
     public CommandPermission permission() {
         return CommandPermission.GUILD_MODERATOR;
     }

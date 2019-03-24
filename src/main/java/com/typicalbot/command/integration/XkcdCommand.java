@@ -34,8 +34,16 @@ import java.util.Random;
 @CommandConfiguration(category = CommandCategory.INTEGRATION, aliases = "xkcd")
 public class XkcdCommand implements Command {
     @Override
-    public boolean nsfw() {
-        return true;
+    public String[] usage() {
+        return new String[]{
+            "xkcd",
+            "xkcd [comic]"
+        };
+    }
+
+    @Override
+    public String description() {
+        return "Find a comic on XKCD.";
     }
 
     @Override

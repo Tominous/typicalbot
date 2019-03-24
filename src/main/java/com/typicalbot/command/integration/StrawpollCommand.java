@@ -34,6 +34,19 @@ import java.io.IOException;
 @CommandConfiguration(category = CommandCategory.INTEGRATION, aliases = "strawpoll")
 public class StrawpollCommand implements Command {
     @Override
+    public String[] usage() {
+        return new String[]{
+            "strawpoll [question] | [choice]; [choice]; [choice]",
+            "strawpoll -m [question] | [choice]; [choice]; [choice]"
+        };
+    }
+
+    @Override
+    public String description() {
+        return "Create a strawpoll vote.";
+    }
+
+    @Override
     public CommandPermission permission() {
         return CommandPermission.GUILD_MEMBER;
     }

@@ -25,6 +25,20 @@ import com.typicalbot.command.CommandPermission;
 @CommandConfiguration(category = CommandCategory.MODERATION, aliases = "settings")
 public class SettingsCommand implements Command {
     @Override
+    public String[] usage() {
+        return new String[]{
+            "settings list",
+            "settings view [setting]",
+            "settings edit [setting]"
+        };
+    }
+
+    @Override
+    public String description() {
+        return "View or customize your servers setting and enable/disable specific features.";
+    }
+
+    @Override
     public CommandPermission permission() {
         return CommandPermission.GUILD_ADMINISTRATOR;
     }

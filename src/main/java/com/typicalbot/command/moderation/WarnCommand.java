@@ -25,6 +25,19 @@ import com.typicalbot.command.CommandPermission;
 @CommandConfiguration(category = CommandCategory.MODERATION, aliases = "warn")
 public class WarnCommand implements Command {
     @Override
+    public String[] usage() {
+        return new String[]{
+            "warn [@user]",
+            "warn [@user] [reason]"
+        };
+    }
+
+    @Override
+    public String description() {
+        return "Warn a member in the server.";
+    }
+
+    @Override
     public CommandPermission permission() {
         return CommandPermission.GUILD_MODERATOR;
     }

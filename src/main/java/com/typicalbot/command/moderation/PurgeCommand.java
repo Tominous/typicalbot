@@ -30,6 +30,19 @@ import java.util.concurrent.TimeUnit;
 @CommandConfiguration(category = CommandCategory.MODERATION, aliases = "purge")
 public class PurgeCommand implements Command {
     @Override
+    public String[] usage() {
+        return new String[]{
+            "purge [count]",
+            "purge all"
+        };
+    }
+
+    @Override
+    public String description() {
+        return "Purge messages in a channel.";
+    }
+
+    @Override
     public CommandPermission permission() {
         return CommandPermission.GUILD_MODERATOR;
     }

@@ -25,6 +25,19 @@ import com.typicalbot.command.CommandPermission;
 @CommandConfiguration(category = CommandCategory.MODERATION, aliases = "pcs")
 public class PCSCommand implements Command {
     @Override
+    public String[] usage() {
+        return new String[]{
+            "pcs add [command] [query]",
+            "pcs remove [command] [query]"
+        };
+    }
+
+    @Override
+    public String description() {
+        return "Create personalized commands.";
+    }
+
+    @Override
     public CommandPermission permission() {
         return CommandPermission.GUILD_ADMINISTRATOR;
     }

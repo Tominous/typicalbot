@@ -31,8 +31,21 @@ import org.json.JSONTokener;
 
 import java.io.IOException;
 
-@CommandConfiguration(category = CommandCategory.INTEGRATION, aliases = "urbandictionary")
+@CommandConfiguration(category = CommandCategory.INTEGRATION, aliases = {"urbandictionary", "urban"})
 public class UrbandictionaryCommand implements Command {
+    @Override
+    public String[] usage() {
+        return new String[]{
+            "urbandictionary",
+            "urbandictionary [query]"
+        };
+    }
+
+    @Override
+    public String description() {
+        return "Grabs the definition from Urban Dictionary for the specified word.";
+    }
+
     @Override
     public boolean nsfw() {
         return true;

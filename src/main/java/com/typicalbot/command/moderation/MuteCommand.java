@@ -30,6 +30,18 @@ import net.dv8tion.jda.core.entities.User;
 @CommandConfiguration(category = CommandCategory.MODERATION, aliases = "mute")
 public class MuteCommand implements Command {
     @Override
+    public String[] usage() {
+        return new String[]{
+            "mute [@user]"
+        };
+    }
+
+    @Override
+    public String description() {
+        return "Mute a member in the server.";
+    }
+
+    @Override
     public CommandPermission permission() {
         return CommandPermission.GUILD_MODERATOR;
     }

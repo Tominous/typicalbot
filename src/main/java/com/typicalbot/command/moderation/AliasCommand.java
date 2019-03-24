@@ -25,6 +25,21 @@ import com.typicalbot.command.CommandPermission;
 @CommandConfiguration(category = CommandCategory.MODERATION, aliases = "alias")
 public class AliasCommand implements Command {
     @Override
+    public String[] usage() {
+        return new String[]{
+            "alias add [command] [alias]",
+            "alias remove [alias]",
+            "alias list",
+            "alias clear"
+        };
+    }
+
+    @Override
+    public String description() {
+        return "Create an alias for commands.";
+    }
+
+    @Override
     public CommandPermission permission() {
         return CommandPermission.GUILD_ADMINISTRATOR;
     }

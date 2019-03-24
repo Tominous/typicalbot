@@ -29,6 +29,18 @@ import net.dv8tion.jda.core.entities.Role;
 @CommandConfiguration(category = CommandCategory.MODERATION, aliases = "take")
 public class TakeCommand implements Command {
     @Override
+    public String[] usage() {
+        return new String[]{
+            "take [role]"
+        };
+    }
+
+    @Override
+    public String description() {
+        return "Take a role from you a role off of the public roles list.";
+    }
+
+    @Override
     public CommandPermission permission() {
         return CommandPermission.GUILD_MEMBER;
     }

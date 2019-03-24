@@ -25,6 +25,19 @@ import com.typicalbot.command.CommandPermission;
 @CommandConfiguration(category = CommandCategory.MODERATION, aliases = "announce")
 public class AnnounceCommand implements Command {
     @Override
+    public String[] usage() {
+        return new String[]{
+            "announce <message>",
+            "announce -e <message>"
+        };
+    }
+
+    @Override
+    public String description() {
+        return "Send an announcement to the announcements channel. Use the flag '-e' before your content to make the message an embed. If the announcements mention role is set, it will always use it.";
+    }
+
+    @Override
     public CommandPermission permission() {
         return CommandPermission.GUILD_ADMINISTRATOR;
     }

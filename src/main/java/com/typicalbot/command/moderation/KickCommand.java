@@ -27,6 +27,19 @@ import net.dv8tion.jda.core.entities.User;
 @CommandConfiguration(category = CommandCategory.MODERATION, aliases = "kick")
 public class KickCommand implements Command {
     @Override
+    public String[] usage() {
+        return new String[]{
+            "kick [@user]",
+            "kick [@user] [reason]"
+        };
+    }
+
+    @Override
+    public String description() {
+        return "Kick a member from the server.";
+    }
+
+    @Override
     public CommandPermission permission() {
         return CommandPermission.GUILD_MODERATOR;
     }

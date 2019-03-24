@@ -25,6 +25,18 @@ import com.typicalbot.command.CommandPermission;
 @CommandConfiguration(category = CommandCategory.CORE, aliases = "vote")
 public class VoteCommand implements Command {
     @Override
+    public String[] usage() {
+        return new String[]{
+            "vote"
+        };
+    }
+
+    @Override
+    public String description() {
+        return "Vote for TypicalBot on listing sites to enter our monthly TypicalBot Prime giveaway!";
+    }
+
+    @Override
     public CommandPermission permission() {
         return CommandPermission.GUILD_MEMBER;
     }

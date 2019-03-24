@@ -25,6 +25,18 @@ import com.typicalbot.command.CommandPermission;
 @CommandConfiguration(category = CommandCategory.MODERATION, aliases = "adcheck")
 public class AdcheckCommand implements Command {
     @Override
+    public String[] usage() {
+        return new String[]{
+            "adcheck"
+        };
+    }
+
+    @Override
+    public String description() {
+        return "Check if any members of a server have a server invite in their playing status.";
+    }
+
+    @Override
     public CommandPermission permission() {
         return CommandPermission.GUILD_MODERATOR;
     }

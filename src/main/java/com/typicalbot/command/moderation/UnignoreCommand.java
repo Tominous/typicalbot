@@ -25,6 +25,18 @@ import com.typicalbot.command.CommandPermission;
 @CommandConfiguration(category = CommandCategory.MODERATION, aliases = "unignore")
 public class UnignoreCommand implements Command {
     @Override
+    public String[] usage() {
+        return new String[] {
+            "unignore [commands|invites]"
+        };
+    }
+
+    @Override
+    public String description() {
+        return "Makes the bot unignore commands or invites in a channel.";
+    }
+
+    @Override
     public CommandPermission permission() {
         return CommandPermission.GUILD_ADMINISTRATOR;
     }

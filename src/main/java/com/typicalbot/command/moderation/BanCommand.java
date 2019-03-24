@@ -28,6 +28,21 @@ import net.dv8tion.jda.core.entities.User;
 @CommandConfiguration(category = CommandCategory.MODERATION, aliases = "ban")
 public class BanCommand implements Command {
     @Override
+    public String[] usage() {
+        return new String[]{
+            "ban [@user]",
+            "ban [@user] [reason]",
+            "ban [@user] [purge]",
+            "ban [@user] [purge] [reason]"
+        };
+    }
+
+    @Override
+    public String description() {
+        return "Ban a member from the server.";
+    }
+
+    @Override
     public CommandPermission permission() {
         return CommandPermission.GUILD_MODERATOR;
     }

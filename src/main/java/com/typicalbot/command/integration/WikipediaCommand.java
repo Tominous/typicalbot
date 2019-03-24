@@ -33,6 +33,18 @@ import java.io.IOException;
 @CommandConfiguration(category = CommandCategory.INTEGRATION, aliases = "wikipedia")
 public class WikipediaCommand implements Command {
     @Override
+    public String[] usage() {
+        return new String[]{
+            "wikipedia [term]"
+        };
+    }
+
+    @Override
+    public String description() {
+        return "Look up a term on Wikipedia.";
+    }
+
+    @Override
     public CommandPermission permission() {
         return CommandPermission.GUILD_MEMBER;
     }
