@@ -2,7 +2,7 @@
 
 - [ ] I have checked for related issues.
 - [ ] I have updated to the latest [TypicalBot version](https://github.com/typicalbot/typicalbot).
-- [ ] I am using the official TypicalBot or TypicalBot Beta bot.
+- [ ] I am using an official bot operated by TypicalBot.
 
 ### Issue Type
 
