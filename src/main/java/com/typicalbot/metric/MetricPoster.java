@@ -68,6 +68,8 @@ public class MetricPoster implements Runnable {
                 LOGGER.warn("Failed to post metrics to StatusPage.");
             }
 
+            response.close();
+
             LOGGER.debug("Successfully posted metrics to StatusPage.");
         } catch (IOException ex) {
             SentryUtil.capture(ex, MetricPoster.class);
