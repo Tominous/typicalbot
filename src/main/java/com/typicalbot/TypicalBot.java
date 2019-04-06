@@ -57,7 +57,7 @@ public class TypicalBot {
 
         LOGGER.info("TypicalBot created by Bryan Pikaard and Nicholas Sylke.");
         LOGGER.info("TypicalBot is licensed under the Apache License, Version 2.0 (\"License\").");
-        Logger.info("You may obtain a copy of the License at https://www.apache.org/licenses/LICENSE-2.0.");
+        LOGGER.info("You may obtain a copy of the License at https://www.apache.org/licenses/LICENSE-2.0.");
 
         LOGGER.info("");
 
