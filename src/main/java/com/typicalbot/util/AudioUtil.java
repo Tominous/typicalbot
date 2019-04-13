@@ -26,7 +26,7 @@ public class AudioUtil {
 
     public static String format(long duration) {
         if (duration == Long.MAX_VALUE) {
-            return "live";
+            return "Live";
         }
 
         long hours = duration / 3600000L % 24;
