@@ -175,6 +175,8 @@ public class GuildListener extends ListenerAdapter {
                 } catch (UnsupportedOperationException ex) {
                     event.getMessage().getChannel().sendMessage(ex.getMessage()).queue();
                 }
+            } else {
+                event.getMessage().getChannel().sendMessage("TypicalBot does not have permission to embed links.").queue();
             }
         }
     }
