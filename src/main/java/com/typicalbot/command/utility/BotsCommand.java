@@ -21,6 +21,7 @@ import com.typicalbot.command.CommandCategory;
 import com.typicalbot.command.CommandConfiguration;
 import com.typicalbot.command.CommandContext;
 import com.typicalbot.command.CommandPermission;
+import com.typicalbot.util.Pageable;
 import net.dv8tion.jda.core.EmbedBuilder;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -62,7 +63,7 @@ public class BotsCommand implements Command {
             servers.sort(Comparator.comparingInt(o -> o.getInt("servercount")));
             Collections.reverse(servers);
 
-            ServersCommand.Pageable<JSONObject> obj = new ServersCommand.Pageable<>(servers);
+            Pageable<JSONObject> obj = new Pageable<>(servers);
 
             if (argument.has()) {
                 obj.setPage(Integer.parseInt(argument.get(0)));
