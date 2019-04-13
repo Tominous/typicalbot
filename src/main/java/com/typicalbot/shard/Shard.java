@@ -178,7 +178,7 @@ public class Shard {
         this.shardTotal = shardTotal;
 
         try {
-            this.instance = new JDABuilder(AccountType.BOT)
+            JDABuilder builder = new JDABuilder(AccountType.BOT)
                 .setToken(token)
                 .setAutoReconnect(true)
                 .setAudioEnabled(true)
@@ -187,15 +187,19 @@ public class Shard {
                 .setBulkDeleteSplittingEnabled(true)
                 .setEnableShutdownHook(true)
                 .setDisabledCacheFlags(EnumSet.of(CacheFlag.GAME))
-                .setAudioSendFactory(new NativeAudioSendFactory())
                 .useSharding(shardId, shardTotal)
-                .setCorePoolSize(4)
-                .build();
+                .setCorePoolSize(4);
 
-            this.instance.addEventListener(
+            if (!System.getProperty("os.arch").equalsIgnoreCase("arm") && !System.getProperty("os.arch").equalsIgnoreCase("arm-linux")) {
+                builder.setAudioSendFactory(new NativeAudioSendFactory());
+            }
+
+            builder.addEventListener(
                 new ReadyListener(),
                 new GuildListener()
             );
+
+            this.instance = builder.build();
 
             this.commandManager.registerCommands(
                 // Core
