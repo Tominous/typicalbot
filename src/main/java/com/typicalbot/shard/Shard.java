@@ -72,6 +72,7 @@ import com.typicalbot.command.interaction.ShootCommand;
 import com.typicalbot.command.interaction.SlapCommand;
 import com.typicalbot.command.interaction.StabCommand;
 import com.typicalbot.command.interaction.BiteCommand;
+import com.typicalbot.command.interaction.KissCommand;
 import com.typicalbot.command.miscellaneous.SayCommand;
 import com.typicalbot.command.moderation.AdcheckCommand;
 import com.typicalbot.command.moderation.AliasCommand;
@@ -246,6 +247,7 @@ public class Shard {
                 // Interaction
                 new BiteCommand(),
                 new HugCommand(),
+                new KissCommand(),
                 new PunchCommand(),
                 new ShootCommand(),
                 new SlapCommand(),
