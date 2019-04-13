@@ -15,6 +15,7 @@
  */
 package com.typicalbot.command;
 
+import net.dv8tion.jda.core.JDA;
 import net.dv8tion.jda.core.entities.Channel;
 import net.dv8tion.jda.core.entities.Guild;
 import net.dv8tion.jda.core.entities.Member;
@@ -64,6 +65,10 @@ public class CommandContext {
 
     public Member getSelfMember() {
         return this.message.getGuild().getSelfMember();
+    }
+
+    public JDA getJDA() {
+        return this.message.getJDA();
     }
 
     public void sendMessage(String message, Object... params) {
