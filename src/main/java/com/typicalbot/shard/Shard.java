@@ -141,8 +141,10 @@ import net.dv8tion.jda.core.JDA;
 import net.dv8tion.jda.core.JDABuilder;
 import net.dv8tion.jda.core.OnlineStatus;
 import net.dv8tion.jda.core.entities.Game;
+import net.dv8tion.jda.core.utils.cache.CacheFlag;
 
 import javax.security.auth.login.LoginException;
+import java.util.EnumSet;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.Executors;
@@ -184,6 +186,7 @@ public class Shard {
                 .setStatus(OnlineStatus.IDLE) // Set to IDLE while still loading, change ONLINE when ready
                 .setBulkDeleteSplittingEnabled(true)
                 .setEnableShutdownHook(true)
+                .setDisabledCacheFlags(EnumSet.of(CacheFlag.GAME))
                 .setAudioSendFactory(new NativeAudioSendFactory())
                 .useSharding(shardId, shardTotal)
                 .setCorePoolSize(4)
