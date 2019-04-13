@@ -47,7 +47,7 @@ public class InviteCommand implements Command {
         EmbedBuilder builder = new EmbedBuilder();
 
         builder.setTitle("TypicalBot Invite");
-        builder.setDescription("[Click here](https://typicalbot.com/invite) to invite TypicalBot to your guild.");
+        builder.setDescription("[Click here](" + context.getJDA().asBot().getInviteUrl() + ") to invite TypicalBot to your guild.");
         builder.setColor(CommandContext.TYPICALBOT_BLUE);
 
         context.sendEmbed(builder.build());
