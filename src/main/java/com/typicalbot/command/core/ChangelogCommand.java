@@ -53,8 +53,6 @@ public class ChangelogCommand implements Command {
 
     @Override
     public void execute(CommandContext context, CommandArgument argument) {
-        CommandCheck.checkPermission(context.getSelfMember(), Permission.MESSAGE_EMBED_LINKS);
-
         OkHttpClient client = new OkHttpClient();
 
         // https://developer.github.com/v3/repos/releases/#get-the-latest-release
@@ -64,13 +62,17 @@ public class ChangelogCommand implements Command {
             Response response = client.newCall(request).execute();
             JSONObject object = new JSONObject(response.body().string());
 
-            EmbedBuilder builder = new EmbedBuilder();
+            if (context.getSelfMember().hasPermission(Permission.MESSAGE_EMBED_LINKS)) {
+                EmbedBuilder builder = new EmbedBuilder();
 
-            builder.setTitle("TypicalBot Changelog", object.getString("html_url"));
-            builder.setDescription(object.getString("body"));
-            builder.setColor(CommandContext.TYPICALBOT_BLUE);
+                builder.setTitle("TypicalBot Changelog", object.getString("html_url"));
+                builder.setDescription(object.getString("body"));
+                builder.setColor(CommandContext.TYPICALBOT_BLUE);
 
-            context.sendEmbed(builder.build());
+                context.sendEmbed(builder.build());
+            } else {
+                context.sendMessage("TypicalBot Changelog - {0}\n\n{1}", object.getString("html_url"), object.getString("body"));
+            }
         } catch (IOException | JSONException ex) {
             context.sendMessage("Unable to retrieve changelog from GitHub.");
         }

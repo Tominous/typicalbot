@@ -46,18 +46,20 @@ public class DonateCommand implements Command {
 
     @Override
     public void execute(CommandContext context, CommandArgument argument) {
-        CommandCheck.checkPermission(context.getSelfMember(), Permission.MESSAGE_EMBED_LINKS);
+        if (context.getSelfMember().hasPermission(Permission.MESSAGE_EMBED_LINKS)) {
+            EmbedBuilder builder = new EmbedBuilder();
 
-        EmbedBuilder builder = new EmbedBuilder();
+            builder.setTitle("TypicalBot Donate");
+            builder.setDescription("If you would like to support the TypicalBot maintainers, you can donate using one of the options below.");
+            builder.setColor(CommandContext.TYPICALBOT_BLUE);
 
-        builder.setTitle("TypicalBot Donate");
-        builder.setDescription("If you would like to support the TypicalBot maintainers, you can donate using one of the options below.");
-        builder.setColor(CommandContext.TYPICALBOT_BLUE);
+            builder.addField("One-time Donation", "[PayPal](https://paypal.me/typicalbot)", true);
+            builder.addField("Recurring Donation", "[Patreon](https://patreon.com/typicalbot)", true);
+            builder.addBlankField(true);
 
-        builder.addField("One-time Donation", "[PayPal](https://paypal.me/typicalbot)", true);
-        builder.addField("Recurring Donation", "[Patreon](https://patreon.com/typicalbot)", true);
-        builder.addBlankField(true);
-
-        context.sendEmbed(builder.build());
+            context.sendEmbed(builder.build());
+        } else {
+            context.sendMessage("If you would like to support the TypicalBot maintainers, you can donate using one of the options below.\n\nOne-time donation: <https://paypal.me/typicalbot>\nRecurring donation: <https://patreon.com/typicalbot>");
+        }
     }
 }

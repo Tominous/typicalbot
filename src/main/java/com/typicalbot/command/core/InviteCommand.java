@@ -46,14 +46,16 @@ public class InviteCommand implements Command {
 
     @Override
     public void execute(CommandContext context, CommandArgument argument) {
-        CommandCheck.checkPermission(context.getSelfMember(), Permission.MESSAGE_EMBED_LINKS);
+        if (context.getSelfMember().hasPermission(Permission.MESSAGE_EMBED_LINKS)) {
+            EmbedBuilder builder = new EmbedBuilder();
 
-        EmbedBuilder builder = new EmbedBuilder();
+            builder.setTitle("TypicalBot Invite");
+            builder.setDescription("[Click here](" + context.getJDA().asBot().getInviteUrl(Permission.ADMINISTRATOR) + ") to invite TypicalBot to your guild.");
+            builder.setColor(CommandContext.TYPICALBOT_BLUE);
 
-        builder.setTitle("TypicalBot Invite");
-        builder.setDescription("[Click here](" + context.getJDA().asBot().getInviteUrl() + ") to invite TypicalBot to your guild.");
-        builder.setColor(CommandContext.TYPICALBOT_BLUE);
-
-        context.sendEmbed(builder.build());
+            context.sendEmbed(builder.build());
+        } else {
+            context.sendMessage("You can invite TypicalBot using this URL: <{0}>.", context.getJDA().asBot().getInviteUrl(Permission.ADMINISTRATOR));
+        }
     }
 }

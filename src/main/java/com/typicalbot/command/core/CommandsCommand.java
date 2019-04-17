@@ -52,25 +52,27 @@ public class CommandsCommand implements Command {
 
     @Override
     public void execute(CommandContext context, CommandArgument argument) {
-        CommandCheck.checkPermission(context.getSelfMember(), Permission.MESSAGE_EMBED_LINKS);
-
         Set<Command> commands = Shard.getSingleton().getCommandManager().getCommands();
 
-        EmbedBuilder builder = new EmbedBuilder();
+        context.getAuthor().openPrivateChannel().queue(channel -> {
+            EmbedBuilder builder = new EmbedBuilder();
 
-        builder.setTitle("TypicalBot Commands");
-        builder.setColor(CommandContext.TYPICALBOT_BLUE);
+            builder.setTitle("TypicalBot Commands");
+            builder.setColor(CommandContext.TYPICALBOT_BLUE);
 
-        for (CommandCategory category : CommandCategory.values()) {
-            if (category != CommandCategory.SYSTEM) {
-                builder.addField(StringUtil.capitalize(category.name()), commands.stream()
-                    .filter(c -> c.getConfiguration().category().equals(category) && c.getConfiguration().category() != CommandCategory.SYSTEM)
-                    .sorted(Comparator.comparing((Command x) -> x.getConfiguration().aliases()[0]).thenComparing((Command y) -> y.getConfiguration().aliases()[0]))
-                    .map(c -> c.getConfiguration().aliases()[0])
-                    .collect(Collectors.joining(", ")), false);
+            for (CommandCategory category : CommandCategory.values()) {
+                if (category != CommandCategory.SYSTEM) {
+                    builder.addField(StringUtil.capitalize(category.name()), commands.stream()
+                        .filter(c -> c.getConfiguration().category().equals(category) && c.getConfiguration().category() != CommandCategory.SYSTEM)
+                        .sorted(Comparator.comparing((Command x) -> x.getConfiguration().aliases()[0]).thenComparing((Command y) -> y.getConfiguration().aliases()[0]))
+                        .map(c -> c.getConfiguration().aliases()[0])
+                        .collect(Collectors.joining(", ")), false);
+                }
             }
-        }
 
-        context.sendEmbed(builder.build());
+            channel.sendMessage(builder.build()).queue();
+        });
+
+        context.sendMessage("{0}, we have sent a list of commands via direct message.", context.getMember().getAsMention());
     }
 }
