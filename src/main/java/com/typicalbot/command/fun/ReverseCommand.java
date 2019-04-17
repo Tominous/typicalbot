@@ -18,6 +18,7 @@ package com.typicalbot.command.fun;
 import com.typicalbot.command.Command;
 import com.typicalbot.command.CommandArgument;
 import com.typicalbot.command.CommandCategory;
+import com.typicalbot.command.CommandCheck;
 import com.typicalbot.command.CommandConfiguration;
 import com.typicalbot.command.CommandContext;
 import com.typicalbot.command.CommandPermission;
@@ -43,10 +44,7 @@ public class ReverseCommand implements Command {
 
     @Override
     public void execute(CommandContext context, CommandArgument argument) {
-        if (!argument.has()) {
-            context.sendMessage("Incorrect usage.");
-            return;
-        }
+        CommandCheck.checkArguments(argument);
 
         // TODO(nsylke): Fix mentions as they break when trying to be reversed.
         // TODO(nsylke): Check for those sneaky people who try and type `@everyone` backwards (and @here)

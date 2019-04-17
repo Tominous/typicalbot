@@ -18,10 +18,12 @@ package com.typicalbot.command.fun;
 import com.typicalbot.command.Command;
 import com.typicalbot.command.CommandArgument;
 import com.typicalbot.command.CommandCategory;
+import com.typicalbot.command.CommandCheck;
 import com.typicalbot.command.CommandConfiguration;
 import com.typicalbot.command.CommandContext;
 import com.typicalbot.command.CommandPermission;
 import net.dv8tion.jda.core.EmbedBuilder;
+import net.dv8tion.jda.core.Permission;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -50,10 +52,8 @@ public class EmojiCommand implements Command {
 
     @Override
     public void execute(CommandContext context, CommandArgument argument) {
-        if (!argument.has()) {
-            context.sendMessage("Incorrect usage.");
-            return;
-        }
+        CommandCheck.checkPermission(context.getSelfMember(), Permission.MESSAGE_EMBED_LINKS);
+        CommandCheck.checkArguments(argument);
 
         Matcher matcher = regex.matcher(argument.get(0));
         if (matcher.find()) {

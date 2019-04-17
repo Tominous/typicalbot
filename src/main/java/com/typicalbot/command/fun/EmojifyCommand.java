@@ -18,6 +18,7 @@ package com.typicalbot.command.fun;
 import com.typicalbot.command.Command;
 import com.typicalbot.command.CommandArgument;
 import com.typicalbot.command.CommandCategory;
+import com.typicalbot.command.CommandCheck;
 import com.typicalbot.command.CommandConfiguration;
 import com.typicalbot.command.CommandContext;
 import com.typicalbot.command.CommandPermission;
@@ -92,10 +93,7 @@ public class EmojifyCommand implements Command {
 
     @Override
     public void execute(CommandContext context, CommandArgument argument) {
-        if (!argument.has()) {
-            context.sendMessage("You can't translate nothing into nato...");
-            return;
-        }
+        CommandCheck.checkArguments(argument);
 
         StringBuilder builder = new StringBuilder();
 

@@ -18,6 +18,7 @@ package com.typicalbot.command.fun;
 import com.typicalbot.command.Command;
 import com.typicalbot.command.CommandArgument;
 import com.typicalbot.command.CommandCategory;
+import com.typicalbot.command.CommandCheck;
 import com.typicalbot.command.CommandConfiguration;
 import com.typicalbot.command.CommandContext;
 import com.typicalbot.command.CommandPermission;
@@ -45,10 +46,7 @@ public class ChooseCommand implements Command {
 
     @Override
     public void execute(CommandContext context, CommandArgument argument) {
-        if (!argument.has()) {
-            context.sendMessage("There is nothing to choose from...");
-            return;
-        }
+        CommandCheck.checkArguments(argument);
 
         String[] input = argument.toString().split(", ");
         context.sendMessage(input[new Random().nextInt(input.length)]);
