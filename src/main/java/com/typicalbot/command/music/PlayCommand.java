@@ -23,6 +23,7 @@ import com.typicalbot.audio.GuildMusicManager;
 import com.typicalbot.command.Command;
 import com.typicalbot.command.CommandArgument;
 import com.typicalbot.command.CommandCategory;
+import com.typicalbot.command.CommandCheck;
 import com.typicalbot.command.CommandConfiguration;
 import com.typicalbot.command.CommandContext;
 import com.typicalbot.command.CommandPermission;
@@ -44,10 +45,7 @@ public class PlayCommand implements Command {
 
     @Override
     public void execute(CommandContext context, CommandArgument argument) {
-        if (!argument.has()) {
-            context.sendMessage("Please specify a song to play.");
-            return;
-        }
+        CommandCheck.checkArguments(argument);
 
         String video;
 
