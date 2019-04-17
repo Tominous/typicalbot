@@ -18,11 +18,13 @@ package com.typicalbot.command.utility;
 import com.typicalbot.command.Command;
 import com.typicalbot.command.CommandArgument;
 import com.typicalbot.command.CommandCategory;
+import com.typicalbot.command.CommandCheck;
 import com.typicalbot.command.CommandConfiguration;
 import com.typicalbot.command.CommandContext;
 import com.typicalbot.command.CommandPermission;
 import com.typicalbot.util.StringUtil;
 import net.dv8tion.jda.core.EmbedBuilder;
+import net.dv8tion.jda.core.Permission;
 import net.dv8tion.jda.core.entities.Member;
 import net.dv8tion.jda.core.entities.Role;
 
@@ -37,10 +39,8 @@ public class RoleCommand implements Command {
 
     @Override
     public void execute(CommandContext context, CommandArgument argument) {
-        if (!argument.has()) {
-            context.sendMessage("Incorrect usage.");
-            return;
-        }
+        CommandCheck.checkPermission(context.getSelfMember(), Permission.MESSAGE_EMBED_LINKS);
+        CommandCheck.checkArguments(argument);
 
         // TODO(nsylke): Add support for Role names (no mention) and Role id
         Role role = context.getRole(argument.get(0));
