@@ -18,6 +18,7 @@ package com.typicalbot.command.moderation;
 import com.typicalbot.command.Command;
 import com.typicalbot.command.CommandArgument;
 import com.typicalbot.command.CommandCategory;
+import com.typicalbot.command.CommandCheck;
 import com.typicalbot.command.CommandConfiguration;
 import com.typicalbot.command.CommandContext;
 import com.typicalbot.command.CommandPermission;
@@ -49,20 +50,9 @@ public class PurgeCommand implements Command {
 
     @Override
     public void execute(CommandContext context, CommandArgument argument) {
-        if (!context.getMember().hasPermission(Permission.MESSAGE_MANAGE)) {
-            context.sendMessage("You do not have permission to manage messages.");
-            return;
-        }
-
-        if (!context.getSelfMember().hasPermission(Permission.MESSAGE_MANAGE)) {
-            context.sendMessage("TypicalBot does not have permission to manage messages.");
-            return;
-        }
-
-        if (!argument.has()) {
-            context.sendMessage("Incorrect usage. Please check `$help purge` for usage.");
-            return;
-        }
+        CommandCheck.checkPermission(context.getMember(), Permission.MESSAGE_MANAGE);
+        CommandCheck.checkPermission(context.getSelfMember(), Permission.MESSAGE_MANAGE);
+        CommandCheck.checkArguments(argument);
 
         if (argument.get(0).equalsIgnoreCase("all")) {
             context.getGuild().getController().createCopyOfChannel(context.getMessage().getTextChannel()).queue(

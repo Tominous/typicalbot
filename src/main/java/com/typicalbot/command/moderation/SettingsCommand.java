@@ -18,6 +18,7 @@ package com.typicalbot.command.moderation;
 import com.typicalbot.command.Command;
 import com.typicalbot.command.CommandArgument;
 import com.typicalbot.command.CommandCategory;
+import com.typicalbot.command.CommandCheck;
 import com.typicalbot.command.CommandConfiguration;
 import com.typicalbot.command.CommandContext;
 import com.typicalbot.command.CommandPermission;
@@ -48,10 +49,7 @@ public class SettingsCommand implements Command {
 
     @Override
     public void execute(CommandContext context, CommandArgument argument) {
-        if (!argument.has()) {
-            context.sendMessage("Incorrect usage. Please check `$help settings` for usage.");
-            return;
-        }
+        CommandCheck.checkArguments(argument);
 
         String command = argument.get(0);
 

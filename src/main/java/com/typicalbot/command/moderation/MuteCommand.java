@@ -18,6 +18,7 @@ package com.typicalbot.command.moderation;
 import com.typicalbot.command.Command;
 import com.typicalbot.command.CommandArgument;
 import com.typicalbot.command.CommandCategory;
+import com.typicalbot.command.CommandCheck;
 import com.typicalbot.command.CommandConfiguration;
 import com.typicalbot.command.CommandContext;
 import com.typicalbot.command.CommandPermission;
@@ -48,20 +49,9 @@ public class MuteCommand implements Command {
 
     @Override
     public void execute(CommandContext context, CommandArgument argument) {
-        if (!context.getMember().hasPermission(Permission.MANAGE_ROLES)) {
-            context.sendMessage("You do not have permission to manage roles.");
-            return;
-        }
-
-        if (!context.getSelfMember().hasPermission(Permission.MANAGE_ROLES)) {
-            context.sendMessage("TypicalBot does not have permission to manage roles.");
-            return;
-        }
-
-        if (!argument.has()) {
-            context.sendMessage("Incorrect usage. Please check `$help mute` for usage.");
-            return;
-        }
+        CommandCheck.checkPermission(context.getMember(), Permission.MANAGE_ROLES);
+        CommandCheck.checkPermission(context.getSelfMember(), Permission.MANAGE_ROLES);
+        CommandCheck.checkArguments(argument);
 
         User temp = context.getUser(argument.get(0));
         if (temp == null) {

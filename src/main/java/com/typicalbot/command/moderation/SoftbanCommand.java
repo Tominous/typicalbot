@@ -18,6 +18,7 @@ package com.typicalbot.command.moderation;
 import com.typicalbot.command.Command;
 import com.typicalbot.command.CommandArgument;
 import com.typicalbot.command.CommandCategory;
+import com.typicalbot.command.CommandCheck;
 import com.typicalbot.command.CommandConfiguration;
 import com.typicalbot.command.CommandContext;
 import com.typicalbot.command.CommandPermission;
@@ -48,20 +49,9 @@ public class SoftbanCommand implements Command {
 
     @Override
     public void execute(CommandContext context, CommandArgument argument) {
-        if (!context.getMember().hasPermission(Permission.BAN_MEMBERS)) {
-            context.sendMessage("You do not have permission to ban members.");
-            return;
-        }
-
-        if (!context.getSelfMember().hasPermission(Permission.BAN_MEMBERS)) {
-            context.sendMessage("TypicalBot does not have permission to ban members.");
-            return;
-        }
-
-        if (!argument.has()) {
-            context.sendMessage("Incorrect usage. Please check `$help softban` for usage.");
-            return;
-        }
+        CommandCheck.checkPermission(context.getMember(), Permission.BAN_MEMBERS);
+        CommandCheck.checkPermission(context.getSelfMember(), Permission.BAN_MEMBERS);
+        CommandCheck.checkArguments(argument);
 
         User temp = context.getUser(argument.get(0));
         if (temp == null) {

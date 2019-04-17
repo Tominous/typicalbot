@@ -18,6 +18,7 @@ package com.typicalbot.command.moderation;
 import com.typicalbot.command.Command;
 import com.typicalbot.command.CommandArgument;
 import com.typicalbot.command.CommandCategory;
+import com.typicalbot.command.CommandCheck;
 import com.typicalbot.command.CommandConfiguration;
 import com.typicalbot.command.CommandContext;
 import com.typicalbot.command.CommandPermission;
@@ -47,15 +48,8 @@ public class TakeCommand implements Command {
 
     @Override
     public void execute(CommandContext context, CommandArgument argument) {
-        if (!context.getSelfMember().hasPermission(Permission.MANAGE_ROLES)) {
-            context.sendMessage("TypicalBot does not have permission to manage roles.");
-            return;
-        }
-
-        if (!argument.has()) {
-            context.sendMessage("Incorrect usage. Please check `$help take` for usage.");
-            return;
-        }
+        CommandCheck.checkPermission(context.getSelfMember(), Permission.MANAGE_ROLES);
+        CommandCheck.checkArguments(argument);
 
         if (!context.getSelfMember().canInteract(context.getMember())) {
             context.sendMessage("TypicalBot does not have permission to manage roles for that user.");
