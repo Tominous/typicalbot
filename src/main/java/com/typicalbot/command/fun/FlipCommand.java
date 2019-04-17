@@ -22,6 +22,8 @@ import com.typicalbot.command.CommandConfiguration;
 import com.typicalbot.command.CommandContext;
 import com.typicalbot.command.CommandPermission;
 
+import java.util.concurrent.ThreadLocalRandom;
+
 @CommandConfiguration(category = CommandCategory.FUN, aliases = {"flip", "coinflip", "coin"})
 public class FlipCommand implements Command {
     @Override
@@ -44,7 +46,7 @@ public class FlipCommand implements Command {
     @Override
     public void execute(CommandContext context, CommandArgument argument) {
         //TODO(probably AKSKL): interactive flip command
-        String flip = Math.random() >= 0.5 ? "Heads" : "Tails";
+        String flip = ThreadLocalRandom.current().nextBoolean() ? "Heads" : "Tails";
         context.sendMessage(flip);
     }
 }
