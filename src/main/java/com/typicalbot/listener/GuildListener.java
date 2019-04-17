@@ -32,6 +32,7 @@ import net.dv8tion.jda.core.events.guild.GuildLeaveEvent;
 import net.dv8tion.jda.core.events.message.guild.GuildMessageReceivedEvent;
 import net.dv8tion.jda.core.events.message.guild.react.GuildMessageReactionAddEvent;
 import net.dv8tion.jda.core.events.message.guild.react.GuildMessageReactionRemoveEvent;
+import net.dv8tion.jda.core.exceptions.InsufficientPermissionException;
 import net.dv8tion.jda.core.hooks.ListenerAdapter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -168,15 +169,10 @@ public class GuildListener extends ListenerAdapter {
             CommandArgument commandArgument = new CommandArgument(arguments);
             CommandContext commandContext = new CommandContext(event.getMessage());
 
-            // TODO(nsylke): Need a backup way for those who haven't given TypicalBot the permission.
-            if (event.getGuild().getSelfMember().hasPermission(event.getChannel(), Permission.MESSAGE_EMBED_LINKS)) {
-                try {
-                    command.execute(commandContext, commandArgument);
-                } catch (UnsupportedOperationException | IllegalArgumentException | InsufficientPermissionException ex) {
-                    event.getMessage().getChannel().sendMessage(ex.getMessage()).queue();
-                }
-            } else {
-                event.getMessage().getChannel().sendMessage("TypicalBot does not have permission to embed links.").queue();
+            try {
+                command.execute(commandContext, commandArgument);
+            } catch (UnsupportedOperationException | IllegalArgumentException | InsufficientPermissionException ex) {
+                event.getMessage().getChannel().sendMessage(ex.getMessage()).queue();
             }
         }
     }
