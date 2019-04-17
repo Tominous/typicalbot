@@ -191,14 +191,15 @@ public class GuildListener extends ListenerAdapter {
             String emoteId = parts[1];
             String roleId = parts[2];
 
-            if (!event.getMessageId().equals(messageId)) return;
-            if (!event.getReactionEmote().getId().equals(emoteId)) return;
+            if (event.getMessageId().equals(messageId)) {
+                if (event.getReactionEmote().getId().equals(emoteId)) {
+                    Role role = event.getGuild().getRoleById(roleId);
 
-            Role role = event.getGuild().getRoleById(roleId);
-
-            if (role == null) return;
-
-            event.getGuild().getController().addSingleRoleToMember(event.getMember(), role).queue();
+                    if (role != null) {
+                        event.getGuild().getController().addSingleRoleToMember(event.getMember(), role).queue();
+                    }
+                }
+            }
         }
     }
 
@@ -216,14 +217,15 @@ public class GuildListener extends ListenerAdapter {
             String emoteId = parts[1];
             String roleId = parts[2];
 
-            if (!event.getMessageId().equals(messageId)) return;
-            if (!event.getReactionEmote().getId().equals(emoteId)) return;
+            if (event.getMessageId().equals(messageId)) {
+                if (event.getReactionEmote().getId().equals(emoteId)) {
+                    Role role = event.getGuild().getRoleById(roleId);
 
-            Role role = event.getGuild().getRoleById(roleId);
-
-            if (role == null) return;
-
-            event.getGuild().getController().removeSingleRoleFromMember(event.getMember(), role).queue();
+                    if (role != null) {
+                        event.getGuild().getController().removeSingleRoleFromMember(event.getMember(), role).queue();
+                    }
+                }
+            }
         }
     }
 }
