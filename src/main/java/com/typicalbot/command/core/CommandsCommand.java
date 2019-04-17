@@ -18,12 +18,14 @@ package com.typicalbot.command.core;
 import com.typicalbot.command.Command;
 import com.typicalbot.command.CommandArgument;
 import com.typicalbot.command.CommandCategory;
+import com.typicalbot.command.CommandCheck;
 import com.typicalbot.command.CommandConfiguration;
 import com.typicalbot.command.CommandContext;
 import com.typicalbot.command.CommandPermission;
 import com.typicalbot.shard.Shard;
 import com.typicalbot.util.StringUtil;
 import net.dv8tion.jda.core.EmbedBuilder;
+import net.dv8tion.jda.core.Permission;
 
 import java.util.Comparator;
 import java.util.Set;
@@ -50,6 +52,8 @@ public class CommandsCommand implements Command {
 
     @Override
     public void execute(CommandContext context, CommandArgument argument) {
+        CommandCheck.checkPermission(context.getSelfMember(), Permission.MESSAGE_EMBED_LINKS);
+
         Set<Command> commands = Shard.getSingleton().getCommandManager().getCommands();
 
         EmbedBuilder builder = new EmbedBuilder();

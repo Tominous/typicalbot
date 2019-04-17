@@ -19,12 +19,14 @@ import com.sun.management.OperatingSystemMXBean;
 import com.typicalbot.command.Command;
 import com.typicalbot.command.CommandArgument;
 import com.typicalbot.command.CommandCategory;
+import com.typicalbot.command.CommandCheck;
 import com.typicalbot.command.CommandConfiguration;
 import com.typicalbot.command.CommandContext;
 import com.typicalbot.command.CommandPermission;
 import com.typicalbot.shard.ShardManager;
 import net.dv8tion.jda.core.EmbedBuilder;
 import net.dv8tion.jda.core.JDAInfo;
+import net.dv8tion.jda.core.Permission;
 
 import java.lang.management.ManagementFactory;
 import java.text.DecimalFormat;
@@ -50,17 +52,8 @@ public class StatisticsCommand implements Command {
 
     @Override
     public void execute(CommandContext context, CommandArgument argument) {
-//        EmbedBuilder builder = new EmbedBuilder();
-//
-//        builder.setTitle("TypicalBot Statistics");
-//
-//        builder.addField("Servers", Integer.toString(Shard.getSingleton().getGuilds()), true);
-//        builder.addField("Channels", Integer.toString(Shard.getSingleton().getInstance().getTextChannels().size() + Shard.getSingleton().getInstance().getVoiceChannels().size()), true);
-//        builder.addField("Users", Integer.toString(Shard.getSingleton().getUsers()), true);
-//        builder.addField("Library", "JDA", true);
-//        builder.addField("Created by", "HyperCoder#2975\nNick#4490", true);
-//
-//        context.sendEmbed(builder.build());
+        CommandCheck.checkPermission(context.getSelfMember(), Permission.MESSAGE_EMBED_LINKS);
+
         OperatingSystemMXBean bean = ManagementFactory.getPlatformMXBean(OperatingSystemMXBean.class);
         long usedJVMMemory = ManagementFactory.getMemoryMXBean().getHeapMemoryUsage().getUsed() >> 20;
         long totalJVMMemory = ManagementFactory.getMemoryMXBean().getHeapMemoryUsage().getMax() >> 20;

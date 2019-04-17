@@ -18,10 +18,12 @@ package com.typicalbot.command.core;
 import com.typicalbot.command.Command;
 import com.typicalbot.command.CommandArgument;
 import com.typicalbot.command.CommandCategory;
+import com.typicalbot.command.CommandCheck;
 import com.typicalbot.command.CommandConfiguration;
 import com.typicalbot.command.CommandContext;
 import com.typicalbot.command.CommandPermission;
 import net.dv8tion.jda.core.EmbedBuilder;
+import net.dv8tion.jda.core.Permission;
 
 @CommandConfiguration(category = CommandCategory.CORE, aliases = {"donate", "patron", "patreon"})
 public class DonateCommand implements Command {
@@ -44,6 +46,8 @@ public class DonateCommand implements Command {
 
     @Override
     public void execute(CommandContext context, CommandArgument argument) {
+        CommandCheck.checkPermission(context.getSelfMember(), Permission.MESSAGE_EMBED_LINKS);
+
         EmbedBuilder builder = new EmbedBuilder();
 
         builder.setTitle("TypicalBot Donate");
