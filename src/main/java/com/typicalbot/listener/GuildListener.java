@@ -172,7 +172,7 @@ public class GuildListener extends ListenerAdapter {
             if (event.getGuild().getSelfMember().hasPermission(event.getChannel(), Permission.MESSAGE_EMBED_LINKS)) {
                 try {
                     command.execute(commandContext, commandArgument);
-                } catch (UnsupportedOperationException ex) {
+                } catch (UnsupportedOperationException | IllegalArgumentException ex) {
                     event.getMessage().getChannel().sendMessage(ex.getMessage()).queue();
                 }
             } else {
