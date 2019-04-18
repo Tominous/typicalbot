@@ -32,7 +32,6 @@ public class Config {
         configs.put("database", YamlConfiguration.loadConfiguration(new File(FileUtil.HOME_PATH.resolve("config/database.yml").toString())));
         configs.put("discord", YamlConfiguration.loadConfiguration(new File(FileUtil.HOME_PATH.resolve("config/discord.yml").toString())));
         configs.put("filter", YamlConfiguration.loadConfiguration(new File(FileUtil.HOME_PATH.resolve("config/filter.yml").toString())));
-        configs.put("sentry", YamlConfiguration.loadConfiguration(new File(FileUtil.HOME_PATH.resolve("config/sentry.yml").toString())));
     }
 
     public static YamlConfiguration getConfig(String name) {
