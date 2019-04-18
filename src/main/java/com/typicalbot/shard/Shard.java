@@ -186,6 +186,7 @@ public class Shard {
                 .setStatus(OnlineStatus.IDLE) // Set to IDLE while still loading, change ONLINE when ready
                 .setBulkDeleteSplittingEnabled(true)
                 .setEnableShutdownHook(true)
+                .setContextEnabled(true)
                 .setDisabledCacheFlags(EnumSet.of(CacheFlag.GAME))
                 .useSharding(shardId, shardTotal)
                 .setCorePoolSize(4);
