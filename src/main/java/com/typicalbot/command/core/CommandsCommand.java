@@ -18,14 +18,15 @@ package com.typicalbot.command.core;
 import com.typicalbot.command.Command;
 import com.typicalbot.command.CommandArgument;
 import com.typicalbot.command.CommandCategory;
-import com.typicalbot.command.CommandCheck;
 import com.typicalbot.command.CommandConfiguration;
 import com.typicalbot.command.CommandContext;
 import com.typicalbot.command.CommandPermission;
+import com.typicalbot.data.mongo.dao.GuildDAO;
+import com.typicalbot.data.mongo.objects.GuildObject;
 import com.typicalbot.shard.Shard;
 import com.typicalbot.util.StringUtil;
 import net.dv8tion.jda.core.EmbedBuilder;
-import net.dv8tion.jda.core.Permission;
+import net.dv8tion.jda.core.entities.MessageEmbed;
 
 import java.util.Comparator;
 import java.util.Set;
@@ -52,27 +53,35 @@ public class CommandsCommand implements Command {
 
     @Override
     public void execute(CommandContext context, CommandArgument argument) {
+        GuildDAO dao = new GuildDAO();
+        GuildObject object = dao.get(context.getGuild().getIdLong()).get();
+
+        if (object.getGuildSettings().isDmCommand()) {
+            context.getAuthor().openPrivateChannel().queue(c -> c.sendMessage(getCommands()).queue());
+            context.sendMessage("{0}, we have sent a list of commands via direct message.", context.getMember().getAsMention());
+        } else {
+            context.sendEmbed(getCommands());
+        }
+    }
+
+    private MessageEmbed getCommands() {
         Set<Command> commands = Shard.getSingleton().getCommandManager().getCommands();
 
-        context.getAuthor().openPrivateChannel().queue(channel -> {
-            EmbedBuilder builder = new EmbedBuilder();
+        EmbedBuilder builder = new EmbedBuilder();
 
-            builder.setTitle("TypicalBot Commands");
-            builder.setColor(CommandContext.TYPICALBOT_BLUE);
+        builder.setTitle("TypicalBot Commands");
+        builder.setColor(CommandContext.TYPICALBOT_BLUE);
 
-            for (CommandCategory category : CommandCategory.values()) {
-                if (category != CommandCategory.SYSTEM) {
-                    builder.addField(StringUtil.capitalize(category.name()), commands.stream()
-                        .filter(c -> c.getConfiguration().category().equals(category) && c.getConfiguration().category() != CommandCategory.SYSTEM)
-                        .sorted(Comparator.comparing((Command x) -> x.getConfiguration().aliases()[0]).thenComparing((Command y) -> y.getConfiguration().aliases()[0]))
-                        .map(c -> c.getConfiguration().aliases()[0])
-                        .collect(Collectors.joining(", ")), false);
-                }
+        for (CommandCategory category : CommandCategory.values()) {
+            if (category != CommandCategory.SYSTEM) {
+                builder.addField(StringUtil.capitalize(category.name()), commands.stream()
+                    .filter(c -> c.getConfiguration().category().equals(category) && c.getConfiguration().category() != CommandCategory.SYSTEM)
+                    .sorted(Comparator.comparing((Command x) -> x.getConfiguration().aliases()[0]).thenComparing((Command y) -> y.getConfiguration().aliases()[0]))
+                    .map(c -> c.getConfiguration().aliases()[0])
+                    .collect(Collectors.joining(", ")), false);
             }
+        }
 
-            channel.sendMessage(builder.build()).queue();
-        });
-
-        context.sendMessage("{0}, we have sent a list of commands via direct message.", context.getMember().getAsMention());
+        return builder.build();
     }
 }
