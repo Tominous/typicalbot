@@ -26,7 +26,7 @@ import com.typicalbot.data.mongo.dao.GuildDAO;
 import com.typicalbot.data.mongo.objects.GuildObject;
 import net.dv8tion.jda.core.entities.Role;
 
-@CommandConfiguration(category = CommandCategory.MODERATION, aliases = "settings")
+@CommandConfiguration(category = CommandCategory.MODERATION, aliases = {"settings", "set"})
 public class SettingsCommand implements Command {
     @Override
     public String[] usage() {
