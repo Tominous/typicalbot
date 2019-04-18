@@ -74,7 +74,7 @@ public class TypicalBot {
             }
         });
 
-        Arrays.asList("app", "database", "discord", "filter", "sentry").forEach(file -> {
+        Arrays.asList("app", "database", "discord", "filter").forEach(file -> {
             if (!Files.exists(FileUtil.HOME_PATH.resolve("config/" + file + ".yml"))) {
                 LOGGER.debug("File '{}' does not exist, creating...", file);
                 FileUtil.copy(FileUtil.HOME_PATH.resolve("config/" + file + ".yml"), "/config/" + file + ".yml");
