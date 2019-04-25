@@ -148,6 +148,7 @@ public class Shard {
                 new BiteCommand(),
                 new HugCommand(),
                 new KissCommand(),
+                new PatCommand(),
                 new PokeCommand(),
                 new PunchCommand(),
                 new ShootCommand(),
