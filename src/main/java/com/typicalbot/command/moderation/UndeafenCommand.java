@@ -18,6 +18,7 @@ package com.typicalbot.command.moderation;
 import com.typicalbot.command.Command;
 import com.typicalbot.command.CommandArgument;
 import com.typicalbot.command.CommandCategory;
+import com.typicalbot.command.CommandCheck;
 import com.typicalbot.command.CommandConfiguration;
 import com.typicalbot.command.CommandContext;
 import com.typicalbot.command.CommandPermission;
@@ -33,20 +34,9 @@ public class UndeafenCommand implements Command {
 
     @Override
     public void execute(CommandContext context, CommandArgument argument) {
-        if (!context.getMember().hasPermission(Permission.VOICE_DEAF_OTHERS)) {
-            context.sendMessage("You do not have permission to deafen members.");
-            return;
-        }
-
-        if (!context.getSelfMember().hasPermission(Permission.VOICE_DEAF_OTHERS)) {
-            context.sendMessage("TypicalBot does not have permission to deafen members.");
-            return;
-        }
-
-        if (!argument.has()) {
-            context.sendMessage("Incorrect usage. Please check `$help undeafen` for usage.");
-            return;
-        }
+        CommandCheck.checkPermission(context.getMember(), Permission.VOICE_DEAF_OTHERS);
+        CommandCheck.checkPermission(context.getSelfMember(), Permission.VOICE_DEAF_OTHERS);
+        CommandCheck.checkArguments(argument);
 
         User temp = context.getUser(argument.get(0));
         if (temp == null) {

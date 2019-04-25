@@ -19,6 +19,7 @@ package com.typicalbot.command.moderation;
 import com.typicalbot.command.Command;
 import com.typicalbot.command.CommandArgument;
 import com.typicalbot.command.CommandCategory;
+import com.typicalbot.command.CommandCheck;
 import com.typicalbot.command.CommandConfiguration;
 import com.typicalbot.command.CommandContext;
 import com.typicalbot.command.CommandPermission;
@@ -37,20 +38,11 @@ public class VoicekickCommand implements Command {
 
     @Override
     public void execute(CommandContext context, CommandArgument argument) {
-        if (!context.getMember().hasPermission(Permission.VOICE_MOVE_OTHERS) || !context.getMember().hasPermission(Permission.MANAGE_CHANNEL)) {
-            context.sendMessage("You do not have permission to move members and/or manage channels.");
-            return;
-        }
-
-        if (!context.getSelfMember().hasPermission(Permission.VOICE_MOVE_OTHERS) || !context.getMember().hasPermission(Permission.MANAGE_CHANNEL)) {
-            context.sendMessage("TypicalBot does not have permission to move members and/or manage channels.");
-            return;
-        }
-
-        if (!argument.has()) {
-            context.sendMessage("Incorrect usage. Please check `$help voicekick` for usage.");
-            return;
-        }
+        CommandCheck.checkPermission(context.getMember(), Permission.VOICE_MOVE_OTHERS);
+        CommandCheck.checkPermission(context.getMember(), Permission.MANAGE_CHANNEL);
+        CommandCheck.checkPermission(context.getSelfMember(), Permission.VOICE_MOVE_OTHERS);
+        CommandCheck.checkPermission(context.getSelfMember(), Permission.MANAGE_CHANNEL);
+        CommandCheck.checkArguments(argument);
 
         User temp = context.getUser(argument.get(0));
         if (temp == null) {

@@ -43,8 +43,10 @@ import net.dv8tion.jda.core.JDA;
 import net.dv8tion.jda.core.JDABuilder;
 import net.dv8tion.jda.core.OnlineStatus;
 import net.dv8tion.jda.core.entities.Game;
+import net.dv8tion.jda.core.utils.cache.CacheFlag;
 
 import javax.security.auth.login.LoginException;
+import java.util.EnumSet;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.Executors;
@@ -78,7 +80,7 @@ public class Shard {
         this.shardTotal = shardTotal;
 
         try {
-            this.instance = new JDABuilder(AccountType.BOT)
+            JDABuilder builder = new JDABuilder(AccountType.BOT)
                 .setToken(token)
                 .setAutoReconnect(true)
                 .setAudioEnabled(true)
@@ -86,15 +88,21 @@ public class Shard {
                 .setStatus(OnlineStatus.IDLE) // Set to IDLE while still loading, change ONLINE when ready
                 .setBulkDeleteSplittingEnabled(true)
                 .setEnableShutdownHook(true)
-                .setAudioSendFactory(new NativeAudioSendFactory())
+                .setContextEnabled(true)
+                .setDisabledCacheFlags(EnumSet.of(CacheFlag.GAME))
                 .useSharding(shardId, shardTotal)
-                .setCorePoolSize(4)
-                .build();
+                .setCorePoolSize(4);
 
-            this.instance.addEventListener(
+            if (!System.getProperty("os.arch").equalsIgnoreCase("arm") && !System.getProperty("os.arch").equalsIgnoreCase("arm-linux")) {
+                builder.setAudioSendFactory(new NativeAudioSendFactory());
+            }
+
+            builder.addEventListener(
                 new ReadyListener(),
                 new GuildListener()
             );
+
+            this.instance = builder.build();
 
             this.commandManager.registerCommands(
                 // Core

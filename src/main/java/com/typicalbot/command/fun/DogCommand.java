@@ -18,10 +18,12 @@ package com.typicalbot.command.fun;
 import com.typicalbot.command.Command;
 import com.typicalbot.command.CommandArgument;
 import com.typicalbot.command.CommandCategory;
+import com.typicalbot.command.CommandCheck;
 import com.typicalbot.command.CommandConfiguration;
 import com.typicalbot.command.CommandContext;
 import com.typicalbot.command.CommandPermission;
 import net.dv8tion.jda.core.EmbedBuilder;
+import net.dv8tion.jda.core.Permission;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
@@ -48,6 +50,8 @@ public class DogCommand implements Command {
 
     @Override
     public void execute(CommandContext context, CommandArgument argument) {
+        CommandCheck.checkPermission(context.getSelfMember(), Permission.MESSAGE_EMBED_LINKS);
+
         OkHttpClient http = new OkHttpClient();
         Request request = new Request.Builder().url("https://dog.ceo/api/breeds/image/random").build();
 

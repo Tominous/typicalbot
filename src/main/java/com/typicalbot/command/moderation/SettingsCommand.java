@@ -18,11 +18,15 @@ package com.typicalbot.command.moderation;
 import com.typicalbot.command.Command;
 import com.typicalbot.command.CommandArgument;
 import com.typicalbot.command.CommandCategory;
+import com.typicalbot.command.CommandCheck;
 import com.typicalbot.command.CommandConfiguration;
 import com.typicalbot.command.CommandContext;
 import com.typicalbot.command.CommandPermission;
+import com.typicalbot.data.mongo.dao.GuildDAO;
+import com.typicalbot.data.mongo.objects.GuildObject;
+import net.dv8tion.jda.core.entities.Role;
 
-@CommandConfiguration(category = CommandCategory.MODERATION, aliases = "settings")
+@CommandConfiguration(category = CommandCategory.MODERATION, aliases = {"settings", "set"})
 public class SettingsCommand implements Command {
     @Override
     public String[] usage() {
@@ -45,6 +49,61 @@ public class SettingsCommand implements Command {
 
     @Override
     public void execute(CommandContext context, CommandArgument argument) {
-        throw new UnsupportedOperationException("This command has not been implemented yet.");
+        CommandCheck.checkArguments(argument);
+
+        String command = argument.get(0);
+
+        GuildDAO dao = new GuildDAO();
+        GuildObject object = dao.get(context.getGuild().getIdLong()).get();
+
+        switch (command) {
+            case "list":
+                context.sendMessage("Available settings:\n\n - adminrole\n - modrole");
+                return;
+            case "view":
+                switch (argument.get(1)) {
+                    case "adminrole":
+                        context.sendMessage("The current value for `adminrole` is `{0}`.", String.valueOf(object.getGuildSettings().getRoles().getAdminRole()));
+                        return;
+                    case "modrole":
+                        context.sendMessage("The current value for `modrole` is `{0}`.", String.valueOf(object.getGuildSettings().getRoles().getModeratorRole()));
+                        return;
+                    default:
+                        context.sendMessage("Couldn't find that setting.");
+                        return;
+                }
+            case "edit":
+                switch (argument.get(1)) {
+                    case "adminrole":
+                        Role adminrole = context.getRole(argument.get(2));
+
+                        if (adminrole == null) {
+                            context.sendMessage("The role specified couldn't be found.");
+                            return;
+                        }
+
+                        object.getGuildSettings().getRoles().setAdminRole(adminrole.getIdLong());
+                        dao.update(object);
+                        context.sendMessage("Successfully updated to `adminrole` to `{0}`.", String.valueOf(adminrole.getIdLong()));
+                        return;
+                    case "modrole":
+                        Role modrole = context.getRole(argument.get(2));
+
+                        if (modrole == null) {
+                            context.sendMessage("The role specified couldn't be found.");
+                            return;
+                        }
+
+                        object.getGuildSettings().getRoles().setModeratorRole(modrole.getIdLong());
+                        dao.update(object);
+                        context.sendMessage("Successfully updated to `modrole` to `{0}`.", String.valueOf(modrole.getIdLong()));
+                        return;
+                    default:
+                        context.sendMessage("Couldn't find that setting.");
+                        return;
+                }
+            default:
+                context.sendMessage("Incorrect usage. Please check `$help settings` for usage.");
+        }
     }
 }

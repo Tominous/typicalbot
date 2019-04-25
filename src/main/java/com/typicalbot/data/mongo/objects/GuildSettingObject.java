@@ -44,6 +44,9 @@ public class GuildSettingObject {
     @Property("nickname")
     private boolean nickname;
 
+    @Property("dmCommand")
+    private boolean dmCommand;
+
     @Embedded
     private GuildFilterSettingObject filters;
 
@@ -60,6 +63,7 @@ public class GuildSettingObject {
     private GuildRoleSettingObject roles;
 
     public GuildSettingObject() {
+        this.dmCommand = true;
         this.filters = new GuildFilterSettingObject();
         this.logs = new GuildLogSettingObject();
         this.modules = new GuildModuleSettingObject();
@@ -129,6 +133,14 @@ public class GuildSettingObject {
 
     public void setNickname(boolean nickname) {
         this.nickname = nickname;
+    }
+
+    public boolean isDmCommand() {
+        return dmCommand;
+    }
+
+    public void setDmCommand(boolean dmCommand) {
+        this.dmCommand = dmCommand;
     }
 
     public GuildFilterSettingObject getFilters() {

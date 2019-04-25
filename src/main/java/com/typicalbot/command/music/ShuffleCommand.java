@@ -15,12 +15,14 @@
  */
 package com.typicalbot.command.music;
 
+import com.typicalbot.audio.GuildMusicManager;
 import com.typicalbot.command.Command;
 import com.typicalbot.command.CommandArgument;
 import com.typicalbot.command.CommandCategory;
 import com.typicalbot.command.CommandConfiguration;
 import com.typicalbot.command.CommandContext;
 import com.typicalbot.command.CommandPermission;
+import com.typicalbot.util.AudioUtil;
 
 @CommandConfiguration(category = CommandCategory.MUSIC, aliases = "shuffle")
 public class ShuffleCommand implements Command {
@@ -31,6 +33,14 @@ public class ShuffleCommand implements Command {
 
     @Override
     public void execute(CommandContext context, CommandArgument argument) {
-        throw new UnsupportedOperationException("This command has not been implemented yet.");
+        GuildMusicManager musicManager = AudioUtil.getGuildAudioPlayer(context.getGuild());
+
+        if (musicManager.player.getPlayingTrack() == null) {
+            context.sendMessage("There is nothing playing.");
+            return;
+        }
+
+        musicManager.scheduler.shuffle();
+        context.sendMessage("shuffled queue.");
     }
 }

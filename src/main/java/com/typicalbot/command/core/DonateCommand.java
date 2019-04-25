@@ -18,10 +18,12 @@ package com.typicalbot.command.core;
 import com.typicalbot.command.Command;
 import com.typicalbot.command.CommandArgument;
 import com.typicalbot.command.CommandCategory;
+import com.typicalbot.command.CommandCheck;
 import com.typicalbot.command.CommandConfiguration;
 import com.typicalbot.command.CommandContext;
 import com.typicalbot.command.CommandPermission;
 import net.dv8tion.jda.core.EmbedBuilder;
+import net.dv8tion.jda.core.Permission;
 
 @CommandConfiguration(category = CommandCategory.CORE, aliases = {"donate", "patron", "patreon"})
 public class DonateCommand implements Command {
@@ -44,16 +46,20 @@ public class DonateCommand implements Command {
 
     @Override
     public void execute(CommandContext context, CommandArgument argument) {
-        EmbedBuilder builder = new EmbedBuilder();
+        if (context.getSelfMember().hasPermission(Permission.MESSAGE_EMBED_LINKS)) {
+            EmbedBuilder builder = new EmbedBuilder();
 
-        builder.setTitle("TypicalBot Donate");
-        builder.setDescription("If you would like to support the TypicalBot maintainers, you can donate using one of the options below.");
-        builder.setColor(CommandContext.TYPICALBOT_BLUE);
+            builder.setTitle("TypicalBot Donate");
+            builder.setDescription("If you would like to support the TypicalBot maintainers, you can donate using one of the options below.");
+            builder.setColor(CommandContext.TYPICALBOT_BLUE);
 
-        builder.addField("One-time Donation", "[PayPal](https://paypal.me/typicalbot)", true);
-        builder.addField("Recurring Donation", "[Patreon](https://patreon.com/typicalbot)", true);
-        builder.addBlankField(true);
+            builder.addField("One-time Donation", "[PayPal](https://paypal.me/typicalbot)", true);
+            builder.addField("Recurring Donation", "[Patreon](https://patreon.com/typicalbot)", true);
+            builder.addBlankField(true);
 
-        context.sendEmbed(builder.build());
+            context.sendEmbed(builder.build());
+        } else {
+            context.sendMessage("If you would like to support the TypicalBot maintainers, you can donate using one of the options below.\n\nOne-time donation: <https://paypal.me/typicalbot>\nRecurring donation: <https://patreon.com/typicalbot>");
+        }
     }
 }

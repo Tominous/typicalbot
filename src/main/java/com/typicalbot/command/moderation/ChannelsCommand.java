@@ -18,9 +18,11 @@ package com.typicalbot.command.moderation;
 import com.typicalbot.command.Command;
 import com.typicalbot.command.CommandArgument;
 import com.typicalbot.command.CommandCategory;
+import com.typicalbot.command.CommandCheck;
 import com.typicalbot.command.CommandConfiguration;
 import com.typicalbot.command.CommandContext;
 import com.typicalbot.command.CommandPermission;
+import net.dv8tion.jda.core.Permission;
 import net.dv8tion.jda.core.entities.Channel;
 import net.dv8tion.jda.core.entities.TextChannel;
 import net.dv8tion.jda.core.entities.VoiceChannel;
@@ -79,10 +81,8 @@ public class ChannelsCommand implements Command {
          *
          * sync Sync permissions with category
          */
-        if (!argument.has()) {
-            context.sendMessage("Incorrect usage.");
-            return;
-        }
+        CommandCheck.checkPermission(context.getSelfMember(), Permission.MANAGE_CHANNEL);
+        CommandCheck.checkArguments(argument);
 
         if (argument.get(0).equalsIgnoreCase("create")) {
             if (argument.length() < 3) {

@@ -18,6 +18,7 @@ package com.typicalbot.command.moderation;
 import com.typicalbot.command.Command;
 import com.typicalbot.command.CommandArgument;
 import com.typicalbot.command.CommandCategory;
+import com.typicalbot.command.CommandCheck;
 import com.typicalbot.command.CommandConfiguration;
 import com.typicalbot.command.CommandContext;
 import com.typicalbot.command.CommandPermission;
@@ -33,20 +34,9 @@ public class SlowmodeCommand implements Command {
 
     @Override
     public void execute(CommandContext context, CommandArgument argument) {
-        if (!context.getMember().hasPermission(Permission.MANAGE_CHANNEL)) {
-            context.sendMessage("You do not have permission to manage channels.");
-            return;
-        }
-
-        if (!context.getSelfMember().hasPermission(Permission.MANAGE_CHANNEL)) {
-            context.sendMessage("TypicalBot does not have permission to manage channels.");
-            return;
-        }
-
-        if (!argument.has()) {
-            context.sendMessage("Incorrect usage. Please check `$help slowmode` for usage.");
-            return;
-        }
+        CommandCheck.checkPermission(context.getMember(), Permission.MANAGE_CHANNEL);
+        CommandCheck.checkPermission(context.getSelfMember(), Permission.MANAGE_CHANNEL);
+        CommandCheck.checkArguments(argument);
 
         int seconds = 0;
         try {

@@ -20,11 +20,13 @@ import com.typicalbot.audio.GuildMusicManager;
 import com.typicalbot.command.Command;
 import com.typicalbot.command.CommandArgument;
 import com.typicalbot.command.CommandCategory;
+import com.typicalbot.command.CommandCheck;
 import com.typicalbot.command.CommandConfiguration;
 import com.typicalbot.command.CommandContext;
 import com.typicalbot.command.CommandPermission;
 import com.typicalbot.util.AudioUtil;
 import net.dv8tion.jda.core.EmbedBuilder;
+import net.dv8tion.jda.core.Permission;
 
 @CommandConfiguration(category = CommandCategory.MUSIC, aliases = {"current", "currentsong", "nowplaying", "np"})
 public class CurrentCommand implements Command {
@@ -41,6 +43,8 @@ public class CurrentCommand implements Command {
             context.sendMessage("There is nothing playing.");
             return;
         }
+
+        CommandCheck.checkPermission(context.getSelfMember(), Permission.MESSAGE_EMBED_LINKS);
 
         AudioTrack track = musicManager.player.getPlayingTrack();
 

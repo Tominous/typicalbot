@@ -18,6 +18,7 @@ package com.typicalbot.command.miscellaneous;
 import com.typicalbot.command.Command;
 import com.typicalbot.command.CommandArgument;
 import com.typicalbot.command.CommandCategory;
+import com.typicalbot.command.CommandCheck;
 import com.typicalbot.command.CommandConfiguration;
 import com.typicalbot.command.CommandContext;
 import com.typicalbot.command.CommandPermission;
@@ -43,10 +44,7 @@ public class SayCommand implements Command {
 
     @Override
     public void execute(CommandContext context, CommandArgument argument) {
-        if (!argument.has()) {
-            context.sendMessage("You can't say nothing...");
-            return;
-        }
+        CommandCheck.checkArguments(argument);
 
         // Delete authors message
         context.getMessage().delete().queue();

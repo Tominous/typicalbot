@@ -21,9 +21,12 @@ import com.typicalbot.command.CommandCategory;
 import com.typicalbot.command.CommandConfiguration;
 import com.typicalbot.command.CommandContext;
 import com.typicalbot.command.CommandPermission;
+import com.typicalbot.data.mongo.dao.GuildDAO;
+import com.typicalbot.data.mongo.objects.GuildObject;
 import com.typicalbot.shard.Shard;
 import com.typicalbot.util.StringUtil;
 import net.dv8tion.jda.core.EmbedBuilder;
+import net.dv8tion.jda.core.entities.MessageEmbed;
 
 import java.util.Comparator;
 import java.util.Set;
@@ -50,6 +53,18 @@ public class CommandsCommand implements Command {
 
     @Override
     public void execute(CommandContext context, CommandArgument argument) {
+        GuildDAO dao = new GuildDAO();
+        GuildObject object = dao.get(context.getGuild().getIdLong()).get();
+
+        if (object.getGuildSettings().isDmCommand()) {
+            context.getAuthor().openPrivateChannel().queue(c -> c.sendMessage(getCommands()).queue());
+            context.sendMessage("{0}, we have sent a list of commands via direct message.", context.getMember().getAsMention());
+        } else {
+            context.sendEmbed(getCommands());
+        }
+    }
+
+    private MessageEmbed getCommands() {
         Set<Command> commands = Shard.getSingleton().getCommandManager().getCommands();
 
         EmbedBuilder builder = new EmbedBuilder();
@@ -67,6 +82,6 @@ public class CommandsCommand implements Command {
             }
         }
 
-        context.sendEmbed(builder.build());
+        return builder.build();
     }
 }
