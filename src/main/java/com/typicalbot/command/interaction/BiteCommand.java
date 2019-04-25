@@ -36,7 +36,7 @@ public class BiteCommand implements Command {
         }
 
         if (target == context.getAuthor()) {
-            context.sendMessage(target.getName() + " just bit himself.");
+            context.sendMessage(target.getName() + " just bit themselves.");
         } else {
             context.sendMessage(context.getAuthor().getName() + " just bit " + target.getName() + "!");
         }
