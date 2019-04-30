@@ -27,8 +27,14 @@ import com.typicalbot.shard.Shard;
 import com.typicalbot.util.StringUtil;
 import net.dv8tion.jda.core.Permission;
 import net.dv8tion.jda.core.entities.Role;
+import net.dv8tion.jda.core.entities.TextChannel;
 import net.dv8tion.jda.core.events.guild.GuildJoinEvent;
 import net.dv8tion.jda.core.events.guild.GuildLeaveEvent;
+import net.dv8tion.jda.core.events.guild.member.GuildMemberJoinEvent;
+import net.dv8tion.jda.core.events.guild.member.GuildMemberLeaveEvent;
+import net.dv8tion.jda.core.events.guild.member.GuildMemberNickChangeEvent;
+import net.dv8tion.jda.core.events.guild.voice.GuildVoiceJoinEvent;
+import net.dv8tion.jda.core.events.guild.voice.GuildVoiceLeaveEvent;
 import net.dv8tion.jda.core.events.message.guild.GuildMessageReceivedEvent;
 import net.dv8tion.jda.core.events.message.guild.react.GuildMessageReactionAddEvent;
 import net.dv8tion.jda.core.events.message.guild.react.GuildMessageReactionRemoveEvent;
@@ -62,6 +68,78 @@ public class GuildListener extends ListenerAdapter {
         }
 
         LOGGER.info("Left guild {}", event.getGuild().getName());
+    }
+
+    @Override
+    public void onGuildMemberJoin(GuildMemberJoinEvent event) {
+        GuildObject object = guildDAO.get(event.getGuild().getIdLong()).get();
+
+        if (object.getGuildSettings().getLogs().getLogsId() != 0L && object.getGuildSettings().getLogs().isLogJoin()) {
+            TextChannel channel = event.getGuild().getTextChannelById(object.getGuildSettings().getLogs().getLogsId());
+
+            if (channel != null) {
+                // TODO: Create a class to automatically create logs and allow for embeds also.
+                channel.sendMessage(String.format("**%s** has joined.", event.getUser().getAsTag())).queue();
+            }
+        }
+    }
+
+    @Override
+    public void onGuildMemberLeave(GuildMemberLeaveEvent event) {
+        GuildObject object = guildDAO.get(event.getGuild().getIdLong()).get();
+
+        if (object.getGuildSettings().getLogs().getLogsId() != 0L && object.getGuildSettings().getLogs().isLogLeave()) {
+            TextChannel channel = event.getGuild().getTextChannelById(object.getGuildSettings().getLogs().getLogsId());
+
+            if (channel != null) {
+                // TODO: Create a class to automatically create logs and allow for embeds also.
+                channel.sendMessage(String.format("**%s** has left.**", event.getUser().getAsTag())).queue();
+            }
+        }
+    }
+
+    @Override
+    public void onGuildVoiceJoin(GuildVoiceJoinEvent event) {
+        GuildObject object = guildDAO.get(event.getGuild().getIdLong()).get();
+
+        if (object.getGuildSettings().getLogs().getLogsId() != 0L && object.getGuildSettings().getLogs().isLogVoiceJoin()) {
+            TextChannel channel = event.getGuild().getTextChannelById(object.getGuildSettings().getLogs().getLogsId());
+
+            if (channel != null) {
+                // TODO: Create a class to automatically create logs and allow for embeds also.
+                channel.sendMessage(String.format("**%s** has joined the **%s** voice channel.", event.getMember().getUser().getAsTag(), event.getChannelJoined().getName())).queue();
+            }
+        }
+    }
+
+    @Override
+    public void onGuildVoiceLeave(GuildVoiceLeaveEvent event) {
+        GuildObject object = guildDAO.get(event.getGuild().getIdLong()).get();
+
+        if (object.getGuildSettings().getLogs().getLogsId() != 0L && object.getGuildSettings().getLogs().isLogVoiceLeave()) {
+            TextChannel channel = event.getGuild().getTextChannelById(object.getGuildSettings().getLogs().getLogsId());
+
+            if (channel != null) {
+                // TODO: Create a class to automatically create logs and allow for embeds also.
+                channel.sendMessage(String.format("**%s** has left the **%s** voice channel.", event.getMember().getUser().getAsTag(), event.getChannelLeft().getName())).queue();
+            }
+        }
+    }
+
+
+
+    @Override
+    public void onGuildMemberNickChange(GuildMemberNickChangeEvent event) {
+        GuildObject object = guildDAO.get(event.getGuild().getIdLong()).get();
+
+        if (object.getGuildSettings().getLogs().getLogsId() != 0L && object.getGuildSettings().getLogs().isLogNickname()) {
+            TextChannel channel = event.getGuild().getTextChannelById(object.getGuildSettings().getLogs().getLogsId());
+
+            if (channel != null) {
+                // TODO: Create a class to automatically create logs and allow for embeds also.
+                channel.sendMessage(String.format("**%s** has changed their nickname from **%s** to **%s**.", event.getUser().getAsTag(), event.getPrevNick(), event.getNewNick())).queue();
+            }
+        }
     }
 
     @Override
