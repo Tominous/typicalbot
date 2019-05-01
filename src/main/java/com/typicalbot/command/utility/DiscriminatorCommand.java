@@ -29,7 +29,7 @@ import net.dv8tion.jda.core.entities.User;
 import java.util.ArrayList;
 import java.util.List;
 
-@CommandConfiguration(category = CommandCategory.UTILITY, aliases = "discriminator")
+@CommandConfiguration(category = CommandCategory.UTILITY, aliases = {"discriminator", "discrim"})
 public class DiscriminatorCommand implements Command {
     @Override
     public CommandPermission permission() {
