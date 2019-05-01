@@ -47,6 +47,9 @@ public class GuildSettingObject {
     @Property("dmCommand")
     private boolean dmCommand;
 
+    @Property("commandSimilarity")
+    private boolean commandSimilarity;
+
     @Embedded
     private GuildFilterSettingObject filters;
 
@@ -64,6 +67,7 @@ public class GuildSettingObject {
 
     public GuildSettingObject() {
         this.dmCommand = true;
+        this.commandSimilarity = false;
         this.filters = new GuildFilterSettingObject();
         this.logs = new GuildLogSettingObject();
         this.modules = new GuildModuleSettingObject();
@@ -141,6 +145,14 @@ public class GuildSettingObject {
 
     public void setDmCommand(boolean dmCommand) {
         this.dmCommand = dmCommand;
+    }
+
+    public boolean isCommandSimilarity() {
+        return commandSimilarity;
+    }
+
+    public void setCommandSimilarity(boolean commandSimilarity) {
+        this.commandSimilarity = commandSimilarity;
     }
 
     public GuildFilterSettingObject getFilters() {

@@ -127,7 +127,6 @@ public class GuildListener extends ListenerAdapter {
     }
 
 
-
     @Override
     public void onGuildMemberNickChange(GuildMemberNickChangeEvent event) {
         GuildObject object = guildDAO.get(event.getGuild().getIdLong()).get();
@@ -176,16 +175,17 @@ public class GuildListener extends ListenerAdapter {
         if (commandName.startsWith(prefix)) {
             Command command = Shard.getSingleton().getCommandManager().findCommand(commandName.substring(prefix.length()));
 
-            if (command == null) return;
-//            if (command == null) {
-//                for (Command cmd : Shard.getSingleton().getCommandManager().getCommands()) {
-//                    if (StringUtil.similarity(cmd.getConfiguration().aliases()[0], commandName.substring(prefix.length())) >= 0.66) {
-//                        event.getChannel().sendMessage("Command not found, did you mean: " + cmd.getConfiguration().aliases()[0] + "?").queue();
-//                    }
-//                }
-//
-//                return;
-//            }
+            if (command == null) {
+                if (object.getGuildSettings().isCommandSimilarity()) {
+                    for (Command cmd : Shard.getSingleton().getCommandManager().getCommands()) {
+                        if (StringUtil.similarity(cmd.getConfiguration().aliases()[0], commandName.substring(prefix.length())) >= 0.66) {
+                            event.getChannel().sendMessage("Command not found, did you mean: " + cmd.getConfiguration().aliases()[0] + "?").queue();
+                        }
+                    }
+                }
+
+                return;
+            }
 
             /*
              * 1. Check to see if user has blacklist role.
