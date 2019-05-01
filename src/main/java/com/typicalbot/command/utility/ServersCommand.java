@@ -29,7 +29,6 @@ import net.dv8tion.jda.core.Permission;
 import net.dv8tion.jda.core.entities.Guild;
 
 import java.text.DecimalFormat;
-import java.util.List;
 
 @CommandConfiguration(category = CommandCategory.UTILITY, aliases = "servers")
 public class ServersCommand implements Command {
