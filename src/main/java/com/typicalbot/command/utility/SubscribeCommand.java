@@ -49,6 +49,11 @@ public class SubscribeCommand implements Command {
             return;
         }
 
+        if (context.getMember().getRoles().contains(role)) {
+            context.sendMessage("You are already subscribed.");
+            return;
+        }
+
         context.getGuild().getController().addRolesToMember(context.getGuild().getMember(context.getMessage().getAuthor()), role).queue();
         context.sendMessage("Success! You are now subscribed.");
     }
