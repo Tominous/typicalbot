@@ -1,6 +1,0 @@
-#
-# Domain Filter
-#
-# Remove messages that contain domains in it.
-#
-domain: '^([a-z0-9]+(-[a-z0-9]+)*\.)+[a-z]{2,}$'
