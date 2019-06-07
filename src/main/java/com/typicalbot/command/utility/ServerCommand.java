@@ -67,7 +67,7 @@ public class ServerCommand implements Command {
             long dndCount = guild.getMemberCache().stream().filter(m -> m.getOnlineStatus() == OnlineStatus.DO_NOT_DISTURB).count();
             long invisibleCount = guild.getMemberCache().stream().filter(m -> m.getOnlineStatus() == OnlineStatus.OFFLINE).count();
 
-            builder.addField("Members", String.format("%s %d%n%s %d%n%s %d%n%s %d", online, onlineCount, idle, idleCount, dnd, dndCount, invisible, invisibleCount), true);
+            builder.addField("Members", String.format("%s%d %s%d%n%s%d %s%d", online, onlineCount, idle, idleCount, dnd, dndCount, invisible, invisibleCount), true);
         } else {
             builder.addField("Members", Integer.toString(guild.getMembers().size()), true);
         }
