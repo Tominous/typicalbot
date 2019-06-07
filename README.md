@@ -39,8 +39,9 @@ This section provides a quick-start guide.
 3. Clone your forked repository, ie. `git clone http://github.com/<YOUR-USERNAME>/typicalbot.git`
 4. Run `gradlew clean build`.
 5. Locate the `typicalbot-<VERSION>.jar` in the `/build/libs` directory and move it. Do not use the one with `nodeps`.  
-6. Open command prompt and run `java -jar typicalbot.jar` and proceed through the setup.
-7. You're done!
+6. Open command prompt and run `java -jar Lavalink.jar`. 
+7. Open a second command prompt and run `java -jar typicalbot.jar` and proceed through the setup.
+9. You're done!
 
 ## Project Roadmap
 
