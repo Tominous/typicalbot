@@ -29,6 +29,8 @@ This section provides a quick-start guide.
 ### Prerequisites
 
 - [Java](https://www.oracle.com/technetwork/java/javase): Java 8 is required. 
+- [MongoDB](https://www.mongodb.com/download-center/community): MongoDB is required to store Guild settings.
+- [Lavalink Server](https://github.com/Frederikam/Lavalink#server-configuration): Lavalink is required to stream videos. 
 
 ### Installation
 
