@@ -9,3 +9,6 @@ indent_size = 4
 
 [gradlew]
 end_of_line = lf
+
+[*.yml]
+indent_size = 2

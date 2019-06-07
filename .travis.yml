@@ -1,15 +1,20 @@
 language: java
 jdk:
-    - oraclejdk8
+  - oraclejdk8
+
+env:
+  global:
+    - secure: "ysER/KRJJMuWdfF732JZJ6GlymqBQDiwemv+3bs3msfMK2JlpPisNy9kd6kAOqNgayE2R40Wp+ol//jxaC4zleGA3T+aJCzjTmkB9K+HRCUYC39dC3VwTy5n4wJLoc8chBA6RlMfg0Eoj07nwsFRNx3b8KM2Elp5jnrRvQGjxM/IBDOcFyYZqZFL4qk9NIPpg00G6KpLhUXe+g2puIQK6LEHfAABbYRh9ioOdS4S2ULcZs3KqkDqij3i0Iay9pTRVdLntQuUNcsSl5kFWXIvgAizReqbM/q366uGE29AvCNMPd6k400bYzpZjr8IKN9rS3Uiby7hzTQCl5dTQ2OqQT9AW5bZQWtGRjuKVKnC2io7nvJ13m/fSGz2/FK5sr/BlHTM5KVYAzGkmoT/9uSUE2od2S1fzym35DzTsSqk83L3u9caF9V+5mMvaJvo+TAj1WRVFvu2Gx//Lpr/Rel/EnZU+EFCWw4Z+NYetPQCVvwFYOvlP62X1R2hms6gYLNeeq+wAcDZwJF5zMDJ876nPqVjOHRBoB5BvWMAkFXTBdWjLifc9Fzc7fqNTKTdPznd/TuaKcKxZEypnk9uLMY1VWaG3Mc9mFWuztSSRzfOeydw+Je6mHxhK/lxb64c+f70SIeORYrqoN8OS5wlg9wEqe5kDQxbRTk7bqSW30ZY7qQ="
 
 install: true
 sudo: required
-script: ./gradlew clean build --stacktrace
+script: ./gradlew check javadoc --info --stacktrace
 
 after_success:
-    - bash <(curl -s https://codecov.io/bash)
+   - bash <(curl -s https://codecov.io/bash)
+   - scripts/javadoc.sh
 
 cache:
-    directories:
-        - $HOME/.m2
-        - $HOME/.gradle
+  directories:
+    - $HOME/.m2
+    - $HOME/.gradle
