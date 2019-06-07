@@ -37,6 +37,8 @@ dependencies {
     implementation("com.sedmelluq:jda-nas:1.0.6")
     implementation("com.sedmelluq:lavaplayer:1.3.17")
     implementation("com.github.natanbc:lavadsp:0.5.2")
+    implementation("com.github.FredBoat:Lavalink-Client:8c20d57")
+    implementation("com.mashape.unirest:unirest-java:1.4.9")
 
     // Logging
     implementation("org.slf4j:slf4j-api:1.7.26")
