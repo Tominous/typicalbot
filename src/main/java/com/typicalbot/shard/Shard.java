@@ -179,6 +179,7 @@ public class Shard {
                 new GiveCommand(),
                 new IgnoreCommand(),
                 new KickCommand(),
+                new ModulesCommand(),
                 new MuteCommand(),
                 new PCSCommand(),
                 new PurgeCommand(),

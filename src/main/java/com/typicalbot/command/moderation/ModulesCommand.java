@@ -15,17 +15,12 @@
  */
 package com.typicalbot.command.moderation;
 
-import com.typicalbot.command.Command;
-import com.typicalbot.command.CommandArgument;
-import com.typicalbot.command.CommandCategory;
-import com.typicalbot.command.CommandConfiguration;
-import com.typicalbot.command.CommandContext;
-import com.typicalbot.command.CommandPermission;
+import com.typicalbot.command.*;
 import com.typicalbot.data.mongo.dao.GuildDAO;
 import com.typicalbot.data.mongo.objects.GuildObject;
 
-@CommandConfiguration(category = CommandCategory.MODERATION, aliases = "filter")
-public class FilterCommand implements Command {
+@CommandConfiguration(category = CommandCategory.MODERATION, aliases = "modules")
+public class ModulesCommand implements Command {
     @Override
     public CommandPermission permission() {
         return CommandPermission.GUILD_ADMINISTRATOR;
@@ -43,27 +38,33 @@ public class FilterCommand implements Command {
         boolean option = Boolean.parseBoolean(argument.get(1));
 
         switch (argument.get(0)) {
-            case "caps":
-                object.getGuildSettings().getFilters().setCaps(option);
+            case "fun":
+                object.getGuildSettings().getModules().setFun(option);
                 break;
-            case "copypasta":
-                object.getGuildSettings().getFilters().setCopypasta(option);
+            case "integration":
+                object.getGuildSettings().getModules().setIntegration(option);
                 break;
-            case "domain":
-                object.getGuildSettings().getFilters().setDomain(option);
+            case "interaction":
+                object.getGuildSettings().getModules().setInteraction(option);
                 break;
-            case "invite":
-                object.getGuildSettings().getFilters().setInvite(option);
+            case "miscellaneous":
+                object.getGuildSettings().getModules().setMiscellaneous(option);
                 break;
-            case "spam":
-                object.getGuildSettings().getFilters().setSpam(option);
+            case "moderation":
+                object.getGuildSettings().getModules().setModeration(option);
+                break;
+            case "music":
+                object.getGuildSettings().getModules().setMusic(option);
+                break;
+            case "utility":
+                object.getGuildSettings().getModules().setUtility(option);
                 break;
             default:
-                context.sendMessage("Invalid filter type.");
+                context.sendMessage("Invalid module.");
                 return;
         }
 
         dao.update(object);
-        context.sendMessage("Successfully updated {0} filter.", argument.get(0));
+        context.sendMessage("Successfully updated {0) module.", argument.get(0));
     }
 }
