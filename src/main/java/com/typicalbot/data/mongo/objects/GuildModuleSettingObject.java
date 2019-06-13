@@ -26,6 +26,9 @@ public class GuildModuleSettingObject {
     @Property("integration")
     private boolean integration;
 
+    @Property("interaction")
+    private boolean interaction;
+
     @Property("miscellaneous")
     private boolean miscellaneous;
 
@@ -55,6 +58,14 @@ public class GuildModuleSettingObject {
 
     public void setIntegration(boolean integration) {
         this.integration = integration;
+    }
+
+    public boolean isInteraction() {
+        return this.interaction;
+    }
+
+    public void setInteraction(boolean interaction) {
+        this.interaction = interaction;
     }
 
     public boolean isMiscellaneous() {
