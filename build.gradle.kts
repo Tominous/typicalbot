@@ -60,6 +60,7 @@ dependencies {
 tasks.withType<JavaCompile> {
     options.encoding = "UTF-8"
     options.isIncremental = true
+    options.compilerArgs.add("-Xlint:-unchecked")
 }
 
 idea {
