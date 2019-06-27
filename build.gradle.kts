@@ -4,6 +4,7 @@ import org.jetbrains.gradle.ext.ProjectSettings
 import java.time.LocalDate
 
 plugins {
+    jacoco
     java
     application
 
@@ -61,6 +62,13 @@ tasks.withType<JavaCompile> {
     options.encoding = "UTF-8"
     options.isIncremental = true
     options.compilerArgs.add("-Xlint:-unchecked")
+}
+
+tasks.withType<JacocoReport> {
+    reports {
+        xml.isEnabled = true
+        html.isEnabled = true
+    }
 }
 
 idea {

@@ -8,7 +8,7 @@ env:
 
 install: true
 sudo: required
-script: ./gradlew check javadoc --info --stacktrace
+script: ./gradlew check javadoc jacocoTestReport --info --stacktrace
 
 after_success:
    - bash <(curl -s https://codecov.io/bash)
