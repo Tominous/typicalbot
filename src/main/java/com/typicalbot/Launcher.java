@@ -24,6 +24,7 @@ import com.typicalbot.shard.ShardManager;
 import com.typicalbot.util.FileUtil;
 import com.typicalbot.util.SentryUtil;
 import com.typicalbot.util.console.ConsoleReader;
+import io.sentry.Sentry;
 import net.dv8tion.jda.api.AccountType;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.JDABuilder;
@@ -38,14 +39,14 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.util.Arrays;
 
-public class TypicalBot {
-    private static final Logger LOGGER = LoggerFactory.getLogger(TypicalBot.class);
+public class Launcher {
+    private static final Logger LOGGER = LoggerFactory.getLogger(Launcher.class);
 
     private static MongoManager mongoManager;
 
     public static final String VERSION = "@version@";
 
-    public TypicalBot() throws IOException, InterruptedException, LoginException {
+    public Launcher() throws IOException, InterruptedException, LoginException {
         LOGGER.info("  _____                   _                  _   ____            _   ");
         LOGGER.info(" |_   _|  _   _   _ __   (_)   ___    __ _  | | | __ )    ___   | |_ ");
         LOGGER.info("   | |   | | | | | '_ \\  | |  / __|  / _` | | | |  _ \\   / _ \\  | __|");
@@ -136,10 +137,14 @@ public class TypicalBot {
     }
 
     public static void main(String[] args) {
+        if (SentryUtil.SENTRY) {
+            Sentry.init();
+        }
+
         try {
-            new TypicalBot();
-        } catch (IOException | LoginException | InterruptedException e) {
-            SentryUtil.capture(e, TypicalBot.class);
+            new Launcher();
+        } catch (Exception ex) {
+            SentryUtil.capture(ex, Launcher.class);
         }
     }
 

@@ -18,7 +18,7 @@ project.group = "com.typicalbot"
 project.version = "$versionObject"
 
 application {
-    mainClassName = "com.typicalbot.TypicalBot"
+    mainClassName = "com.typicalbot.Launcher"
 }
 
 java {
