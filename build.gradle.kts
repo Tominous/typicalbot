@@ -50,14 +50,17 @@ dependencies {
     // Config/Database
     implementation("com.github.Carleslc:Simple-YAML:1.3")
     implementation("org.json:json:20180813")
-    implementation("org.mongodb:mongo-java-driver:3.10.1")
+    implementation("org.mongodb:mongo-java-driver:3.10.2")
     implementation("org.mongodb.morphia:morphia:1.3.2")
 
     // Zalgo4J
     implementation("me.nsylke.zalgo4j:zalgo4j:1.0.1")
 
     // Sentry
-    implementation("io.sentry:sentry:1.7.22")
+    implementation("io.sentry:sentry:1.7.23")
+    
+    // Junit
+    testImplementation("org.junit.jupiter:junit-jupiter:5.4.2")
 }
 
 tasks.withType<JavaCompile> {
