@@ -23,7 +23,7 @@ import com.typicalbot.command.CommandConfiguration;
 import com.typicalbot.command.CommandContext;
 import com.typicalbot.command.CommandPermission;
 import com.typicalbot.util.AudioUtil;
-import net.dv8tion.jda.core.entities.TextChannel;
+import net.dv8tion.jda.api.entities.TextChannel;
 
 @CommandConfiguration(category = CommandCategory.MUSIC, aliases = "skip")
 public class SkipCommand implements Command {

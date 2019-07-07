@@ -15,15 +15,8 @@
  */
 package com.typicalbot.command;
 
-import net.dv8tion.jda.core.JDA;
-import net.dv8tion.jda.core.entities.Channel;
-import net.dv8tion.jda.core.entities.Guild;
-import net.dv8tion.jda.core.entities.Member;
-import net.dv8tion.jda.core.entities.Message;
-import net.dv8tion.jda.core.entities.MessageChannel;
-import net.dv8tion.jda.core.entities.MessageEmbed;
-import net.dv8tion.jda.core.entities.Role;
-import net.dv8tion.jda.core.entities.User;
+import net.dv8tion.jda.api.JDA;
+import net.dv8tion.jda.api.entities.*;
 
 import java.text.MessageFormat;
 import java.util.List;
@@ -95,7 +88,7 @@ public class CommandContext {
         return (member != null) ? member.getUser() : null;
     }
 
-    public Channel getChannel(String channel) {
+    public GuildChannel getChannel(String channel) {
         if (!this.message.getMentionedChannels().isEmpty()) {
             return this.message.getMentionedChannels().get(0);
         }

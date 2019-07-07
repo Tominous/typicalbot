@@ -23,9 +23,9 @@ import com.typicalbot.command.CommandCheck;
 import com.typicalbot.command.CommandConfiguration;
 import com.typicalbot.command.CommandContext;
 import com.typicalbot.command.CommandPermission;
-import net.dv8tion.jda.core.Permission;
-import net.dv8tion.jda.core.entities.User;
-import net.dv8tion.jda.core.entities.VoiceChannel;
+import net.dv8tion.jda.api.Permission;
+import net.dv8tion.jda.api.entities.User;
+import net.dv8tion.jda.api.entities.VoiceChannel;
 
 import java.util.concurrent.TimeUnit;
 
@@ -55,8 +55,8 @@ public class VoicekickCommand implements Command {
             return;
         }
 
-        context.getGuild().getController().createVoiceChannel("kick-" + temp.getIdLong()).queue(channel -> {
-            context.getGuild().getController().moveVoiceMember(context.getGuild().getMember(temp), (VoiceChannel) channel).queue(o -> {
+        context.getGuild().createVoiceChannel("kick-" + temp.getIdLong()).queue(channel -> {
+            context.getGuild().moveVoiceMember(context.getGuild().getMember(temp), (VoiceChannel) channel).queue(o -> {
                 context.sendMessage("Successfully voice kicked {0}.", temp.getAsTag());
                 channel.delete().queueAfter(3, TimeUnit.SECONDS);
             });

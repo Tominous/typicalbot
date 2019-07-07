@@ -24,8 +24,8 @@ import com.typicalbot.command.CommandContext;
 import com.typicalbot.command.CommandPermission;
 import com.typicalbot.data.mongo.dao.GuildDAO;
 import com.typicalbot.data.mongo.objects.GuildObject;
-import net.dv8tion.jda.core.Permission;
-import net.dv8tion.jda.core.entities.Role;
+import net.dv8tion.jda.api.Permission;
+import net.dv8tion.jda.api.entities.Role;
 
 @CommandConfiguration(category = CommandCategory.MODERATION, aliases = "give")
 public class GiveCommand implements Command {
@@ -73,7 +73,7 @@ public class GiveCommand implements Command {
 
         for (long id : object.getGuildSettings().getRoles().getPublicRoles()) {
             if (role.getIdLong() == id) {
-                context.getGuild().getController().addSingleRoleToMember(context.getMember(), role).queue(o -> context.sendMessage("Successfully given {0} to {1}.", role.getName(), context.getAuthor().getAsTag()));
+                context.getGuild().addRoleToMember(context.getMember(), role).queue(o -> context.sendMessage("Successfully given {0} to {1}.", role.getName(), context.getAuthor().getAsTag()));
                 break;
             }
         }

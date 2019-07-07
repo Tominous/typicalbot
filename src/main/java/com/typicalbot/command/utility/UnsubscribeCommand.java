@@ -23,7 +23,7 @@ import com.typicalbot.command.CommandContext;
 import com.typicalbot.command.CommandPermission;
 import com.typicalbot.data.mongo.dao.GuildDAO;
 import com.typicalbot.data.mongo.objects.GuildObject;
-import net.dv8tion.jda.core.entities.Role;
+import net.dv8tion.jda.api.entities.Role;
 
 @CommandConfiguration(category = CommandCategory.UTILITY, aliases = "unsubscribe")
 public class UnsubscribeCommand implements Command {
@@ -54,7 +54,7 @@ public class UnsubscribeCommand implements Command {
             return;
         }
 
-        context.getGuild().getController().removeRolesFromMember(context.getGuild().getMember(context.getMessage().getAuthor()), role).queue();
+        context.getGuild().removeRoleFromMember(context.getGuild().getMember(context.getMessage().getAuthor()), role).queue();
         context.sendMessage("Success! You are now unsubscribed.");
     }
 }

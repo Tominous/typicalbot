@@ -21,8 +21,8 @@ import com.typicalbot.command.CommandCategory;
 import com.typicalbot.command.CommandConfiguration;
 import com.typicalbot.command.CommandContext;
 import com.typicalbot.command.CommandPermission;
-import net.dv8tion.jda.core.EmbedBuilder;
-import net.dv8tion.jda.core.Permission;
+import net.dv8tion.jda.api.EmbedBuilder;
+import net.dv8tion.jda.api.Permission;
 
 @CommandConfiguration(category = CommandCategory.CORE, aliases = {"invite", "oauth"})
 public class InviteCommand implements Command {
@@ -49,12 +49,12 @@ public class InviteCommand implements Command {
             EmbedBuilder builder = new EmbedBuilder();
 
             builder.setTitle("TypicalBot Invite");
-            builder.setDescription("[Click here](" + context.getJDA().asBot().getInviteUrl(Permission.ADMINISTRATOR) + ") to invite TypicalBot to your guild.");
+            builder.setDescription("[Click here](" + context.getJDA().getInviteUrl(Permission.ADMINISTRATOR) + ") to invite TypicalBot to your guild.");
             builder.setColor(CommandContext.TYPICALBOT_BLUE);
 
             context.sendEmbed(builder.build());
         } else {
-            context.sendMessage("You can invite TypicalBot using this URL: <{0}>.", context.getJDA().asBot().getInviteUrl(Permission.ADMINISTRATOR));
+            context.sendMessage("You can invite TypicalBot using this URL: <{0}>.", context.getJDA().getInviteUrl(Permission.ADMINISTRATOR));
         }
     }
 }

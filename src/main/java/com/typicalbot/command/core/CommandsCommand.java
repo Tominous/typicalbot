@@ -25,8 +25,8 @@ import com.typicalbot.data.mongo.dao.GuildDAO;
 import com.typicalbot.data.mongo.objects.GuildObject;
 import com.typicalbot.shard.Shard;
 import com.typicalbot.util.StringUtil;
-import net.dv8tion.jda.core.EmbedBuilder;
-import net.dv8tion.jda.core.entities.MessageEmbed;
+import net.dv8tion.jda.api.EmbedBuilder;
+import net.dv8tion.jda.api.entities.MessageEmbed;
 
 import java.util.Comparator;
 import java.util.Set;

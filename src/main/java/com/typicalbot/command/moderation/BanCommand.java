@@ -23,8 +23,8 @@ import com.typicalbot.command.CommandConfiguration;
 import com.typicalbot.command.CommandContext;
 import com.typicalbot.command.CommandPermission;
 import com.typicalbot.util.SentryUtil;
-import net.dv8tion.jda.core.Permission;
-import net.dv8tion.jda.core.entities.User;
+import net.dv8tion.jda.api.Permission;
+import net.dv8tion.jda.api.entities.User;
 
 @CommandConfiguration(category = CommandCategory.MODERATION, aliases = "ban")
 public class BanCommand implements Command {
@@ -98,7 +98,7 @@ public class BanCommand implements Command {
             reason = "No reason specified.";
         }
 
-        context.getGuild().getController().ban(temp.getId(), purge, reason).queue(o -> {
+        context.getGuild().ban(temp.getId(), purge, reason).queue(o -> {
             context.sendMessage("Successfully banned {0} for {1}.", temp.getAsTag(), reason);
 
             // Mod log

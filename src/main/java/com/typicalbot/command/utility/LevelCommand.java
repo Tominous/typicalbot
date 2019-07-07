@@ -25,10 +25,10 @@ import com.typicalbot.command.CommandPermission;
 import com.typicalbot.data.mongo.dao.GuildDAO;
 import com.typicalbot.data.mongo.objects.GuildObject;
 import com.typicalbot.data.mongo.objects.GuildRoleSettingObject;
-import net.dv8tion.jda.core.EmbedBuilder;
-import net.dv8tion.jda.core.Permission;
-import net.dv8tion.jda.core.entities.Role;
-import net.dv8tion.jda.core.entities.User;
+import net.dv8tion.jda.api.EmbedBuilder;
+import net.dv8tion.jda.api.Permission;
+import net.dv8tion.jda.api.entities.Role;
+import net.dv8tion.jda.api.entities.User;
 
 @CommandConfiguration(category = CommandCategory.UTILITY, aliases = "level")
 public class LevelCommand implements Command {

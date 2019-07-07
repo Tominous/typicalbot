@@ -17,7 +17,7 @@ package com.typicalbot.util;
 
 import com.typicalbot.audio.GuildMusicManager;
 import com.typicalbot.shard.Shard;
-import net.dv8tion.jda.core.entities.Guild;
+import net.dv8tion.jda.api.entities.Guild;
 
 public class AudioUtil {
     // Prevent instantiation.

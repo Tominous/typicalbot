@@ -24,9 +24,9 @@ import com.typicalbot.command.CommandContext;
 import com.typicalbot.command.CommandPermission;
 import com.typicalbot.data.mongo.dao.GuildDAO;
 import com.typicalbot.data.mongo.objects.GuildObject;
-import net.dv8tion.jda.core.Permission;
-import net.dv8tion.jda.core.entities.Role;
-import net.dv8tion.jda.core.entities.User;
+import net.dv8tion.jda.api.Permission;
+import net.dv8tion.jda.api.entities.Role;
+import net.dv8tion.jda.api.entities.User;
 
 @CommandConfiguration(category = CommandCategory.MODERATION, aliases = "mute")
 public class MuteCommand implements Command {
@@ -83,7 +83,7 @@ public class MuteCommand implements Command {
             return;
         }
 
-        context.getGuild().getController().addSingleRoleToMember(context.getGuild().getMember(temp), role).queue(o -> {
+        context.getGuild().addRoleToMember(context.getGuild().getMember(temp), role).queue(o -> {
             context.sendMessage("Successfully muted {0}.", temp.getAsTag());
         });
     }

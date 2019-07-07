@@ -22,10 +22,10 @@ import com.typicalbot.command.CommandCheck;
 import com.typicalbot.command.CommandConfiguration;
 import com.typicalbot.command.CommandContext;
 import com.typicalbot.command.CommandPermission;
-import net.dv8tion.jda.core.EmbedBuilder;
-import net.dv8tion.jda.core.Permission;
-import net.dv8tion.jda.core.entities.Message;
-import net.dv8tion.jda.core.exceptions.ErrorResponseException;
+import net.dv8tion.jda.api.EmbedBuilder;
+import net.dv8tion.jda.api.Permission;
+import net.dv8tion.jda.api.entities.Message;
+import net.dv8tion.jda.api.exceptions.ErrorResponseException;
 
 import java.time.format.DateTimeFormatter;
 
@@ -43,10 +43,10 @@ public class MessageCommand implements Command {
         EmbedBuilder builder = new EmbedBuilder();
 
         try {
-            Message message = context.getMessage().getTextChannel().getMessageById(argument.get(0)).complete();
+            Message message = context.getMessage().getTextChannel().retrieveMessageById(argument.get(0)).complete();
 
             builder.setTitle("Quoting " + message.getAuthor().getAsTag() + ": ");
-            builder.setFooter(message.getAuthor().getAsTag() + " | Sent on " + message.getCreationTime().format(DateTimeFormatter.RFC_1123_DATE_TIME), message.getAuthor().getAvatarUrl());
+            builder.setFooter(message.getAuthor().getAsTag() + " | Sent on " + message.getTimeCreated().format(DateTimeFormatter.RFC_1123_DATE_TIME), message.getAuthor().getAvatarUrl());
 
             //TODO(AKSKL): format emotes properly
             builder.setDescription(message.getContentDisplay());

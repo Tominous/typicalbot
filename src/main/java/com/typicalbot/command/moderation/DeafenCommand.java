@@ -22,8 +22,8 @@ import com.typicalbot.command.CommandCheck;
 import com.typicalbot.command.CommandConfiguration;
 import com.typicalbot.command.CommandContext;
 import com.typicalbot.command.CommandPermission;
-import net.dv8tion.jda.core.Permission;
-import net.dv8tion.jda.core.entities.User;
+import net.dv8tion.jda.api.Permission;
+import net.dv8tion.jda.api.entities.User;
 
 @CommandConfiguration(category = CommandCategory.MODERATION, aliases = "deafen")
 public class DeafenCommand implements Command {
@@ -59,6 +59,6 @@ public class DeafenCommand implements Command {
             return;
         }
 
-        context.getGuild().getController().setDeafen(context.getGuild().getMember(temp), true).queue(o -> context.sendMessage("Successfully deafen {0}.", temp.getAsTag()));
+        context.getGuild().deafen(context.getGuild().getMember(temp), true).queue(o -> context.sendMessage("Successfully deafen {0}.", temp.getAsTag()));
     }
 }

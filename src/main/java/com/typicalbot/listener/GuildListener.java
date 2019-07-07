@@ -25,21 +25,21 @@ import com.typicalbot.data.mongo.dao.GuildDAO;
 import com.typicalbot.data.mongo.objects.GuildObject;
 import com.typicalbot.shard.Shard;
 import com.typicalbot.util.StringUtil;
-import net.dv8tion.jda.core.Permission;
-import net.dv8tion.jda.core.entities.Role;
-import net.dv8tion.jda.core.entities.TextChannel;
-import net.dv8tion.jda.core.events.guild.GuildJoinEvent;
-import net.dv8tion.jda.core.events.guild.GuildLeaveEvent;
-import net.dv8tion.jda.core.events.guild.member.GuildMemberJoinEvent;
-import net.dv8tion.jda.core.events.guild.member.GuildMemberLeaveEvent;
-import net.dv8tion.jda.core.events.guild.member.GuildMemberNickChangeEvent;
-import net.dv8tion.jda.core.events.guild.voice.GuildVoiceJoinEvent;
-import net.dv8tion.jda.core.events.guild.voice.GuildVoiceLeaveEvent;
-import net.dv8tion.jda.core.events.message.guild.GuildMessageReceivedEvent;
-import net.dv8tion.jda.core.events.message.guild.react.GuildMessageReactionAddEvent;
-import net.dv8tion.jda.core.events.message.guild.react.GuildMessageReactionRemoveEvent;
-import net.dv8tion.jda.core.exceptions.InsufficientPermissionException;
-import net.dv8tion.jda.core.hooks.ListenerAdapter;
+import net.dv8tion.jda.api.Permission;
+import net.dv8tion.jda.api.entities.Role;
+import net.dv8tion.jda.api.entities.TextChannel;
+import net.dv8tion.jda.api.events.guild.GuildJoinEvent;
+import net.dv8tion.jda.api.events.guild.GuildLeaveEvent;
+import net.dv8tion.jda.api.events.guild.member.GuildMemberJoinEvent;
+import net.dv8tion.jda.api.events.guild.member.GuildMemberLeaveEvent;
+import net.dv8tion.jda.api.events.guild.member.update.GuildMemberUpdateNicknameEvent;
+import net.dv8tion.jda.api.events.guild.voice.GuildVoiceJoinEvent;
+import net.dv8tion.jda.api.events.guild.voice.GuildVoiceLeaveEvent;
+import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
+import net.dv8tion.jda.api.events.message.guild.react.GuildMessageReactionAddEvent;
+import net.dv8tion.jda.api.events.message.guild.react.GuildMessageReactionRemoveEvent;
+import net.dv8tion.jda.api.exceptions.InsufficientPermissionException;
+import net.dv8tion.jda.api.hooks.ListenerAdapter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -128,7 +128,7 @@ public class GuildListener extends ListenerAdapter {
 
 
     @Override
-    public void onGuildMemberNickChange(GuildMemberNickChangeEvent event) {
+    public void onGuildMemberUpdateNickname(GuildMemberUpdateNicknameEvent event) {
         GuildObject object = guildDAO.get(event.getGuild().getIdLong()).get();
 
         if (object.getGuildSettings().getLogs().getLogsId() != 0L && object.getGuildSettings().getLogs().isLogNickname()) {
@@ -136,7 +136,7 @@ public class GuildListener extends ListenerAdapter {
 
             if (channel != null) {
                 // TODO: Create a class to automatically create logs and allow for embeds also.
-                channel.sendMessage(String.format("**%s** has changed their nickname from **%s** to **%s**.", event.getUser().getAsTag(), event.getPrevNick(), event.getNewNick())).queue();
+                channel.sendMessage(String.format("**%s** has changed their nickname from **%s** to **%s**.", event.getUser().getAsTag(), event.getOldNickname(), event.getNewNickname())).queue();
             }
         }
     }
@@ -274,7 +274,7 @@ public class GuildListener extends ListenerAdapter {
                     Role role = event.getGuild().getRoleById(roleId);
 
                     if (role != null) {
-                        event.getGuild().getController().addSingleRoleToMember(event.getMember(), role).queue();
+                        event.getGuild().addRoleToMember(event.getMember(), role).queue();
                     }
                 }
             }
@@ -300,7 +300,7 @@ public class GuildListener extends ListenerAdapter {
                     Role role = event.getGuild().getRoleById(roleId);
 
                     if (role != null) {
-                        event.getGuild().getController().removeSingleRoleFromMember(event.getMember(), role).queue();
+                        event.getGuild().removeRoleFromMember(event.getMember(), role).queue();
                     }
                 }
             }

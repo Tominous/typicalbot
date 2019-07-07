@@ -18,7 +18,7 @@ package com.typicalbot.data.mongo.dao;
 
 import com.typicalbot.TypicalBot;
 import com.typicalbot.data.mongo.objects.GuildObject;
-import net.dv8tion.jda.core.entities.Guild;
+import net.dv8tion.jda.api.entities.Guild;
 import org.mongodb.morphia.Datastore;
 import org.mongodb.morphia.query.Query;
 

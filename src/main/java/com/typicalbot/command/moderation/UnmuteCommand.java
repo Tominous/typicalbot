@@ -24,9 +24,9 @@ import com.typicalbot.command.CommandContext;
 import com.typicalbot.command.CommandPermission;
 import com.typicalbot.data.mongo.dao.GuildDAO;
 import com.typicalbot.data.mongo.objects.GuildObject;
-import net.dv8tion.jda.core.Permission;
-import net.dv8tion.jda.core.entities.Role;
-import net.dv8tion.jda.core.entities.User;
+import net.dv8tion.jda.api.Permission;
+import net.dv8tion.jda.api.entities.Role;
+import net.dv8tion.jda.api.entities.User;
 
 @CommandConfiguration(category = CommandCategory.MODERATION, aliases = "unmute")
 public class UnmuteCommand implements Command {
@@ -83,7 +83,7 @@ public class UnmuteCommand implements Command {
             return;
         }
 
-        context.getGuild().getController().removeSingleRoleFromMember(context.getGuild().getMember(temp), role).queue(o -> {
+        context.getGuild().removeRoleFromMember(context.getGuild().getMember(temp), role).queue(o -> {
             context.sendMessage("Successfully unmuted {0}.", temp.getAsTag());
         });
     }

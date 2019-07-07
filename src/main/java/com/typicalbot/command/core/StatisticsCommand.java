@@ -24,9 +24,9 @@ import com.typicalbot.command.CommandConfiguration;
 import com.typicalbot.command.CommandContext;
 import com.typicalbot.command.CommandPermission;
 import com.typicalbot.shard.ShardManager;
-import net.dv8tion.jda.core.EmbedBuilder;
-import net.dv8tion.jda.core.JDAInfo;
-import net.dv8tion.jda.core.Permission;
+import net.dv8tion.jda.api.EmbedBuilder;
+import net.dv8tion.jda.api.JDAInfo;
+import net.dv8tion.jda.api.Permission;
 
 import java.lang.management.ManagementFactory;
 import java.text.DecimalFormat;

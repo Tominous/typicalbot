@@ -22,9 +22,10 @@ import com.typicalbot.command.CommandCheck;
 import com.typicalbot.command.CommandConfiguration;
 import com.typicalbot.command.CommandContext;
 import com.typicalbot.command.CommandPermission;
-import net.dv8tion.jda.core.Permission;
-import net.dv8tion.jda.core.entities.MessageChannel;
-import net.dv8tion.jda.core.entities.MessageHistory;
+import net.dv8tion.jda.api.Permission;
+import net.dv8tion.jda.api.entities.MessageChannel;
+import net.dv8tion.jda.api.entities.MessageHistory;
+import net.dv8tion.jda.api.entities.User;
 
 import java.util.concurrent.TimeUnit;
 
@@ -55,7 +56,7 @@ public class PurgeCommand implements Command {
         CommandCheck.checkArguments(argument);
 
         if (argument.get(0).equalsIgnoreCase("all")) {
-            context.getGuild().getController().createCopyOfChannel(context.getMessage().getTextChannel()).queue(
+            context.getGuild().createCopyOfChannel(context.getMessage().getTextChannel()).queue(
                 channel -> context.getMessage().getTextChannel().delete().queueAfter(3, TimeUnit.SECONDS,
                     o -> ((MessageChannel) channel).sendMessage("Successfully purged all messages.").queue()
                 )

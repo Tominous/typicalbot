@@ -23,12 +23,14 @@ import com.typicalbot.command.CommandConfiguration;
 import com.typicalbot.command.CommandContext;
 import com.typicalbot.command.CommandPermission;
 import com.typicalbot.util.StringUtil;
-import net.dv8tion.jda.core.EmbedBuilder;
-import net.dv8tion.jda.core.Permission;
-import net.dv8tion.jda.core.entities.Role;
-import net.dv8tion.jda.core.entities.User;
+import net.dv8tion.jda.api.EmbedBuilder;
+import net.dv8tion.jda.api.Permission;
+import net.dv8tion.jda.api.entities.Activity;
+import net.dv8tion.jda.api.entities.Role;
+import net.dv8tion.jda.api.entities.User;
 
 import java.time.format.DateTimeFormatter;
+import java.util.List;
 import java.util.stream.Collectors;
 
 @CommandConfiguration(category = CommandCategory.UTILITY, aliases = {"user", "userinfo", "uinfo"})
@@ -59,14 +61,14 @@ public class UserCommand implements Command {
         builder.addField("Name", target.getName(), true);
         builder.addField("Discriminator", target.getDiscriminator(), true);
         builder.addField("Status", StringUtil.capitalize(context.getMessage().getGuild().getMember(target).getOnlineStatus().getKey()), true);
-        builder.addField("Joined Discord", target.getCreationTime().format(DateTimeFormatter.RFC_1123_DATE_TIME), true);
-        builder.addField("Joined Server", context.getMessage().getGuild().getMember(target).getJoinDate().format(DateTimeFormatter.RFC_1123_DATE_TIME), true);
+        builder.addField("Joined Discord", target.getTimeCreated().format(DateTimeFormatter.RFC_1123_DATE_TIME), true);
+        builder.addField("Joined Server", context.getMessage().getGuild().getMember(target).getTimeJoined().format(DateTimeFormatter.RFC_1123_DATE_TIME), true);
 
-//        List<Activity> activities = context.getMessage().getGuild().getMember(target).getActivities();
-//
-//        if (!activities.isEmpty()) {
-//            builder.addField("Playing", activities.get(0).getName(), true);
-//        }
+        List<Activity> activities = context.getMessage().getGuild().getMember(target).getActivities();
+
+        if (!activities.isEmpty()) {
+            builder.addField("Playing", activities.get(0).getName(), true);
+        }
 
         builder.addField("Discord Nitro", StringUtil.capitalize(Boolean.toString(target.getAvatarId().startsWith("a_"))), true);
         builder.addField("TypicalBot Prime", "False", true);

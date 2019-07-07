@@ -22,10 +22,10 @@ import com.typicalbot.command.CommandCheck;
 import com.typicalbot.command.CommandConfiguration;
 import com.typicalbot.command.CommandContext;
 import com.typicalbot.command.CommandPermission;
-import net.dv8tion.jda.core.Permission;
-import net.dv8tion.jda.core.entities.Channel;
-import net.dv8tion.jda.core.entities.TextChannel;
-import net.dv8tion.jda.core.entities.VoiceChannel;
+import net.dv8tion.jda.api.Permission;
+import net.dv8tion.jda.api.entities.GuildChannel;
+import net.dv8tion.jda.api.entities.TextChannel;
+import net.dv8tion.jda.api.entities.VoiceChannel;
 
 @CommandConfiguration(category = CommandCategory.MODERATION, aliases = "channels")
 public class ChannelsCommand implements Command {
@@ -95,19 +95,19 @@ public class ChannelsCommand implements Command {
             switch (argument.get(1)) {
                 case "text":
                 case "-t":
-                    context.getGuild().getController().createTextChannel(name).queue(o -> {
+                    context.getGuild().createTextChannel(name).queue(o -> {
                         context.sendMessage("Successfully created a text channel: {0}.", name);
                     });
                     break;
                 case "voice":
                 case "-v":
-                    context.getGuild().getController().createVoiceChannel(name).queue(o -> {
+                    context.getGuild().createVoiceChannel(name).queue(o -> {
                         context.sendMessage("Successfully created a voice channel: {0}.", name);
                     });
                     break;
                 case "category":
                 case "-c":
-                    context.getGuild().getController().createCategory(name).queue(o -> {
+                    context.getGuild().createCategory(name).queue(o -> {
                         context.sendMessage("Successfully created a category: {0}.", name);
                     });
                     break;
@@ -129,7 +129,7 @@ public class ChannelsCommand implements Command {
                 return;
             }
 
-            Channel channel = context.getChannel(argument.get(1));
+            GuildChannel channel = context.getChannel(argument.get(1));
 
             if (channel == null) {
                 context.sendMessage("Channel doesn't exist.");
@@ -138,7 +138,7 @@ public class ChannelsCommand implements Command {
 
             String name = argument.get(2);
 
-            context.getGuild().getController().createCopyOfChannel(channel).setName(name).queue(o -> {
+            context.getGuild().createCopyOfChannel(channel).setName(name).queue(o -> {
                 context.sendMessage("Successfully cloned channel {0} to {1}.", channel.getName(), name);
             });
         } else if (argument.get(0).equalsIgnoreCase("edit")) {
@@ -150,7 +150,7 @@ public class ChannelsCommand implements Command {
             String name = argument.get(1);
             String property = argument.get(2);
 
-            Channel channel = context.getChannel(name);
+            GuildChannel channel = context.getChannel(name);
 
             if (channel == null) {
                 context.sendMessage("Channel doesn't exist.");

@@ -22,7 +22,7 @@ import com.typicalbot.command.CommandCheck;
 import com.typicalbot.command.CommandConfiguration;
 import com.typicalbot.command.CommandContext;
 import com.typicalbot.command.CommandPermission;
-import net.dv8tion.jda.core.Permission;
+import net.dv8tion.jda.api.Permission;
 
 @CommandConfiguration(category = CommandCategory.MODERATION, aliases = "unban")
 public class UnbanCommand implements Command {
@@ -49,6 +49,6 @@ public class UnbanCommand implements Command {
         CommandCheck.checkPermission(context.getSelfMember(), Permission.BAN_MEMBERS);
         CommandCheck.checkArguments(argument);
 
-        context.getGuild().getBanById(argument.get(0)).queue(ban -> context.getGuild().getController().unban(ban.getUser()).queue(o -> context.sendMessage("Successfully unbanned {0}.", ban.getUser().getAsTag())), error -> context.sendMessage("The user with the ID of `{0}` is not banned.", argument.get(0)));
+        context.getGuild().retrieveBanById(argument.get(0)).queue(ban -> context.getGuild().unban(ban.getUser()).queue(o -> context.sendMessage("Successfully unbanned {0}.", ban.getUser().getAsTag())), error -> context.sendMessage("The user with the ID of `{0}` is not banned.", argument.get(0)));
     }
 }

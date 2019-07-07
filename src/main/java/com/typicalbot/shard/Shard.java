@@ -38,12 +38,12 @@ import com.typicalbot.command.webhook.WebhookCommand;
 import com.typicalbot.config.Config;
 import com.typicalbot.listener.GuildListener;
 import com.typicalbot.listener.ReadyListener;
-import net.dv8tion.jda.core.AccountType;
-import net.dv8tion.jda.core.JDA;
-import net.dv8tion.jda.core.JDABuilder;
-import net.dv8tion.jda.core.OnlineStatus;
-import net.dv8tion.jda.core.entities.Game;
-import net.dv8tion.jda.core.utils.cache.CacheFlag;
+import net.dv8tion.jda.api.AccountType;
+import net.dv8tion.jda.api.JDA;
+import net.dv8tion.jda.api.JDABuilder;
+import net.dv8tion.jda.api.OnlineStatus;
+import net.dv8tion.jda.api.entities.Activity;
+import net.dv8tion.jda.api.utils.cache.CacheFlag;
 
 import javax.security.auth.login.LoginException;
 import java.util.EnumSet;
@@ -83,21 +83,22 @@ public class Shard {
             JDABuilder builder = new JDABuilder(AccountType.BOT)
                 .setToken(token)
                 .setAutoReconnect(true)
-                .setAudioEnabled(true)
-                .setGame(Game.playing("Client Started")) // Same as TypicalBot 2.x
+//                .setAudioEnabled(true)
+//                .setGame(Game.playing("Client Started")) // Same as TypicalBot 2.x
+                .setActivity(Activity.playing("Client Started"))
                 .setStatus(OnlineStatus.IDLE) // Set to IDLE while still loading, change ONLINE when ready
                 .setBulkDeleteSplittingEnabled(true)
                 .setEnableShutdownHook(true)
                 .setContextEnabled(true)
-                .setDisabledCacheFlags(EnumSet.of(CacheFlag.GAME))
-                .useSharding(shardId, shardTotal)
-                .setCorePoolSize(4);
+                .setDisabledCacheFlags(EnumSet.of(CacheFlag.ACTIVITY))
+                .useSharding(shardId, shardTotal);
+//                .setCorePoolSize(4);
 
             if (!System.getProperty("os.arch").equalsIgnoreCase("arm") && !System.getProperty("os.arch").equalsIgnoreCase("arm-linux")) {
-                builder.setAudioSendFactory(new NativeAudioSendFactory());
+//                builder.setAudioSendFactory(new NativeAudioSendFactory());
             }
 
-            builder.addEventListener(
+            builder.addEventListeners(
                 new ReadyListener(),
                 new GuildListener()
             );
@@ -253,7 +254,7 @@ public class Shard {
             AudioSourceManagers.registerRemoteSources(this.playerManager);
             AudioSourceManagers.registerLocalSource(this.playerManager);
 
-            this.executorService.scheduleAtFixedRate(() -> this.instance.getPresence().setGame(Game.playing(Config.getConfig("discord").getString("prefix") + "help | " + ShardManager.getGuildCount() + " Guilds")), 30L, 60L, TimeUnit.SECONDS);
+            this.executorService.scheduleAtFixedRate(() -> this.instance.getPresence().setActivity(Activity.playing(Config.getConfig("discord").getString("prefix") + "help | " + ShardManager.getGuildCount() + " Guilds")), 30L, 60L, TimeUnit.SECONDS);
         } catch (LoginException e) {
             throw new RuntimeException(e);
         }
@@ -344,7 +345,7 @@ public class Shard {
      * @return Discord API ping
      */
     public long getPing() {
-        return this.instance.getPing();
+        return this.instance.getGatewayPing();
     }
 
     public AudioPlayerManager getPlayerManager() {

@@ -22,8 +22,8 @@ import com.typicalbot.command.CommandCheck;
 import com.typicalbot.command.CommandConfiguration;
 import com.typicalbot.command.CommandContext;
 import com.typicalbot.command.CommandPermission;
-import net.dv8tion.jda.core.Permission;
-import net.dv8tion.jda.core.entities.User;
+import net.dv8tion.jda.api.Permission;
+import net.dv8tion.jda.api.entities.User;
 
 import java.util.concurrent.TimeUnit;
 
@@ -70,9 +70,9 @@ public class SoftbanCommand implements Command {
         }
 
         String reason = String.join(" ", argument.getArguments().subList(1, argument.getArguments().size()));
-        context.getGuild().getController().ban(temp.getId(), 1, reason).queue(o -> {
+        context.getGuild().ban(temp.getId(), 1, reason).queue(o -> {
             context.sendMessage("Successfully softbanned {0} for {1}.", temp.getAsTag(), reason);
-            context.getGuild().getController().unban(temp.getId()).reason(reason).queueAfter(3, TimeUnit.SECONDS);
+            context.getGuild().unban(temp.getId()).reason(reason).queueAfter(3, TimeUnit.SECONDS);
         });
     }
 }

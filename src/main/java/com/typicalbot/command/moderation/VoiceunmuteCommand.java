@@ -23,8 +23,8 @@ import com.typicalbot.command.CommandCheck;
 import com.typicalbot.command.CommandConfiguration;
 import com.typicalbot.command.CommandContext;
 import com.typicalbot.command.CommandPermission;
-import net.dv8tion.jda.core.Permission;
-import net.dv8tion.jda.core.entities.User;
+import net.dv8tion.jda.api.Permission;
+import net.dv8tion.jda.api.entities.User;
 
 @CommandConfiguration(category = CommandCategory.MODERATION, aliases = "voiceunmute")
 public class VoiceunmuteCommand implements Command {
@@ -50,6 +50,6 @@ public class VoiceunmuteCommand implements Command {
             return;
         }
 
-        context.getGuild().getController().setMute(context.getGuild().getMember(temp), false).queue(o -> context.sendMessage("Successfully unmuted {0}", temp.getAsTag()));
+        context.getGuild().mute(context.getGuild().getMember(temp), false).queue(o -> context.sendMessage("Successfully unmuted {0}", temp.getAsTag()));
     }
 }

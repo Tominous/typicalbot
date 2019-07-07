@@ -16,9 +16,9 @@
 
 package com.typicalbot.command;
 
-import net.dv8tion.jda.core.Permission;
-import net.dv8tion.jda.core.entities.Member;
-import net.dv8tion.jda.core.exceptions.InsufficientPermissionException;
+import net.dv8tion.jda.api.Permission;
+import net.dv8tion.jda.api.entities.Member;
+import net.dv8tion.jda.api.exceptions.InsufficientPermissionException;
 
 import java.util.Collection;
 
@@ -42,6 +42,6 @@ public class CommandCheck {
 
     public static void checkPermission(Member member, Permission permission, String message) {
         if (!member.hasPermission(permission))
-            throw new InsufficientPermissionException(permission, message);
+            throw new InsufficientPermissionException(member.getGuild(), permission, message);
     }
 }

@@ -24,9 +24,9 @@ import com.typicalbot.shard.ShardManager;
 import com.typicalbot.util.FileUtil;
 import com.typicalbot.util.SentryUtil;
 import com.typicalbot.util.console.ConsoleReader;
-import net.dv8tion.jda.core.AccountType;
-import net.dv8tion.jda.core.JDA;
-import net.dv8tion.jda.core.JDABuilder;
+import net.dv8tion.jda.api.AccountType;
+import net.dv8tion.jda.api.JDA;
+import net.dv8tion.jda.api.JDABuilder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

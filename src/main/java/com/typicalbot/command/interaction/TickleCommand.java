@@ -1,7 +1,7 @@
 package com.typicalbot.command.interaction;
 
 import com.typicalbot.command.*;
-import net.dv8tion.jda.core.entities.User;
+import net.dv8tion.jda.api.entities.User;
 
 @CommandConfiguration(category = CommandCategory.INTERACTION, aliases = "tickle")
 public class TickleCommand implements Command {
