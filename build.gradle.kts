@@ -28,7 +28,6 @@ java {
 
 repositories {
     jcenter()
-    mavenCentral()
     maven("https://jitpack.io")
 }
 
