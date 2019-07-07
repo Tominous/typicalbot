@@ -37,6 +37,7 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.nio.file.Files;
+import java.time.Year;
 import java.util.Arrays;
 
 public class Launcher {
@@ -57,7 +58,7 @@ public class Launcher {
         LOGGER.info("");
 
         LOGGER.info("TypicalBot created by Bryan Pikaard and Nicholas Sylke.");
-        LOGGER.info("Copyright (c) 2019 Bryan Pikaard, Nicholas Sylke, and contributors.");
+        LOGGER.info("Copyright (c) {} Bryan Pikaard, Nicholas Sylke, and contributors.", Year.now().getValue());
         LOGGER.info("TypicalBot is licensed under the Apache License, Version 2.0 (\"License\").");
         LOGGER.info("You may obtain a copy of the License at https://www.apache.org/licenses/LICENSE-2.0.");
 
