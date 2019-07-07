@@ -34,8 +34,8 @@ repositories {
 
 dependencies {
     // JDA
-    implementation("net.dv8tion:JDA:4.8.3_463")
     implementation("com.sedmelluq:jda-nas:1.0.6")
+    implementation("net.dv8tion:JDA:3.8.3_463")
     implementation("com.sedmelluq:lavaplayer:1.3.17")
     implementation("com.github.natanbc:lavadsp:0.5.2")
     implementation("com.github.FredBoat:Lavalink-Client:8c20d57")
