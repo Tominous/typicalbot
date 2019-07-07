@@ -65,14 +65,7 @@ dependencies {
 tasks.withType<JavaCompile> {
     options.encoding = "UTF-8"
     options.isIncremental = true
-    options.compilerArgs.add("-Xlint:-unchecked")
-}
-
-tasks.withType<JacocoReport> {
-    reports {
-        xml.isEnabled = true
-        html.isEnabled = true
-    }
+    options.compilerArgs = mutableListOf("-Xlint:deprecation", "-Xlint:unchecked")
 }
 
 idea {
