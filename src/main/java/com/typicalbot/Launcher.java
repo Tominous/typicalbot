@@ -66,6 +66,7 @@ public class Launcher {
 
         Arrays.asList("config", "bin", "logs").forEach(directory -> {
             if (!Files.exists(FileUtil.HOME_PATH.resolve(directory))) {
+            if (!FileUtil.HOME_PATH.resolve(directory).toFile().exists()) {
                 LOGGER.debug("Directory '{}' does not exist, creating...", directory);
                 try {
                     Files.createDirectory(FileUtil.HOME_PATH.resolve(directory));
@@ -77,13 +78,13 @@ public class Launcher {
         });
 
         Arrays.asList("app", "database", "discord", "filter").forEach(file -> {
-            if (!Files.exists(FileUtil.HOME_PATH.resolve("config/" + file + ".yml"))) {
+            if (!FileUtil.HOME_PATH.resolve("config/" + file + ".yml").toFile().exists()) {
                 LOGGER.debug("File '{}' does not exist, creating...", file);
                 FileUtil.copy(FileUtil.HOME_PATH.resolve("config/" + file + ".yml"), "/config/" + file + ".yml");
             }
         });
 
-        if (!Files.exists(FileUtil.HOME_PATH.resolve("bin/discord.dat"))) {
+        if (!FileUtil.HOME_PATH.resolve("bin/discord.dat").toFile().exists()) {
             ConsoleReader reader = new ConsoleReader();
 
             LOGGER.info("Please enter the token to register it with the TypicalBot software.");
