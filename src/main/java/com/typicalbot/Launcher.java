@@ -98,7 +98,7 @@ public class Launcher {
             String clientId = jda.getSelfUser().getId();
             jda.shutdown();
 
-            if (clientId == null) {
+            if (clientId.isEmpty()) {
                 LOGGER.error("The token entered is invalid, please restart the application.");
                 System.exit(-1);
             }
