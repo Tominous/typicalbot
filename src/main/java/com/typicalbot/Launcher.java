@@ -43,7 +43,7 @@ import java.util.Arrays;
 public class Launcher {
     private static final Logger LOGGER = LoggerFactory.getLogger(Launcher.class);
 
-    private static MongoManager mongoManager;
+    private static MongoManager mongoManager = new MongoManager();
 
     public static final String VERSION = "@version@";
 
@@ -65,7 +65,6 @@ public class Launcher {
         LOGGER.info("");
 
         Arrays.asList("config", "bin", "logs").forEach(directory -> {
-            if (!Files.exists(FileUtil.HOME_PATH.resolve(directory))) {
             if (!FileUtil.HOME_PATH.resolve(directory).toFile().exists()) {
                 LOGGER.debug("Directory '{}' does not exist, creating...", directory);
                 try {
@@ -127,7 +126,6 @@ public class Launcher {
          */
         Arrays.asList(deserializer.deserialize(new FileInputStream(new File(FileUtil.HOME_PATH.resolve("bin/discord.dat").toString()))).toString().split(":")).forEach(data::insert);
         Config.init();
-        mongoManager = new MongoManager();
 
         Object shards = Config.getConfig("discord").get("shards");
 
