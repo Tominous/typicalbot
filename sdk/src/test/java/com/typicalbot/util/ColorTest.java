@@ -13,7 +13,31 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.typicalbot.nxt.util;
+package com.typicalbot.util;
 
-public class Color {
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.*;
+
+class ColorTest {
+    @Test
+    void testRed() {
+        Assertions.assertEquals(Color.TYPICALBOT_BLUE.red(), 25);
+    }
+
+    @Test
+    void testGreen() {
+        Assertions.assertEquals(Color.TYPICALBOT_BLUE.green(), 118);
+    }
+
+    @Test
+    void testBlue() {
+        Assertions.assertEquals(Color.TYPICALBOT_BLUE.blue(), 210);
+    }
+
+    @Test
+    void testRgb() {
+        Assertions.assertEquals(Color.TYPICALBOT_BLUE.rgb(), 0x1976D2);
+    }
 }
