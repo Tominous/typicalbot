@@ -23,6 +23,7 @@ import com.typicalbot.nxt.command.CommandConfiguration;
 import com.typicalbot.nxt.command.CommandContext;
 import com.typicalbot.nxt.command.CommandPermission;
 import com.typicalbot.nxt.util.Pageable;
+import com.typicalbot.util.Color;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.Permission;
 import okhttp3.OkHttpClient;
@@ -79,7 +80,7 @@ public class BotsCommand implements Command {
             DecimalFormat format = new DecimalFormat("#,###");
 
             builder.setTitle("Bot List - Provided by Carbonitex");
-            builder.setColor(CommandContext.TYPICALBOT_BLUE);
+            builder.setColor(Color.TYPICALBOT_BLUE.rgb());
             builder.setThumbnail("https://cdn.discordapp.com/icons/112319935652298752/8ab710cbc981f639bf355911be48adf7.png"); // Carbonitex server logo
 
             for (JSONObject server : obj.getListForPage()) {

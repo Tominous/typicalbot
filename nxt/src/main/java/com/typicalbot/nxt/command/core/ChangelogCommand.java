@@ -21,6 +21,7 @@ import com.typicalbot.nxt.command.CommandCategory;
 import com.typicalbot.nxt.command.CommandConfiguration;
 import com.typicalbot.nxt.command.CommandContext;
 import com.typicalbot.nxt.command.CommandPermission;
+import com.typicalbot.util.Color;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.Permission;
 import okhttp3.OkHttpClient;
@@ -66,7 +67,7 @@ public class ChangelogCommand implements Command {
 
                 builder.setTitle("Launcher Changelog", object.getString("html_url"));
                 builder.setDescription(object.getString("body"));
-                builder.setColor(CommandContext.TYPICALBOT_BLUE);
+                builder.setColor(Color.TYPICALBOT_BLUE.rgb());
 
                 context.sendEmbed(builder.build());
             } else {

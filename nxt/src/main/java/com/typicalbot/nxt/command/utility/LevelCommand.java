@@ -25,6 +25,7 @@ import com.typicalbot.nxt.command.CommandPermission;
 import com.typicalbot.nxt.data.mongo.dao.GuildDAO;
 import com.typicalbot.nxt.data.mongo.objects.GuildObject;
 import com.typicalbot.nxt.data.mongo.objects.GuildRoleSettingObject;
+import com.typicalbot.util.Color;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.Permission;
 import net.dv8tion.jda.api.entities.Role;
@@ -61,7 +62,7 @@ public class LevelCommand implements Command {
         EmbedBuilder builder = new EmbedBuilder();
 
         builder.setTitle(target.getAsTag() + "'s Permission Level");
-        builder.setColor(CommandContext.TYPICALBOT_BLUE);
+        builder.setColor(Color.TYPICALBOT_BLUE.rgb());
 
         if (target.getIdLong() == 187342661060001792L || target.getIdLong() == 105408136285818880L) {
             // Nick, HyperCoder2975

@@ -24,6 +24,7 @@ import com.typicalbot.nxt.command.CommandConfiguration;
 import com.typicalbot.nxt.command.CommandContext;
 import com.typicalbot.nxt.command.CommandPermission;
 import com.typicalbot.nxt.shard.ShardManager;
+import com.typicalbot.util.Color;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.JDAInfo;
 import net.dv8tion.jda.api.Permission;
@@ -62,7 +63,7 @@ public class StatisticsCommand implements Command {
         EmbedBuilder builder = new EmbedBuilder();
 
         builder.setTitle("TypicalBot Statistics");
-        builder.setColor(CommandContext.TYPICALBOT_BLUE);
+        builder.setColor(Color.TYPICALBOT_BLUE.rgb());
         builder.setThumbnail("https://cdn.discordapp.com/icons/509030978484699136/ce37733019bb77ecaed550dfdaacea89.png");
 
         builder.addField("Uptime", UptimeCommand.getUptime(), true);

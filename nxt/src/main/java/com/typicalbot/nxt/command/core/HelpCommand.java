@@ -23,6 +23,7 @@ import com.typicalbot.nxt.command.CommandContext;
 import com.typicalbot.nxt.command.CommandPermission;
 import com.typicalbot.nxt.shard.Shard;
 import com.typicalbot.nxt.util.StringUtil;
+import com.typicalbot.util.Color;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.Permission;
 
@@ -54,7 +55,7 @@ public class HelpCommand implements Command {
 
                 builder.setTitle("TypicalBot");
                 builder.setDescription("Thanks for using TypicalBot, a multi-threaded and high-performance Discord bot. TypicalBot is stable, lightning fast, reliable and easy to use.");
-                builder.setColor(CommandContext.TYPICALBOT_BLUE);
+                builder.setColor(Color.TYPICALBOT_BLUE.rgb());
 
                 builder.addField("Website", "[Go to Website](https://typicalbot.com)", true);
                 builder.addField("Documentation", "[Go to Documentation](https://typicalbot.com/documentation)", true);
@@ -78,7 +79,7 @@ public class HelpCommand implements Command {
 
             builder.setTitle("Documentation for " + argument.get(0));
             builder.setDescription(command.description());
-            builder.setColor(CommandContext.TYPICALBOT_BLUE);
+            builder.setColor(Color.TYPICALBOT_BLUE.rgb());
 
             builder.addField("Category", StringUtil.capitalize(command.getConfiguration().category().name()), true);
             builder.addField("Permission", StringUtil.capitalize(command.permission().name().replace('_', ' ')), true);

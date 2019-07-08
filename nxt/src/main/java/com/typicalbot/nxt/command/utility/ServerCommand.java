@@ -23,6 +23,7 @@ import com.typicalbot.nxt.command.CommandConfiguration;
 import com.typicalbot.nxt.command.CommandContext;
 import com.typicalbot.nxt.command.CommandPermission;
 import com.typicalbot.nxt.util.StringUtil;
+import com.typicalbot.util.Color;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.Permission;
 import net.dv8tion.jda.api.entities.Guild;
@@ -48,7 +49,7 @@ public class ServerCommand implements Command {
 
         builder.setTitle("Server Information");
         builder.setThumbnail(guild.getIconUrl());
-        builder.setColor(CommandContext.TYPICALBOT_BLUE);
+        builder.setColor(Color.TYPICALBOT_BLUE.rgb());
 
         if (guild.getDescription() != null) {
             builder.setDescription(guild.getDescription());

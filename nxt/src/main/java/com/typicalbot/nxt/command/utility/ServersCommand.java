@@ -24,6 +24,7 @@ import com.typicalbot.nxt.command.CommandContext;
 import com.typicalbot.nxt.command.CommandPermission;
 import com.typicalbot.nxt.shard.Shard;
 import com.typicalbot.nxt.util.Pageable;
+import com.typicalbot.util.Color;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.Permission;
 import net.dv8tion.jda.api.entities.Guild;
@@ -53,7 +54,7 @@ public class ServersCommand implements Command {
         DecimalFormat format = new DecimalFormat("#,###");
 
         builder.setTitle("Server List - Provided by TypicalBot");
-        builder.setColor(CommandContext.TYPICALBOT_BLUE);
+        builder.setColor(Color.TYPICALBOT_BLUE.rgb());
         builder.setThumbnail("https://cdn.discordapp.com/icons/509030978484699136/ce37733019bb77ecaed550dfdaacea89.png");
 
         for (Guild guild : guilds.getListForPage()) {

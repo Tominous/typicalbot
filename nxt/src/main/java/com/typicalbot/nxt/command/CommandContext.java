@@ -22,10 +22,6 @@ import java.text.MessageFormat;
 import java.util.List;
 
 public class CommandContext {
-    public static final int TYPICALBOT_BLUE = 0x1976D2;
-    public static final int TYPICALBOT_SUCCESS = 0x00FF00;
-    public static final int TYPICALBOT_ERROR = 0xFF0000;
-
     private final Message message;
 
     public CommandContext(Message message) {

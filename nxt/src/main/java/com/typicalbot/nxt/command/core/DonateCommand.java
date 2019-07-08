@@ -21,6 +21,7 @@ import com.typicalbot.nxt.command.CommandCategory;
 import com.typicalbot.nxt.command.CommandConfiguration;
 import com.typicalbot.nxt.command.CommandContext;
 import com.typicalbot.nxt.command.CommandPermission;
+import com.typicalbot.util.Color;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.Permission;
 
@@ -50,7 +51,7 @@ public class DonateCommand implements Command {
 
             builder.setTitle("TypicalBot Donate");
             builder.setDescription("If you would like to support the TypicalBot maintainers, you can donate using one of the options below.");
-            builder.setColor(CommandContext.TYPICALBOT_BLUE);
+            builder.setColor(Color.TYPICALBOT_BLUE.rgb());
 
             builder.addField("One-time Donation", "[PayPal](https://paypal.me/typicalbot)", true);
             builder.addField("Recurring Donation", "[Patreon](https://patreon.com/typicalbot)", true);

@@ -22,6 +22,7 @@ import com.typicalbot.nxt.command.CommandCheck;
 import com.typicalbot.nxt.command.CommandConfiguration;
 import com.typicalbot.nxt.command.CommandContext;
 import com.typicalbot.nxt.command.CommandPermission;
+import com.typicalbot.util.Color;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.Permission;
 import okhttp3.OkHttpClient;
@@ -83,7 +84,7 @@ public class UrbandictionaryCommand implements Command {
 
             builder.setTitle(term.getString("word"), term.getString("permalink"));
             builder.setDescription(term.getString("definition").replaceAll("\\[", "").replaceAll("]", ""));
-            builder.setColor(CommandContext.TYPICALBOT_SUCCESS);
+            builder.setColor(Color.TYPICALBOT_SUCCESS.rgb());
             builder.addField("Example", term.getString("example").replaceAll("\\[", "").replaceAll("]", ""), false);
             builder.addField("Rating", ":arrow_up: `" + term.getInt("thumbs_up") + "` :arrow_down: `" + term.getInt("thumbs_down") + "`", false);
 

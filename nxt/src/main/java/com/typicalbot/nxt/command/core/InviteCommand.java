@@ -21,6 +21,7 @@ import com.typicalbot.nxt.command.CommandCategory;
 import com.typicalbot.nxt.command.CommandConfiguration;
 import com.typicalbot.nxt.command.CommandContext;
 import com.typicalbot.nxt.command.CommandPermission;
+import com.typicalbot.util.Color;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.Permission;
 
@@ -50,7 +51,7 @@ public class InviteCommand implements Command {
 
             builder.setTitle("TypicalBot Invite");
             builder.setDescription("[Click here](" + context.getJDA().getInviteUrl(Permission.ADMINISTRATOR) + ") to invite TypicalBot to your guild.");
-            builder.setColor(CommandContext.TYPICALBOT_BLUE);
+            builder.setColor(Color.TYPICALBOT_BLUE.rgb());
 
             context.sendEmbed(builder.build());
         } else {

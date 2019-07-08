@@ -25,6 +25,7 @@ import com.typicalbot.nxt.data.mongo.dao.GuildDAO;
 import com.typicalbot.nxt.data.mongo.objects.GuildObject;
 import com.typicalbot.nxt.shard.Shard;
 import com.typicalbot.nxt.util.StringUtil;
+import com.typicalbot.util.Color;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.MessageEmbed;
 
@@ -70,7 +71,7 @@ public class CommandsCommand implements Command {
         EmbedBuilder builder = new EmbedBuilder();
 
         builder.setTitle("TypicalBot Commands");
-        builder.setColor(CommandContext.TYPICALBOT_BLUE);
+        builder.setColor(Color.TYPICALBOT_BLUE.rgb());
 
         for (CommandCategory category : CommandCategory.values()) {
             if (category != CommandCategory.SYSTEM) {

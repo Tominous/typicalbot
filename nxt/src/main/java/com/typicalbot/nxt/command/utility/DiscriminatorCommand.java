@@ -22,6 +22,7 @@ import com.typicalbot.nxt.command.CommandCheck;
 import com.typicalbot.nxt.command.CommandConfiguration;
 import com.typicalbot.nxt.command.CommandContext;
 import com.typicalbot.nxt.command.CommandPermission;
+import com.typicalbot.util.Color;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.Permission;
 import net.dv8tion.jda.api.entities.User;
@@ -66,7 +67,7 @@ public class DiscriminatorCommand implements Command {
         EmbedBuilder builder = new EmbedBuilder();
 
         builder.setTitle("Users with the discriminator of " + discrim);
-        builder.setColor(CommandContext.TYPICALBOT_SUCCESS);
+        builder.setColor(Color.TYPICALBOT_SUCCESS.rgb());
 
         users.forEach(u -> {
             builder.addField(u.getAsTag(), u.getId(), true);
