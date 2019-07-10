@@ -15,6 +15,9 @@
  */
 package com.typicalbot.scheduler;
 
+import org.json.JSONArray;
+
+import java.util.Optional;
 import java.util.UUID;
 import java.util.concurrent.TimeUnit;
 import java.util.function.Consumer;
@@ -27,6 +30,8 @@ public interface Task {
     long getInterval();
 
     Object getExtension();
+
+    Optional<JSONArray> getMeta();
 
     Consumer<Task> getConsumer();
 
