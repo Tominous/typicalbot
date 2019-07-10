@@ -27,4 +27,6 @@ public interface Scheduler {
     Set<Task> getScheduledTasks();
 
     Set<Task> getScheduledTasks(Object extension);
+
+    ExecutorService createExecutor(Object extension);
 }
