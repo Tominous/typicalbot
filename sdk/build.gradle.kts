@@ -21,6 +21,7 @@ dependencies {
     api("net.dv8tion:JDA:4.BETA.0_21")
 
     // Utility
+    implementation("org.json:json:20180813")
     implementation("com.google.guava:guava:28.0-jre")
 
     // JUnit
