@@ -15,16 +15,14 @@
  */
 package com.typicalbot.nxt.command.music;
 
+import com.sedmelluq.discord.lavaplayer.track.AudioTrack;
+import com.typicalbot.audio.QueuedTrack;
 import com.typicalbot.nxt.audio.GuildMusicManager;
-import com.typicalbot.nxt.command.Command;
-import com.typicalbot.nxt.command.CommandArgument;
-import com.typicalbot.nxt.command.CommandCategory;
-import com.typicalbot.nxt.command.CommandCheck;
-import com.typicalbot.nxt.command.CommandConfiguration;
-import com.typicalbot.nxt.command.CommandContext;
-import com.typicalbot.nxt.command.CommandPermission;
+import com.typicalbot.nxt.command.*;
 import com.typicalbot.nxt.util.AudioUtil;
-import net.dv8tion.jda.api.Permission;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @CommandConfiguration(category = CommandCategory.MUSIC, aliases = "queue")
 public class QueueCommand implements Command {
@@ -38,20 +36,32 @@ public class QueueCommand implements Command {
         GuildMusicManager musicManager = AudioUtil.getGuildAudioPlayer(context.getGuild());
 
         if (musicManager.player.getPlayingTrack() == null) {
-            context.sendMessage("There is nothing playing.");
+            context.sendMessage("Nothing is currently playing.");
             return;
         }
 
-        CommandCheck.checkPermission(context.getSelfMember(), Permission.MESSAGE_EMBED_LINKS);
+        if (musicManager.scheduler.getQueue().isEmpty()) {
+            context.sendMessage("Nothing is in the queue.");
+            return;
+        }
 
+        AudioTrack track = musicManager.player.getPlayingTrack();
+        List<QueuedTrack> scheduledTracks = new ArrayList<>(musicManager.scheduler.getQueue());
         StringBuilder builder = new StringBuilder();
-        builder.append("Now Playing: ")
-            .append(musicManager.player.getPlayingTrack().getInfo().title)
-            .append("\n\n")
-            .append("Queue:")
-            .append("\n");
 
-        //musicManager.scheduler.getQueue().forEach(element -> builder.append("[").append(AudioUtil.format(element.getDuration())).append("] ").append(element.getInfo().title).append("\n"));
+        builder.append("**__Currently playing:__ ")
+            .append(track.getInfo().title)
+            .append("** requested by **")
+            .append(context.getJDA().getUserById(track.getUserData(Long.class)).getAsTag())
+            .append("**\n\n");
+
+        scheduledTracks.subList(0, (scheduledTracks.size() >= 10 ? 10 : scheduledTracks.size())).forEach(t -> builder.append("[")
+            .append(AudioUtil.format(t.getTrack().getDuration()))
+            .append("] **")
+            .append(t.getTrack().getInfo().title)
+            .append("** requested by **")
+            .append(context.getJDA().getUserById(t.getUniqueId()).getAsTag())
+            .append("**\n"));
 
         context.sendMessage(builder.toString());
     }

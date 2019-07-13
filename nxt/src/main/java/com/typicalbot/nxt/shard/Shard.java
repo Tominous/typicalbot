@@ -16,6 +16,7 @@
 package com.typicalbot.nxt.shard;
 
 import com.sedmelluq.discord.lavaplayer.format.StandardAudioDataFormats;
+import com.sedmelluq.discord.lavaplayer.jdaudp.NativeAudioSendFactory;
 import com.sedmelluq.discord.lavaplayer.player.AudioConfiguration;
 import com.sedmelluq.discord.lavaplayer.player.AudioPlayerManager;
 import com.sedmelluq.discord.lavaplayer.player.DefaultAudioPlayerManager;
@@ -83,19 +84,16 @@ public class Shard {
             JDABuilder builder = new JDABuilder(AccountType.BOT)
                 .setToken(token)
                 .setAutoReconnect(true)
-//                .setAudioEnabled(true)
-//                .setGame(Game.playing("Client Started")) // Same as TypicalBot 2.x
                 .setActivity(Activity.playing("Client Started"))
-                .setStatus(OnlineStatus.IDLE) // Set to IDLE while still loading, change ONLINE when ready
+                .setStatus(OnlineStatus.IDLE)
                 .setBulkDeleteSplittingEnabled(true)
                 .setEnableShutdownHook(true)
                 .setContextEnabled(true)
                 .setDisabledCacheFlags(EnumSet.of(CacheFlag.ACTIVITY))
                 .useSharding(shardId, shardTotal);
-//                .setCorePoolSize(4);
 
             if (!System.getProperty("os.arch").equalsIgnoreCase("arm") && !System.getProperty("os.arch").equalsIgnoreCase("arm-linux")) {
-//                builder.setAudioSendFactory(new NativeAudioSendFactory());
+                builder.setAudioSendFactory(new NativeAudioSendFactory());
             }
 
             builder.addEventListeners(
@@ -212,12 +210,12 @@ public class Shard {
                 new ShuffleCommand(),
                 new SkipCommand(),
                 new StopCommand(),
-                new TempoCommand(),
                 new UnqueueCommand(),
                 new VolumeCommand(),
 
                 // System
                 new EvalCommand(),
+                new TestCommand(),
 
                 // Utility
                 new AvatarCommand(),

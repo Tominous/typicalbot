@@ -16,12 +16,7 @@
 package com.typicalbot.nxt.command.music;
 
 import com.typicalbot.nxt.audio.GuildMusicManager;
-import com.typicalbot.nxt.command.Command;
-import com.typicalbot.nxt.command.CommandArgument;
-import com.typicalbot.nxt.command.CommandCategory;
-import com.typicalbot.nxt.command.CommandConfiguration;
-import com.typicalbot.nxt.command.CommandContext;
-import com.typicalbot.nxt.command.CommandPermission;
+import com.typicalbot.nxt.command.*;
 import com.typicalbot.nxt.util.AudioUtil;
 
 @CommandConfiguration(category = CommandCategory.MUSIC, aliases = "repeat")
@@ -36,11 +31,11 @@ public class RepeatCommand implements Command {
         GuildMusicManager musicManager = AudioUtil.getGuildAudioPlayer(context.getGuild());
 
         if (musicManager.player.getPlayingTrack() == null) {
-            context.sendMessage("There is nothing playing.");
+            context.sendMessage("Nothing is currently playing.");
             return;
         }
 
-        //musicManager.scheduler.setRepeat(!musicManager.scheduler.isRepeat());
-        //context.sendMessage(musicManager.scheduler.isRepeat() ? "now repeating." : "no longer repeating.");
+        musicManager.scheduler.repeat(!musicManager.scheduler.isRepeating());
+        context.sendMessage("{0} **{1}**", musicManager.scheduler.isRepeating() ? "Successfully started to repeat" : "Successfully stop repeating", musicManager.player.getPlayingTrack().getInfo().title);
     }
 }

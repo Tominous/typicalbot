@@ -16,14 +16,8 @@
 package com.typicalbot.nxt.command.music;
 
 import com.typicalbot.nxt.audio.GuildMusicManager;
-import com.typicalbot.nxt.command.Command;
-import com.typicalbot.nxt.command.CommandArgument;
-import com.typicalbot.nxt.command.CommandCategory;
-import com.typicalbot.nxt.command.CommandConfiguration;
-import com.typicalbot.nxt.command.CommandContext;
-import com.typicalbot.nxt.command.CommandPermission;
+import com.typicalbot.nxt.command.*;
 import com.typicalbot.nxt.util.AudioUtil;
-import net.dv8tion.jda.api.entities.TextChannel;
 
 @CommandConfiguration(category = CommandCategory.MUSIC, aliases = "skip")
 public class SkipCommand implements Command {
@@ -34,19 +28,14 @@ public class SkipCommand implements Command {
 
     @Override
     public void execute(CommandContext context, CommandArgument argument) {
-        skipTrack(context.getMessage().getTextChannel());
-    }
-
-    private void skipTrack(TextChannel channel) {
-        GuildMusicManager musicManager = AudioUtil.getGuildAudioPlayer(channel.getGuild());
+        GuildMusicManager musicManager = AudioUtil.getGuildAudioPlayer(context.getGuild());
 
         if (musicManager.player.getPlayingTrack() == null) {
-            channel.sendMessage("There is nothing playing.").queue();
+            context.sendMessage("Nothing is currently playing.");
             return;
         }
 
-        //musicManager.scheduler.nextTrack();
-
-        channel.sendMessage("Skipped to next track.").queue();
+        musicManager.scheduler.next();
+        context.sendMessage("Successfully skipped track.");
     }
 }

@@ -36,11 +36,11 @@ public class ResumeCommand implements Command {
         GuildMusicManager musicManager = AudioUtil.getGuildAudioPlayer(context.getGuild());
 
         if (musicManager.player.getPlayingTrack() == null) {
-            context.sendMessage("There is nothing playing.");
+            context.sendMessage("Nothing is currently playing.");
             return;
         }
 
         musicManager.player.setPaused(false);
-        context.sendMessage("Successfully resumed " + musicManager.player.getPlayingTrack().getInfo().title);
+        context.sendMessage("Successfully resumed **{0}**", musicManager.player.getPlayingTrack().getInfo().title);
     }
 }

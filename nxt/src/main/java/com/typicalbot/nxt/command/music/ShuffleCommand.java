@@ -16,12 +16,7 @@
 package com.typicalbot.nxt.command.music;
 
 import com.typicalbot.nxt.audio.GuildMusicManager;
-import com.typicalbot.nxt.command.Command;
-import com.typicalbot.nxt.command.CommandArgument;
-import com.typicalbot.nxt.command.CommandCategory;
-import com.typicalbot.nxt.command.CommandConfiguration;
-import com.typicalbot.nxt.command.CommandContext;
-import com.typicalbot.nxt.command.CommandPermission;
+import com.typicalbot.nxt.command.*;
 import com.typicalbot.nxt.util.AudioUtil;
 
 @CommandConfiguration(category = CommandCategory.MUSIC, aliases = "shuffle")
@@ -36,11 +31,16 @@ public class ShuffleCommand implements Command {
         GuildMusicManager musicManager = AudioUtil.getGuildAudioPlayer(context.getGuild());
 
         if (musicManager.player.getPlayingTrack() == null) {
-            context.sendMessage("There is nothing playing.");
+            context.sendMessage("Nothing is currently playing.");
             return;
         }
 
-        //musicManager.scheduler.shuffle();
-        context.sendMessage("shuffled queue.");
+        if (musicManager.scheduler.getQueue().isEmpty()) {
+            context.sendMessage("Nothing is in the queue.");
+            return;
+        }
+
+        musicManager.scheduler.shuffle();
+        context.sendMessage("Successfully shuffled queue.");
     }
 }

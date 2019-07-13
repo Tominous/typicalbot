@@ -17,16 +17,8 @@ package com.typicalbot.nxt.command.music;
 
 import com.sedmelluq.discord.lavaplayer.track.AudioTrack;
 import com.typicalbot.nxt.audio.GuildMusicManager;
-import com.typicalbot.nxt.command.Command;
-import com.typicalbot.nxt.command.CommandArgument;
-import com.typicalbot.nxt.command.CommandCategory;
-import com.typicalbot.nxt.command.CommandCheck;
-import com.typicalbot.nxt.command.CommandConfiguration;
-import com.typicalbot.nxt.command.CommandContext;
-import com.typicalbot.nxt.command.CommandPermission;
+import com.typicalbot.nxt.command.*;
 import com.typicalbot.nxt.util.AudioUtil;
-import net.dv8tion.jda.api.EmbedBuilder;
-import net.dv8tion.jda.api.Permission;
 
 @CommandConfiguration(category = CommandCategory.MUSIC, aliases = {"current", "currentsong", "nowplaying", "np"})
 public class CurrentCommand implements Command {
@@ -40,21 +32,12 @@ public class CurrentCommand implements Command {
         GuildMusicManager musicManager = AudioUtil.getGuildAudioPlayer(context.getGuild());
 
         if (musicManager.player.getPlayingTrack() == null) {
-            context.sendMessage("There is nothing playing.");
+            context.sendMessage("Nothing is currently playing.");
             return;
         }
 
-        CommandCheck.checkPermission(context.getSelfMember(), Permission.MESSAGE_EMBED_LINKS);
-
         AudioTrack track = musicManager.player.getPlayingTrack();
 
-        EmbedBuilder builder = new EmbedBuilder();
-
-        builder.setTitle("Currently playing");
-        builder.setDescription(track.getInfo().title);
-        builder.addField("Time", AudioUtil.format(track.getPosition()) + "/" + AudioUtil.format(track.getDuration()), true);
-        builder.addField("URL", "[Click here](" + track.getInfo().uri + ")", true);
-
-        context.sendEmbed(builder.build());
+        context.sendMessage("**__Currently playing:__ {0}** requested by **{1}**", track.getInfo().title, context.getJDA().getUserById(track.getUserData(Long.class)).getAsTag());
     }
 }
