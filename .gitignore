@@ -31,8 +31,15 @@ build-eclipse/
 /out/
 /.stylelintrc.yml
 
+# VS Code
+.vscode
+
 # TypicalBot
 /config
 /bin
 /logs
 sentry.properties
+/nxt/out
+/nxt/build
+/sdk/out
+/sdk/build
