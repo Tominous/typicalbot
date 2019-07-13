@@ -15,16 +15,12 @@
  */
 package com.typicalbot.nxt.command.moderation;
 
-import com.typicalbot.nxt.command.Command;
-import com.typicalbot.nxt.command.CommandArgument;
-import com.typicalbot.nxt.command.CommandCategory;
-import com.typicalbot.nxt.command.CommandCheck;
-import com.typicalbot.nxt.command.CommandConfiguration;
-import com.typicalbot.nxt.command.CommandContext;
-import com.typicalbot.nxt.command.CommandPermission;
+import com.typicalbot.nxt.command.*;
 import com.typicalbot.nxt.data.mongo.dao.GuildDAO;
 import com.typicalbot.nxt.data.mongo.objects.GuildObject;
 import com.typicalbot.nxt.util.Pageable;
+import net.dv8tion.jda.api.entities.GuildChannel;
+import net.dv8tion.jda.api.entities.Role;
 
 import java.util.Arrays;
 
@@ -81,75 +77,12 @@ public class SettingsCommand implements Command {
         "welcomemessage"
     };
 
-    private String[] guildSettings = new String[]{
-        "announcements",
-        "dmcommand",
-        "goodbyemessage",
-        "locale",
-        "mode",
-        "nickname",
-        "prefix",
-        "preservedata",
-        "welcomemessage"
-    };
-
-    private String[] logSettings = new String[]{
-        "logs",
-        "logs-join",
-        "logs-leave",
-        "logs-nickname",
-        "logs-voicejoin",
-        "logs-voiceleave",
-        "modlogs",
-        "modlogs-ban",
-        "modlogs-kick",
-        "modlogs-mute",
-        "modlogs-purge",
-        "modlogs-unban",
-        "modlogs-unmute"
-    };
-
-    private String[] moduleSettings = new String[]{
-        "modules-fun",
-        "modules-integration",
-        "modules-interaction",
-        "modules-miscellaneous",
-        "modules-moderation",
-        "modules-music",
-        "modules-utility",
-        "modules-webhook"
-    };
-
-    private String[] musicSettings = new String[]{
-        "music-defaultvolume",
-        "music-pause",
-        "music-play",
-        "music-queuelimit",
-        "music-resume",
-        "music-skip",
-        "music-stop",
-        "music-timelimit",
-        "music-unqueue",
-        "music-volume",
-    };
-
-    private String[] roleSettings = new String[]{
-        "adminrole",
-        "autorole",
-        "autorolesilent",
-        "blacklistrole",
-        "djrole",
-        "modrole",
-        "muterole",
-        "subscriber"
-    };
-
     @Override
     public String[] usage() {
         return new String[]{
             "settings list",
             "settings view [setting]",
-            "settings edit [setting]"
+            "settings edit [setting] [value]"
         };
     }
 
@@ -167,202 +100,520 @@ public class SettingsCommand implements Command {
     public void execute(CommandContext context, CommandArgument argument) {
         CommandCheck.checkArguments(argument);
 
-        String command = argument.get(0);
-
         GuildDAO dao = new GuildDAO();
         GuildObject object = dao.get(context.getGuild().getIdLong()).get();
 
-        // TODO(nsylke): Clean this up? Another days project...
-        if (command.equalsIgnoreCase("list")) {
-            Pageable<String> list = new Pageable<>(Arrays.asList(settings));
+        if (argument.get(0).equalsIgnoreCase("list")) {
+            Pageable<String> opts = new Pageable<>(Arrays.asList(settings));
 
-            if (argument.length() > 1) {
-                if (isInt(argument.get(1))) {
-                    list.setPage(Integer.parseInt(argument.get(1)));
+            if (argument.length() >= 2) {
+                int page = Integer.parseInt(argument.get(1));
+
+                if (page > opts.getMaxPages()) {
+                    opts.setPage(opts.getMaxPages());
                 } else {
-                    if (argument.get(1).equalsIgnoreCase("guild")) {
-                        StringBuilder builder = new StringBuilder();
-
-                        builder.append("__**Launcher Guild Settings**__").append("\n");
-
-                        for (String s : guildSettings) {
-                            builder.append(" • ").append(s).append("\n");
-                        }
-
-                        context.sendMessage(builder.toString());
-                    } else if (argument.get(1).equalsIgnoreCase("logs")) {
-                        StringBuilder builder = new StringBuilder();
-
-                        builder.append("__**Launcher Log Settings**__").append("\n");
-
-                        for (String s : logSettings) {
-                            builder.append(" • ").append(s).append("\n");
-                        }
-
-                        context.sendMessage(builder.toString());
-                    } else if (argument.get(1).equalsIgnoreCase("modules")) {
-                        StringBuilder builder = new StringBuilder();
-
-                        builder.append("__**Launcher Module Settings**__").append("\n");
-
-                        for (String s : moduleSettings) {
-                            builder.append(" • ").append(s).append("\n");
-                        }
-
-                        context.sendMessage(builder.toString());
-                    } else if (argument.get(1).equalsIgnoreCase("music")) {
-                        StringBuilder builder = new StringBuilder();
-
-                        builder.append("__**Launcher Music Settings**__").append("\n");
-
-                        for (String s : musicSettings) {
-                            builder.append(" • ").append(s).append("\n");
-                        }
-
-                        context.sendMessage(builder.toString());
-                    } else if (argument.get(1).equalsIgnoreCase("roles")) {
-                        StringBuilder builder = new StringBuilder();
-
-                        builder.append("__**Launcher Role Settings**__").append("\n");
-
-                        for (String s : roleSettings) {
-                            builder.append(" • ").append(s).append("\n");
-                        }
-
-                        context.sendMessage(builder.toString());
-                    } else {
-                        context.sendMessage("Incorrect usage. Please use `$help settings` to check usage.");
-                    }
-
-                    return;
+                    opts.setPage(page);
                 }
             } else {
-                list.setPage(0);
+                opts.setPage(1);
             }
 
             StringBuilder builder = new StringBuilder();
 
-            builder.append("__**Launcher Settings**__").append("\n\n");
-            builder.append("**Page ").append(list.getPage()).append(" / ").append(list.getMaxPages()).append("**").append("\n");
+            builder.append("__**Available settings**__").append("\n\n");
 
-            for (String str : list.getListForPage()) {
-                builder.append(" • ").append(str).append("\n");
+            for (String setting : opts.getListForPage()) {
+                builder.append(" • ").append(setting).append("\n");
             }
 
-            context.sendMessage(builder.toString().trim());
-        } else if (command.equalsIgnoreCase("view")) {
-            if (argument.get(1).equalsIgnoreCase("adminrole")) {
-                context.sendMessage("{0}, the current value of `adminrole` is `{1}`.", context.getMember().getAsMention(), String.valueOf(object.getGuildSettings().getRoles().getAdminRole()));
-            } else if (argument.get(1).equalsIgnoreCase("announcements")) {
-                context.sendMessage("{0}, the current value of `announcements` is `{1}`.", context.getMember().getAsMention(), String.valueOf(object.getGuildSettings().getAnnouncementsId()));
-            } else if (argument.get(1).equalsIgnoreCase("autorole")) {
-                context.sendMessage("{0}, the current value of `autorole` is `{1}`.", context.getMember().getAsMention(), String.valueOf(object.getGuildSettings().getRoles().getAutorole()));
-            } else if (argument.get(1).equalsIgnoreCase("autorolesilent")) {
-                context.sendMessage("{0}, the current value of `autorolesilent` is `{1}`.", context.getMember().getAsMention(), String.valueOf(object.getGuildSettings().getRoles().isAutoroleSilent()));
-            } else if (argument.get(1).equalsIgnoreCase("blacklistrole")) {
-                context.sendMessage("{0}, the current value of `blacklistrole` is `{1}`.", context.getMember().getAsMention(), String.valueOf(object.getGuildSettings().getRoles().getBlacklistRole()));
-            } else if (argument.get(1).equalsIgnoreCase("djrole")) {
-                context.sendMessage("{0}, the current value of `djrole` is `{1}`.", context.getMember().getAsMention(), String.valueOf(object.getGuildSettings().getRoles().getDjRole()));
-            } else if (argument.get(1).equalsIgnoreCase("dmcommand")) {
-                context.sendMessage("{0}, the current value of `dmcommand` is `{1}`.", context.getMember().getAsMention(), String.valueOf(object.getGuildSettings().isDmCommand()));
-            } else if (argument.get(1).equalsIgnoreCase("goodbyemessage")) {
-                context.sendMessage("{0}, the current value of `goodbyemessage` is `{1}`.", context.getMember().getAsMention(), String.valueOf(object.getGuildSettings().getWelcomeMessage()));
-            } else if (argument.get(1).equalsIgnoreCase("locale")) {
-                context.sendMessage("{0}, the current value of `locale` is `{1}`.", context.getMember().getAsMention(), String.valueOf(object.getGuildSettings().getLocale()));
-            } else if (argument.get(1).equalsIgnoreCase("logs")) {
-                context.sendMessage("{0}, the current value of `logs` is `{1}`.", context.getMember().getAsMention(), String.valueOf(object.getGuildSettings().getLogs().getLogsId()));
-            } else if (argument.get(1).equalsIgnoreCase("logs-join")) {
-                context.sendMessage("{0}, the current value of `logs-join` is `{1}`.", context.getMember().getAsMention(), String.valueOf(object.getGuildSettings().getLogs().isLogJoin()));
-            } else if (argument.get(1).equalsIgnoreCase("logs-leave")) {
-                context.sendMessage("{0}, the current value of `logs-leave` is `{1}`.", context.getMember().getAsMention(), String.valueOf(object.getGuildSettings().getLogs().isLogLeave()));
-            } else if (argument.get(1).equalsIgnoreCase("logs-nickname")) {
-                context.sendMessage("{0}, the current value of `logs-nickname` is `{1}`.", context.getMember().getAsMention(), String.valueOf(object.getGuildSettings().getLogs().isLogNickname()));
-            } else if (argument.get(1).equalsIgnoreCase("logs-voicejoin")) {
-                context.sendMessage("{0}, the current value of `logs-voicejoin` is `{1}`.", context.getMember().getAsMention(), String.valueOf(object.getGuildSettings().getLogs().isLogVoiceJoin()));
-            } else if (argument.get(1).equalsIgnoreCase("logs-voiceleave")) {
-                context.sendMessage("{0}, the current value of `logs-voiceleave` is `{1}`.", context.getMember().getAsMention(), String.valueOf(object.getGuildSettings().getLogs().isLogVoiceLeave()));
-            } else if (argument.get(1).equalsIgnoreCase("mode")) {
-                context.sendMessage("{0}, the current value of `mode` is `{1}`.", context.getMember().getAsMention(), String.valueOf(object.getGuildSettings().getMode()));
-            } else if (argument.get(1).equalsIgnoreCase("modlogs")) {
-                context.sendMessage("{0}, the current value of `modlogs` is `{1}`.", context.getMember().getAsMention(), String.valueOf(object.getGuildSettings().getLogs().getModlogsId()));
-            } else if (argument.get(1).equalsIgnoreCase("modlogs-ban")) {
-                context.sendMessage("{0}, the current value of `modlogs-ban` is `{1}`.", context.getMember().getAsMention(), String.valueOf(object.getGuildSettings().getLogs().isModlogBan()));
-            } else if (argument.get(1).equalsIgnoreCase("modlogs-kick")) {
-                context.sendMessage("{0}, the current value of `modlogs-kick` is `{1}`.", context.getMember().getAsMention(), String.valueOf(object.getGuildSettings().getLogs().isModlogKick()));
-            } else if (argument.get(1).equalsIgnoreCase("modlogs-mute")) {
-                context.sendMessage("{0}, the current value of `modlogs-mute` is `{1}`.", context.getMember().getAsMention(), String.valueOf(object.getGuildSettings().getLogs().isModlogMute()));
-            } else if (argument.get(1).equalsIgnoreCase("modlogs-purge")) {
-                context.sendMessage("{0}, the current value of `modlogs-purge` is `{1}`.", context.getMember().getAsMention(), String.valueOf(object.getGuildSettings().getLogs().isModlogPurge()));
-            } else if (argument.get(1).equalsIgnoreCase("modlogs-unban")) {
-                context.sendMessage("{0}, the current value of `modlogs-unban` is `{1}`.", context.getMember().getAsMention(), String.valueOf(object.getGuildSettings().getLogs().isModlogUnban()));
-            } else if (argument.get(1).equalsIgnoreCase("modlogs-unmute")) {
-                context.sendMessage("{0}, the current value of `modlogs-unmute` is `{1}`.", context.getMember().getAsMention(), String.valueOf(object.getGuildSettings().getLogs().isModlogUnmute()));
-            } else if (argument.get(1).equalsIgnoreCase("modrole")) {
-                context.sendMessage("{0}, the current value of `modrole` is `{1}`.", context.getMember().getAsMention(), String.valueOf(object.getGuildSettings().getRoles().getModeratorRole()));
-            }
-        } else if (command.equalsIgnoreCase("edit")) {
+            builder.append("\n").append("Page ").append(opts.getPage()).append(" / ").append(opts.getMaxPages());
 
+            context.sendMessage(builder.toString());
+        } else if (argument.get(0).equalsIgnoreCase("view")) {
+            if (argument.length() < 2) {
+                context.sendMessage("Not enough arguments.");
+                return;
+            }
+
+            String setting = argument.get(1);
+            Object value = "";
+
+            switch (setting) {
+                case "adminrole":
+                    value = object.getGuildSettings().getRoles().getAdminRole();
+                    break;
+                case "announcements":
+                    value = object.getGuildSettings().getAnnouncementsId();
+                    break;
+                case "autorole":
+                    value = object.getGuildSettings().getRoles().getAutorole();
+                    break;
+                case "autorolesilent":
+                    value = object.getGuildSettings().getRoles().isAutoroleSilent();
+                    break;
+                case "blacklistrole":
+                    value = object.getGuildSettings().getRoles().getBlacklistRole();
+                    break;
+                case "djrole":
+                    value = object.getGuildSettings().getRoles().getDjRole();
+                    break;
+                case "dmcommand":
+                    value = object.getGuildSettings().isDmCommand();
+                    break;
+                case "goodbyemessage":
+                    value = object.getGuildSettings().getGoodbyeMessage();
+                    break;
+                case "locale":
+                    value = object.getGuildSettings().getLocale();
+                    break;
+                case "logs":
+                    value = object.getGuildSettings().getLogs().getLogsId();
+                    break;
+                case "logs-join":
+                    value = object.getGuildSettings().getLogs().isLogJoin();
+                    break;
+                case "logs-leave":
+                    value = object.getGuildSettings().getLogs().isLogLeave();
+                    break;
+                case "logs-nickname":
+                    value = object.getGuildSettings().getLogs().isLogNickname();
+                    break;
+                case "logs-voicejoin":
+                    value = object.getGuildSettings().getLogs().isLogVoiceJoin();
+                    break;
+                case "logs-voiceleave":
+                    value = object.getGuildSettings().getLogs().isLogVoiceLeave();
+                    break;
+                case "mode":
+                    value = object.getGuildSettings().getMode();
+                    break;
+                case "modlogs":
+                    value = object.getGuildSettings().getLogs().getModlogsId();
+                    break;
+                case "modlogs-ban":
+                    value = object.getGuildSettings().getLogs().isModlogBan();
+                    break;
+                case "modlogs-kick":
+                    value = object.getGuildSettings().getLogs().isModlogKick();
+                    break;
+                case "modlogs-mute":
+                    value = object.getGuildSettings().getLogs().isModlogMute();
+                    break;
+                case "modlogs-purge":
+                    value = object.getGuildSettings().getLogs().isModlogPurge();
+                    break;
+                case "modlogs-unban":
+                    value = object.getGuildSettings().getLogs().isModlogUnban();
+                    break;
+                case "modlogs-unmute":
+                    value = object.getGuildSettings().getLogs().isModlogUnmute();
+                    break;
+                case "modrole":
+                    value = object.getGuildSettings().getRoles().getModeratorRole();
+                    break;
+                case "modules-fun":
+                    value = object.getGuildSettings().getModules().isFun();
+                    break;
+                case "modules-integration":
+                    value = object.getGuildSettings().getModules().isIntegration();
+                    break;
+                case "modules-interaction":
+                    value = object.getGuildSettings().getModules().isInteraction();
+                    break;
+                case "modules-miscellaneous":
+                    value = object.getGuildSettings().getModules().isMiscellaneous();
+                    break;
+                case "modules-moderation":
+                    value = object.getGuildSettings().getModules().isModeration();
+                    break;
+                case "modules-music":
+                    value = object.getGuildSettings().getModules().isMusic();
+                    break;
+                case "modules-utility":
+                    value = object.getGuildSettings().getModules().isUtility();
+                    break;
+                case "modules-webhook":
+                    value = object.getGuildSettings().getModules().isWebhook();
+                    break;
+                case "music-defaultvolume":
+                    value = object.getGuildSettings().getMusic().getDefaultVolume();
+                    break;
+                case "music-pause":
+                    value = object.getGuildSettings().getMusic().isPause();
+                    break;
+                case "music-play":
+                    value = object.getGuildSettings().getMusic().isPlay();
+                    break;
+                case "music-queuelimit":
+                    value = object.getGuildSettings().getMusic().getQueueLimit();
+                    break;
+                case "music-resume":
+                    value = object.getGuildSettings().getMusic().isResume();
+                    break;
+                case "music-skip":
+                    value = object.getGuildSettings().getMusic().isSkip();
+                    break;
+                case "music-stop":
+                    value = object.getGuildSettings().getMusic().isStop();
+                    break;
+                case "music-timelimit":
+                    value = object.getGuildSettings().getMusic().getTimeLimit();
+                    break;
+                case "music-unqueue":
+                    value = object.getGuildSettings().getMusic().isUnqueue();
+                    break;
+                case "music-volume":
+                    value = object.getGuildSettings().getMusic().isVolume();
+                    break;
+                case "muterole":
+                    value = object.getGuildSettings().getRoles().getMuteRole();
+                    break;
+                case "nickname":
+                    value = object.getGuildSettings().isNickname();
+                    break;
+                case "prefix":
+                    value = object.getGuildSettings().getPrefix();
+                    break;
+                case "preservedata":
+                    value = object.isPreserveData();
+                    break;
+                case "subscriber":
+                    value = object.getGuildSettings().getRoles().getSubscriberRole();
+                    break;
+                case "welcomemessage":
+                    value = object.getGuildSettings().getWelcomeMessage();
+                    break;
+                default:
+                    value = null;
+                    break;
+            }
+
+            if (value == null) {
+                context.sendMessage("That setting does not exist.");
+                return;
+            }
+
+            if (value instanceof Long) {
+                context.sendMessage("__**Current value**__: {0}", Long.parseLong(value.toString()));
+            } else if (value instanceof Integer) {
+                context.sendMessage("__**Current value**__: {0}", Integer.parseInt(value.toString()));
+            } else if (value instanceof Boolean) {
+                context.sendMessage("__**Current value**__: {0}", Boolean.parseBoolean(value.toString()));
+            } else {
+                context.sendMessage("__**Current value**__: {0}", value.toString());
+            }
+        } else if (argument.get(0).equalsIgnoreCase("edit")) {
+            if (argument.length() < 2) {
+                context.sendMessage("Not enough arguments.");
+                return;
+            }
+
+            String setting = argument.get(1);
+            String newValue = String.join(" ", argument.getArguments().subList(2, argument.getArguments().size()));
+
+            switch (setting) {
+                case "adminrole":
+                    Role adminRole = context.getRole(newValue);
+
+                    if (adminRole == null) {
+                        context.sendMessage("The role doesn't exist.");
+                        return;
+                    }
+
+                    object.getGuildSettings().getRoles().setAdminRole(adminRole.getIdLong());
+                    break;
+                case "announcements":
+                    GuildChannel announcementsChannel = context.getChannel(newValue);
+
+                    if (announcementsChannel == null) {
+                        context.sendMessage("The channel doesn't exist.");
+                        return;
+                    }
+
+                    object.getGuildSettings().setAnnouncementsId(announcementsChannel.getIdLong());
+                    break;
+                case "autorole":
+                    Role autoroleRole = context.getRole(newValue);
+
+                    if (autoroleRole == null) {
+                        context.sendMessage("The role doesn't exist.");
+                        return;
+                    }
+
+                    object.getGuildSettings().getRoles().setAutorole(autoroleRole.getIdLong());
+                    break;
+                case "autorolesilent":
+                    boolean bool = Boolean.parseBoolean(newValue);
+
+                    object.getGuildSettings().getRoles().setAutoroleSilent(bool);
+                    break;
+                case "blacklistrole":
+                    Role blacklistRole = context.getRole(newValue);
+
+                    if (blacklistRole == null) {
+                        context.sendMessage("The role doesn't exist.");
+                        return;
+                    }
+
+                    object.getGuildSettings().getRoles().setBlacklistRole(blacklistRole.getIdLong());
+                    break;
+                case "djrole":
+                    Role djRole = context.getRole(newValue);
+
+                    if (djRole == null) {
+                        context.sendMessage("The role doesn't exist.");
+                        return;
+                    }
+
+                    object.getGuildSettings().getRoles().setDjRole(djRole.getIdLong());
+                    break;
+                case "dmcommand":
+                    boolean dmCommand = Boolean.parseBoolean(newValue);
+
+                    object.getGuildSettings().setDmCommand(dmCommand);
+                    break;
+                case "goodbyemessage":
+                    object.getGuildSettings().setGoodbyeMessage(newValue);
+                    break;
+                case "locale":
+                    throw new UnsupportedOperationException("That setting hasn't been implemented yet.");
+                case "logs":
+                    GuildChannel logsChannel = context.getChannel(newValue);
+
+                    if (logsChannel == null) {
+                        context.sendMessage("The channel doesn't exist.");
+                        return;
+                    }
+
+                    object.getGuildSettings().getLogs().setLogsId(logsChannel.getIdLong());
+                    break;
+                case "logs-join":
+                    boolean logsJoin = Boolean.parseBoolean(newValue);
+
+                    object.getGuildSettings().getLogs().setLogJoin(logsJoin);
+                    break;
+                case "logs-leave":
+                    boolean logsLeave = Boolean.parseBoolean(newValue);
+
+                    object.getGuildSettings().getLogs().setLogLeave(logsLeave);
+                    break;
+                case "logs-nickname":
+                    boolean logsNickname = Boolean.parseBoolean(newValue);
+
+                    object.getGuildSettings().getLogs().setLogNickname(logsNickname);
+                    break;
+                case "logs-voicejoin":
+                    boolean logsVoiceJoin = Boolean.parseBoolean(newValue);
+
+                    object.getGuildSettings().getLogs().setLogVoiceJoin(logsVoiceJoin);
+                    break;
+                case "logs-voiceleave":
+                    boolean logsVoiceLeave = Boolean.parseBoolean(newValue);
+
+                    object.getGuildSettings().getLogs().setLogVoiceLeave(logsVoiceLeave);
+                    break;
+                case "mode":
+                    throw new UnsupportedOperationException("That setting isn't implemented yet.");
+                case "modlogs":
+                    GuildChannel modlogsChannel = context.getChannel(newValue);
+
+                    if (modlogsChannel == null) {
+                        context.sendMessage("The channel doesn't exist.");
+                        return;
+                    }
+
+                    object.getGuildSettings().getLogs().setModlogsId(modlogsChannel.getIdLong());
+                    break;
+                case "modlogs-ban":
+                    boolean modlogsBan = Boolean.parseBoolean(newValue);
+
+                    object.getGuildSettings().getLogs().setModlogBan(modlogsBan);
+                    break;
+                case "modlogs-kick":
+                    boolean modlogsKick = Boolean.parseBoolean(newValue);
+
+                    object.getGuildSettings().getLogs().setModlogKick(modlogsKick);
+                    break;
+                case "modlogs-mute":
+                    boolean modlogsMute = Boolean.parseBoolean(newValue);
+
+                    object.getGuildSettings().getLogs().setModlogMute(modlogsMute);
+                    break;
+                case "modlogs-purge":
+                    boolean modlogsPurge = Boolean.parseBoolean(newValue);
+
+                    object.getGuildSettings().getLogs().setModlogPurge(modlogsPurge);
+                    break;
+                case "modlogs-unban":
+                    boolean modlogsUnban = Boolean.parseBoolean(newValue);
+
+                    object.getGuildSettings().getLogs().setModlogUnban(modlogsUnban);
+                    break;
+                case "modlogs-unmute":
+                    boolean modlogsUnmute = Boolean.parseBoolean(newValue);
+
+                    object.getGuildSettings().getLogs().setModlogUnmute(modlogsUnmute);
+                    break;
+                case "modrole":
+                    Role modRole = context.getRole(newValue);
+
+                    if (modRole == null) {
+                        context.sendMessage("The role doesn't exist.");
+                        return;
+                    }
+
+                    object.getGuildSettings().getRoles().setModeratorRole(modRole.getIdLong());
+                    break;
+                case "modules-fun":
+                    boolean modulesFun = Boolean.parseBoolean(newValue);
+
+                    object.getGuildSettings().getModules().setFun(modulesFun);
+                    break;
+                case "modules-integration":
+                    boolean modulesIntegration = Boolean.parseBoolean(newValue);
+
+                    object.getGuildSettings().getModules().setIntegration(modulesIntegration);
+                    break;
+                case "modules-interaction":
+                    boolean modulesInteraction = Boolean.parseBoolean(newValue);
+
+                    object.getGuildSettings().getModules().setInteraction(modulesInteraction);
+                    break;
+                case "modules-miscellaneous":
+                    boolean modulesMiscellaneous = Boolean.parseBoolean(newValue);
+
+                    object.getGuildSettings().getModules().setMiscellaneous(modulesMiscellaneous);
+                    break;
+                case "modules-moderation":
+                    boolean modulesModeration = Boolean.parseBoolean(newValue);
+
+                    object.getGuildSettings().getModules().setModeration(modulesModeration);
+                    break;
+                case "modules-music":
+                    boolean modulesMusic = Boolean.parseBoolean(newValue);
+
+                    object.getGuildSettings().getModules().setMusic(modulesMusic);
+                    break;
+                case "modules-utility":
+                    boolean modulesUtility = Boolean.parseBoolean(newValue);
+
+                    object.getGuildSettings().getModules().setUtility(modulesUtility);
+                    break;
+                case "modules-webhook":
+                    boolean modulesWebhook = Boolean.parseBoolean(newValue);
+
+                    object.getGuildSettings().getModules().setWebhook(modulesWebhook);
+                    break;
+                case "music-defaultvolume":
+                    int defaultVolume = Integer.parseInt(newValue);
+
+                    if (defaultVolume < 0 || defaultVolume > 100) {
+                        context.sendMessage("Default volume must be between 0-100.");
+                        return;
+                    }
+
+                    object.getGuildSettings().getMusic().setDefaultVolume(defaultVolume);
+                    break;
+                case "music-pause":
+                    boolean musicPause = Boolean.parseBoolean(newValue);
+
+                    object.getGuildSettings().getMusic().setPause(musicPause);
+                    break;
+                case "music-play":
+                    boolean musicPlay = Boolean.parseBoolean(newValue);
+
+                    object.getGuildSettings().getMusic().setPlay(musicPlay);
+                    break;
+                case "music-queuelimit":
+                    int musicQueuelimit = Integer.parseInt(newValue);
+
+                    object.getGuildSettings().getMusic().setQueueLimit(musicQueuelimit);
+                    break;
+                case "music-resume":
+                    boolean musicResume = Boolean.parseBoolean(newValue);
+
+                    object.getGuildSettings().getMusic().setResume(musicResume);
+                    break;
+                case "music-skip":
+                    boolean musicSkip = Boolean.parseBoolean(newValue);
+
+                    object.getGuildSettings().getMusic().setSkip(musicSkip);
+                    break;
+                case "music-stop":
+                    boolean musicStop = Boolean.parseBoolean(newValue);
+
+                    object.getGuildSettings().getMusic().setStop(musicStop);
+                    break;
+                case "music-timelimit":
+                    int musicTimelimit = Integer.parseInt(newValue);
+
+                    object.getGuildSettings().getMusic().setTimeLimit(musicTimelimit);
+                    break;
+                case "music-unqueue":
+                    boolean musicUnqueue = Boolean.parseBoolean(newValue);
+
+                    object.getGuildSettings().getMusic().setUnqueue(musicUnqueue);
+                    break;
+                case "music-volume":
+                    boolean musicVolume = Boolean.parseBoolean(newValue);
+
+                    object.getGuildSettings().getMusic().setVolume(musicVolume);
+                    break;
+                case "muterole":
+                    Role muteRole = context.getRole(newValue);
+
+                    if (muteRole == null) {
+                        context.sendMessage("The role doesn't exist.");
+                        return;
+                    }
+
+                    object.getGuildSettings().getRoles().setMuteRole(muteRole.getIdLong());
+                    break;
+                case "nickname":
+                    boolean nickname = Boolean.parseBoolean(newValue);
+
+                    object.setPreserveData(nickname);
+                    break;
+                case "prefix":
+                    if (newValue.length() > 5) {
+                        context.sendMessage("Prefix must be 5 or less characters long.");
+                        return;
+                    }
+
+                    object.getGuildSettings().setPrefix(newValue);
+                    break;
+                case "preservedata":
+                    boolean preserveData = Boolean.parseBoolean(newValue);
+
+                    object.setPreserveData(preserveData);
+                    break;
+                case "subscriber":
+                    Role subscriberRole = context.getRole(newValue);
+
+                    if (subscriberRole == null) {
+                        context.sendMessage("The role doesn't exist.");
+                        return;
+                    }
+
+                    object.getGuildSettings().getRoles().setSubscriberRole(subscriberRole.getIdLong());
+                    break;
+                case "welcomemessage":
+                    object.getGuildSettings().setWelcomeMessage(newValue);
+                    break;
+                default:
+                    newValue = null;
+                    break;
+            }
+
+            if (newValue == null) {
+                context.sendMessage("That setting doesn't exist.");
+                return;
+            }
+
+            dao.update(object);
+            context.sendMessage("Successfully updated `{0}` to `{1}`.", setting, newValue.toString());
         } else {
-            context.sendMessage("Incorrect usage. Please use `$help settings` to check usage.");
-        }
-
-//        switch (command) {
-//            case "list":
-//                context.sendMessage("Available settings:\n\n - adminrole\n - modrole");
-//                return;
-//            case "view":
-//                switch (argument.get(1)) {
-//                    case "adminrole":
-//                        context.sendMessage("The current value for `adminrole` is `{0}`.", String.valueOf(object.getGuildSettings().getRoles().getAdminRole()));
-//                        return;
-//                    case "modrole":
-//                        context.sendMessage("The current value for `modrole` is `{0}`.", String.valueOf(object.getGuildSettings().getRoles().getModeratorRole()));
-//                        return;
-//                    default:
-//                        context.sendMessage("Couldn't find that setting.");
-//                        return;
-//                }
-//            case "edit":
-//                switch (argument.get(1)) {
-//                    case "adminrole":
-//                        Role adminrole = context.getRole(argument.get(2));
-//
-//                        if (adminrole == null) {
-//                            context.sendMessage("The role specified couldn't be found.");
-//                            return;
-//                        }
-//
-//                        object.getGuildSettings().getRoles().setAdminRole(adminrole.getIdLong());
-//                        dao.update(object);
-//                        context.sendMessage("Successfully updated to `adminrole` to `{0}`.", String.valueOf(adminrole.getIdLong()));
-//                        return;
-//                    case "modrole":
-//                        Role modrole = context.getRole(argument.get(2));
-//
-//                        if (modrole == null) {
-//                            context.sendMessage("The role specified couldn't be found.");
-//                            return;
-//                        }
-//
-//                        object.getGuildSettings().getRoles().setModeratorRole(modrole.getIdLong());
-//                        dao.update(object);
-//                        context.sendMessage("Successfully updated to `modrole` to `{0}`.", String.valueOf(modrole.getIdLong()));
-//                        return;
-//                    default:
-//                        context.sendMessage("Couldn't find that setting.");
-//                        return;
-//                }
-//            default:
-//                context.sendMessage("Incorrect usage. Please check `$help settings` for usage.");
-//        }
-    }
-
-    private boolean isInt(String s) {
-        try {
-            Integer.parseInt(s);
-            return true;
-        } catch (NumberFormatException ex) {
-            return false;
+            context.sendMessage("Incorrect usage.");
         }
     }
 }
