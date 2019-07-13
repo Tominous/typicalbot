@@ -41,6 +41,9 @@ public class GuildModuleSettingObject {
     @Property("utility")
     private boolean utility;
 
+    @Property("webhook")
+    private boolean webhook;
+
     public GuildModuleSettingObject() {
     }
 
@@ -98,5 +101,13 @@ public class GuildModuleSettingObject {
 
     public void setUtility(boolean utility) {
         this.utility = utility;
+    }
+
+    public boolean isWebhook() {
+        return webhook;
+    }
+
+    public void setWebhook(boolean webhook) {
+        this.webhook = webhook;
     }
 }
