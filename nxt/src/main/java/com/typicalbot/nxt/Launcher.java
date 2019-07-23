@@ -15,11 +15,14 @@
  */
 package com.typicalbot.nxt;
 
+import com.typicalbot.Application;
+import com.typicalbot.extension.ExtensionLoader;
 import com.typicalbot.nxt.config.Config;
 import com.typicalbot.nxt.data.mongo.MongoManager;
 import com.typicalbot.nxt.data.serialization.Deserializer;
 import com.typicalbot.nxt.data.serialization.Serializer;
 import com.typicalbot.nxt.data.storage.DataStructure;
+import com.typicalbot.nxt.shard.Shard;
 import com.typicalbot.nxt.shard.ShardManager;
 import com.typicalbot.nxt.util.FileUtil;
 import com.typicalbot.nxt.util.SentryUtil;
@@ -40,12 +43,14 @@ import java.nio.file.Files;
 import java.time.Year;
 import java.util.Arrays;
 
-public class Launcher {
+public class Launcher implements Application {
     private static final Logger LOGGER = LoggerFactory.getLogger(Launcher.class);
 
     private static MongoManager mongoManager = new MongoManager();
 
     public static final String VERSION = "@version@";
+
+    private final ExtensionLoader extensionLoader = new ExtensionLoader();
 
     public Launcher() throws IOException, InterruptedException, LoginException {
         LOGGER.info("  _____                   _                  _   ____            _   ");
@@ -64,7 +69,7 @@ public class Launcher {
 
         LOGGER.info("");
 
-        Arrays.asList("config", "bin", "logs").forEach(directory -> {
+        Arrays.asList("config", "bin", "logs", "extensions").forEach(directory -> {
             if (!FileUtil.HOME_PATH.resolve(directory).toFile().exists()) {
                 LOGGER.debug("Directory '{}' does not exist, creating...", directory);
                 try {
@@ -114,9 +119,19 @@ public class Launcher {
             System.exit(0);
         }
 
+        Runtime.getRuntime().addShutdownHook(new Thread() {
+            @Override
+            public void run() {
+                shutdown();
+            }
+        });
+
         Deserializer deserializer = new Deserializer();
         // TODO(nsylke): Should move this outside of constructor.
         DataStructure data = new DataStructure();
+
+        LOGGER.info("Loading extensions");
+        this.getExtensionLoader().loadAll();
 
         LOGGER.info("Starting TypicalBot {}", VERSION);
         /*
@@ -150,5 +165,25 @@ public class Launcher {
 
     public static MongoManager getMongoManager() {
         return mongoManager;
+    }
+
+    @Override
+    public ExtensionLoader getExtensionLoader() {
+        return this.extensionLoader;
+    }
+
+    @Override
+    public void shutdown() {
+        LOGGER.info("Shutting down...");
+        LOGGER.info("Unloading extensions");
+        if (!this.extensionLoader.unloadAll()) {
+            LOGGER.error("Unloading extensions failed");
+        }
+        LOGGER.info("Stopping shards");
+        for (Shard shard : ShardManager.getShards()) {
+            shard.shutdown();
+        }
+        LOGGER.info("Successfully shutdown.");
+        System.exit(0);
     }
 }
