@@ -1,3 +1,4 @@
 rootProject.name = 'typicalbot'
 include 'sdk'
 include 'nxt'
+

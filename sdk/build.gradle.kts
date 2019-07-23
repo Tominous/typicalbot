@@ -24,6 +24,7 @@ dependencies {
     // Utility
     implementation("org.json:json:20180813")
     implementation("com.google.guava:guava:28.0-jre")
+    implementation("org.javassist:javassist:3.25.0-GA")
 
     // JUnit
     testImplementation("org.junit.jupiter:junit-jupiter:5.4.2")
