@@ -16,12 +16,7 @@
 package com.typicalbot.nxt.command.music;
 
 import com.typicalbot.nxt.audio.GuildMusicManager;
-import com.typicalbot.nxt.command.Command;
-import com.typicalbot.nxt.command.CommandArgument;
-import com.typicalbot.nxt.command.CommandCategory;
-import com.typicalbot.nxt.command.CommandConfiguration;
-import com.typicalbot.nxt.command.CommandContext;
-import com.typicalbot.nxt.command.CommandPermission;
+import com.typicalbot.command.*;
 import com.typicalbot.nxt.util.AudioUtil;
 
 @CommandConfiguration(category = CommandCategory.MUSIC, aliases = "resume")

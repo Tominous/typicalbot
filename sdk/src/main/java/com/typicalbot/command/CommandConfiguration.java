@@ -13,35 +13,25 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.typicalbot.nxt.command;
+package com.typicalbot.command;
 
-import java.util.List;
+import java.lang.annotation.*;
 
-public class CommandArgument {
-    private final List<String> arguments;
+@Documented
+@Target(ElementType.TYPE)
+@Retention(RetentionPolicy.RUNTIME)
+public @interface CommandConfiguration {
+    /**
+     * The category that the command belongs too.
+     *
+     * @return command category
+     */
+    CommandCategory category();
 
-    public CommandArgument(List<String> arguments) {
-        this.arguments = arguments;
-    }
-
-    public boolean has() {
-        return this.arguments.size() > 0;
-    }
-
-    public String get(int index) {
-        return this.arguments.get(index);
-    }
-
-    public List<String> getArguments() {
-        return this.arguments;
-    }
-
-    public int length() {
-        return this.arguments.size();
-    }
-
-    @Override
-    public String toString() {
-        return String.join(" ", this.arguments);
-    }
+    /**
+     * A list of aliases that can be used to run the command.
+     *
+     * @return command aliases
+     */
+    String[] aliases();
 }

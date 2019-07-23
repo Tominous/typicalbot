@@ -20,7 +20,7 @@ import com.sedmelluq.discord.lavaplayer.tools.FriendlyException;
 import com.sedmelluq.discord.lavaplayer.track.AudioPlaylist;
 import com.sedmelluq.discord.lavaplayer.track.AudioTrack;
 import com.typicalbot.nxt.audio.GuildMusicManager;
-import com.typicalbot.nxt.command.*;
+import com.typicalbot.command.*;
 import com.typicalbot.nxt.shard.Shard;
 import com.typicalbot.nxt.util.AudioUtil;
 import com.typicalbot.nxt.util.SentryUtil;

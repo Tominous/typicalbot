@@ -18,7 +18,7 @@ package com.typicalbot.nxt.command.music;
 import com.sedmelluq.discord.lavaplayer.track.AudioTrack;
 import com.typicalbot.audio.QueuedTrack;
 import com.typicalbot.nxt.audio.GuildMusicManager;
-import com.typicalbot.nxt.command.*;
+import com.typicalbot.command.*;
 import com.typicalbot.nxt.util.AudioUtil;
 
 import java.util.ArrayList;

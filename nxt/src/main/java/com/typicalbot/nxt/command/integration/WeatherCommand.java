@@ -15,12 +15,7 @@
  */
 package com.typicalbot.nxt.command.integration;
 
-import com.typicalbot.nxt.command.Command;
-import com.typicalbot.nxt.command.CommandArgument;
-import com.typicalbot.nxt.command.CommandCategory;
-import com.typicalbot.nxt.command.CommandConfiguration;
-import com.typicalbot.nxt.command.CommandContext;
-import com.typicalbot.nxt.command.CommandPermission;
+import com.typicalbot.command.*;
 
 @CommandConfiguration(category = CommandCategory.INTEGRATION, aliases = "weather")
 public class WeatherCommand implements Command {

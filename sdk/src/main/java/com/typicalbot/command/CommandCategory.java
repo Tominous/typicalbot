@@ -13,30 +13,18 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.typicalbot.nxt.command;
 
-public enum CommandPermission {
-    GUILD_MEMBER("Guild Member", 0),
-    GUILD_MODERATOR("Guild Moderator", 1),
-    GUILD_ADMINISTRATOR("Guild Administrator", 2),
-    GUILD_OWNER("Guild Owner", 3),
+package com.typicalbot.command;
 
-    TYPICALBOT_MODERATOR("TypicalBot Moderator", 9),
-    TYPICALBOT_ADMINISTRATOR("TypicalBot Administrator", 10);
-
-    private final String name;
-    private final int level;
-
-    CommandPermission(String name, int level) {
-        this.name = name;
-        this.level = level;
-    }
-
-    public String getName() {
-        return this.name;
-    }
-
-    public int getLevel() {
-        return this.level;
-    }
+public enum CommandCategory {
+    CORE,
+    FUN,
+    INTEGRATION,
+    INTERACTION,
+    MISCELLANEOUS,
+    MODERATION,
+    MUSIC,
+    SYSTEM,
+    UTILITY,
+    WEBHOOK
 }

@@ -16,7 +16,7 @@
 package com.typicalbot.nxt.command.music;
 
 import com.typicalbot.nxt.audio.GuildMusicManager;
-import com.typicalbot.nxt.command.*;
+import com.typicalbot.command.*;
 import com.typicalbot.nxt.util.AudioUtil;
 
 @CommandConfiguration(category = CommandCategory.MUSIC, aliases = "pause")

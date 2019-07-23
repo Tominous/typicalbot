@@ -13,11 +13,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.typicalbot.nxt.command;
+package com.typicalbot.command;
 
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.entities.*;
 
+import java.io.File;
 import java.text.MessageFormat;
 import java.util.List;
 
@@ -62,6 +63,10 @@ public class CommandContext {
 
     public void sendMessage(String message, Object... params) {
         this.getChannel().sendMessage(MessageFormat.format(message, params)).queue();
+    }
+
+    public void sendFile(File file) {
+        this.getChannel().sendFile(file).queue();
     }
 
     public void sendEmbed(MessageEmbed embed) {

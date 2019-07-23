@@ -15,7 +15,7 @@
  */
 package com.typicalbot.nxt.command.moderation;
 
-import com.typicalbot.nxt.command.*;
+import com.typicalbot.command.*;
 import com.typicalbot.nxt.data.mongo.dao.GuildDAO;
 import com.typicalbot.nxt.data.mongo.objects.GuildObject;
 import com.typicalbot.nxt.util.Pageable;

@@ -15,11 +15,7 @@
  */
 package com.typicalbot.nxt.listener;
 
-import com.typicalbot.nxt.command.Command;
-import com.typicalbot.nxt.command.CommandArgument;
-import com.typicalbot.nxt.command.CommandCategory;
-import com.typicalbot.nxt.command.CommandContext;
-import com.typicalbot.nxt.command.CommandPermission;
+import com.typicalbot.command.*;
 import com.typicalbot.nxt.config.Config;
 import com.typicalbot.nxt.data.mongo.dao.GuildDAO;
 import com.typicalbot.nxt.data.mongo.objects.GuildObject;

@@ -15,12 +15,7 @@
  */
 package com.typicalbot.nxt.command.moderation;
 
-import com.typicalbot.nxt.command.Command;
-import com.typicalbot.nxt.command.CommandArgument;
-import com.typicalbot.nxt.command.CommandCategory;
-import com.typicalbot.nxt.command.CommandConfiguration;
-import com.typicalbot.nxt.command.CommandContext;
-import com.typicalbot.nxt.command.CommandPermission;
+import com.typicalbot.command.*;
 
 @CommandConfiguration(category = CommandCategory.MODERATION, aliases = "warn")
 public class WarnCommand implements Command {

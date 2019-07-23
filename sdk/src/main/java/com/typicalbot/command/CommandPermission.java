@@ -13,29 +13,30 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.typicalbot.nxt.command;
+package com.typicalbot.command;
 
-import java.lang.annotation.Documented;
-import java.lang.annotation.ElementType;
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
-import java.lang.annotation.Target;
+public enum CommandPermission {
+    GUILD_MEMBER("Guild Member", 0),
+    GUILD_MODERATOR("Guild Moderator", 1),
+    GUILD_ADMINISTRATOR("Guild Administrator", 2),
+    GUILD_OWNER("Guild Owner", 3),
 
-@Documented
-@Retention(RetentionPolicy.RUNTIME)
-@Target(ElementType.TYPE)
-public @interface CommandConfiguration {
-    /**
-     * The category that the command belongs too.
-     *
-     * @return command category
-     */
-    CommandCategory category();
+    TYPICALBOT_MODERATOR("TypicalBot Moderator", 9),
+    TYPICALBOT_ADMINISTRATOR("TypicalBot Administrator", 10);
 
-    /**
-     * A list of aliases that can be used to run the command.
-     *
-     * @return command aliases
-     */
-    String[] aliases();
+    private final String name;
+    private final int level;
+
+    CommandPermission(String name, int level) {
+        this.name = name;
+        this.level = level;
+    }
+
+    public String getName() {
+        return this.name;
+    }
+
+    public int getLevel() {
+        return this.level;
+    }
 }

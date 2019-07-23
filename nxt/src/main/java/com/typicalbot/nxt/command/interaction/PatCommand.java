@@ -16,7 +16,7 @@
 
 package com.typicalbot.nxt.command.interaction;
 
-import com.typicalbot.nxt.command.*;
+import com.typicalbot.command.*;
 import net.dv8tion.jda.api.entities.User;
 
 @CommandConfiguration(category = CommandCategory.INTERACTION, aliases = "pat")

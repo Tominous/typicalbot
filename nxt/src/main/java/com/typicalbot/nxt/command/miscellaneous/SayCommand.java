@@ -15,13 +15,7 @@
  */
 package com.typicalbot.nxt.command.miscellaneous;
 
-import com.typicalbot.nxt.command.Command;
-import com.typicalbot.nxt.command.CommandArgument;
-import com.typicalbot.nxt.command.CommandCategory;
-import com.typicalbot.nxt.command.CommandCheck;
-import com.typicalbot.nxt.command.CommandConfiguration;
-import com.typicalbot.nxt.command.CommandContext;
-import com.typicalbot.nxt.command.CommandPermission;
+import com.typicalbot.command.*;
 
 @CommandConfiguration(category = CommandCategory.MISCELLANEOUS, aliases = "say")
 public class SayCommand implements Command {
