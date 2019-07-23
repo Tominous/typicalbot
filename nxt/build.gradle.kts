@@ -19,9 +19,9 @@ dependencies {
     implementation(project(":sdk"))
 
     // JDA
-    implementation("net.dv8tion:JDA:4.BETA.0_22")
+    implementation("net.dv8tion:JDA:4.BETA.0_26")
     implementation("com.sedmelluq:jda-nas:1.1.0")
-    implementation("com.sedmelluq:lavaplayer:1.3.17")
+    implementation("com.sedmelluq:lavaplayer:1.3.18")
 
     // Logger
     implementation("org.slf4j:slf4j-api:1.7.26")
