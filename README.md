@@ -56,10 +56,6 @@ Our project roadmap can be found [here](https://typicalbot.com/roadmap).
 
 TypicalBot is an open-sourced software licensed under the [Apache 2.0 license](./LICENSE.md).
 
-Like many other open source projects, we require that contributors provide us with a Contributor License Agreement (CLA). By submitting code to the TypicalBot project, you are granting us the right to use your code under the terms of the CLA.
-
-Our version of the CLA was adapted from the Microsoft Contributor License Agreement, which they generously made available to the public domain under Creative Commons CC0 1.0 Universal.
-
 For any inquiries, please email support@typicalbot.com
 
 ---
