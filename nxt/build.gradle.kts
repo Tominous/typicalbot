@@ -37,7 +37,6 @@ dependencies {
 
     // Utility
     implementation("com.mashape.unirest:unirest-java:1.4.9")
-    implementation("me.nsylke.zalgo4j:zalgo4j:1.0.1")
     implementation("io.sentry:sentry:1.7.24")
 
     // JUnit

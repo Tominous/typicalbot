@@ -26,7 +26,6 @@ import com.sedmelluq.discord.lavaplayer.source.youtube.YoutubeAudioSourceManager
 import com.typicalbot.command.CommandManager;
 import com.typicalbot.nxt.audio.GuildMusicManager;
 import com.typicalbot.nxt.command.core.*;
-import com.typicalbot.nxt.command.fun.*;
 import com.typicalbot.nxt.command.integration.*;
 import com.typicalbot.nxt.command.interaction.*;
 import com.typicalbot.nxt.command.miscellaneous.SayCommand;
@@ -118,31 +117,6 @@ public class Shard {
                 new UptimeCommand(),
                 new VersionCommand(),
                 new VoteCommand(),
-
-                // Fun
-                new BunnyCommand(),
-                new CatCommand(),
-                new ChooseCommand(),
-                new CookieCommand(),
-                new DogCommand(),
-                new EightballCommand(),
-                new EmojiCommand(),
-                new EmojifyCommand(),
-                new FacesCommand(),
-                new FlipCommand(),
-                new JokeCommand(),
-                new LmgtfyCommand(),
-                new NatoCommand(),
-                new QuoteCommand(),
-                new RandomCommand(),
-                new ReverseCommand(),
-                new RockpaperscissorsCommand(),
-                new RollCommand(),
-                new RomanCommand(),
-                new ThisorthatCommand(),
-                new WouldyouratherCommand(),
-                new YomammaCommand(),
-                new ZalgolizeCommand(),
 
                 // Integration
                 new StrawpollCommand(),
