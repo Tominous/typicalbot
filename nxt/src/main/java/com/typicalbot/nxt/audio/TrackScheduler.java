@@ -31,7 +31,7 @@ public class TrackScheduler extends AudioEventAdapter {
     private final AudioPlayer player;
     private final BlockingQueue<QueuedTrack> queue;
 
-    private boolean repeating;
+    private boolean repeating = false;
 
     public TrackScheduler(AudioPlayer player) {
         this.player = player;
