@@ -1,9 +1,20 @@
+import com.jfrog.bintray.gradle.BintrayExtension
+import com.jfrog.bintray.gradle.tasks.BintrayUploadTask
+import org.apache.tools.ant.filters.ReplaceTokens
+import java.util.Date
+
 plugins {
+    signing
     java
     application
+    `maven-publish`
 
+    id("com.jfrog.bintray") version "1.8.4"
     id("com.github.johnrengelman.shadow") version "4.0.2"
 }
+
+group = parent!!.group
+version = parent!!.version
 
 application {
     mainClassName = "com.typicalbot.nxt.Launcher"
@@ -60,4 +71,100 @@ tasks.withType<Javadoc> {
 
         opt.author()
     }
+}
+
+val bintrayUpload : BintrayUploadTask by tasks
+val javadoc : Javadoc by tasks
+val jar : Jar by tasks
+val build : Task by tasks
+val clean : Task by tasks
+
+val sourcesForRelease = task<Copy>("sourcesForRelease") {
+    from("src/main/java") {
+        include("**/Launcher.java")
+        val tokens = mapOf(
+            "version" to project.version
+        )
+        filter<ReplaceTokens>(mapOf("tokens" to tokens))
+    }
+    into("build/filteredSrc")
+
+    includeEmptyDirs = false
+}
+
+val sourcesJar = task<Jar>("sourcesJar") {
+    classifier = "sources"
+    from("src/main/java") {
+        exclude("**/Launcher.java")
+    }
+    from(sourcesForRelease.destinationDir)
+
+    dependsOn(sourcesForRelease)
+}
+
+val javadocJar = task<Jar>("javadocJar") {
+    dependsOn(javadoc)
+    classifier = "javadoc"
+    javadoc.destinationDir
+}
+
+build.apply {
+    dependsOn(jar)
+    dependsOn(javadocJar)
+    dependsOn(sourcesJar)
+
+    jar.mustRunAfter(clean)
+    javadocJar.mustRunAfter(jar)
+    sourcesJar.mustRunAfter(javadocJar)
+}
+
+bintrayUpload.apply {
+    dependsOn(clean)
+    dependsOn(build)
+
+    build.mustRunAfter(clean)
+
+    onlyIf { getProjectProperty("bintrayUser").isNotEmpty() }
+    onlyIf { getProjectProperty("bintrayKey").isNotEmpty() }
+}
+
+publishing {
+    publications {
+        register("BintrayRelease", MavenPublication::class) {
+            from(components["java"])
+
+            artifactId = "typicalbot"
+            groupId = project.group as String
+            version = project.version as String
+
+            artifact(javadocJar)
+            artifact(sourcesJar)
+        }
+    }
+}
+
+bintray {
+    user = getProjectProperty("bintrayUser")
+    key = getProjectProperty("bintrayKey")
+    setPublications("BintrayRelease")
+    pkg(delegateClosureOf<BintrayExtension.PackageConfig> {
+        repo = "maven"
+        name = "typicalbot"
+        userOrg = "typicalbot"
+        setLicenses("Apache-2.0")
+        vcsUrl = "https://github.com/typicalbot/typicalbot.git"
+        publish = true
+        version(delegateClosureOf<BintrayExtension.VersionConfig> {
+            name = project.version as String
+            released = Date().toString()
+        })
+    })
+}
+
+fun getProjectProperty(name: String): String {
+    var property = ""
+    if (hasProperty(name)) {
+        property = this.properties[name] as? String ?: ""
+    }
+    return property
 }
