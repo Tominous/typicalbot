@@ -45,6 +45,7 @@ public class ExtensionLoader {
     private static final ClassPool EXTENSION_CP = new ClassPool(true);
 
     private final Map<String, Extension> loaded = Maps.newConcurrentMap();
+    private final List<Command> commandMap = Lists.newArrayList();
 
     public void loadAll() {
         this.loadAll(Sets.newHashSet());
@@ -123,16 +124,11 @@ public class ExtensionLoader {
 
             ExtensionClassLoader loader = new ExtensionClassLoader(extensionFile);
             Class<? extends Extension> extensionClass = null;
-            List<Class<? extends Command>> commandClasses = Lists.newArrayList();
 
             for (String name : names) {
                 Class<?> cls = loader.loadClass(name);
                 if (name.equals(main)) {
                     extensionClass = cls.asSubclass(Extension.class);
-                }
-
-                if (cls.isAssignableFrom(Command.class)) {
-                    commandClasses.add(cls.asSubclass(Command.class));
                 }
             }
 
@@ -140,7 +136,10 @@ public class ExtensionLoader {
             extension.init(path, manifest, loader);
 
             this.loaded.put(manifest.id(), extension);
-            extension.load();
+            extension.onLoad();
+            extension.onEnable();
+
+            this.commandMap.addAll(extension.getCommands());
 
             LOGGER.info("Loaded {} v{}", manifest.name(), manifest.version());
 
@@ -159,14 +158,14 @@ public class ExtensionLoader {
         ExtensionManifest manifest = e.getManifest();
         LOGGER.info("Unloading {} v{}", manifest.name(), manifest.version());
 
-        e.cleanup();
+        e.onDisable();
         e.release();
         return true;
     }
 
     public boolean unloadAll() {
         for (Extension extension : this.loaded.values()) {
-            extension.cleanup();
+            extension.onDisable();
             extension.release();
         }
 
@@ -178,7 +177,7 @@ public class ExtensionLoader {
         if (this.unloadAll()) {
             this.loadAll();
             for (Extension extension : this.loaded.values()) {
-                extension.setup();
+                extension.onEnable();
             }
         } else {
             LOGGER.error("Unloading extensions failed");
@@ -187,5 +186,9 @@ public class ExtensionLoader {
 
     public Map<String, Extension> getLoaded() {
         return this.loaded;
+    }
+
+    public List<Command> getCommandMap() {
+        return this.commandMap;
     }
 }

@@ -15,10 +15,15 @@
  */
 package com.typicalbot.extension;
 
+import com.google.common.collect.Lists;
+import com.typicalbot.command.Command;
+
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.Collections;
+import java.util.List;
 
 public abstract class Extension {
     public static final Path EXTENSION_DIR = Paths.get(System.getProperty("user.dir")).resolve("extensions");
@@ -27,6 +32,7 @@ public abstract class Extension {
     private File directory;
     private ExtensionManifest manifest;
     private ExtensionClassLoader classLoader;
+    private List<Command> commands = Lists.newArrayList();
 
     public Extension() {
     }
@@ -51,13 +57,21 @@ public abstract class Extension {
         }
     }
 
-    public void load() {
+    public void onLoad() {
     }
 
-    public void setup() {
+    public void onEnable() {
     }
 
-    public void cleanup() {
+    public void onDisable() {
+    }
+
+    public void registerCommand(Command command) {
+        this.commands.add(command);
+    }
+
+    public void registerCommands(Command... commands) {
+        Collections.addAll(this.commands, commands);
     }
 
     public Path getPath() {
@@ -74,5 +88,9 @@ public abstract class Extension {
 
     public ExtensionClassLoader getClassLoader() {
         return classLoader;
+    }
+
+    public List<Command> getCommands() {
+        return commands;
     }
 }
