@@ -27,7 +27,6 @@ import com.typicalbot.command.CommandManager;
 import com.typicalbot.nxt.audio.GuildMusicManager;
 import com.typicalbot.nxt.command.core.*;
 import com.typicalbot.nxt.command.system.EvalCommand;
-import com.typicalbot.nxt.command.system.TestCommand;
 import com.typicalbot.nxt.config.Config;
 import com.typicalbot.nxt.listener.GuildListener;
 import com.typicalbot.nxt.listener.ReadyListener;
