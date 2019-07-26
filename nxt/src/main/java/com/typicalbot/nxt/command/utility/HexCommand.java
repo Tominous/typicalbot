@@ -16,6 +16,13 @@
 package com.typicalbot.nxt.command.utility;
 
 import com.typicalbot.command.*;
+import com.typicalbot.nxt.util.SentryUtil;
+
+import javax.imageio.ImageIO;
+import java.awt.*;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 
 @CommandConfiguration(category = CommandCategory.UTILITY, aliases = "hex")
 public class HexCommand implements Command {
@@ -26,6 +33,43 @@ public class HexCommand implements Command {
 
     @Override
     public void execute(CommandContext context, CommandArgument argument) {
-        throw new UnsupportedOperationException("This command has not been implemented yet.");
+        CommandCheck.checkArguments(argument);
+
+        Color color;
+        try {
+            color = Color.decode(argument.toString());
+        } catch (NumberFormatException ex) {
+            context.sendMessage("Unable to decode color.");
+            return;
+        }
+
+        if (color == null) {
+            context.sendMessage("Unable to decode color.");
+            return;
+        }
+
+        context.sendFile(drawHex(color));
+    }
+
+    private File drawHex(Color color) {
+        BufferedImage bi = new BufferedImage(120, 120, BufferedImage.TYPE_INT_ARGB_PRE);
+        Graphics2D g2d = bi.createGraphics();
+        g2d.setComposite(AlphaComposite.SrcOver);
+        g2d.setColor(color);
+        g2d.fillRect(0, 0, 120, 120);
+
+        g2d.setFont(g2d.getFont().deriveFont(24f));
+        g2d.setColor(Color.BLACK);
+        g2d.drawString(String.format("#%02x%02x%02x", color.getRed(), color.getGreen(), color.getBlue()), 5, 25);
+
+        File f = new File("hex.png");
+
+        try {
+            ImageIO.write(bi, "png", f);
+        } catch (IOException ex) {
+            SentryUtil.capture(ex, HexCommand.class);
+        }
+
+        return f;
     }
 }
