@@ -24,6 +24,7 @@ import com.sedmelluq.discord.lavaplayer.source.AudioSourceManagers;
 import com.sedmelluq.discord.lavaplayer.source.twitch.TwitchStreamAudioSourceManager;
 import com.sedmelluq.discord.lavaplayer.source.youtube.YoutubeAudioSourceManager;
 import com.typicalbot.command.CommandManager;
+import com.typicalbot.nxt.Launcher;
 import com.typicalbot.nxt.audio.GuildMusicManager;
 import com.typicalbot.nxt.command.core.*;
 import com.typicalbot.nxt.command.system.EvalCommand;
@@ -113,6 +114,8 @@ public class Shard {
                 // System
                 new EvalCommand()
             );
+
+            this.commandManager.registerCommands(Launcher.getInstance().getExtensionLoader().getCommandMap());
 
             this.musicManager = new HashMap<>();
             this.playerManager = new DefaultAudioPlayerManager();

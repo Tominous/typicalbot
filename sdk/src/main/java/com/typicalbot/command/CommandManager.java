@@ -18,10 +18,7 @@ package com.typicalbot.command;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 
 public class CommandManager {
     private static final Logger LOGGER = LoggerFactory.getLogger(CommandManager.class);
@@ -34,7 +31,10 @@ public class CommandManager {
 
     public void registerCommands(Command... commands) {
         Collections.addAll(this.commands, commands);
-        LOGGER.debug("Registered {} commands.", this.commands.size());
+    }
+
+    public void registerCommands(Collection<Command> commands) {
+        this.commands.addAll(commands);
     }
 
     public Command findCommand(String alias) {

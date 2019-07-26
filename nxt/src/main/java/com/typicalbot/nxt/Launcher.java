@@ -46,13 +46,17 @@ import java.util.Arrays;
 public class Launcher implements Application {
     private static final Logger LOGGER = LoggerFactory.getLogger(Launcher.class);
 
-    private static MongoManager mongoManager = new MongoManager();
-
     public static final String VERSION = "@version@";
+
+    // Replace this
+    private static Launcher launcher;
+    private static MongoManager mongoManager = new MongoManager();
 
     private final ExtensionLoader extensionLoader = new ExtensionLoader();
 
     public Launcher() throws IOException, InterruptedException, LoginException {
+        launcher = this;
+
         LOGGER.info("  _____                   _                  _   ____            _   ");
         LOGGER.info(" |_   _|  _   _   _ __   (_)   ___    __ _  | | | __ )    ___   | |_ ");
         LOGGER.info("   | |   | | | | | '_ \\  | |  / __|  / _` | | | |  _ \\   / _ \\  | __|");
@@ -133,6 +137,9 @@ public class Launcher implements Application {
         LOGGER.info("Loading extensions");
         this.getExtensionLoader().loadAll();
 
+        LOGGER.info("Enabling extensions");
+        this.getExtensionLoader().getLoaded().forEach((s, ext) -> ext.onEnable());
+
         LOGGER.info("Starting TypicalBot {}", VERSION);
         /*
           Inside of the data structure should be two values. The first value, or known as '0', should be the
@@ -161,6 +168,14 @@ public class Launcher implements Application {
         } catch (Exception ex) {
             SentryUtil.capture(ex, Launcher.class);
         }
+    }
+
+    public static Launcher getInstance() {
+        if (launcher == null) {
+            throw new RuntimeException();
+        }
+
+        return launcher;
     }
 
     public static MongoManager getMongoManager() {

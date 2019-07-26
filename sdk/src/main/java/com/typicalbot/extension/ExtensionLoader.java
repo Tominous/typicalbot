@@ -137,7 +137,6 @@ public class ExtensionLoader {
 
             this.loaded.put(manifest.id(), extension);
             extension.onLoad();
-            extension.onEnable();
 
             this.commandMap.addAll(extension.getCommands());
 

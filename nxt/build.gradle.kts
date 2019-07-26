@@ -30,7 +30,7 @@ dependencies {
     implementation(project(":sdk"))
 
     // JDA
-    implementation("net.dv8tion:JDA:4.BETA.0_26")
+    implementation("net.dv8tion:JDA:4.BETA.0_29")
     implementation("com.sedmelluq:jda-nas:1.1.0")
     implementation("com.sedmelluq:lavaplayer:1.3.18")
 
