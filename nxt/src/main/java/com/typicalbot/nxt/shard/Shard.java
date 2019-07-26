@@ -26,13 +26,8 @@ import com.sedmelluq.discord.lavaplayer.source.youtube.YoutubeAudioSourceManager
 import com.typicalbot.command.CommandManager;
 import com.typicalbot.nxt.audio.GuildMusicManager;
 import com.typicalbot.nxt.command.core.*;
-import com.typicalbot.nxt.command.miscellaneous.SayCommand;
-import com.typicalbot.nxt.command.moderation.*;
-import com.typicalbot.nxt.command.music.*;
 import com.typicalbot.nxt.command.system.EvalCommand;
 import com.typicalbot.nxt.command.system.TestCommand;
-import com.typicalbot.nxt.command.utility.*;
-import com.typicalbot.nxt.command.webhook.WebhookCommand;
 import com.typicalbot.nxt.config.Config;
 import com.typicalbot.nxt.listener.GuildListener;
 import com.typicalbot.nxt.listener.ReadyListener;
@@ -116,80 +111,8 @@ public class Shard {
                 new VersionCommand(),
                 new VoteCommand(),
 
-                // Miscellaneous
-                new SayCommand(),
-
-                // Moderation
-                new AdcheckCommand(),
-                new AliasCommand(),
-                new AnnounceCommand(),
-                new BanCommand(),
-                new ChannelsCommand(),
-                new DeafenCommand(),
-                new EmojisCommand(),
-                new FilterCommand(),
-                new GiveCommand(),
-                new IgnoreCommand(),
-                new KickCommand(),
-                new ModulesCommand(),
-                new MuteCommand(),
-                new PCSCommand(),
-                new PurgeCommand(),
-                new ReasonCommand(),
-                new RolesCommand(),
-                new SettingsCommand(),
-                new SlowmodeCommand(),
-                new SoftbanCommand(),
-                new TakeCommand(),
-                new UnbanCommand(),
-                new UndeafenCommand(),
-                new UnignoreCommand(),
-                new UnmuteCommand(),
-                new VoicekickCommand(),
-                new VoicemoveCommand(),
-                new VoicemuteCommand(),
-                new VoiceunmuteCommand(),
-                new WarnCommand(),
-
-                // Music
-                new CurrentCommand(),
-                new LyricsCommand(),
-                new PauseCommand(),
-                new PlayCommand(),
-                new QueueCommand(),
-                new RepeatCommand(),
-                new ResumeCommand(),
-                new SeekCommand(),
-                new ShuffleCommand(),
-                new SkipCommand(),
-                new StopCommand(),
-                new UnqueueCommand(),
-                new VolumeCommand(),
-
                 // System
-                new EvalCommand(),
-                new TestCommand(),
-
-                // Utility
-                new AvatarCommand(),
-                new BotsCommand(),
-                new ChannelCommand(),
-                new DiscriminatorCommand(),
-                new HexCommand(),
-                new LevelCommand(),
-                new MessageCommand(),
-                new NicknameCommand(),
-                new RandomuserCommand(),
-                new RoleCommand(),
-                new SearchCommand(),
-                new ServerCommand(),
-                new ServersCommand(),
-                new SubscribeCommand(),
-                new UnsubscribeCommand(),
-                new UserCommand(),
-
-                // Webhook
-                new WebhookCommand()
+                new EvalCommand()
             );
 
             this.musicManager = new HashMap<>();
