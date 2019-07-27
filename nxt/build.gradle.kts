@@ -27,10 +27,11 @@ java {
 
 dependencies {
     // TypicalBot SDK
+    // implementation("com.typicalbot:typicalbotsdk:3.0.0_1")
     implementation(project(":sdk"))
 
     // JDA
-    implementation("net.dv8tion:JDA:4.BETA.0_29")
+    implementation("net.dv8tion:JDA:4.BETA.0_30")
     implementation("com.sedmelluq:jda-nas:1.1.0")
     implementation("com.sedmelluq:lavaplayer:1.3.18")
 
