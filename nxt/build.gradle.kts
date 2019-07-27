@@ -54,6 +54,52 @@ dependencies {
     testImplementation("org.junit.jupiter:junit-jupiter:5.4.2")
 }
 
+val bintrayUpload : BintrayUploadTask by tasks
+val compileJava : JavaCompile by tasks
+val javadoc : Javadoc by tasks
+val jar : Jar by tasks
+val build : Task by tasks
+val clean : Task by tasks
+
+val sourcesForRelease = task<Copy>("sourcesForRelease") {
+    from("src/main/java") {
+        include("**/Launcher.java")
+        val tokens = mapOf(
+            "version" to project.version
+        )
+        filter<ReplaceTokens>(mapOf("tokens" to tokens))
+    }
+    into("build/filteredSrc")
+
+    includeEmptyDirs = false
+}
+
+val generateJavaSources = task<SourceTask>("generateJavaSources") {
+    val javaSources = sourceSets["main"].allJava.filter {
+        it.name != "Launcher.java"
+    }.asFileTree
+
+    source = javaSources + fileTree(sourcesForRelease.destinationDir)
+
+    dependsOn(sourcesForRelease)
+}
+
+val sourcesJar = task<Jar>("sourcesJar") {
+    classifier = "sources"
+    from("src/main/java") {
+        exclude("**/Launcher.java")
+    }
+    from(sourcesForRelease.destinationDir)
+
+    dependsOn(sourcesForRelease)
+}
+
+val javadocJar = task<Jar>("javadocJar") {
+    dependsOn(javadoc)
+    classifier = "javadoc"
+    javadoc.destinationDir
+}
+
 tasks.withType<JavaCompile> {
     options.encoding = "UTF-8"
     options.isIncremental = true
@@ -73,39 +119,9 @@ tasks.withType<Javadoc> {
     }
 }
 
-val bintrayUpload : BintrayUploadTask by tasks
-val javadoc : Javadoc by tasks
-val jar : Jar by tasks
-val build : Task by tasks
-val clean : Task by tasks
-
-val sourcesForRelease = task<Copy>("sourcesForRelease") {
-    from("src/main/java") {
-        include("**/Launcher.java")
-        val tokens = mapOf(
-            "version" to project.version
-        )
-        filter<ReplaceTokens>(mapOf("tokens" to tokens))
-    }
-    into("build/filteredSrc")
-
-    includeEmptyDirs = false
-}
-
-val sourcesJar = task<Jar>("sourcesJar") {
-    classifier = "sources"
-    from("src/main/java") {
-        exclude("**/Launcher.java")
-    }
-    from(sourcesForRelease.destinationDir)
-
-    dependsOn(sourcesForRelease)
-}
-
-val javadocJar = task<Jar>("javadocJar") {
-    dependsOn(javadoc)
-    classifier = "javadoc"
-    javadoc.destinationDir
+compileJava.apply {
+    source = generateJavaSources.source
+    dependsOn(generateJavaSources)
 }
 
 build.apply {

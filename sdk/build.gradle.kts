@@ -4,6 +4,9 @@ plugins {
     id("com.github.johnrengelman.shadow") version "4.0.2"
 }
 
+group = parent!!.group
+version = parent!!.version
+
 java {
     sourceCompatibility = JavaVersion.VERSION_1_8
     targetCompatibility = JavaVersion.VERSION_1_8
